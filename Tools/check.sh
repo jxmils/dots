@@ -30,4 +30,5 @@ swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Do
 "$TMP/render" "$OUT"
 test -s "$OUT/preview.png"
 test -s Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png
+sips -g hasAlpha Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png | grep -q 'hasAlpha: no'
 echo 'CHECKS PASSED'
