@@ -123,7 +123,10 @@ final class CloudCircle {
 
     func deleteOwnCompanion() async throws {
         // Deleting the zone also deletes its share and immediately revokes access for recipients.
-        _ = try await container.privateCloudDatabase.deleteRecordZone(withID: ownZone)
+        do { _ = try await container.privateCloudDatabase.deleteRecordZone(withID: ownZone) }
+        catch let error as CKError where error.code == .zoneNotFound || error.code == .unknownItem {
+            // A previously removed or never-created zone already has the intended empty state.
+        }
     }
 }
 

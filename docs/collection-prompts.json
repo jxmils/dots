@@ -1,0 +1,108 @@
+{
+  "tool": "Built-in imagegen",
+  "layout": "3 columns, 2 rows; happy, calm, sleepy, sad, overwhelmed, focused",
+  "creatures": [
+    {
+      "id": "pebble",
+      "name": "Pebble",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a low, smooth sage-green oval pebble, asymmetrical like a very soft river stone, no tuft.",
+      "file": "Resources/CompanionPebbleAtlas.png"
+    },
+    {
+      "id": "sprout",
+      "name": "Sprout",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a rounded mint-green seed body, with two tiny soft leaf-shaped sprouts on top.",
+      "file": "Resources/CompanionSproutAtlas.png"
+    },
+    {
+      "id": "twinkle",
+      "name": "Twinkle",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a plump buttery-yellow five-pointed star body with very rounded short points.",
+      "file": "Resources/CompanionTwinkleAtlas.png"
+    },
+    {
+      "id": "pudding",
+      "name": "Pudding",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a peach-pink rounded pudding dome, broad flat pillowy base and a soft wavy top tuft.",
+      "file": "Resources/CompanionPuddingAtlas.png"
+    },
+    {
+      "id": "bean",
+      "name": "Bean",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a pistachio-green kidney-bean shaped body, a clear gentle inward curve on one side.",
+      "file": "Resources/CompanionBeanAtlas.png"
+    },
+    {
+      "id": "ember",
+      "name": "Ember",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a soft coral-orange flame-droplet body, with three gentle rounded flame peaks on top.",
+      "file": "Resources/CompanionEmberAtlas.png"
+    },
+    {
+      "id": "moss",
+      "name": "Moss",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a chunky moss-green rounded boulder shape, three uneven puffy lobes on top.",
+      "file": "Resources/CompanionMossAtlas.png"
+    },
+    {
+      "id": "luna",
+      "name": "Luna",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a sleepy dusty-periwinkle crescent moon body with a softly indented side, face on the broad center.",
+      "file": "Resources/CompanionLunaAtlas.png"
+    },
+    {
+      "id": "bubble",
+      "name": "Bubble",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: an aqua-blue spherical bubble body with one tiny bubble-shaped top nub.",
+      "file": "Resources/CompanionBubbleAtlas.png"
+    },
+    {
+      "id": "snow",
+      "name": "Snow",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a snowy ivory three-lobed soft cloud body, small rounded scallops on top.",
+      "file": "Resources/CompanionSnowAtlas.png"
+    },
+    {
+      "id": "sunny",
+      "name": "Sunny",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a honey-yellow round sun body, surrounded by six very short soft rounded ray nubs.",
+      "file": "Resources/CompanionSunnyAtlas.png"
+    },
+    {
+      "id": "dusk",
+      "name": "Dusk",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a plump CHARCOAL BLACK rounded triangle dumpling, soft deep-black plush with subtle silver edge lighting, little dark fuzzy top tuft, glossy dark eyes with bright white catchlights, softly visible mouth and warm tiny blush, unmistakably black not purple or blue.",
+      "file": "Resources/CompanionDuskAtlas.png"
+    },
+    {
+      "id": "petal",
+      "name": "Petal",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a pale rose-pink heart-shaped plush body with two round top lobes and a broad round bottom.",
+      "file": "Resources/CompanionPetalAtlas.png"
+    },
+    {
+      "id": "nimbus",
+      "name": "Nimbus",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a wide pale-lilac cloud body with five fluffy scalloped lobes, distinctly wider than tall.",
+      "file": "Resources/CompanionNimbusAtlas.png"
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a cocoa-brown plump acorn-like squishy body, broad round lower half, slightly narrower soft domed top with one tiny tilted fuzzy leaf nub, no hard shell, completely soft plush, warm caramel muzzle highlights and bright glossy bead eyes.",
+      "file": "Resources/CompanionToastAtlas.png"
+    },
+    {
+      "id": "puff",
+      "name": "Puff",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a creamy apricot plump diamond-shaped body with four softly rounded corners, slightly tilted silhouette.",
+      "file": "Resources/CompanionPuffAtlas.png"
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple",
+      "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a seafoam-turquoise body shaped as two overlapping soft round bubbles, big lower bubble and small offset top bubble.",
+      "file": "Resources/CompanionRippleAtlas.png"
+    }
+  ]
+}

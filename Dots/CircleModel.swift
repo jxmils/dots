@@ -15,26 +15,40 @@ final class CircleModel {
     var showSharing = false
     var showSettings = false
     var showWidgetGuide = false
+    var showHatch = false
+    var showRestore = false
     private(set) var storageAvailable = true
     private let store: CircleStore
     let cloud = CloudCircle()
     private var syncAgain = false
     let preview: Bool
+    private let restoreBudget: any RestoreBudget
 
-    init(store: CircleStore = CircleStore(), preview: Bool = false) {
+    init(store: CircleStore = CircleStore(), preview: Bool = false, restoreBudget: (any RestoreBudget)? = nil) {
         self.store = store
         self.preview = preview
+        #if targetEnvironment(macCatalyst)
+        self.restoreBudget = restoreBudget ?? MemoryRestoreBudget()
+        #else
+        self.restoreBudget = restoreBudget ?? KeychainRestoreBudget()
+        #endif
         do { state = try store.load() }
         catch {
             state = CircleState(); storageAvailable = false
             self.error = "Your saved circle couldn't be read. Please restart the app before making changes. Your saved data hasn't been replaced."
         }
+        if !preview {
+            do { state.collection.restoresUsed = max(state.collection.restoresUsed, try self.restoreBudget.used()) }
+            catch { self.error = error.localizedDescription }
+        }
+        showRestore = state.collection.pendingCheckInDay != nil
     }
 
     init(previewState: CircleState) {
         store = CircleStore(root: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString))
         state = previewState
         preview = true
+        restoreBudget = MemoryRestoreBudget()
     }
 
     private func persist() {
@@ -49,6 +63,8 @@ final class CircleModel {
         let name = String(name.trimmingCharacters(in: .whitespacesAndNewlines).prefix(24))
         guard !owner.isEmpty, !name.isEmpty else { return }
         state.companion = Companion(id: UUID().uuidString, ownerName: owner, petName: name, mood: .calm, updatedAt: Date(), kind: kind)
+        if !state.collection.owned.contains(kind) { state.collection.owned.append(kind) }
+        state.collection.names[kind.rawValue] = name
         persist()
         Task { await refresh() }
     }
@@ -57,6 +73,11 @@ final class CircleModel {
         guard state.companion != nil else { return }
         state.companion?.mood = mood
         state.companion?.updatedAt = Date()
+        let day = CheckInDay.number(Date())
+        if state.collection.canOfferRestore(on: day) {
+            state.collection.pendingCheckInDay = day
+            showRestore = true
+        } else { state.collection.checkIn(on: day) }
         persist()
         Task { await refresh() }
     }
@@ -66,6 +87,7 @@ final class CircleModel {
         let pet = String(pet.trimmingCharacters(in: .whitespacesAndNewlines).prefix(24))
         guard !owner.isEmpty, !pet.isEmpty else { return }
         state.companion?.ownerName = owner; state.companion?.petName = pet
+        if let kind = state.companion?.kind { state.collection.names[kind.rawValue] = pet }
         state.companion?.updatedAt = Date()
         persist()
         Task { await refresh() }
@@ -75,6 +97,62 @@ final class CircleModel {
         state.widgetMode = mode
         state.pinnedFriendID = pinned
         persist()
+    }
+
+    func hatch(owner: String? = nil) -> CompanionKind? {
+        guard storageAvailable, let kind = state.collection.unowned.randomElement() else { return nil }
+        let free = state.companion == nil
+        let name = (owner ?? state.companion?.ownerName ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !name.isEmpty else { return nil }
+        let before = state
+        guard state.collection.hatch(kind, free: free) else { return nil }
+        if free {
+            state.companion = Companion(id: UUID().uuidString, ownerName: String(name.prefix(24)), petName: kind.defaultName,
+                                        mood: .calm, updatedAt: Date(), kind: kind)
+        } else {
+            state.companion?.kind = kind
+            state.companion?.petName = kind.defaultName
+            state.companion?.updatedAt = Date()
+        }
+        do {
+            if !preview { try store.save(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
+        } catch {
+            state = before; self.error = "Your hatch couldn't be saved. Your egg is still safe."; return nil
+        }
+        Task { await refresh() }
+        return kind
+    }
+
+    func activate(_ kind: CompanionKind) {
+        guard state.collection.owned.contains(kind), state.companion != nil else { return }
+        let name = state.collection.names[kind.rawValue] ?? kind.defaultName
+        state.companion?.kind = kind
+        state.companion?.petName = name
+        state.companion?.updatedAt = Date()
+        persist()
+        Task { await refresh() }
+    }
+
+    func resolveRestore(use: Bool) {
+        guard let day = state.collection.pendingCheckInDay else { showRestore = false; return }
+        let before = state
+        do {
+            let used = try restoreBudget.used()
+            state.collection.restoresUsed = max(state.collection.restoresUsed, used)
+            if use && !state.collection.canOfferRestore(on: day) {
+                error = "All three lifetime restores have been used. Start a new streak to keep checking in."
+                return
+            }
+            state.collection.checkIn(on: day, restore: use)
+            if !preview { try store.save(state) }
+            if use { try restoreBudget.record(state.collection.restoresUsed) }
+            showRestore = false
+            persist()
+        } catch {
+            state = before
+            try? store.save(before)
+            self.error = error.localizedDescription
+        }
     }
 
     func connect() async {
@@ -140,7 +218,10 @@ final class CircleModel {
             // Wait for publication to finish so an in-flight save cannot recreate the deleted share.
             while syncing || sharing { try await Task.sleep(for: .milliseconds(100)) }
             if state.cloudEnabled { try await cloud.deleteOwnCompanion() }
-            state = CircleState(); persist(); showSettings = false
+            let restores = max(state.collection.restoresUsed, try restoreBudget.used())
+            try restoreBudget.record(restores)
+            state = CircleState(); state.collection.restoresUsed = restores
+            persist(); showSettings = false
         } catch { self.error = "Couldn't remove the shared companion. Please reconnect and try again: \(error.localizedDescription)" }
     }
 }

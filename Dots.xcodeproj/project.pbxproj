@@ -7,49 +7,103 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C9A7FD487F4998F5098A92E /* DotsWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9B7BF69895FEA028D82D709F /* DotsWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2D9F091E9D1553D1919B3C57 /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3292144423FAA42B067B15 /* CompanionView.swift */; };
-		3B2C9AD607220CB90D920C63 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		456FC02B2D15CA07F4A5FA62 /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 624920728CF8722FDF4BC4EF /* CompanionPillowAtlas.png */; };
-		58D68CDF1D578F456776BFBF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B4E26C202DD7FED60F50F9 /* Foundation.framework */; };
-		651496AAA916AB5316F05511 /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A52217A52BCAE98984F4D /* CloudCircle.swift */; };
-		7285F2AB13B056690D10BB02 /* DotsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AF549755987CE7C4F1A26 /* DotsViews.swift */; };
-		7633AED9D07FD23989FBE920 /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6BD84F9A68187F20F8835 /* Companion.swift */; };
-		785F4883BF017FE1BE56A548 /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A52217A52BCAE98984F4D /* CloudCircle.swift */; };
-		785F6BF1DB31B167B960FC28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 712BE9E90010309C7ECAF47E /* Assets.xcassets */; };
-		9D6B68349355F0D65230EE2E /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0780800DA201A5FB7EE1305C /* CompanionAtlas.png */; };
-		A69E723678D65716C5295A87 /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C481A3977CD6E7E024B1518E /* CompanionBlueAtlas.png */; };
-		B030B52142F2CD73730FBCB4 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C21FD77CCA17340275B8DA16 /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 3932C270A86D6360E8777399 /* CompanionAtlas.png */; };
-		CE0CE851E895491E7717B44D /* CircleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7FB89F14774D963862CD5 /* CircleModel.swift */; };
-		DA4405CECFDAA87B66BD597B /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6BD84F9A68187F20F8835 /* Companion.swift */; };
-		EC7FBB841D8ADAAB29EA7E24 /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB94ABA7BF31DAFEBB17123 /* CompanionPillowAtlas.png */; };
-		ECD2B39FB1E2E924BA1FE370 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B4E26C202DD7FED60F50F9 /* Foundation.framework */; };
-		F1354ECD13210F6BD50D5EA5 /* CloudSharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6293F80975C6006669ED2910 /* CloudSharingView.swift */; };
-		F646A559B0C0231AC0854CB0 /* DotsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD581C3E0EB8D3F22B6AE963 /* DotsApp.swift */; };
-		F6967B5E92FCDF36F7B5F238 /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3292144423FAA42B067B15 /* CompanionView.swift */; };
-		F759F4C22DAD3ED3109A96E5 /* DotsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9F4EABF0F7CA186BE3C13A /* DotsWidget.swift */; };
-		F840F6BAE9F706B8996F0CA4 /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 423B1504125059957466A044 /* CompanionBlueAtlas.png */; };
+		02E03AA5AE391C4ECAF9B363 /* CompanionEmberAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0011B86BEFAB2F2ECD44DCA1 /* CompanionEmberAtlas.png */; };
+		03424603CE442C860ACBAA64 /* CompanionPebbleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7412B169F9F58FD046D2BF73 /* CompanionPebbleAtlas.png */; };
+		04A6BB89E449FE3DE0671E44 /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C9F4992204DE00A1870A /* CompanionBlueAtlas.png */; };
+		0530D7738793CC4A73E09757 /* CompanionSproutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C9789A017E5AEE71668CE06D /* CompanionSproutAtlas.png */; };
+		06AD991BB751C9FE182AE031 /* CompanionLunaAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E08C5A10C520D85086E60B /* CompanionLunaAtlas.png */; };
+		0E202F6675CF4F4D4BB66A30 /* CompanionBeanAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD0274CBAF233D098182AD4 /* CompanionBeanAtlas.png */; };
+		139DFB0ECF88D36A165138BF /* CompanionDuskAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CA12EB9B81632376D9F4D /* CompanionDuskAtlas.png */; };
+		13D08CF48A9E12DF852DB6ED /* CompanionBeanAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F842514E477030C361A648D /* CompanionBeanAtlas.png */; };
+		1490E487DF5C1A2895B398D3 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D39710C97E0130A7E54AE4 /* Collection.swift */; };
+		15C3F39E5446DEB505C96F2C /* DotsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D709C567C4F6CC45B53494D /* DotsViews.swift */; };
+		1FA69DB5DD1635F206B89216 /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD23F6DAFAA0A4C1FBA536D4 /* Companion.swift */; };
+		1FB8B165F3823DFE0BCF6E58 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D39710C97E0130A7E54AE4 /* Collection.swift */; };
+		207D9CD95B0D359199D3BE73 /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD23F6DAFAA0A4C1FBA536D4 /* Companion.swift */; };
+		217116D9BA4202A9E03460FD /* CompanionPetalAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EE116034493BC6313B14FC /* CompanionPetalAtlas.png */; };
+		2B6269E5B10D427435554AD3 /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37575CB0A4B7E765B240B75 /* CloudCircle.swift */; };
+		2C498DE2BBBDCAA438465BB6 /* CompanionRippleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 47D5648999FFFBA0A6E28BF1 /* CompanionRippleAtlas.png */; };
+		2DE203270D7350C92F7771A5 /* CompanionLunaAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C50414E49FDD7BDA7EBF7C43 /* CompanionLunaAtlas.png */; };
+		34B3D6BDA926C6842E4ABAAC /* CompanionPetalAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C6488EE2E2C090A4FD53CBB1 /* CompanionPetalAtlas.png */; };
+		356F556A00800BAE7DE64B2F /* CompanionBubbleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C161A42468905371AE1C136E /* CompanionBubbleAtlas.png */; };
+		37354168C7125E660CC6D653 /* CompanionPuffAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DA4402633FCB2C56F1FF1 /* CompanionPuffAtlas.png */; };
+		3EC1D0A0EF735CAF453B9FAD /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 71D69DA0C0276B8A1FFE3EB7 /* CompanionAtlas.png */; };
+		445DA74AAF43CFD3640B3516 /* CompanionCumulusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = ABBD16BC726B83E909512202 /* CompanionCumulusAtlas.png */; };
+		4881FE5BCC4D36B86EA9BF84 /* CompanionCoconutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A34DC66E0A5014838C945070 /* CompanionCoconutAtlas.png */; };
+		4CD0EEBFA07771B20F8E2FEE /* CompanionToastAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF70F02240AD2F4DDC34557 /* CompanionToastAtlas.png */; };
+		4D9F69BB936CB5B34BA9B029 /* CompanionSunnyAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BC310AB245792FFFD1638D /* CompanionSunnyAtlas.png */; };
+		51C4E00326FB3B854C9118B1 /* CompanionBonsaiAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 507707BE1C3744DD2522BD90 /* CompanionBonsaiAtlas.png */; };
+		69B3B3CC18126FC0058CC4AE /* CompanionCoffeeAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2074D303993485D5F8655E5E /* CompanionCoffeeAtlas.png */; };
+		6A60563F2016C7D52EA0B1BE /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B373FF9EB7B86B436E46C9C1 /* CompanionView.swift */; };
+		6BE78E8C9C0ED1B19313BFEA /* CircleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8739688A0BAA37D68D3E1B63 /* CircleModel.swift */; };
+		6BE98633B5D2285C2128CBED /* CompanionPebbleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E75FBABB01BC7E53AB2FB2C3 /* CompanionPebbleAtlas.png */; };
+		6D8B806AA98FF5419DCDAB29 /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DB326C5FB97C445B576D9FD3 /* CompanionPillowAtlas.png */; };
+		6F5167E6C72DAC15EF10B600 /* CompanionNimbusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 24FC4FFDCD5A7AC67812BB32 /* CompanionNimbusAtlas.png */; };
+		7656D9425F70007F1EF29FF1 /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 590E35977B504EEC50C2A0C7 /* CompanionPillowAtlas.png */; };
+		7A5F7B6B7F6CA538F72130E7 /* CompanionCumulusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C9C58F60C4D840D30DA173D /* CompanionCumulusAtlas.png */; };
+		7F4A9DBDA2AFBD05E64FD6EF /* CompanionOnionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8BA4B4C5FC542E69C2125C /* CompanionOnionAtlas.png */; };
+		83D79FA219256E178383229A /* CompanionRippleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C6E20CA7985AB5E9CA03BD9C /* CompanionRippleAtlas.png */; };
+		851E82E6858666EE69C829C9 /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B373FF9EB7B86B436E46C9C1 /* CompanionView.swift */; };
+		8FE591B983EF34B046B82A9F /* CompanionSunnyAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD4AFCD914DC39B6E9A4D66 /* CompanionSunnyAtlas.png */; };
+		906150B7DFE03F18ABC2EFFF /* CompanionPuffAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C0199BA1BD606BD4372D8EE /* CompanionPuffAtlas.png */; };
+		92386FDDD01B4EB559488828 /* CompanionBowlingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E69227ECFD25FB0C50742D /* CompanionBowlingAtlas.png */; };
+		9364FF3CA53DC8C6387557DC /* CompanionStormAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CA2832B055E6251FF7AB8D5 /* CompanionStormAtlas.png */; };
+		93EBFB93BA69E7B24E9E56FC /* CompanionDropletAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 53364C28334E011C16D86959 /* CompanionDropletAtlas.png */; };
+		9AEFB2AE2599C4F6F77A1A8A /* CompanionDrizzleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 29B27B2E359E887974880E71 /* CompanionDrizzleAtlas.png */; };
+		A0371B3F139B42BD4EBA1195 /* CompanionCoconutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FA7E16219840C154EC3098 /* CompanionCoconutAtlas.png */; };
+		A2C131A3743CAC3A789348BA /* DotsWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0FCA87111BE006936D74160E /* DotsWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A3990A69B483F42323D86FF8 /* CompanionDropletAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = BE93B9AE2651C56B53E8E3B8 /* CompanionDropletAtlas.png */; };
+		A4D0E33F5E72F2B4D54B0394 /* CompanionOnionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A9127E4BD7122171E95E8EB9 /* CompanionOnionAtlas.png */; };
+		A6CA67F335E8EF3B4D8F1EE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1904896410AA68244D5EEB /* Foundation.framework */; };
+		AA81FF799E2851B747FF9676 /* CollectionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1546B1C04182A62D7D5100DF /* CollectionViews.swift */; };
+		AD1F917F628DA50BA79353A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1904896410AA68244D5EEB /* Foundation.framework */; };
+		ADCEBBA64B816FEE50E60ED5 /* CompanionNimbusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 272607B1897F7CC3CD49DD1F /* CompanionNimbusAtlas.png */; };
+		AE701C50625AD1A0846732D3 /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37575CB0A4B7E765B240B75 /* CloudCircle.swift */; };
+		AF067E1C72BCBC7E3DD8FC16 /* CompanionDrizzleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899C42B86BA1AF03A589B91 /* CompanionDrizzleAtlas.png */; };
+		B7F79C1FBACB68F3EF89D214 /* CompanionPuddingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 60F5D75B2C4ECDFEBBF253F4 /* CompanionPuddingAtlas.png */; };
+		C1409D27E26DE89B0CEDD7BD /* CompanionPuddingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D5150991FBFE75FDED7BD655 /* CompanionPuddingAtlas.png */; };
+		C2B528508AF4DAD535861655 /* CompanionMossAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D48B66F7218FB5FB21A83A28 /* CompanionMossAtlas.png */; };
+		C97F900B34778FEA0F0D4CC7 /* CloudSharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DCB81A00BDF8330ABF309B /* CloudSharingView.swift */; };
+		CACC9A7741D8268679D3CC66 /* CompanionEmberAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AF562AC1ACC057A5A777B0 /* CompanionEmberAtlas.png */; };
+		D03DFC78BB23CEF44D795E6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8F12F06831F71A9E3D1D012 /* Assets.xcassets */; };
+		D39A3AFDC1AD46D5D2926316 /* CompanionStormAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 993F1D91DF813FFD31715274 /* CompanionStormAtlas.png */; };
+		D3D544A40334E9160D93762D /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B377E3B71C0AE5FA1574DC25 /* CompanionBlueAtlas.png */; };
+		D6E9E7793C3AD7F1D0D3B075 /* RestoreBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE0A12F010A57C006D3EAE9 /* RestoreBudget.swift */; };
+		DA9C70BC76BB168DD6A7E725 /* CompanionDuskAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A7136CDA7257F597E73EA4F2 /* CompanionDuskAtlas.png */; };
+		DB69C794D238445CA290BD6E /* CompanionToastAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A767AD669DADDF76FE37E54 /* CompanionToastAtlas.png */; };
+		DB6F4661DBA65000F4EA4384 /* CompanionCoffeeAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D0E58B7D305258309089CB9 /* CompanionCoffeeAtlas.png */; };
+		DD215C244DDBEBFDD13B441D /* CompanionBonsaiAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 113D626ABDF4BCD73AA12996 /* CompanionBonsaiAtlas.png */; };
+		DD7BB03D5ACF5EBB76853EA9 /* CompanionBowlingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 491B018BCDCF5E07ACEF6CED /* CompanionBowlingAtlas.png */; };
+		E3464C297B5D03D7CE061198 /* CompanionSnowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDEA12F4C316496F3C5E513 /* CompanionSnowAtlas.png */; };
+		E5CD1150FDFC711FD6BC758F /* CompanionSproutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D30EFB22EEDEFCE1C0BD5055 /* CompanionSproutAtlas.png */; };
+		F02C2948C68D24407E71EB29 /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8A40005713037EF12A95C8 /* CompanionAtlas.png */; };
+		F0BAB324F9CA253D06E368E8 /* DotsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A5F071561A90E7FA76832C /* DotsApp.swift */; };
+		F0D8F9B1408A68D924E6D270 /* CompanionTwinkleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B9648632429C78FBD04DEBAB /* CompanionTwinkleAtlas.png */; };
+		F2E2DD23D9E1C7D5EAC71B18 /* CompanionBubbleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EB643A7C4DEC3857A1E4512 /* CompanionBubbleAtlas.png */; };
+		F5569BB21825D66E544BE6D3 /* CompanionMossAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD888B659499434BCADDDFA /* CompanionMossAtlas.png */; };
+		F8240E9A79073E14C9016941 /* DotsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F40F08D6FEF168BD3E324B7 /* DotsWidget.swift */; };
+		FDEB953B6DA093D4410FDB47 /* CompanionSnowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E622D14E616024B1690E0789 /* CompanionSnowAtlas.png */; };
+		FE721235DA3CFF2EDE23B0E1 /* CompanionTwinkleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A5BD7307820E4ECA34EA039 /* CompanionTwinkleAtlas.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C4128B9F085A3BCF3735AC19 /* PBXContainerItemProxy */ = {
+		CFD059BCFA427A2686F8DEDE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 75CAEBEB64836800766D77A1 /* Project object */;
+			containerPortal = DCF34631CD9AAE6B5A80E01F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 92308ADD25CFA4F9FD4A2AF5;
+			remoteGlobalIDString = A13246ABB5473A304D74C3AA;
 			remoteInfo = DotsWidget;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F7D4638E6897E3E0222F878B /* Embed App Extensions */ = {
+		415ED7E6BAB0667D52D318C6 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				2C9A7FD487F4998F5098A92E /* DotsWidget.appex in Embed App Extensions */,
+				A2C131A3743CAC3A789348BA /* DotsWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,104 +111,214 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0780800DA201A5FB7EE1305C /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
-		0AB94ABA7BF31DAFEBB17123 /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
-		0D9874D905054F324E859040 /* Dots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dots.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2FD6BD84F9A68187F20F8835 /* Companion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Companion.swift; path = Shared/Companion.swift; sourceTree = "<group>"; };
-		3932C270A86D6360E8777399 /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
-		3E0AF549755987CE7C4F1A26 /* DotsViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsViews.swift; path = Dots/DotsViews.swift; sourceTree = "<group>"; };
-		423B1504125059957466A044 /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
-		436A52217A52BCAE98984F4D /* CloudCircle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudCircle.swift; path = Shared/CloudCircle.swift; sourceTree = "<group>"; };
-		58B4E26C202DD7FED60F50F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		624920728CF8722FDF4BC4EF /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
-		6293F80975C6006669ED2910 /* CloudSharingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudSharingView.swift; path = Dots/CloudSharingView.swift; sourceTree = "<group>"; };
-		712BE9E90010309C7ECAF47E /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Dots/Assets.xcassets; sourceTree = "<group>"; };
-		9B7BF69895FEA028D82D709F /* DotsWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DotsWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C3292144423FAA42B067B15 /* CompanionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompanionView.swift; path = Shared/CompanionView.swift; sourceTree = "<group>"; };
-		C481A3977CD6E7E024B1518E /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
-		CFF7FB89F14774D963862CD5 /* CircleModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CircleModel.swift; path = Dots/CircleModel.swift; sourceTree = "<group>"; };
-		EE9F4EABF0F7CA186BE3C13A /* DotsWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsWidget.swift; path = DotsWidget/DotsWidget.swift; sourceTree = "<group>"; };
-		FD581C3E0EB8D3F22B6AE963 /* DotsApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsApp.swift; path = Dots/DotsApp.swift; sourceTree = "<group>"; };
+		0011B86BEFAB2F2ECD44DCA1 /* CompanionEmberAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionEmberAtlas.png; path = Resources/CompanionEmberAtlas.png; sourceTree = "<group>"; };
+		03D39710C97E0130A7E54AE4 /* Collection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Collection.swift; path = Shared/Collection.swift; sourceTree = "<group>"; };
+		0A767AD669DADDF76FE37E54 /* CompanionToastAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionToastAtlas.png; path = Resources/CompanionToastAtlas.png; sourceTree = "<group>"; };
+		0AF70F02240AD2F4DDC34557 /* CompanionToastAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionToastAtlas.png; path = Resources/CompanionToastAtlas.png; sourceTree = "<group>"; };
+		0FCA87111BE006936D74160E /* DotsWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DotsWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		113D626ABDF4BCD73AA12996 /* CompanionBonsaiAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBonsaiAtlas.png; path = Resources/CompanionBonsaiAtlas.png; sourceTree = "<group>"; };
+		1546B1C04182A62D7D5100DF /* CollectionViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CollectionViews.swift; path = Dots/CollectionViews.swift; sourceTree = "<group>"; };
+		193DA4402633FCB2C56F1FF1 /* CompanionPuffAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuffAtlas.png; path = Resources/CompanionPuffAtlas.png; sourceTree = "<group>"; };
+		1EB643A7C4DEC3857A1E4512 /* CompanionBubbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBubbleAtlas.png; path = Resources/CompanionBubbleAtlas.png; sourceTree = "<group>"; };
+		2074D303993485D5F8655E5E /* CompanionCoffeeAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoffeeAtlas.png; path = Resources/CompanionCoffeeAtlas.png; sourceTree = "<group>"; };
+		24FC4FFDCD5A7AC67812BB32 /* CompanionNimbusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionNimbusAtlas.png; path = Resources/CompanionNimbusAtlas.png; sourceTree = "<group>"; };
+		272607B1897F7CC3CD49DD1F /* CompanionNimbusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionNimbusAtlas.png; path = Resources/CompanionNimbusAtlas.png; sourceTree = "<group>"; };
+		29B27B2E359E887974880E71 /* CompanionDrizzleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDrizzleAtlas.png; path = Resources/CompanionDrizzleAtlas.png; sourceTree = "<group>"; };
+		2CD888B659499434BCADDDFA /* CompanionMossAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionMossAtlas.png; path = Resources/CompanionMossAtlas.png; sourceTree = "<group>"; };
+		2E8BA4B4C5FC542E69C2125C /* CompanionOnionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionOnionAtlas.png; path = Resources/CompanionOnionAtlas.png; sourceTree = "<group>"; };
+		2EDEA12F4C316496F3C5E513 /* CompanionSnowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSnowAtlas.png; path = Resources/CompanionSnowAtlas.png; sourceTree = "<group>"; };
+		3AD0274CBAF233D098182AD4 /* CompanionBeanAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBeanAtlas.png; path = Resources/CompanionBeanAtlas.png; sourceTree = "<group>"; };
+		3C9C58F60C4D840D30DA173D /* CompanionCumulusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCumulusAtlas.png; path = Resources/CompanionCumulusAtlas.png; sourceTree = "<group>"; };
+		47D5648999FFFBA0A6E28BF1 /* CompanionRippleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionRippleAtlas.png; path = Resources/CompanionRippleAtlas.png; sourceTree = "<group>"; };
+		4899C42B86BA1AF03A589B91 /* CompanionDrizzleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDrizzleAtlas.png; path = Resources/CompanionDrizzleAtlas.png; sourceTree = "<group>"; };
+		491B018BCDCF5E07ACEF6CED /* CompanionBowlingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBowlingAtlas.png; path = Resources/CompanionBowlingAtlas.png; sourceTree = "<group>"; };
+		4A5BD7307820E4ECA34EA039 /* CompanionTwinkleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionTwinkleAtlas.png; path = Resources/CompanionTwinkleAtlas.png; sourceTree = "<group>"; };
+		4FD4AFCD914DC39B6E9A4D66 /* CompanionSunnyAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSunnyAtlas.png; path = Resources/CompanionSunnyAtlas.png; sourceTree = "<group>"; };
+		507707BE1C3744DD2522BD90 /* CompanionBonsaiAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBonsaiAtlas.png; path = Resources/CompanionBonsaiAtlas.png; sourceTree = "<group>"; };
+		51E08C5A10C520D85086E60B /* CompanionLunaAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionLunaAtlas.png; path = Resources/CompanionLunaAtlas.png; sourceTree = "<group>"; };
+		53364C28334E011C16D86959 /* CompanionDropletAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDropletAtlas.png; path = Resources/CompanionDropletAtlas.png; sourceTree = "<group>"; };
+		53BC310AB245792FFFD1638D /* CompanionSunnyAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSunnyAtlas.png; path = Resources/CompanionSunnyAtlas.png; sourceTree = "<group>"; };
+		590E35977B504EEC50C2A0C7 /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
+		5CA2832B055E6251FF7AB8D5 /* CompanionStormAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionStormAtlas.png; path = Resources/CompanionStormAtlas.png; sourceTree = "<group>"; };
+		5F842514E477030C361A648D /* CompanionBeanAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBeanAtlas.png; path = Resources/CompanionBeanAtlas.png; sourceTree = "<group>"; };
+		60F5D75B2C4ECDFEBBF253F4 /* CompanionPuddingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuddingAtlas.png; path = Resources/CompanionPuddingAtlas.png; sourceTree = "<group>"; };
+		64A5F071561A90E7FA76832C /* DotsApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsApp.swift; path = Dots/DotsApp.swift; sourceTree = "<group>"; };
+		68EE116034493BC6313B14FC /* CompanionPetalAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPetalAtlas.png; path = Resources/CompanionPetalAtlas.png; sourceTree = "<group>"; };
+		6A901883F7AC5A641582B24B /* Dots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dots.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C0199BA1BD606BD4372D8EE /* CompanionPuffAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuffAtlas.png; path = Resources/CompanionPuffAtlas.png; sourceTree = "<group>"; };
+		6D0E58B7D305258309089CB9 /* CompanionCoffeeAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoffeeAtlas.png; path = Resources/CompanionCoffeeAtlas.png; sourceTree = "<group>"; };
+		6D709C567C4F6CC45B53494D /* DotsViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsViews.swift; path = Dots/DotsViews.swift; sourceTree = "<group>"; };
+		6E8A40005713037EF12A95C8 /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
+		6F40F08D6FEF168BD3E324B7 /* DotsWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsWidget.swift; path = DotsWidget/DotsWidget.swift; sourceTree = "<group>"; };
+		71D69DA0C0276B8A1FFE3EB7 /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
+		7412B169F9F58FD046D2BF73 /* CompanionPebbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPebbleAtlas.png; path = Resources/CompanionPebbleAtlas.png; sourceTree = "<group>"; };
+		8739688A0BAA37D68D3E1B63 /* CircleModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CircleModel.swift; path = Dots/CircleModel.swift; sourceTree = "<group>"; };
+		955CA12EB9B81632376D9F4D /* CompanionDuskAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDuskAtlas.png; path = Resources/CompanionDuskAtlas.png; sourceTree = "<group>"; };
+		95E69227ECFD25FB0C50742D /* CompanionBowlingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBowlingAtlas.png; path = Resources/CompanionBowlingAtlas.png; sourceTree = "<group>"; };
+		98FA7E16219840C154EC3098 /* CompanionCoconutAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoconutAtlas.png; path = Resources/CompanionCoconutAtlas.png; sourceTree = "<group>"; };
+		993F1D91DF813FFD31715274 /* CompanionStormAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionStormAtlas.png; path = Resources/CompanionStormAtlas.png; sourceTree = "<group>"; };
+		9DE0A12F010A57C006D3EAE9 /* RestoreBudget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RestoreBudget.swift; path = Dots/RestoreBudget.swift; sourceTree = "<group>"; };
+		A34DC66E0A5014838C945070 /* CompanionCoconutAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoconutAtlas.png; path = Resources/CompanionCoconutAtlas.png; sourceTree = "<group>"; };
+		A7136CDA7257F597E73EA4F2 /* CompanionDuskAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDuskAtlas.png; path = Resources/CompanionDuskAtlas.png; sourceTree = "<group>"; };
+		A8F12F06831F71A9E3D1D012 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Dots/Assets.xcassets; sourceTree = "<group>"; };
+		A9127E4BD7122171E95E8EB9 /* CompanionOnionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionOnionAtlas.png; path = Resources/CompanionOnionAtlas.png; sourceTree = "<group>"; };
+		ABBD16BC726B83E909512202 /* CompanionCumulusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCumulusAtlas.png; path = Resources/CompanionCumulusAtlas.png; sourceTree = "<group>"; };
+		B0DCB81A00BDF8330ABF309B /* CloudSharingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudSharingView.swift; path = Dots/CloudSharingView.swift; sourceTree = "<group>"; };
+		B373FF9EB7B86B436E46C9C1 /* CompanionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompanionView.swift; path = Shared/CompanionView.swift; sourceTree = "<group>"; };
+		B377E3B71C0AE5FA1574DC25 /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
+		B5AF562AC1ACC057A5A777B0 /* CompanionEmberAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionEmberAtlas.png; path = Resources/CompanionEmberAtlas.png; sourceTree = "<group>"; };
+		B9648632429C78FBD04DEBAB /* CompanionTwinkleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionTwinkleAtlas.png; path = Resources/CompanionTwinkleAtlas.png; sourceTree = "<group>"; };
+		BE93B9AE2651C56B53E8E3B8 /* CompanionDropletAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDropletAtlas.png; path = Resources/CompanionDropletAtlas.png; sourceTree = "<group>"; };
+		C161A42468905371AE1C136E /* CompanionBubbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBubbleAtlas.png; path = Resources/CompanionBubbleAtlas.png; sourceTree = "<group>"; };
+		C50414E49FDD7BDA7EBF7C43 /* CompanionLunaAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionLunaAtlas.png; path = Resources/CompanionLunaAtlas.png; sourceTree = "<group>"; };
+		C6488EE2E2C090A4FD53CBB1 /* CompanionPetalAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPetalAtlas.png; path = Resources/CompanionPetalAtlas.png; sourceTree = "<group>"; };
+		C6E20CA7985AB5E9CA03BD9C /* CompanionRippleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionRippleAtlas.png; path = Resources/CompanionRippleAtlas.png; sourceTree = "<group>"; };
+		C8C1C9F4992204DE00A1870A /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
+		C9789A017E5AEE71668CE06D /* CompanionSproutAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSproutAtlas.png; path = Resources/CompanionSproutAtlas.png; sourceTree = "<group>"; };
+		D30EFB22EEDEFCE1C0BD5055 /* CompanionSproutAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSproutAtlas.png; path = Resources/CompanionSproutAtlas.png; sourceTree = "<group>"; };
+		D48B66F7218FB5FB21A83A28 /* CompanionMossAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionMossAtlas.png; path = Resources/CompanionMossAtlas.png; sourceTree = "<group>"; };
+		D5150991FBFE75FDED7BD655 /* CompanionPuddingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuddingAtlas.png; path = Resources/CompanionPuddingAtlas.png; sourceTree = "<group>"; };
+		DA1904896410AA68244D5EEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DB326C5FB97C445B576D9FD3 /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
+		DD23F6DAFAA0A4C1FBA536D4 /* Companion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Companion.swift; path = Shared/Companion.swift; sourceTree = "<group>"; };
+		E622D14E616024B1690E0789 /* CompanionSnowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSnowAtlas.png; path = Resources/CompanionSnowAtlas.png; sourceTree = "<group>"; };
+		E75FBABB01BC7E53AB2FB2C3 /* CompanionPebbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPebbleAtlas.png; path = Resources/CompanionPebbleAtlas.png; sourceTree = "<group>"; };
+		F37575CB0A4B7E765B240B75 /* CloudCircle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudCircle.swift; path = Shared/CloudCircle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		155FAF1B6812B6CC8FB72F7D /* Frameworks */ = {
+		A29797BAF35EFA0814F7AF96 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECD2B39FB1E2E924BA1FE370 /* Foundation.framework in Frameworks */,
+				A6CA67F335E8EF3B4D8F1EE9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8567D083BB5347A9DDD76B01 /* Frameworks */ = {
+		A377F0DA3E80683FB5E11F54 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58D68CDF1D578F456776BFBF /* Foundation.framework in Frameworks */,
+				AD1F917F628DA50BA79353A1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		21516B640D2BCC4070C4A175 = {
+		62521B2AB315B7F6C152E329 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BAE6E64CBD3B57CA62DD90D1 /* Products */,
-				FFF9A4EC3E7A0CC403FB863E /* Frameworks */,
-				436A52217A52BCAE98984F4D /* CloudCircle.swift */,
-				2FD6BD84F9A68187F20F8835 /* Companion.swift */,
-				9C3292144423FAA42B067B15 /* CompanionView.swift */,
-				CFF7FB89F14774D963862CD5 /* CircleModel.swift */,
-				6293F80975C6006669ED2910 /* CloudSharingView.swift */,
-				FD581C3E0EB8D3F22B6AE963 /* DotsApp.swift */,
-				3E0AF549755987CE7C4F1A26 /* DotsViews.swift */,
-				EE9F4EABF0F7CA186BE3C13A /* DotsWidget.swift */,
-				712BE9E90010309C7ECAF47E /* Assets.xcassets */,
-				423B1504125059957466A044 /* CompanionBlueAtlas.png */,
-				0AB94ABA7BF31DAFEBB17123 /* CompanionPillowAtlas.png */,
-				0780800DA201A5FB7EE1305C /* CompanionAtlas.png */,
-				C481A3977CD6E7E024B1518E /* CompanionBlueAtlas.png */,
-				624920728CF8722FDF4BC4EF /* CompanionPillowAtlas.png */,
-				3932C270A86D6360E8777399 /* CompanionAtlas.png */,
+				D47B00F6D858EDB9F8E5B2AC /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		785C1BB7139DBE570E987E5A = {
+			isa = PBXGroup;
+			children = (
+				8E9C23915369E08F7D8331E8 /* Products */,
+				62521B2AB315B7F6C152E329 /* Frameworks */,
+				F37575CB0A4B7E765B240B75 /* CloudCircle.swift */,
+				03D39710C97E0130A7E54AE4 /* Collection.swift */,
+				DD23F6DAFAA0A4C1FBA536D4 /* Companion.swift */,
+				B373FF9EB7B86B436E46C9C1 /* CompanionView.swift */,
+				8739688A0BAA37D68D3E1B63 /* CircleModel.swift */,
+				B0DCB81A00BDF8330ABF309B /* CloudSharingView.swift */,
+				1546B1C04182A62D7D5100DF /* CollectionViews.swift */,
+				64A5F071561A90E7FA76832C /* DotsApp.swift */,
+				6D709C567C4F6CC45B53494D /* DotsViews.swift */,
+				9DE0A12F010A57C006D3EAE9 /* RestoreBudget.swift */,
+				71D69DA0C0276B8A1FFE3EB7 /* CompanionAtlas.png */,
+				5F842514E477030C361A648D /* CompanionBeanAtlas.png */,
+				B377E3B71C0AE5FA1574DC25 /* CompanionBlueAtlas.png */,
+				507707BE1C3744DD2522BD90 /* CompanionBonsaiAtlas.png */,
+				491B018BCDCF5E07ACEF6CED /* CompanionBowlingAtlas.png */,
+				C161A42468905371AE1C136E /* CompanionBubbleAtlas.png */,
+				A34DC66E0A5014838C945070 /* CompanionCoconutAtlas.png */,
+				6D0E58B7D305258309089CB9 /* CompanionCoffeeAtlas.png */,
+				ABBD16BC726B83E909512202 /* CompanionCumulusAtlas.png */,
+				4899C42B86BA1AF03A589B91 /* CompanionDrizzleAtlas.png */,
+				53364C28334E011C16D86959 /* CompanionDropletAtlas.png */,
+				955CA12EB9B81632376D9F4D /* CompanionDuskAtlas.png */,
+				0011B86BEFAB2F2ECD44DCA1 /* CompanionEmberAtlas.png */,
+				C50414E49FDD7BDA7EBF7C43 /* CompanionLunaAtlas.png */,
+				2CD888B659499434BCADDDFA /* CompanionMossAtlas.png */,
+				272607B1897F7CC3CD49DD1F /* CompanionNimbusAtlas.png */,
+				2E8BA4B4C5FC542E69C2125C /* CompanionOnionAtlas.png */,
+				E75FBABB01BC7E53AB2FB2C3 /* CompanionPebbleAtlas.png */,
+				C6488EE2E2C090A4FD53CBB1 /* CompanionPetalAtlas.png */,
+				DB326C5FB97C445B576D9FD3 /* CompanionPillowAtlas.png */,
+				60F5D75B2C4ECDFEBBF253F4 /* CompanionPuddingAtlas.png */,
+				193DA4402633FCB2C56F1FF1 /* CompanionPuffAtlas.png */,
+				47D5648999FFFBA0A6E28BF1 /* CompanionRippleAtlas.png */,
+				E622D14E616024B1690E0789 /* CompanionSnowAtlas.png */,
+				D30EFB22EEDEFCE1C0BD5055 /* CompanionSproutAtlas.png */,
+				5CA2832B055E6251FF7AB8D5 /* CompanionStormAtlas.png */,
+				53BC310AB245792FFFD1638D /* CompanionSunnyAtlas.png */,
+				0AF70F02240AD2F4DDC34557 /* CompanionToastAtlas.png */,
+				4A5BD7307820E4ECA34EA039 /* CompanionTwinkleAtlas.png */,
+				6F40F08D6FEF168BD3E324B7 /* DotsWidget.swift */,
+				6E8A40005713037EF12A95C8 /* CompanionAtlas.png */,
+				3AD0274CBAF233D098182AD4 /* CompanionBeanAtlas.png */,
+				C8C1C9F4992204DE00A1870A /* CompanionBlueAtlas.png */,
+				113D626ABDF4BCD73AA12996 /* CompanionBonsaiAtlas.png */,
+				95E69227ECFD25FB0C50742D /* CompanionBowlingAtlas.png */,
+				1EB643A7C4DEC3857A1E4512 /* CompanionBubbleAtlas.png */,
+				98FA7E16219840C154EC3098 /* CompanionCoconutAtlas.png */,
+				2074D303993485D5F8655E5E /* CompanionCoffeeAtlas.png */,
+				3C9C58F60C4D840D30DA173D /* CompanionCumulusAtlas.png */,
+				29B27B2E359E887974880E71 /* CompanionDrizzleAtlas.png */,
+				BE93B9AE2651C56B53E8E3B8 /* CompanionDropletAtlas.png */,
+				A7136CDA7257F597E73EA4F2 /* CompanionDuskAtlas.png */,
+				B5AF562AC1ACC057A5A777B0 /* CompanionEmberAtlas.png */,
+				51E08C5A10C520D85086E60B /* CompanionLunaAtlas.png */,
+				D48B66F7218FB5FB21A83A28 /* CompanionMossAtlas.png */,
+				24FC4FFDCD5A7AC67812BB32 /* CompanionNimbusAtlas.png */,
+				A9127E4BD7122171E95E8EB9 /* CompanionOnionAtlas.png */,
+				7412B169F9F58FD046D2BF73 /* CompanionPebbleAtlas.png */,
+				68EE116034493BC6313B14FC /* CompanionPetalAtlas.png */,
+				590E35977B504EEC50C2A0C7 /* CompanionPillowAtlas.png */,
+				D5150991FBFE75FDED7BD655 /* CompanionPuddingAtlas.png */,
+				6C0199BA1BD606BD4372D8EE /* CompanionPuffAtlas.png */,
+				C6E20CA7985AB5E9CA03BD9C /* CompanionRippleAtlas.png */,
+				2EDEA12F4C316496F3C5E513 /* CompanionSnowAtlas.png */,
+				C9789A017E5AEE71668CE06D /* CompanionSproutAtlas.png */,
+				993F1D91DF813FFD31715274 /* CompanionStormAtlas.png */,
+				4FD4AFCD914DC39B6E9A4D66 /* CompanionSunnyAtlas.png */,
+				0A767AD669DADDF76FE37E54 /* CompanionToastAtlas.png */,
+				B9648632429C78FBD04DEBAB /* CompanionTwinkleAtlas.png */,
+				A8F12F06831F71A9E3D1D012 /* Assets.xcassets */,
 			);
 			sourceTree = "<group>";
 		};
-		B0B142DE7970EE23CC300BA4 /* iOS */ = {
+		8E9C23915369E08F7D8331E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				58B4E26C202DD7FED60F50F9 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		BAE6E64CBD3B57CA62DD90D1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0D9874D905054F324E859040 /* Dots.app */,
-				9B7BF69895FEA028D82D709F /* DotsWidget.appex */,
+				6A901883F7AC5A641582B24B /* Dots.app */,
+				0FCA87111BE006936D74160E /* DotsWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FFF9A4EC3E7A0CC403FB863E /* Frameworks */ = {
+		D47B00F6D858EDB9F8E5B2AC /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				B0B142DE7970EE23CC300BA4 /* iOS */,
+				DA1904896410AA68244D5EEB /* Foundation.framework */,
 			);
-			name = Frameworks;
+			name = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		92308ADD25CFA4F9FD4A2AF5 /* DotsWidget */ = {
+		A13246ABB5473A304D74C3AA /* DotsWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5093551C8118EC942171EB1 /* Build configuration list for PBXNativeTarget "DotsWidget" */;
+			buildConfigurationList = DCBED7A543BBE4D700B84EAA /* Build configuration list for PBXNativeTarget "DotsWidget" */;
 			buildPhases = (
-				0EF127139971BE629F5D6C28 /* Sources */,
-				155FAF1B6812B6CC8FB72F7D /* Frameworks */,
-				24391D427AFE7DA0D27B21AE /* Resources */,
+				FAB8BBEEA9D596E127D3E199 /* Sources */,
+				A29797BAF35EFA0814F7AF96 /* Frameworks */,
+				14862F0F5A3A65046DA7D2BC /* Resources */,
 			);
 			buildRules = (
 			);
@@ -162,38 +326,38 @@
 			);
 			name = DotsWidget;
 			productName = DotsWidget;
-			productReference = 9B7BF69895FEA028D82D709F /* DotsWidget.appex */;
+			productReference = 0FCA87111BE006936D74160E /* DotsWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		B781250D3998CE6AE84EC0F8 /* Dots */ = {
+		C5A0CFFC8C945D14EFD50E3D /* Dots */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E50151AE4472928F5B178FFC /* Build configuration list for PBXNativeTarget "Dots" */;
+			buildConfigurationList = B0FCCB4A18FFFB060415058D /* Build configuration list for PBXNativeTarget "Dots" */;
 			buildPhases = (
-				41467D1C7FBC7B7FF9C2E3DB /* Sources */,
-				8567D083BB5347A9DDD76B01 /* Frameworks */,
-				153C77EBC553E61F8E82828F /* Resources */,
-				F7D4638E6897E3E0222F878B /* Embed App Extensions */,
+				AAA9FEF37A0A55D7AF2EC830 /* Sources */,
+				A377F0DA3E80683FB5E11F54 /* Frameworks */,
+				695B1D17092AEFF36933E61E /* Resources */,
+				415ED7E6BAB0667D52D318C6 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				54C1004B7948FA3EAF7D6F67 /* PBXTargetDependency */,
+				4AAA69151A2EBA668333321B /* PBXTargetDependency */,
 			);
 			name = Dots;
 			productName = Dots;
-			productReference = 0D9874D905054F324E859040 /* Dots.app */;
+			productReference = 6A901883F7AC5A641582B24B /* Dots.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		75CAEBEB64836800766D77A1 /* Project object */ = {
+		DCF34631CD9AAE6B5A80E01F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 			};
-			buildConfigurationList = 526983FF71A990F9D99CCE4C /* Build configuration list for PBXProject "Dots" */;
+			buildConfigurationList = 929B4A2AB834C30E5AB1E723 /* Build configuration list for PBXProject "Dots" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -201,82 +365,136 @@
 				en,
 				Base,
 			);
-			mainGroup = 21516B640D2BCC4070C4A175;
-			productRefGroup = BAE6E64CBD3B57CA62DD90D1 /* Products */;
+			mainGroup = 785C1BB7139DBE570E987E5A;
+			productRefGroup = 8E9C23915369E08F7D8331E8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B781250D3998CE6AE84EC0F8 /* Dots */,
-				92308ADD25CFA4F9FD4A2AF5 /* DotsWidget */,
+				C5A0CFFC8C945D14EFD50E3D /* Dots */,
+				A13246ABB5473A304D74C3AA /* DotsWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		153C77EBC553E61F8E82828F /* Resources */ = {
+		14862F0F5A3A65046DA7D2BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B030B52142F2CD73730FBCB4 /* BuildFile in Resources */,
-				785F6BF1DB31B167B960FC28 /* Assets.xcassets in Resources */,
-				F840F6BAE9F706B8996F0CA4 /* CompanionBlueAtlas.png in Resources */,
-				EC7FBB841D8ADAAB29EA7E24 /* CompanionPillowAtlas.png in Resources */,
-				9D6B68349355F0D65230EE2E /* CompanionAtlas.png in Resources */,
+				F02C2948C68D24407E71EB29 /* CompanionAtlas.png in Resources */,
+				0E202F6675CF4F4D4BB66A30 /* CompanionBeanAtlas.png in Resources */,
+				04A6BB89E449FE3DE0671E44 /* CompanionBlueAtlas.png in Resources */,
+				DD215C244DDBEBFDD13B441D /* CompanionBonsaiAtlas.png in Resources */,
+				92386FDDD01B4EB559488828 /* CompanionBowlingAtlas.png in Resources */,
+				F2E2DD23D9E1C7D5EAC71B18 /* CompanionBubbleAtlas.png in Resources */,
+				A0371B3F139B42BD4EBA1195 /* CompanionCoconutAtlas.png in Resources */,
+				69B3B3CC18126FC0058CC4AE /* CompanionCoffeeAtlas.png in Resources */,
+				7A5F7B6B7F6CA538F72130E7 /* CompanionCumulusAtlas.png in Resources */,
+				9AEFB2AE2599C4F6F77A1A8A /* CompanionDrizzleAtlas.png in Resources */,
+				A3990A69B483F42323D86FF8 /* CompanionDropletAtlas.png in Resources */,
+				DA9C70BC76BB168DD6A7E725 /* CompanionDuskAtlas.png in Resources */,
+				CACC9A7741D8268679D3CC66 /* CompanionEmberAtlas.png in Resources */,
+				06AD991BB751C9FE182AE031 /* CompanionLunaAtlas.png in Resources */,
+				C2B528508AF4DAD535861655 /* CompanionMossAtlas.png in Resources */,
+				6F5167E6C72DAC15EF10B600 /* CompanionNimbusAtlas.png in Resources */,
+				A4D0E33F5E72F2B4D54B0394 /* CompanionOnionAtlas.png in Resources */,
+				03424603CE442C860ACBAA64 /* CompanionPebbleAtlas.png in Resources */,
+				217116D9BA4202A9E03460FD /* CompanionPetalAtlas.png in Resources */,
+				7656D9425F70007F1EF29FF1 /* CompanionPillowAtlas.png in Resources */,
+				C1409D27E26DE89B0CEDD7BD /* CompanionPuddingAtlas.png in Resources */,
+				906150B7DFE03F18ABC2EFFF /* CompanionPuffAtlas.png in Resources */,
+				83D79FA219256E178383229A /* CompanionRippleAtlas.png in Resources */,
+				E3464C297B5D03D7CE061198 /* CompanionSnowAtlas.png in Resources */,
+				0530D7738793CC4A73E09757 /* CompanionSproutAtlas.png in Resources */,
+				D39A3AFDC1AD46D5D2926316 /* CompanionStormAtlas.png in Resources */,
+				8FE591B983EF34B046B82A9F /* CompanionSunnyAtlas.png in Resources */,
+				DB69C794D238445CA290BD6E /* CompanionToastAtlas.png in Resources */,
+				F0D8F9B1408A68D924E6D270 /* CompanionTwinkleAtlas.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		24391D427AFE7DA0D27B21AE /* Resources */ = {
+		695B1D17092AEFF36933E61E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B2C9AD607220CB90D920C63 /* BuildFile in Resources */,
-				A69E723678D65716C5295A87 /* CompanionBlueAtlas.png in Resources */,
-				456FC02B2D15CA07F4A5FA62 /* CompanionPillowAtlas.png in Resources */,
-				C21FD77CCA17340275B8DA16 /* CompanionAtlas.png in Resources */,
+				3EC1D0A0EF735CAF453B9FAD /* CompanionAtlas.png in Resources */,
+				13D08CF48A9E12DF852DB6ED /* CompanionBeanAtlas.png in Resources */,
+				D3D544A40334E9160D93762D /* CompanionBlueAtlas.png in Resources */,
+				51C4E00326FB3B854C9118B1 /* CompanionBonsaiAtlas.png in Resources */,
+				DD7BB03D5ACF5EBB76853EA9 /* CompanionBowlingAtlas.png in Resources */,
+				356F556A00800BAE7DE64B2F /* CompanionBubbleAtlas.png in Resources */,
+				4881FE5BCC4D36B86EA9BF84 /* CompanionCoconutAtlas.png in Resources */,
+				DB6F4661DBA65000F4EA4384 /* CompanionCoffeeAtlas.png in Resources */,
+				445DA74AAF43CFD3640B3516 /* CompanionCumulusAtlas.png in Resources */,
+				AF067E1C72BCBC7E3DD8FC16 /* CompanionDrizzleAtlas.png in Resources */,
+				93EBFB93BA69E7B24E9E56FC /* CompanionDropletAtlas.png in Resources */,
+				139DFB0ECF88D36A165138BF /* CompanionDuskAtlas.png in Resources */,
+				02E03AA5AE391C4ECAF9B363 /* CompanionEmberAtlas.png in Resources */,
+				2DE203270D7350C92F7771A5 /* CompanionLunaAtlas.png in Resources */,
+				F5569BB21825D66E544BE6D3 /* CompanionMossAtlas.png in Resources */,
+				ADCEBBA64B816FEE50E60ED5 /* CompanionNimbusAtlas.png in Resources */,
+				7F4A9DBDA2AFBD05E64FD6EF /* CompanionOnionAtlas.png in Resources */,
+				6BE98633B5D2285C2128CBED /* CompanionPebbleAtlas.png in Resources */,
+				34B3D6BDA926C6842E4ABAAC /* CompanionPetalAtlas.png in Resources */,
+				6D8B806AA98FF5419DCDAB29 /* CompanionPillowAtlas.png in Resources */,
+				B7F79C1FBACB68F3EF89D214 /* CompanionPuddingAtlas.png in Resources */,
+				37354168C7125E660CC6D653 /* CompanionPuffAtlas.png in Resources */,
+				2C498DE2BBBDCAA438465BB6 /* CompanionRippleAtlas.png in Resources */,
+				FDEB953B6DA093D4410FDB47 /* CompanionSnowAtlas.png in Resources */,
+				E5CD1150FDFC711FD6BC758F /* CompanionSproutAtlas.png in Resources */,
+				9364FF3CA53DC8C6387557DC /* CompanionStormAtlas.png in Resources */,
+				4D9F69BB936CB5B34BA9B029 /* CompanionSunnyAtlas.png in Resources */,
+				4CD0EEBFA07771B20F8E2FEE /* CompanionToastAtlas.png in Resources */,
+				FE721235DA3CFF2EDE23B0E1 /* CompanionTwinkleAtlas.png in Resources */,
+				D03DFC78BB23CEF44D795E6A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0EF127139971BE629F5D6C28 /* Sources */ = {
+		AAA9FEF37A0A55D7AF2EC830 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				785F4883BF017FE1BE56A548 /* CloudCircle.swift in Sources */,
-				7633AED9D07FD23989FBE920 /* Companion.swift in Sources */,
-				2D9F091E9D1553D1919B3C57 /* CompanionView.swift in Sources */,
-				F759F4C22DAD3ED3109A96E5 /* DotsWidget.swift in Sources */,
+				2B6269E5B10D427435554AD3 /* CloudCircle.swift in Sources */,
+				1FB8B165F3823DFE0BCF6E58 /* Collection.swift in Sources */,
+				207D9CD95B0D359199D3BE73 /* Companion.swift in Sources */,
+				6A60563F2016C7D52EA0B1BE /* CompanionView.swift in Sources */,
+				6BE78E8C9C0ED1B19313BFEA /* CircleModel.swift in Sources */,
+				C97F900B34778FEA0F0D4CC7 /* CloudSharingView.swift in Sources */,
+				AA81FF799E2851B747FF9676 /* CollectionViews.swift in Sources */,
+				F0BAB324F9CA253D06E368E8 /* DotsApp.swift in Sources */,
+				15C3F39E5446DEB505C96F2C /* DotsViews.swift in Sources */,
+				D6E9E7793C3AD7F1D0D3B075 /* RestoreBudget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		41467D1C7FBC7B7FF9C2E3DB /* Sources */ = {
+		FAB8BBEEA9D596E127D3E199 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				651496AAA916AB5316F05511 /* CloudCircle.swift in Sources */,
-				DA4405CECFDAA87B66BD597B /* Companion.swift in Sources */,
-				F6967B5E92FCDF36F7B5F238 /* CompanionView.swift in Sources */,
-				CE0CE851E895491E7717B44D /* CircleModel.swift in Sources */,
-				F1354ECD13210F6BD50D5EA5 /* CloudSharingView.swift in Sources */,
-				F646A559B0C0231AC0854CB0 /* DotsApp.swift in Sources */,
-				7285F2AB13B056690D10BB02 /* DotsViews.swift in Sources */,
+				AE701C50625AD1A0846732D3 /* CloudCircle.swift in Sources */,
+				1490E487DF5C1A2895B398D3 /* Collection.swift in Sources */,
+				1FA69DB5DD1635F206B89216 /* Companion.swift in Sources */,
+				851E82E6858666EE69C829C9 /* CompanionView.swift in Sources */,
+				F8240E9A79073E14C9016941 /* DotsWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		54C1004B7948FA3EAF7D6F67 /* PBXTargetDependency */ = {
+		4AAA69151A2EBA668333321B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = DotsWidget;
-			target = 92308ADD25CFA4F9FD4A2AF5 /* DotsWidget */;
-			targetProxy = C4128B9F085A3BCF3735AC19 /* PBXContainerItemProxy */;
+			target = A13246ABB5473A304D74C3AA /* DotsWidget */;
+			targetProxy = CFD059BCFA427A2686F8DEDE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		213A2F5052121846F390AB57 /* Release */ = {
+		19C07FF8E0245DC26B33C966 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -299,7 +517,7 @@
 			};
 			name = Release;
 		};
-		3FDEA7D0CF0F7FD673A5BF09 /* Release */ = {
+		1AB20C40F8E2450F456F85BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -321,7 +539,7 @@
 			};
 			name = Release;
 		};
-		935935855A63D806DB682BF2 /* Release */ = {
+		3AED98EACC65292C7EABE6C9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -375,7 +593,7 @@
 			};
 			name = Release;
 		};
-		B6D5DD3F8DF0C328502372F2 /* Debug */ = {
+		AFF54BE5885E9BA56FD23FD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -396,7 +614,29 @@
 			};
 			name = Debug;
 		};
-		D6CCF56BC19D72C63C41D8D3 /* Debug */ = {
+		BA084833B0B43C9C59E06F95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = Dots/Dots.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Dots/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jasonmiller.dots;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DA09434ABBAE281A9EA6A49E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -457,59 +697,37 @@
 			};
 			name = Debug;
 		};
-		DC185A8ED49EF6BE039476AB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = Dots/Dots.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = Dots/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jasonmiller.dots;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		526983FF71A990F9D99CCE4C /* Build configuration list for PBXProject "Dots" */ = {
+		929B4A2AB834C30E5AB1E723 /* Build configuration list for PBXProject "Dots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D6CCF56BC19D72C63C41D8D3 /* Debug */,
-				935935855A63D806DB682BF2 /* Release */,
+				DA09434ABBAE281A9EA6A49E /* Debug */,
+				3AED98EACC65292C7EABE6C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5093551C8118EC942171EB1 /* Build configuration list for PBXNativeTarget "DotsWidget" */ = {
+		B0FCCB4A18FFFB060415058D /* Build configuration list for PBXNativeTarget "Dots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3FDEA7D0CF0F7FD673A5BF09 /* Release */,
-				B6D5DD3F8DF0C328502372F2 /* Debug */,
+				19C07FF8E0245DC26B33C966 /* Release */,
+				BA084833B0B43C9C59E06F95 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E50151AE4472928F5B178FFC /* Build configuration list for PBXNativeTarget "Dots" */ = {
+		DCBED7A543BBE4D700B84EAA /* Build configuration list for PBXNativeTarget "DotsWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				213A2F5052121846F390AB57 /* Release */,
-				DC185A8ED49EF6BE039476AB /* Debug */,
+				1AB20C40F8E2450F456F85BC /* Release */,
+				AFF54BE5885E9BA56FD23FD7 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 75CAEBEB64836800766D77A1 /* Project object */;
+	rootObject = DCF34631CD9AAE6B5A80E01F /* Project object */;
 }

@@ -31,7 +31,13 @@ performed by the source generation or check scripts.
 
 Use two supported iPhones on current iOS, each signed in to a different iCloud account.
 
-- Install the same signed build on both; adopt different companions and select different moods.
+- Install the same signed build on both; hatch the free creature, rename it and select different moods.
+- Rub and tap the egg, and test its accessible alternatives. Boop and pet the creature; verify the reaction
+  does not alter the selected mood. Check Reduce Motion and haptics.
+- Verify same-day mood changes count once, earned eggs reveal unowned creatures, and selection from
+  Collection persists. Test gaps with each of the three lifetime restores, then a fourth gap.
+- Delete and hatch again; confirm the restore budget remains used. Test the Keychain receipt after
+  reinstall and on a second device, including offline changes, before claiming cross-device enforcement.
 - Invite B from A using Apple's private sharing sheet. Confirm B can see A after accepting.
 - Invite A back from B. Confirm A now sees B. A single invitation is intentionally one-way;
   neither party receives permission to edit the other's name, creature, or mood.

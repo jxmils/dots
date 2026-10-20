@@ -34,7 +34,8 @@ jobs:
               exit 1
             }
           test -d build/Dots.xcarchive/Products/Applications/Dots.app/PlugIns/DotsWidget.appex
-          for name in CompanionAtlas CompanionBlueAtlas CompanionPillowAtlas; do
+          for image in Resources/*.png; do
+            name=$(basename "$image" .png)
             test -s "build/Dots.xcarchive/Products/Applications/Dots.app/$name.png"
             test -s "build/Dots.xcarchive/Products/Applications/Dots.app/PlugIns/DotsWidget.appex/$name.png"
           done

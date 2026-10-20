@@ -87,8 +87,7 @@ struct MoodWidgetView: View {
             case .accessoryCircular:
                 FriendWidgetView(friend: entry.friend, circular: true)
             case .accessoryInline:
-                if let friend = entry.friend { Label("\(friend.ownerName) · \(friend.mood.title)", systemImage: friend.mood.symbol) }
-                else { Label("Open Dots to add a friend", systemImage: "heart") }
+                FriendWidgetView(friend: entry.friend, inline: true)
             case .systemSmall:
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {

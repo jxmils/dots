@@ -2,9 +2,9 @@ import SwiftUI
 import CloudKit
 
 enum DotsTab: String, CaseIterable {
-    case home = "My companion", friends = "My circle", widget = "Widgets"
+    case home = "Companion", friends = "My circle", collection = "Collection", widget = "Widgets"
     var icon: String {
-        switch self { case .home: "heart.fill"; case .friends: "person.2.fill"; case .widget: "rectangle.inset.filled" }
+        switch self { case .home: "heart.fill"; case .friends: "person.2.fill"; case .collection: "sparkles"; case .widget: "rectangle.inset.filled" }
     }
 }
 
@@ -13,13 +13,14 @@ struct DotsRoot: View {
     @Environment(\.scenePhase) private var phase
     @State private var tab: DotsTab
     @State private var friend: Companion?
+    @State private var welcoming = false
     init(tab: DotsTab = .home) { _tab = State(initialValue: tab) }
 
     var body: some View {
         @Bindable var model = model
         Group {
-            if model.state.companion == nil {
-                AdoptionView()
+            if model.state.companion == nil || welcoming {
+                HatchingView(free: true, onFinish: { welcoming = false }).onAppear { welcoming = true }
             } else {
                 VStack(spacing: 0) {
                     HStack {
@@ -52,6 +53,8 @@ struct DotsRoot: View {
         .preferredColorScheme(.light)
         .sheet(isPresented: $model.showSettings) { SettingsView() }
         .sheet(isPresented: $model.showWidgetGuide) { WidgetGuide() }
+        .sheet(isPresented: $model.showHatch) { HatchingView() }
+        .sheet(isPresented: $model.showRestore) { RestoreStreakView() }
         .sheet(item: $friend) { FriendDetail(friend: $0) }
         .sheet(isPresented: $model.showSharing) {
             if let share = model.share { CloudSharingView(share: share, model: model) }
@@ -80,6 +83,7 @@ struct DotsRoot: View {
             switch tab {
             case .home: CompanionHome(onCircle: { tab = .friends })
             case .friends: CircleView(onFriend: { friend = $0 })
+            case .collection: CollectionView()
             case .widget: WidgetSettingsView()
             }
         }.padding(.horizontal, 24).padding(.bottom, 24)
@@ -109,6 +113,7 @@ struct DotsTabBar: View {
 struct CompanionHome: View {
     @Environment(CircleModel.self) private var model
     var onCircle: () -> Void
+    @State private var playMessage: String?
     var body: some View {
         if let companion = model.state.companion {
             VStack(alignment: .leading, spacing: 18) {
@@ -120,14 +125,15 @@ struct CompanionHome: View {
                     ZStack {
                         Circle().fill(companion.mood.color.opacity(0.16)).frame(width: 188, height: 188)
                         Ellipse().fill(DotsStyle.plum.opacity(0.09)).frame(width: 140, height: 15).offset(y: 85).blur(radius: 10)
-                        CompanionView(mood: companion.mood, kind: companion.kind, animate: true).frame(width: 218, height: 218)
+                        CompanionView(mood: companion.mood, kind: companion.kind, animate: true, onPlay: { playMessage = $0 })
+                            .frame(width: 218, height: 218)
                     }
                     Text(companion.petName).font(DotsStyle.round(26, weight: .bold)).padding(.top, 3)
                     HStack(spacing: 5) {
                         Text("Feeling")
                         Text(companion.mood.title.lowercased()).fontWeight(.semibold)
                     }.font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted).padding(.top, 3)
-                    Text(companion.mood.reassurance).font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
+                    Text(playMessage ?? companion.mood.reassurance).font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
                         .multilineTextAlignment(.center).padding(.top, 10)
                 }.frame(maxWidth: .infinity).padding(.bottom, 5)
 
@@ -155,6 +161,19 @@ struct CompanionHome: View {
                     Text(model.state.cloudEnabled ? "Shared with the people you've invited." : "Just for you. Invite a friend when you're ready.")
                         .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }
+                if !model.state.collection.eggs.isEmpty {
+                    Button { model.showHatch = true } label: {
+                        Label("Someone new is ready to hatch", systemImage: "sparkles")
+                            .font(DotsStyle.round(14, weight: .bold)).frame(maxWidth: .infinity).padding(16)
+                            .foregroundStyle(.white).background(DotsStyle.plum, in: RoundedRectangle(cornerRadius: 22))
+                    }
+                }
+                HStack(spacing: 6) {
+                    Image(systemName: "flame.fill").foregroundStyle(Mood.focused.color)
+                    Text("\(model.state.collection.currentStreak(on: CheckInDay.number(Date()))) day streak")
+                    Spacer()
+                    Text("\(model.state.collection.owned.count)/\(CompanionKind.allCases.count) little friends")
+                }.font(DotsStyle.round(11, weight: .semibold)).foregroundStyle(DotsStyle.muted)
                 Button(action: onCircle) {
                     HStack(spacing: 12) {
                         Image(systemName: "person.2.fill").font(.system(size: 18)).foregroundStyle(DotsStyle.plum)
@@ -169,45 +188,6 @@ struct CompanionHome: View {
                 }.buttonStyle(.plain)
             }
         }
-    }
-}
-
-struct AdoptionView: View {
-    @Environment(CircleModel.self) private var model
-    @State private var owner = ""
-    @State private var name = "Mochi"
-    @State private var kind: CompanionKind = .lavender
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 22) {
-                Text("dots").font(DotsStyle.round(30, weight: .bold)).padding(.top, 24)
-                Text("Someone small.\nSomething lovely.").font(DotsStyle.round(34, weight: .bold)).multilineTextAlignment(.center).tracking(-1)
-                CompanionView(mood: .happy, kind: kind, animate: true).frame(width: 260, height: 260)
-                HStack(spacing: 12) {
-                    ForEach(CompanionKind.allCases) { option in
-                        Button { kind = option } label: {
-                            VStack(spacing: 3) {
-                                CompanionView(mood: .happy, kind: option).frame(width: 60, height: 60)
-                                Text(option.title).font(DotsStyle.round(12, weight: .semibold))
-                            }.padding(9).frame(maxWidth: .infinity)
-                                .background(kind == option ? DotsStyle.lilac : .white.opacity(0.6), in: RoundedRectangle(cornerRadius: 21))
-                        }.buttonStyle(.plain).accessibilityLabel("Choose \(option.title)")
-                            .accessibilityAddTraits(kind == option ? .isSelected : [])
-                    }
-                }
-                VStack(alignment: .leading, spacing: 14) {
-                    TextField("Your first name", text: $owner).textContentType(.givenName).accessibilityLabel("Your first name")
-                    Divider()
-                    TextField("Companion's name", text: $name).accessibilityLabel("Companion's name")
-                }.font(DotsStyle.round(16)).padding(20).background(.white, in: RoundedRectangle(cornerRadius: 22))
-                Button { model.adopt(owner: owner, name: name, kind: kind) } label: {
-                    Text("Meet your companion").font(DotsStyle.round(16, weight: .bold)).frame(maxWidth: .infinity).padding(19)
-                        .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
-                }.disabled(!model.storageAvailable || owner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                Text("Pick a mood. Keep your people close.\nNo streaks to protect. No creature to disappoint.")
-                    .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
-            }.padding(.horizontal, 28).padding(.bottom, 24)
-        }.scrollIndicators(.hidden)
     }
 }
 
@@ -278,6 +258,7 @@ struct WidgetSettingsView: View {
             }.padding(.top, 20)
             VStack(spacing: 22) {
                 Text("9:41").font(.system(size: 64, weight: .thin, design: .rounded))
+                FriendWidgetView(friend: model.state.widgetFriend(), inline: true).frame(height: 18)
                 HStack(spacing: 16) {
                     FriendWidgetView(friend: model.state.widgetFriend(), circular: true)
                         .frame(width: 65, height: 65).background(.white.opacity(0.17), in: Circle())
@@ -389,13 +370,13 @@ struct SettingsView: View {
                 Section("Widgets") { Button("How to add a Lock Screen widget") { model.showSettings = false; DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { model.showWidgetGuide = true } } }
                 Section {
                     Text("Dots doesn't guess your feelings. You choose what to share, and you never have to check in.")
-                    Text("Your companion and preferences are saved on this device. If you connect friends, your current name, companion and mood are shared through Apple's iCloud. Dots has no ads, analytics, chat or public directory.")
+                    Text("Your companions, collection, streak and preferences are saved on this device. A secure receipt keeps track of your three lifetime streak restores. If you connect friends, your current name, companion and mood are shared through Apple's iCloud. Dots has no ads, analytics, chat or public directory.")
                 } header: { Text("A small, private space") }
                 Section {
                     Button("Delete my companion & shared mood", role: .destructive) { confirmDelete = true }
                         .disabled(model.deleting)
                     if model.deleting { ProgressView("Removing shared companion…") }
-                } footer: { Text("Removes your companion, friend list and settings from this device and deletes your shared companion from iCloud. Your friends will lose access to it.") }
+                } footer: { Text("Removes your companions, collection, streak, friend list and settings from this device and deletes your shared companion from iCloud. Your friends will lose access to it. Used lifetime streak restores remain used.") }
             }
             .navigationTitle("The little details").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }

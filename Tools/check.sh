@@ -23,10 +23,10 @@ swiftc -typecheck -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared
 echo '== Plists and project'
 plutil -lint Dots/Info.plist DotsWidget/Info.plist Dots/*.entitlements DotsWidget/*.entitlements Dots.xcodeproj/project.pbxproj
 echo '== Behavior and artwork checks'
-swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/CircleModel.swift Tests/main.swift -o "$TMP/checks"
+swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/RestoreBudget.swift Dots/CircleModel.swift Tests/main.swift -o "$TMP/checks"
 "$TMP/checks"
 echo '== App and widget renders'
-swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/CircleModel.swift Dots/DotsViews.swift Dots/CloudSharingView.swift Dots/DotsApp.swift Tools/render.swift -D DOTS_RENDER -o "$TMP/render"
+swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/RestoreBudget.swift Dots/CircleModel.swift Dots/DotsViews.swift Dots/CloudSharingView.swift Dots/DotsApp.swift Dots/CollectionViews.swift Tools/render.swift -D DOTS_RENDER -o "$TMP/render"
 "$TMP/render" "$OUT"
 test -s "$OUT/preview.png"
 test -s Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png
