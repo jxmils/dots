@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		2C9A7FD487F4998F5098A92E /* DotsWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9B7BF69895FEA028D82D709F /* DotsWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2D9F091E9D1553D1919B3C57 /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3292144423FAA42B067B15 /* CompanionView.swift */; };
-		3B2C9AD607220CB90D920C63 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 3FC367E457C3DDB9BEE1C258 /* Resources */; };
+		3B2C9AD607220CB90D920C63 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		456FC02B2D15CA07F4A5FA62 /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 624920728CF8722FDF4BC4EF /* CompanionPillowAtlas.png */; };
 		58D68CDF1D578F456776BFBF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B4E26C202DD7FED60F50F9 /* Foundation.framework */; };
 		651496AAA916AB5316F05511 /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A52217A52BCAE98984F4D /* CloudCircle.swift */; };
 		7285F2AB13B056690D10BB02 /* DotsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AF549755987CE7C4F1A26 /* DotsViews.swift */; };
 		7633AED9D07FD23989FBE920 /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6BD84F9A68187F20F8835 /* Companion.swift */; };
 		785F4883BF017FE1BE56A548 /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A52217A52BCAE98984F4D /* CloudCircle.swift */; };
 		785F6BF1DB31B167B960FC28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 712BE9E90010309C7ECAF47E /* Assets.xcassets */; };
-		B030B52142F2CD73730FBCB4 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = CA9A71F641A7EF405E23EB9F /* Resources */; };
+		9D6B68349355F0D65230EE2E /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0780800DA201A5FB7EE1305C /* CompanionAtlas.png */; };
+		A69E723678D65716C5295A87 /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C481A3977CD6E7E024B1518E /* CompanionBlueAtlas.png */; };
+		B030B52142F2CD73730FBCB4 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		C21FD77CCA17340275B8DA16 /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 3932C270A86D6360E8777399 /* CompanionAtlas.png */; };
 		CE0CE851E895491E7717B44D /* CircleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF7FB89F14774D963862CD5 /* CircleModel.swift */; };
 		DA4405CECFDAA87B66BD597B /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6BD84F9A68187F20F8835 /* Companion.swift */; };
+		EC7FBB841D8ADAAB29EA7E24 /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB94ABA7BF31DAFEBB17123 /* CompanionPillowAtlas.png */; };
 		ECD2B39FB1E2E924BA1FE370 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58B4E26C202DD7FED60F50F9 /* Foundation.framework */; };
 		F1354ECD13210F6BD50D5EA5 /* CloudSharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6293F80975C6006669ED2910 /* CloudSharingView.swift */; };
 		F646A559B0C0231AC0854CB0 /* DotsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD581C3E0EB8D3F22B6AE963 /* DotsApp.swift */; };
 		F6967B5E92FCDF36F7B5F238 /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3292144423FAA42B067B15 /* CompanionView.swift */; };
 		F759F4C22DAD3ED3109A96E5 /* DotsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9F4EABF0F7CA186BE3C13A /* DotsWidget.swift */; };
+		F840F6BAE9F706B8996F0CA4 /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 423B1504125059957466A044 /* CompanionBlueAtlas.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,17 +57,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0780800DA201A5FB7EE1305C /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
+		0AB94ABA7BF31DAFEBB17123 /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
 		0D9874D905054F324E859040 /* Dots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD6BD84F9A68187F20F8835 /* Companion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Companion.swift; path = Shared/Companion.swift; sourceTree = "<group>"; };
+		3932C270A86D6360E8777399 /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
 		3E0AF549755987CE7C4F1A26 /* DotsViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsViews.swift; path = Dots/DotsViews.swift; sourceTree = "<group>"; };
-		3FC367E457C3DDB9BEE1C258 /* Resources */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		423B1504125059957466A044 /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
 		436A52217A52BCAE98984F4D /* CloudCircle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudCircle.swift; path = Shared/CloudCircle.swift; sourceTree = "<group>"; };
 		58B4E26C202DD7FED60F50F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		624920728CF8722FDF4BC4EF /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
 		6293F80975C6006669ED2910 /* CloudSharingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudSharingView.swift; path = Dots/CloudSharingView.swift; sourceTree = "<group>"; };
 		712BE9E90010309C7ECAF47E /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Dots/Assets.xcassets; sourceTree = "<group>"; };
 		9B7BF69895FEA028D82D709F /* DotsWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DotsWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C3292144423FAA42B067B15 /* CompanionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompanionView.swift; path = Shared/CompanionView.swift; sourceTree = "<group>"; };
-		CA9A71F641A7EF405E23EB9F /* Resources */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		C481A3977CD6E7E024B1518E /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
 		CFF7FB89F14774D963862CD5 /* CircleModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CircleModel.swift; path = Dots/CircleModel.swift; sourceTree = "<group>"; };
 		EE9F4EABF0F7CA186BE3C13A /* DotsWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsWidget.swift; path = DotsWidget/DotsWidget.swift; sourceTree = "<group>"; };
 		FD581C3E0EB8D3F22B6AE963 /* DotsApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsApp.swift; path = Dots/DotsApp.swift; sourceTree = "<group>"; };
@@ -99,10 +109,14 @@
 				6293F80975C6006669ED2910 /* CloudSharingView.swift */,
 				FD581C3E0EB8D3F22B6AE963 /* DotsApp.swift */,
 				3E0AF549755987CE7C4F1A26 /* DotsViews.swift */,
-				CA9A71F641A7EF405E23EB9F /* Resources */,
 				EE9F4EABF0F7CA186BE3C13A /* DotsWidget.swift */,
-				3FC367E457C3DDB9BEE1C258 /* Resources */,
 				712BE9E90010309C7ECAF47E /* Assets.xcassets */,
+				423B1504125059957466A044 /* CompanionBlueAtlas.png */,
+				0AB94ABA7BF31DAFEBB17123 /* CompanionPillowAtlas.png */,
+				0780800DA201A5FB7EE1305C /* CompanionAtlas.png */,
+				C481A3977CD6E7E024B1518E /* CompanionBlueAtlas.png */,
+				624920728CF8722FDF4BC4EF /* CompanionPillowAtlas.png */,
+				3932C270A86D6360E8777399 /* CompanionAtlas.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,8 +217,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B030B52142F2CD73730FBCB4 /* Resources in Resources */,
+				B030B52142F2CD73730FBCB4 /* BuildFile in Resources */,
 				785F6BF1DB31B167B960FC28 /* Assets.xcassets in Resources */,
+				F840F6BAE9F706B8996F0CA4 /* CompanionBlueAtlas.png in Resources */,
+				EC7FBB841D8ADAAB29EA7E24 /* CompanionPillowAtlas.png in Resources */,
+				9D6B68349355F0D65230EE2E /* CompanionAtlas.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +229,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B2C9AD607220CB90D920C63 /* Resources in Resources */,
+				3B2C9AD607220CB90D920C63 /* BuildFile in Resources */,
+				A69E723678D65716C5295A87 /* CompanionBlueAtlas.png in Resources */,
+				456FC02B2D15CA07F4A5FA62 /* CompanionPillowAtlas.png in Resources */,
+				C21FD77CCA17340275B8DA16 /* CompanionAtlas.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

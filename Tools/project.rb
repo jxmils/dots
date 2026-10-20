@@ -10,9 +10,10 @@ shared = Dir[File.join(root, 'Shared/*.swift')].sort.map { |path| project.main_g
 [[app, 'Dots'], [widget, 'DotsWidget']].each do |target, folder|
   files = Dir[File.join(root, folder, '*.swift')].sort.map { |path| project.main_group.new_file(path.delete_prefix(root + '/')) }
   target.add_file_references(shared + files)
-  resource = project.main_group.new_file('Resources')
-  resource.last_known_file_type = 'folder'
-  target.resources_build_phase.add_file_reference(resource)
+  Dir[File.join(root, 'Resources', '*.png')].sort.each do |path|
+    resource = project.main_group.new_file(path.delete_prefix(root + '/'))
+    target.resources_build_phase.add_file_reference(resource)
+  end
   target.build_configurations.each do |configuration|
     s = configuration.build_settings
     s['SWIFT_VERSION'] = '5.0'

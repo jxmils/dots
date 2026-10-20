@@ -35,8 +35,8 @@ jobs:
             }
           test -d build/Dots.xcarchive/Products/Applications/Dots.app/PlugIns/DotsWidget.appex
           for name in CompanionAtlas CompanionBlueAtlas CompanionPillowAtlas; do
-            test -s "build/Dots.xcarchive/Products/Applications/Dots.app/Resources/$name.png"
-            test -s "build/Dots.xcarchive/Products/Applications/Dots.app/PlugIns/DotsWidget.appex/Resources/$name.png"
+            test -s "build/Dots.xcarchive/Products/Applications/Dots.app/$name.png"
+            test -s "build/Dots.xcarchive/Products/Applications/Dots.app/PlugIns/DotsWidget.appex/$name.png"
           done
       - uses: actions/upload-artifact@v4
         if: always()
