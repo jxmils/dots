@@ -53,13 +53,13 @@ struct HatchingView: View {
                     Text("Keep their default name or make it your own.").font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }
                 Text("A little companion for all your feelings.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
-                Button {
-                    let chosen = petName.trimmingCharacters(in: .whitespacesAndNewlines)
-                    model.rename(owner: model.state.companion?.ownerName ?? hatchOwner,
-                                 pet: chosen.isEmpty ? revealed.defaultName : chosen)
-                    model.showHatch = false; dismiss()
-                    onFinish?()
-                } label: { pill("Take them home", icon: "heart.fill") }
+                Button { finish(makePreferred: true) } label: {
+                    pill(free ? "Take them home" : "Make this my Dot", icon: "heart.fill")
+                }
+                if !free {
+                    Button("Keep my current Dot") { finish(makePreferred: false) }
+                        .font(DotsStyle.round(14, weight: .semibold))
+                }
             } else {
                 Text(free ? "A little beginning." : "A little thank you.")
                     .font(DotsStyle.round(32, weight: .bold)).multilineTextAlignment(.center)
@@ -110,6 +110,11 @@ struct HatchingView: View {
             Spacer(minLength: 0)
         }
         .padding(28).frame(maxWidth: .infinity, minHeight: 740)
+    }
+    private func finish(makePreferred: Bool) {
+        guard let revealed, model.nameCreature(revealed, pet: petName) else { return }
+        if makePreferred { model.activate(revealed) }
+        model.showHatch = false; dismiss(); onFinish?()
     }
     private func pill(_ title: String, icon: String) -> some View {
         Label(title, systemImage: icon).font(DotsStyle.round(16, weight: .bold)).frame(maxWidth: .infinity).padding(19)
@@ -171,6 +176,8 @@ struct CollectionView: View {
             Text("Little by little.").font(DotsStyle.round(32, weight: .bold)).padding(.top, 20)
             Text("\(progress.owned.count) of \(CompanionKind.allCases.count) companions have found their way to you.")
                 .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
+            Text("Choose an owned companion as your profile Dot. It's who your friends will see.")
+                .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
             HStack {
                 stat("\(streak)", "day streak", "flame.fill")
                 Spacer(); stat("\(progress.bestStreak)", "best streak", "sparkles")
@@ -218,10 +225,12 @@ struct CollectionView: View {
                 Text(model.state.collection.names[kind.rawValue] ?? kind.defaultName).font(DotsStyle.round(30, weight: .bold))
                 Text(kind.title).font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
                 Button { model.activate(kind); selected = nil } label: {
-                    Text("Keep me company").font(DotsStyle.round(16, weight: .bold)).padding(18).frame(maxWidth: .infinity)
+                    Text(model.state.companion?.kind == kind ? "This is my Dot" : "Make this my Dot").font(DotsStyle.round(16, weight: .bold)).padding(18).frame(maxWidth: .infinity)
                         .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
-                }
-            }.padding(30).presentationDetents([.medium, .large]).presentationBackground(DotsStyle.paper)
+                }.disabled(model.state.companion?.kind == kind)
+                Text("Appears on your profile and in your friends' circle and widgets when shared.")
+                    .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
+            }.padding(30).presentationDetents([.large]).presentationBackground(DotsStyle.paper)
         }
     }
     private func stat(_ value: String, _ label: String, _ icon: String) -> some View {
@@ -249,7 +258,7 @@ struct RestoreStreakView: View {
             }.disabled(model.state.collection.restoresRemaining == 0)
             Button("Start a new streak") { model.resolveRestore(use: false) }.font(DotsStyle.round(14))
         }.padding(30).frame(maxWidth: .infinity, maxHeight: .infinity).background(DotsStyle.paper)
-            .presentationDetents([.medium, .large]).interactiveDismissDisabled()
+            .presentationDetents([.large]).interactiveDismissDisabled()
             .alert("A little hiccup", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
                 Button("OK") { model.error = nil }
             } message: { Text(model.error ?? "") }

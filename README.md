@@ -17,6 +17,8 @@ AI conversation, inferred feelings, feeding obligations, advertising, or analyti
 - Mood selection, persistent names and preferences, an animated squish that respects Reduce Motion.
 - Private iCloud invitations. Invite someone to see your current mood; accept their invitation to see theirs.
   Each person controls their own read-only share. There is no public profile or contact upload.
+- Choose any owned companion as your preferred profile Dot; the same creature and its remembered name
+  appear at home, on your profile, and in the mood shared with friends and their widgets.
 - A friend circle ordered by latest mood; pin one friend for your widget.
 - Circular, rectangular, and inline Lock Screen widgets and a small Home Screen widget.
   Each widget can use the app preference, show the latest friend, or select a specific friend.

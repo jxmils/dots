@@ -30,9 +30,9 @@ struct DotsRoot: View {
                         }
                         Spacer()
                         Button { model.showSettings = true } label: {
-                            Image(systemName: "slider.horizontal.3").font(.system(size: 18))
+                            CompanionView(mood: model.state.companion?.mood ?? .calm, kind: model.state.companion?.kind ?? .lavender)
                                 .frame(width: 44, height: 44).background(.white.opacity(0.7), in: Circle())
-                        }.accessibilityLabel("Settings")
+                        }.accessibilityLabel("Your profile and settings")
                     }.padding(.horizontal, 24).padding(.top, 8).padding(.bottom, 4)
                     if model.preview {
                         // ImageRenderer doesn't draw UIKit-backed scroll views. Use the same content at its natural size.
@@ -51,7 +51,7 @@ struct DotsRoot: View {
         .background(DotsStyle.paper.ignoresSafeArea())
         .tint(DotsStyle.plum)
         .preferredColorScheme(.light)
-        .sheet(isPresented: $model.showSettings) { SettingsView() }
+        .sheet(isPresented: $model.showSettings) { SettingsView(onChooseDot: { model.showSettings = false; tab = .collection }) }
         .sheet(isPresented: $model.showWidgetGuide) { WidgetGuide() }
         .sheet(isPresented: $model.showHatch) { HatchingView() }
         .sheet(isPresented: $model.showRestore) { RestoreStreakView() }
@@ -342,7 +342,23 @@ struct FriendDetail: View {
     }
 }
 
+struct ProfileDotCard: View {
+    var companion: Companion
+    var body: some View {
+        VStack(spacing: 10) {
+            CompanionView(mood: companion.mood, kind: companion.kind).frame(width: 154, height: 154)
+            Text(companion.ownerName).font(DotsStyle.round(29, weight: .bold))
+            Text("\(companion.petName) is your Dot").font(DotsStyle.round(15, weight: .semibold))
+            MoodBadge(mood: companion.mood)
+            Text("Shown to friends when you share a mood.")
+                .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+        }.frame(maxWidth: .infinity).padding(22).background(DotsStyle.lilac.opacity(0.35), in: RoundedRectangle(cornerRadius: 28))
+            .foregroundStyle(DotsStyle.ink)
+    }
+}
+
 struct SettingsView: View {
+    var onChooseDot: () -> Void = {}
     @Environment(CircleModel.self) private var model
     @Environment(\.dismiss) private var dismiss
     @State private var owner = ""
@@ -351,6 +367,10 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                Section {
+                    if let companion = model.state.companion { ProfileDotCard(companion: companion) }
+                    Button("Choose my profile Dot", action: onChooseDot)
+                } header: { Text("Your preferred Dot") }
                 Section("Your little companion") {
                     TextField("Your first name", text: $owner)
                     TextField("Companion's name", text: $pet)
@@ -378,7 +398,7 @@ struct SettingsView: View {
                     if model.deleting { ProgressView("Removing shared companion…") }
                 } footer: { Text("Removes your companions, collection, streak, friend list and settings from this device and deletes your shared companion from iCloud. Your friends will lose access to it. Used lifetime streak restores remain used.") }
             }
-            .navigationTitle("The little details").navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Your profile").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
             .onAppear { owner = model.state.companion?.ownerName ?? ""; pet = model.state.companion?.petName ?? "" }
             .confirmationDialog("Delete your companion?", isPresented: $confirmDelete, titleVisibility: .visible) {

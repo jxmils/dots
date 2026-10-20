@@ -45,6 +45,13 @@ import UniformTypeIdentifiers
         try save(phone(.pillow, tab: .collection), to: out.appendingPathComponent("collection.png"))
         try save(HatchingView(free: true).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874), to: out.appendingPathComponent("hatching.png"))
         try save(HatchingView(free: true, previewRevealed: .coconut).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874), to: out.appendingPathComponent("hatch-name.png"))
+        let profile = VStack(alignment: .leading, spacing: 22) {
+            Text("Your profile").font(DotsStyle.round(30, weight: .bold))
+            ProfileDotCard(companion: Companion(id: "me", ownerName: "Jason", petName: "Coco", mood: .happy, updatedAt: now, kind: .coconut))
+            Label("Choose my profile Dot", systemImage: "sparkles").font(DotsStyle.round(16, weight: .bold)).foregroundStyle(DotsStyle.plum)
+            Text("Pick any companion you've hatched from your collection.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
+        }.padding(28).frame(width: 402).background(DotsStyle.paper)
+        try save(profile, to: out.appendingPathComponent("profile.png"))
         let catalogue = VStack(alignment: .leading, spacing: 20) {
             Text("Twenty-nine tiny someones.").font(DotsStyle.round(34, weight: .bold))
             Text("One free beginning. Twenty-eight little discoveries.").font(DotsStyle.round(17)).foregroundStyle(DotsStyle.muted)

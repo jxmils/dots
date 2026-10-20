@@ -4,7 +4,10 @@ There are 29 creatures with six expressions each. The first random creature is f
 egg by rubbing, then taps three times to reveal it. VoiceOver actions provide the same path without rubbing.
 The reveal prefills a default creature name, which can be changed before taking them home. Names can
 also be edited in Settings and are remembered separately for each owned creature. Blank input keeps
-the default name. No hatch can duplicate an owned creature. Any owned creature can be selected from Collection.
+the default name. No hatch can duplicate an owned creature. Any owned creature can be selected from Collection with Make this my Dot. This sets the profile Dot,
+home companion and the creature published to invited friends. Their widgets display that same selection
+after a successful refresh. A reward hatch keeps the preferred Dot until the user explicitly selects
+Make this my Dot; Keep my current Dot saves the new pet and its name without replacing the profile. The profile screen offers a direct route back to this choice.
 
 A mood selection counts once per local calendar day. Additional selections still update the shared mood,
 without awarding more days. Calendar day arithmetic covers daylight-saving changes. Earlier clock dates

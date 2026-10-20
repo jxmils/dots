@@ -109,10 +109,6 @@ final class CircleModel {
         if free {
             state.companion = Companion(id: UUID().uuidString, ownerName: String(name.prefix(24)), petName: kind.defaultName,
                                         mood: .calm, updatedAt: Date(), kind: kind)
-        } else {
-            state.companion?.kind = kind
-            state.companion?.petName = kind.defaultName
-            state.companion?.updatedAt = Date()
         }
         do {
             if !preview { try store.save(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
@@ -121,6 +117,25 @@ final class CircleModel {
         }
         Task { await refresh() }
         return kind
+    }
+
+    @discardableResult func nameCreature(_ kind: CompanionKind, pet: String) -> Bool {
+        guard storageAvailable, state.collection.owned.contains(kind) else { return false }
+        let value = String(pet.trimmingCharacters(in: .whitespacesAndNewlines).prefix(24))
+        let name = value.isEmpty ? kind.defaultName : value
+        let before = state
+        state.collection.names[kind.rawValue] = name
+        if state.companion?.kind == kind {
+            state.companion?.petName = name
+            state.companion?.updatedAt = Date()
+        }
+        do {
+            if !preview { try store.save(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
+        } catch {
+            state = before; self.error = "That name couldn't be saved. Please try again."; return false
+        }
+        Task { await refresh() }
+        return true
     }
 
     func activate(_ kind: CompanionKind) {

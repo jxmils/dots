@@ -67,11 +67,18 @@ import UIKit
         try namingStore.save(namingState)
         let namingModel = CircleModel(store: namingStore)
         let hatched = namingModel.hatch()!
-        precondition(namingModel.state.companion?.petName == hatched.defaultName, "A hatch must start with its default name")
-        namingModel.rename(owner: "Alex", pet: "  Coconutty  ")
+        precondition(namingModel.state.collection.names[hatched.rawValue] == hatched.defaultName, "A hatch must start with its default name")
+        precondition(namingModel.state.companion?.kind == a.kind, "Hatching must keep the preferred profile Dot until the user chooses")
+        precondition(namingModel.nameCreature(hatched, pet: "  Coconutty  "))
+        precondition(namingModel.state.companion?.petName == a.petName, "Naming a new pet must not rename the existing profile Dot")
         namingModel.activate(a.kind)
         precondition(namingModel.state.companion?.petName == a.petName, "Each owned creature keeps its own name")
+        let locked = namingModel.state.collection.unowned.first!
+        namingModel.activate(locked)
+        precondition(namingModel.state.companion?.kind == a.kind, "Locked creatures cannot be selected as the profile Dot")
         namingModel.activate(hatched)
+        precondition(namingModel.state.companion?.kind == hatched, "The chosen owned creature becomes the profile and shared Dot")
+        precondition(namingModel.state.companion?.mood == a.mood, "Selecting a profile Dot must preserve the chosen mood")
         precondition(namingModel.state.companion?.petName == "Coconutty", "The hatch name must survive switching companions")
         let savedNames = try namingStore.load().collection.names
         precondition(savedNames[hatched.rawValue] == "Coconutty", "Names must persist")
