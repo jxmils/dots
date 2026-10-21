@@ -35,18 +35,32 @@ enum CompanionArt {
         return cache
     }()
     static func image(_ mood: Mood, kind: CompanionKind = .lavender) -> UIImage? {
-        let key = kind.rawValue + mood.rawValue
+        frame(mood.spriteIndex, asset: kind.asset)
+    }
+    static func touchImage(_ index: Int, kind: CompanionKind) -> UIImage? {
+        frame(index, asset: kind.touchAsset)
+    }
+    private static func frame(_ index: Int, asset: String) -> UIImage? {
+        guard (0..<6).contains(index) else { return nil }
+        let key = asset + String(index)
         if let cached = cache.object(forKey: key as NSString) { return cached }
-        let url = directory?.appendingPathComponent(kind.asset + ".png")
-            ?? Bundle.main.url(forResource: kind.asset, withExtension: "png")
-            ?? Bundle.main.url(forResource: kind.asset, withExtension: "png", subdirectory: "Resources")
+        let url = directory?.appendingPathComponent(asset + ".png")
+            ?? Bundle.main.url(forResource: asset, withExtension: "png")
+            ?? Bundle.main.url(forResource: asset, withExtension: "png", subdirectory: "Resources")
         guard let url, let source = UIImage(contentsOfFile: url.path)?.cgImage else { return nil }
         let width = source.width / 3, height = source.height / 2
-        let i = mood.spriteIndex
-        guard let cell = source.cropping(to: CGRect(x: (i % 3) * width, y: (i / 3) * height, width: width, height: height)) else { return nil }
+        var crop = CGRect(x: (index % 3) * width, y: (index / 3) * height, width: width, height: height)
+        var destination = CGRect(x: 0, y: 0, width: width, height: height)
+        if let layout = CompanionTouchLayout.frames[asset]?[index] {
+            crop = CGRect(x: layout[0], y: layout[1], width: layout[2], height: layout[3])
+            let drawnWidth = layout[2] * layout[6], drawnHeight = layout[3] * layout[6]
+            destination = CGRect(x: layout[4], y: CGFloat(height) - layout[5] - drawnHeight,
+                                 width: drawnWidth, height: drawnHeight)
+        }
+        guard let cell = source.cropping(to: crop) else { return nil }
         guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width * 4,
                                       space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
-        context.draw(cell, in: CGRect(x: 0, y: 0, width: width, height: height))
+        context.draw(cell, in: destination)
         guard let decoded = context.makeImage() else { return nil }
         let result = UIImage(cgImage: decoded)
         cache.setObject(result, forKey: key as NSString, cost: width * height * 4)
@@ -59,13 +73,13 @@ struct CompanionView: View {
     var kind: CompanionKind = .lavender
     var animate = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var squished = false
+    @Environment(\.scenePhase) private var scenePhase
     @State private var touching = false
-    @State private var drag = CGSize.zero
     @State private var rubDistance: CGFloat = 0
     @State private var previousPoint: CGPoint?
     @State private var lastFeedback = Date.distantPast
-    @State private var reaction: Mood?
+    @State private var touchFrame: Int?
+    @State private var petting = false
     @State private var reactionTask: Task<Void, Never>?
     var body: some View {
         if animate {
@@ -76,31 +90,30 @@ struct CompanionView: View {
                 .accessibilityHint("Tap to boop, or rub to pet your companion")
                 .accessibilityAction(named: "Boop") { react(rubbed: false) }
                 .accessibilityAction(named: "Pet") { react(rubbed: true) }
-                .onDisappear { reactionTask?.cancel(); reaction = nil; squished = false; touching = false; drag = .zero; previousPoint = nil; rubDistance = 0 }
+                .onDisappear { stopPlaying() }
+                .onChange(of: kind) { _, _ in stopPlaying() }
+                .onChange(of: mood) { _, _ in stopPlaying() }
+                .onChange(of: scenePhase) { _, phase in if phase != .active { stopPlaying() } }
         } else { character }
     }
 
     private var character: some View {
         Group {
-            if let image = CompanionArt.image(reaction ?? mood, kind: kind) {
+            if let image = touchFrame.flatMap({ CompanionArt.touchImage($0, kind: kind) }) ?? CompanionArt.image(mood, kind: kind) {
                 Image(uiImage: image).resizable().scaledToFit()
             } else {
                 Image(systemName: "cloud.fill").resizable().scaledToFit().foregroundStyle(DotsStyle.lilac)
             }
         }
-        .scaleEffect(x: reduceMotion ? 1 : squished || touching ? 1.015 : 1,
-                     y: reduceMotion ? 1 : squished || touching ? 0.985 : 1, anchor: .bottom)
-        .rotationEffect(.degrees(reduceMotion ? 0 : Double(max(-1, min(1, drag.width / 100)))))
-        .offset(x: reduceMotion ? 0 : max(-1, min(1, drag.width / 100)))
+        .transaction { $0.animation = nil }
         .accessibilityLabel("Squishy companion, feeling \(mood.title.lowercased())")
     }
 
     private var playGesture: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
-                if !touching { reactionTask?.cancel(); squished = false; TouchFeedback.prepare() }
+                if !touching { reactionTask?.cancel(); touchFrame = nil; petting = false; TouchFeedback.prepare() }
                 touching = true
-                drag = value.translation
                 if let previousPoint {
                     let distance = hypot(value.location.x - previousPoint.x, value.location.y - previousPoint.y)
                     rubDistance += distance
@@ -110,34 +123,43 @@ struct CompanionView: View {
                     }
                 }
                 previousPoint = value.location
-                if rubDistance > 30 {
-                    reaction = .calm
-                }
+                if rubDistance > 30, !petting { playFrames(rubbed: true) }
             }
             .onEnded { _ in
                 let rubbed = rubDistance > 30
-                previousPoint = nil; rubDistance = 0
-                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.2)) { touching = false; drag = .zero }
+                touching = false; previousPoint = nil; rubDistance = 0
                 react(rubbed: rubbed)
             }
     }
 
-    private func react(rubbed: Bool) {
+    private func stopPlaying() {
         reactionTask?.cancel()
-        reaction = rubbed ? .calm : .happy
+        touching = false; petting = false; touchFrame = nil
+        previousPoint = nil; rubDistance = 0
+    }
+    private func react(rubbed: Bool) {
         if rubbed { TouchFeedback.pet() } else { TouchFeedback.tap() }
-        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.12)) {
-            squished = true
-        }
+        playFrames(rubbed: rubbed)
+    }
+    private func playFrames(rubbed: Bool) {
+        reactionTask?.cancel()
+        petting = rubbed
+        // Swap dedicated drawings at a fixed size. No scaling, warping or moving the pet.
+        let frames = reduceMotion ? [rubbed ? 4 : 2] : (rubbed ? [3, 4, 5, 4, 3] : [0, 1, 2, 1, 0])
+        touchFrame = frames[0]
         reactionTask = Task { @MainActor in
-            try? await Task.sleep(for: .milliseconds(180))
+            repeat {
+                for frame in frames {
+                    guard !Task.isCancelled else { return }
+                    touchFrame = frame
+                    try? await Task.sleep(for: .milliseconds(reduceMotion ? 700 : 180))
+                }
+            } while touching && rubbed && !Task.isCancelled
             guard !Task.isCancelled else { return }
-            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.2)) { squished = false }
-            try? await Task.sleep(for: .seconds(2))
-            guard !Task.isCancelled else { return }
-            reaction = nil
+            touchFrame = nil; petting = false
         }
     }
+
 }
 
 struct DotsProgress: View {

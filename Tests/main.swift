@@ -99,20 +99,35 @@ import UIKit
         let withBudget = CircleModel(store: CircleStore(root: root.appendingPathComponent("restores")), restoreBudget: budget)
         precondition(withBudget.state.collection.restoresRemaining == 0, "A fresh companion must retain the lifetime restore receipt")
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        precondition(CompanionTouchLayout.frames.count == CompanionKind.allCases.count, "Every pet needs aligned touch artwork")
         for kind in CompanionKind.allCases {
-            for mood in Mood.allCases {
-                guard let image = CompanionArt.image(mood, kind: kind), let cg = image.cgImage else { fatalError("Missing \(kind) \(mood)") }
+            guard let layout = CompanionTouchLayout.frames[kind.touchAsset] else { fatalError("Missing touch layout") }
+            precondition(layout.count == 6 && Set(layout.map { $0[6] }).count == 1,
+                         "All six drawings must use one uniform scale without per-frame stretching")
+            for frame in layout {
+                precondition(frame.count == 7 && frame[0] >= 0 && frame[1] >= 0 && frame[2] > 0 && frame[3] > 0 &&
+                             frame[0] + frame[2] <= 1536 && frame[1] + frame[3] <= 1024 && frame[6] > 0,
+                             "Touch crops must remain inside the atlas")
+            }
+            let frames = Mood.allCases.map { ($0.rawValue, CompanionArt.image($0, kind: kind)) }
+                + (0..<6).map { ("touch-\($0)", CompanionArt.touchImage($0, kind: kind)) }
+            precondition(CompanionArt.touchImage(-1, kind: kind) == nil && CompanionArt.touchImage(6, kind: kind) == nil,
+                         "Invalid touch frames must not crop another cell")
+            for (name, image) in frames {
+                guard let cg = image?.cgImage else { fatalError("Missing \(kind) \(name)") }
                 precondition(cg.width == 512 && cg.height == 512, "Atlas cells must be 512px")
                 let raw = UnsafeMutablePointer<UInt8>.allocate(capacity: 512 * 512 * 4)
                 raw.initialize(repeating: 0, count: 512 * 512 * 4)
                 defer { raw.deallocate() }
                 guard let context = CGContext(data: raw, width: 512, height: 512, bitsPerComponent: 8, bytesPerRow: 2048, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { fatalError("Could not inspect pixels") }
                 context.draw(cg, in: CGRect(x: 0, y: 0, width: 512, height: 512))
-                precondition(raw[3] <= 5, "Sprite corners must be transparent within 2 percent alpha: \(kind.rawValue)/\(mood.rawValue)")
+                for corner in [0, 511, 511 * 512, 512 * 512 - 1] {
+                    precondition(raw[corner * 4 + 3] <= 5, "Sprite corners must be transparent within 2 percent alpha: \(kind.rawValue)/\(name)")
+                }
                 precondition(raw[(256 * 512 + 256) * 4 + 3] > 240, "Sprites must have a visible body")
-                print("artwork \(kind.rawValue)/\(mood.rawValue) corner alpha \(raw[3])")
+                print("artwork \(kind.rawValue)/\(name) corner alpha \(raw[3])")
             }
         }
-        print("Behavior, persistence, streak rewards, three lifetime restores and all \(CompanionKind.allCases.count * Mood.allCases.count) mood sprites passed")
+        print("Behavior, persistence, streak rewards, three lifetime restores and all \(CompanionKind.allCases.count * (Mood.allCases.count + 6)) mood and touch sprites passed")
     }
 }

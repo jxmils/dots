@@ -7,64 +7,110 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00598E0D76B9F2BBC5CBEB36 /* CompanionBlueTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 1467D0C9A3A9B0678DAC9291 /* CompanionBlueTouchAtlas.png */; };
+		02109BFDDA88788398E1FFE4 /* CompanionDropletTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = CFEC727FF0AD8B613663C168 /* CompanionDropletTouchAtlas.png */; };
 		02B1DF2F5B66ECF3476C63E3 /* CompanionSnowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = BE06D70F11628F5D03F64503 /* CompanionSnowAtlas.png */; };
+		0435DB5AA79F861F6FBA4184 /* CompanionBubbleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DD141CE31026B5AD77F9CC52 /* CompanionBubbleTouchAtlas.png */; };
 		046535746BAA00DC18189358 /* CompanionSunnyAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F836C054C56B40BC8243E338 /* CompanionSunnyAtlas.png */; };
 		046EBD0A9DA59D10B7142B90 /* CompanionCumulusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A41211E5450F16CF004BE7B0 /* CompanionCumulusAtlas.png */; };
 		04B49D7F828411090FA95DC9 /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85964D08310238C28CA0E447 /* CompanionView.swift */; };
 		05C255B07E7D28233B93A392 /* CompanionPetalAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A75D55DDA449BA6D35AD52EF /* CompanionPetalAtlas.png */; };
+		0702FE50BCA28F8BBA69E0C0 /* CompanionCoffeeTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C1AB7BD7895F8AAD47EC0A79 /* CompanionCoffeeTouchAtlas.png */; };
 		0773834163E41A2CA6A72D13 /* DotsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DD228D16FC08C20357ED1 /* DotsViews.swift */; };
 		0A42F2F09F2EABFF912BD97E /* CompanionBubbleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A6399C78622B47D10E1B9EF9 /* CompanionBubbleAtlas.png */; };
+		0DE079BD4E9DBA3917F12F03 /* CompanionToastTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D86D3476C2A3CAF0F53E9D9F /* CompanionToastTouchAtlas.png */; };
 		0DEB393745DFFFAC32D8512E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2401427FA031940CAA56C1B /* Assets.xcassets */; };
 		0FB9B4FCB6168912D265A72E /* CompanionMossAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F744DD43DB632C651C411B99 /* CompanionMossAtlas.png */; };
+		11FCCDCA2CE07390E7670AC6 /* CompanionCoffeeTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C1AB7BD7895F8AAD47EC0A79 /* CompanionCoffeeTouchAtlas.png */; };
+		128889F5DEE5C1E56B112207 /* CompanionBowlingTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 010C0E40110FE8B9887BEFE5 /* CompanionBowlingTouchAtlas.png */; };
 		139BB9FBA98A40A3B49C0BC1 /* CompanionCoconutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 13BE51C978E5D50C1170A88D /* CompanionCoconutAtlas.png */; };
 		145F17D9ECD8DFEEED70D014 /* CompanionBonsaiAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 559EA39F544EF74358E2A1C9 /* CompanionBonsaiAtlas.png */; };
 		1610D26F8793A872148DA9E8 /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F09E3C47438AD141ECE35A /* CloudCircle.swift */; };
+		1753408F796551E31F84C0EE /* CompanionSnowTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E41B98F6CEDF7ECEA1352853 /* CompanionSnowTouchAtlas.png */; };
 		17EF499678B0678BA9FDCA1D /* CompanionBubbleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BC016FA39225157E6081F72 /* CompanionBubbleAtlas.png */; };
+		1B347B48CDE973EA62D7C32F /* CompanionSunnyTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6DD70759359BF47C27486 /* CompanionSunnyTouchAtlas.png */; };
+		1C321C928F4D833E0B401BEF /* CompanionOnionTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D11B4A6116A67127D9FCE8D /* CompanionOnionTouchAtlas.png */; };
 		22049CF478C43A65C4CFDE5B /* CompanionOnionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F78B276AA7A257A64F1780D /* CompanionOnionAtlas.png */; };
+		22AE5C177D864569C61F94C2 /* CompanionPetalTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A88D12951F8C9EE416A2198 /* CompanionPetalTouchAtlas.png */; };
+		22B8AACCD375AABDD681D4FE /* CompanionPuddingTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EBB8C68FCDDE7B84EF90A92 /* CompanionPuddingTouchAtlas.png */; };
+		28CA2BF9AD9CBE052C472A7A /* CompanionNimbusTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C708F5A6DA69C92D32D4C87 /* CompanionNimbusTouchAtlas.png */; };
+		2BF9610781A1BB82FCBA8497 /* CompanionEmberTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F86376120E9F82E6564B0856 /* CompanionEmberTouchAtlas.png */; };
+		2C2A59E312D7CBBEF4CC164A /* CompanionTouchLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B7EADFFF780E595BADA84D /* CompanionTouchLayout.swift */; };
 		2CE6029F486B39B02D1DB3AA /* DotsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654266B56100A4CEEF7757EF /* DotsApp.swift */; };
 		2EB56404A9922569E1C60D0C /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E20566C5D3FB63FE5BCB7EA1 /* CompanionPillowAtlas.png */; };
 		349880B02403DD73FE935844 /* CloudSharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8A5C9C89BD3843F55944E0 /* CloudSharingView.swift */; };
+		350D15299F8D12BCBC89D913 /* CompanionPetalTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A88D12951F8C9EE416A2198 /* CompanionPetalTouchAtlas.png */; };
 		3777C138E908E3E8666A8B8E /* CompanionEmberAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 36A39483420A957E4DCED6C5 /* CompanionEmberAtlas.png */; };
 		37E4EE03B0BF2ED3947275BA /* CompanionLunaAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 865B88E7099AEB1B9BABC65B /* CompanionLunaAtlas.png */; };
 		3A15F5252B46A7B6BA07133B /* CompanionSproutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = AD7DB2373553B4C99E735293 /* CompanionSproutAtlas.png */; };
+		3A32442BD60D3037D4739822 /* CompanionPillowTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BA2C7B32759B108AC32801 /* CompanionPillowTouchAtlas.png */; };
+		3AAA0ECD073782005240D938 /* CompanionTwinkleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 78623B44AB438A01FB92A9C3 /* CompanionTwinkleTouchAtlas.png */; };
 		3BD2F1D0D8B26C9ABF924759 /* CompanionDrizzleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F3BC9065D157D913174891 /* CompanionDrizzleAtlas.png */; };
 		3CBF6BD70E8D14E2D1EE4293 /* RestoreBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027616D9B205B040FA55D5B4 /* RestoreBudget.swift */; };
 		3DCF567242344130B4FE2468 /* CompanionStormAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E039D7ADCFB21947495B9397 /* CompanionStormAtlas.png */; };
+		3E4D2CD31F52E7489AA3E456 /* CompanionCoconutTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B20A9E432CB568B8BE911313 /* CompanionCoconutTouchAtlas.png */; };
 		3E9EC0F416CAE73E6A267397 /* CircleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C42E536493631C68BF2E41 /* CircleModel.swift */; };
 		48468374D6DE8045F6FFB18C /* CompanionPuddingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9B656DA9ED66691D9CE69E /* CompanionPuddingAtlas.png */; };
+		496406609B87DA5855298B3E /* CompanionMossTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A3613C4395519F7D9BE16872 /* CompanionMossTouchAtlas.png */; };
 		4AC6F00DFBF2E90929256BB2 /* CompanionPebbleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 71EACB955A68B3161F5F2803 /* CompanionPebbleAtlas.png */; };
 		4D99CE57D44D746B89084DC5 /* CompanionDuskAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = BD67E8F8070963376E579A6D /* CompanionDuskAtlas.png */; };
 		520316560D24BF5F7C8CC65C /* DotsWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 164BC27C343A10D0DACF9C81 /* DotsWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		52C80ED932C789001BC2DC27 /* CompanionNimbusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 9441FE304D9DA439B0144D92 /* CompanionNimbusAtlas.png */; };
+		5551EACFF82E7CDDF4822221 /* CompanionMossTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A3613C4395519F7D9BE16872 /* CompanionMossTouchAtlas.png */; };
+		569D114B82EC53F9A9C5E122 /* CompanionTouchLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B7EADFFF780E595BADA84D /* CompanionTouchLayout.swift */; };
 		57967C5CAE3FEA40DDB7F25B /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B486D099F8C2B52C27EE08BB /* CompanionBlueAtlas.png */; };
 		5CA5B58784BB16F6A08F61FC /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB50CD55E584C2B88BF242 /* Companion.swift */; };
+		5FFCED162BB5B6258807A9F5 /* CompanionNimbusTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C708F5A6DA69C92D32D4C87 /* CompanionNimbusTouchAtlas.png */; };
 		60D69F51A485AC77F03D7E09 /* CompanionBonsaiAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C831F5403890C4504FE592BB /* CompanionBonsaiAtlas.png */; };
 		62EEBFCB8FA8CBE81AB93A09 /* StoreCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2295E2C2FF3F4BB96CE12D45 /* StoreCapture.swift */; };
 		64EABED125371A50A55D2DE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3974235045F44668F7B14B0 /* Foundation.framework */; };
 		6591AEB08DBE79981493AE37 /* CompanionDuskAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E9D0B1246924F12FC8C61D75 /* CompanionDuskAtlas.png */; };
+		665ED47F882D2BB08349220E /* CompanionPuffTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F861ADD22022047B04CB1122 /* CompanionPuffTouchAtlas.png */; };
+		7129F29813AB09B036B83D07 /* CompanionBeanTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A3AC43FA12F96EA4A8AAF8 /* CompanionBeanTouchAtlas.png */; };
 		7181B107DA3DCEAE74727BE4 /* CompanionTwinkleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = CD60A9D0D46BD63290A613B7 /* CompanionTwinkleAtlas.png */; };
+		72119EC55F212C62D6C48BA9 /* CompanionOnionTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D11B4A6116A67127D9FCE8D /* CompanionOnionTouchAtlas.png */; };
 		7737D06523E475EE8D3811EE /* DotsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E912E75EA5267EC35E28D /* DotsWidget.swift */; };
+		773A06229384C16FFC906FA3 /* CompanionTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 82CCC06742D3BD188A8967CF /* CompanionTouchAtlas.png */; };
+		77CE5521F03558F0F4DA1D53 /* CompanionBonsaiTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E34DA5BB736E94078CFDE5 /* CompanionBonsaiTouchAtlas.png */; };
 		77E6255F10B214356CFFD925 /* CompanionBlueAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 203306F145E638802FBE4490 /* CompanionBlueAtlas.png */; };
 		7ED2BA69AC79B41B4ED9CD95 /* CompanionBowlingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BBA140C495B2A64B4E1B829 /* CompanionBowlingAtlas.png */; };
+		823810411A139259B930C408 /* CompanionStormTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855C0BA4CA5CFBA7E09A76E /* CompanionStormTouchAtlas.png */; };
+		8356C68082ABA5E55E7D1CB5 /* CompanionCumulusTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 811111E81ECA863F1EF0790F /* CompanionCumulusTouchAtlas.png */; };
 		85B35A85F9D0F88991BC6CD7 /* CompanionNimbusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF5B1AF60075C44B81B2BA /* CompanionNimbusAtlas.png */; };
 		85BDFD967545E232CDA89A03 /* CompanionToastAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 12101834202ABF61A0CEE9A5 /* CompanionToastAtlas.png */; };
+		85CA21E05214AD4A7371A455 /* CompanionBlueTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 1467D0C9A3A9B0678DAC9291 /* CompanionBlueTouchAtlas.png */; };
+		85F1381C6B72E237F36910AE /* CompanionLunaTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D6642323D39D7725BD6C891A /* CompanionLunaTouchAtlas.png */; };
 		8712FD2AD96026FFB2FD7EA8 /* CompanionCoffeeAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F645417BEC6E7138C1CD7192 /* CompanionCoffeeAtlas.png */; };
 		8719551660534E7C7021E38A /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C9B7C00950D425C939131 /* CompanionAtlas.png */; };
+		8A2F748F7893D678837D9396 /* CompanionPillowTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BA2C7B32759B108AC32801 /* CompanionPillowTouchAtlas.png */; };
+		8A942EBDC09AF69EA654A6D5 /* CompanionBonsaiTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E34DA5BB736E94078CFDE5 /* CompanionBonsaiTouchAtlas.png */; };
 		8ABF7422E1FF51C19A0F8A00 /* CompanionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B14434793EA1F641BDA46B14 /* CompanionAtlas.png */; };
 		8BD1CDB64C735A839F71FA35 /* CompanionLunaAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E8A965F326C4E01571D03405 /* CompanionLunaAtlas.png */; };
+		8E1F212C85EAD424968F90A1 /* CompanionEmberTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F86376120E9F82E6564B0856 /* CompanionEmberTouchAtlas.png */; };
 		8E449D3A11B833031BE56C32 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92138C57C9C95F825EFB0082 /* Collection.swift */; };
+		8EAC5DB9504E4DF6B0795ED2 /* CompanionDuskTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 132C44A66E1EB4C72E6C8542 /* CompanionDuskTouchAtlas.png */; };
+		8F27320EE443D5FC43E796A9 /* CompanionPebbleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A8C994892722E13F14D36981 /* CompanionPebbleTouchAtlas.png */; };
 		8F5C8D883C812728B02B7407 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 363FB15A3175A4BFFAC15776 /* Nunito-ExtraBold.ttf */; };
 		91CD4E06852733F80869C8F1 /* CompanionRippleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F0F814FF1EE3B50A80F914FF /* CompanionRippleAtlas.png */; };
 		92193DAF726BD3A2D3F9EF9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3974235045F44668F7B14B0 /* Foundation.framework */; };
 		9A1914034D98B4C4991A5B1A /* CompanionPetalAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9EDBA5D353B8FCA398508D /* CompanionPetalAtlas.png */; };
+		9A28D1F218349BA28056F8EB /* CompanionBeanTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A3AC43FA12F96EA4A8AAF8 /* CompanionBeanTouchAtlas.png */; };
 		9B136CAD01F034FC1F4AC18B /* CompanionSnowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD308A76298837ECFBD0FC3 /* CompanionSnowAtlas.png */; };
+		9BC1A332C3692894D1B54DED /* CompanionSproutTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B9B6DFEDD48AFCA534DA20 /* CompanionSproutTouchAtlas.png */; };
 		9C785A322BC1DB806EC63431 /* CompanionOnionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 322DF50FDD8C09F025E53AB8 /* CompanionOnionAtlas.png */; };
 		9DECFCCA4FCD3B06B86BB9BB /* CompanionCoconutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE96E49EBE884EBF870B2D0 /* CompanionCoconutAtlas.png */; };
+		9F2305B1437EBCC74EDFFFC9 /* CompanionTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 82CCC06742D3BD188A8967CF /* CompanionTouchAtlas.png */; };
+		A4337BC0E7ACD0F649E6F635 /* CompanionRippleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2D3055A75BFB54AB88C111 /* CompanionRippleTouchAtlas.png */; };
 		A7A72B2BAB4C1288FF5A3C4A /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F09E3C47438AD141ECE35A /* CloudCircle.swift */; };
 		AB7090DCB00087DD4662A3C3 /* CompanionCoffeeAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B3A86674FB4D0FF35C7ACF /* CompanionCoffeeAtlas.png */; };
+		B3969F9882C95D7D21FB2362 /* CompanionDuskTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 132C44A66E1EB4C72E6C8542 /* CompanionDuskTouchAtlas.png */; };
+		B90DC29D81A66C590A43689D /* CompanionPebbleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A8C994892722E13F14D36981 /* CompanionPebbleTouchAtlas.png */; };
 		B93445B50432525DB1134499 /* CompanionDropletAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B500201F4A1D3FFD8EAC1A /* CompanionDropletAtlas.png */; };
+		C090BA70ED5D41C6CC4D3C66 /* CompanionStormTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855C0BA4CA5CFBA7E09A76E /* CompanionStormTouchAtlas.png */; };
 		C131AD88AC60BFFDD1A8EC31 /* CompanionEmberAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE66D4377C4EA5226F08409 /* CompanionEmberAtlas.png */; };
+		C35FAE8CEDA13052705E97B1 /* CompanionPuffTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F861ADD22022047B04CB1122 /* CompanionPuffTouchAtlas.png */; };
 		C3B020078611BFBEACB2ECD6 /* CompanionPuffAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = EE9A11F037D9582A9C5ED61B /* CompanionPuffAtlas.png */; };
+		C3D2E24529EBF8686167AC97 /* CompanionTwinkleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 78623B44AB438A01FB92A9C3 /* CompanionTwinkleTouchAtlas.png */; };
 		C43DDBBBD9A9BBAFFD9254B7 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92138C57C9C95F825EFB0082 /* Collection.swift */; };
 		C477B2E14C0B8FBBAAD6CDA0 /* CompanionPuddingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 305195DB40CCCAB4E483A22C /* CompanionPuddingAtlas.png */; };
 		C6C8A989CE2AB957184489A3 /* CompanionMossAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A3C3BF2B28D94B4C0CAC92 /* CompanionMossAtlas.png */; };
@@ -72,20 +118,34 @@
 		C74DF70013783FD95C25C431 /* CompanionPillowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF3D3909337545EBF5EA76B /* CompanionPillowAtlas.png */; };
 		C96722F2F252AD68F9922DDB /* CompanionStormAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 053D4164EC27E682BAC1CA05 /* CompanionStormAtlas.png */; };
 		CBC3BB8887095985907596CF /* CompanionDrizzleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 11F40498573F09A94B366D19 /* CompanionDrizzleAtlas.png */; };
+		CDE895D7A5587D57F8E6C74F /* CompanionLunaTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D6642323D39D7725BD6C891A /* CompanionLunaTouchAtlas.png */; };
+		D0CB7C9650E87416916577C5 /* CompanionCoconutTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B20A9E432CB568B8BE911313 /* CompanionCoconutTouchAtlas.png */; };
+		D114A8B9EEBB24DB6A0BB906 /* CompanionDrizzleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C6A5AE38AC3CB853BE2114 /* CompanionDrizzleTouchAtlas.png */; };
 		D16F4A2E087A03420B74A6EA /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85964D08310238C28CA0E447 /* CompanionView.swift */; };
+		D38E31F8942C3A2D0E58BA79 /* CompanionToastTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D86D3476C2A3CAF0F53E9D9F /* CompanionToastTouchAtlas.png */; };
 		D416750FC1B1CFC05D9680D4 /* CompanionBeanAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 91DA0801867E4D46976613CE /* CompanionBeanAtlas.png */; };
+		D5618431538BE049D92D5042 /* CompanionSnowTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E41B98F6CEDF7ECEA1352853 /* CompanionSnowTouchAtlas.png */; };
+		D76B9BE77C688309FC65F71B /* CompanionSproutTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B9B6DFEDD48AFCA534DA20 /* CompanionSproutTouchAtlas.png */; };
 		D902AECCA39DC713FB299126 /* CompanionBowlingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 658FF73CC1D073066E995B8F /* CompanionBowlingAtlas.png */; };
+		DA613C9C1574EC265BA9C0EC /* CompanionDrizzleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C6A5AE38AC3CB853BE2114 /* CompanionDrizzleTouchAtlas.png */; };
 		DC90C37879B6A462D304F3F0 /* CompanionRippleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2743C89CA1E800E9E20E5938 /* CompanionRippleAtlas.png */; };
+		DCFBE42FD32D1CC18E2181AA /* CompanionRippleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2D3055A75BFB54AB88C111 /* CompanionRippleTouchAtlas.png */; };
 		DDEF431C41E4CB4C7A2E0CB9 /* CompanionCumulusAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 007FC0602F3780485B612719 /* CompanionCumulusAtlas.png */; };
 		E610BE77045D9392B21F896D /* CompanionToastAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B73199BB831A947DC20A72 /* CompanionToastAtlas.png */; };
 		E6D4094AEF673E249DD1976B /* CompanionBeanAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = AF7879323A4A2CC887111E0F /* CompanionBeanAtlas.png */; };
+		E8B4186938D842D2132BBAF6 /* CompanionSunnyTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6DD70759359BF47C27486 /* CompanionSunnyTouchAtlas.png */; };
 		E9F24B4845828CEED0D41B93 /* CompanionDropletAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AFA5DC53A53642BB514DC /* CompanionDropletAtlas.png */; };
+		EA0A75288B83A2F129F81983 /* CompanionPuddingTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EBB8C68FCDDE7B84EF90A92 /* CompanionPuddingTouchAtlas.png */; };
+		EA3FCC759C3A43F591EC183F /* CompanionBowlingTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 010C0E40110FE8B9887BEFE5 /* CompanionBowlingTouchAtlas.png */; };
 		ED1699EFE1CA6155DCB8578A /* CompanionSunnyAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B88717C25EE1857D7F06CE /* CompanionSunnyAtlas.png */; };
 		EE9B42D514AE13E213F8E278 /* CompanionPuffAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BF9A3148F82096CBB9C5D6A /* CompanionPuffAtlas.png */; };
+		F39C40A35957F994B49083B1 /* CompanionDropletTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = CFEC727FF0AD8B613663C168 /* CompanionDropletTouchAtlas.png */; };
 		F460FE73D6FFECC41C0E7BF8 /* Companion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB50CD55E584C2B88BF242 /* Companion.swift */; };
+		F4828B0043FA7E3805EDF5F2 /* CompanionCumulusTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 811111E81ECA863F1EF0790F /* CompanionCumulusTouchAtlas.png */; };
 		F588793A79889F3A2088969C /* CollectionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76EB72258F94F43B786287 /* CollectionViews.swift */; };
 		F7EFBB5638A5C394A234374B /* CompanionTwinkleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = EA2C0C43961C030ADCCF88E9 /* CompanionTwinkleAtlas.png */; };
 		F9D10E581333FC938CA344A9 /* CompanionSproutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D854CFDA2B7A76A4EBD40C1E /* CompanionSproutAtlas.png */; };
+		FA94C04F5BA43E64D60B8D7B /* CompanionBubbleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = DD141CE31026B5AD77F9CC52 /* CompanionBubbleTouchAtlas.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,13 +174,17 @@
 
 /* Begin PBXFileReference section */
 		007FC0602F3780485B612719 /* CompanionCumulusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCumulusAtlas.png; path = Resources/CompanionCumulusAtlas.png; sourceTree = "<group>"; };
+		010C0E40110FE8B9887BEFE5 /* CompanionBowlingTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBowlingTouchAtlas.png; path = Resources/CompanionBowlingTouchAtlas.png; sourceTree = "<group>"; };
 		01BB50CD55E584C2B88BF242 /* Companion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Companion.swift; path = Shared/Companion.swift; sourceTree = "<group>"; };
 		027616D9B205B040FA55D5B4 /* RestoreBudget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RestoreBudget.swift; path = Dots/RestoreBudget.swift; sourceTree = "<group>"; };
 		053D4164EC27E682BAC1CA05 /* CompanionStormAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionStormAtlas.png; path = Resources/CompanionStormAtlas.png; sourceTree = "<group>"; };
 		0BF9A3148F82096CBB9C5D6A /* CompanionPuffAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuffAtlas.png; path = Resources/CompanionPuffAtlas.png; sourceTree = "<group>"; };
 		11F40498573F09A94B366D19 /* CompanionDrizzleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDrizzleAtlas.png; path = Resources/CompanionDrizzleAtlas.png; sourceTree = "<group>"; };
 		12101834202ABF61A0CEE9A5 /* CompanionToastAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionToastAtlas.png; path = Resources/CompanionToastAtlas.png; sourceTree = "<group>"; };
+		132C44A66E1EB4C72E6C8542 /* CompanionDuskTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDuskTouchAtlas.png; path = Resources/CompanionDuskTouchAtlas.png; sourceTree = "<group>"; };
+		13B7EADFFF780E595BADA84D /* CompanionTouchLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompanionTouchLayout.swift; path = Shared/CompanionTouchLayout.swift; sourceTree = "<group>"; };
 		13BE51C978E5D50C1170A88D /* CompanionCoconutAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoconutAtlas.png; path = Resources/CompanionCoconutAtlas.png; sourceTree = "<group>"; };
+		1467D0C9A3A9B0678DAC9291 /* CompanionBlueTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueTouchAtlas.png; path = Resources/CompanionBlueTouchAtlas.png; sourceTree = "<group>"; };
 		164BC27C343A10D0DACF9C81 /* DotsWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DotsWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B500201F4A1D3FFD8EAC1A /* CompanionDropletAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDropletAtlas.png; path = Resources/CompanionDropletAtlas.png; sourceTree = "<group>"; };
 		1A9B656DA9ED66691D9CE69E /* CompanionPuddingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuddingAtlas.png; path = Resources/CompanionPuddingAtlas.png; sourceTree = "<group>"; };
@@ -129,17 +193,23 @@
 		2743C89CA1E800E9E20E5938 /* CompanionRippleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionRippleAtlas.png; path = Resources/CompanionRippleAtlas.png; sourceTree = "<group>"; };
 		2CF3D3909337545EBF5EA76B /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
 		2E0AFA5DC53A53642BB514DC /* CompanionDropletAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDropletAtlas.png; path = Resources/CompanionDropletAtlas.png; sourceTree = "<group>"; };
+		2EBB8C68FCDDE7B84EF90A92 /* CompanionPuddingTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuddingTouchAtlas.png; path = Resources/CompanionPuddingTouchAtlas.png; sourceTree = "<group>"; };
 		305195DB40CCCAB4E483A22C /* CompanionPuddingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuddingAtlas.png; path = Resources/CompanionPuddingAtlas.png; sourceTree = "<group>"; };
 		322DF50FDD8C09F025E53AB8 /* CompanionOnionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionOnionAtlas.png; path = Resources/CompanionOnionAtlas.png; sourceTree = "<group>"; };
 		32B88717C25EE1857D7F06CE /* CompanionSunnyAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSunnyAtlas.png; path = Resources/CompanionSunnyAtlas.png; sourceTree = "<group>"; };
 		33C42E536493631C68BF2E41 /* CircleModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CircleModel.swift; path = Dots/CircleModel.swift; sourceTree = "<group>"; };
 		363FB15A3175A4BFFAC15776 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Nunito-ExtraBold.ttf"; path = "Brand/Fonts/Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		36A39483420A957E4DCED6C5 /* CompanionEmberAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionEmberAtlas.png; path = Resources/CompanionEmberAtlas.png; sourceTree = "<group>"; };
+		3D11B4A6116A67127D9FCE8D /* CompanionOnionTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionOnionTouchAtlas.png; path = Resources/CompanionOnionTouchAtlas.png; sourceTree = "<group>"; };
 		3F78B276AA7A257A64F1780D /* CompanionOnionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionOnionAtlas.png; path = Resources/CompanionOnionAtlas.png; sourceTree = "<group>"; };
+		4A88D12951F8C9EE416A2198 /* CompanionPetalTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPetalTouchAtlas.png; path = Resources/CompanionPetalTouchAtlas.png; sourceTree = "<group>"; };
 		4B1C9B7C00950D425C939131 /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
 		4BC016FA39225157E6081F72 /* CompanionBubbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBubbleAtlas.png; path = Resources/CompanionBubbleAtlas.png; sourceTree = "<group>"; };
+		53BA2C7B32759B108AC32801 /* CompanionPillowTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowTouchAtlas.png; path = Resources/CompanionPillowTouchAtlas.png; sourceTree = "<group>"; };
 		559EA39F544EF74358E2A1C9 /* CompanionBonsaiAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBonsaiAtlas.png; path = Resources/CompanionBonsaiAtlas.png; sourceTree = "<group>"; };
 		56B73199BB831A947DC20A72 /* CompanionToastAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionToastAtlas.png; path = Resources/CompanionToastAtlas.png; sourceTree = "<group>"; };
+		5A2D3055A75BFB54AB88C111 /* CompanionRippleTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionRippleTouchAtlas.png; path = Resources/CompanionRippleTouchAtlas.png; sourceTree = "<group>"; };
+		5BA6DD70759359BF47C27486 /* CompanionSunnyTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSunnyTouchAtlas.png; path = Resources/CompanionSunnyTouchAtlas.png; sourceTree = "<group>"; };
 		5BBA140C495B2A64B4E1B829 /* CompanionBowlingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBowlingAtlas.png; path = Resources/CompanionBowlingAtlas.png; sourceTree = "<group>"; };
 		5C45D6BF2B2B503A4F466C44 /* CompanionPebbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPebbleAtlas.png; path = Resources/CompanionPebbleAtlas.png; sourceTree = "<group>"; };
 		5DFF5B1AF60075C44B81B2BA /* CompanionNimbusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionNimbusAtlas.png; path = Resources/CompanionNimbusAtlas.png; sourceTree = "<group>"; };
@@ -149,33 +219,50 @@
 		701DD228D16FC08C20357ED1 /* DotsViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsViews.swift; path = Dots/DotsViews.swift; sourceTree = "<group>"; };
 		71EACB955A68B3161F5F2803 /* CompanionPebbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPebbleAtlas.png; path = Resources/CompanionPebbleAtlas.png; sourceTree = "<group>"; };
 		72F3BC9065D157D913174891 /* CompanionDrizzleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDrizzleAtlas.png; path = Resources/CompanionDrizzleAtlas.png; sourceTree = "<group>"; };
+		7855C0BA4CA5CFBA7E09A76E /* CompanionStormTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionStormTouchAtlas.png; path = Resources/CompanionStormTouchAtlas.png; sourceTree = "<group>"; };
+		78623B44AB438A01FB92A9C3 /* CompanionTwinkleTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionTwinkleTouchAtlas.png; path = Resources/CompanionTwinkleTouchAtlas.png; sourceTree = "<group>"; };
 		7AE66D4377C4EA5226F08409 /* CompanionEmberAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionEmberAtlas.png; path = Resources/CompanionEmberAtlas.png; sourceTree = "<group>"; };
+		811111E81ECA863F1EF0790F /* CompanionCumulusTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCumulusTouchAtlas.png; path = Resources/CompanionCumulusTouchAtlas.png; sourceTree = "<group>"; };
+		82CCC06742D3BD188A8967CF /* CompanionTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionTouchAtlas.png; path = Resources/CompanionTouchAtlas.png; sourceTree = "<group>"; };
 		85964D08310238C28CA0E447 /* CompanionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompanionView.swift; path = Shared/CompanionView.swift; sourceTree = "<group>"; };
 		865B88E7099AEB1B9BABC65B /* CompanionLunaAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionLunaAtlas.png; path = Resources/CompanionLunaAtlas.png; sourceTree = "<group>"; };
 		8F9EDBA5D353B8FCA398508D /* CompanionPetalAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPetalAtlas.png; path = Resources/CompanionPetalAtlas.png; sourceTree = "<group>"; };
 		91DA0801867E4D46976613CE /* CompanionBeanAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBeanAtlas.png; path = Resources/CompanionBeanAtlas.png; sourceTree = "<group>"; };
 		92138C57C9C95F825EFB0082 /* Collection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Collection.swift; path = Shared/Collection.swift; sourceTree = "<group>"; };
 		9441FE304D9DA439B0144D92 /* CompanionNimbusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionNimbusAtlas.png; path = Resources/CompanionNimbusAtlas.png; sourceTree = "<group>"; };
+		98C6A5AE38AC3CB853BE2114 /* CompanionDrizzleTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDrizzleTouchAtlas.png; path = Resources/CompanionDrizzleTouchAtlas.png; sourceTree = "<group>"; };
 		9A2E912E75EA5267EC35E28D /* DotsWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotsWidget.swift; path = DotsWidget/DotsWidget.swift; sourceTree = "<group>"; };
+		9C708F5A6DA69C92D32D4C87 /* CompanionNimbusTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionNimbusTouchAtlas.png; path = Resources/CompanionNimbusTouchAtlas.png; sourceTree = "<group>"; };
 		9D76EB72258F94F43B786287 /* CollectionViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CollectionViews.swift; path = Dots/CollectionViews.swift; sourceTree = "<group>"; };
+		A3613C4395519F7D9BE16872 /* CompanionMossTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionMossTouchAtlas.png; path = Resources/CompanionMossTouchAtlas.png; sourceTree = "<group>"; };
 		A41211E5450F16CF004BE7B0 /* CompanionCumulusAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCumulusAtlas.png; path = Resources/CompanionCumulusAtlas.png; sourceTree = "<group>"; };
 		A6399C78622B47D10E1B9EF9 /* CompanionBubbleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBubbleAtlas.png; path = Resources/CompanionBubbleAtlas.png; sourceTree = "<group>"; };
 		A75D55DDA449BA6D35AD52EF /* CompanionPetalAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPetalAtlas.png; path = Resources/CompanionPetalAtlas.png; sourceTree = "<group>"; };
+		A8C994892722E13F14D36981 /* CompanionPebbleTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPebbleTouchAtlas.png; path = Resources/CompanionPebbleTouchAtlas.png; sourceTree = "<group>"; };
+		A8E34DA5BB736E94078CFDE5 /* CompanionBonsaiTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBonsaiTouchAtlas.png; path = Resources/CompanionBonsaiTouchAtlas.png; sourceTree = "<group>"; };
 		AD7DB2373553B4C99E735293 /* CompanionSproutAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSproutAtlas.png; path = Resources/CompanionSproutAtlas.png; sourceTree = "<group>"; };
 		AF7879323A4A2CC887111E0F /* CompanionBeanAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBeanAtlas.png; path = Resources/CompanionBeanAtlas.png; sourceTree = "<group>"; };
 		B14434793EA1F641BDA46B14 /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
+		B20A9E432CB568B8BE911313 /* CompanionCoconutTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoconutTouchAtlas.png; path = Resources/CompanionCoconutTouchAtlas.png; sourceTree = "<group>"; };
 		B486D099F8C2B52C27EE08BB /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
 		BBD308A76298837ECFBD0FC3 /* CompanionSnowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSnowAtlas.png; path = Resources/CompanionSnowAtlas.png; sourceTree = "<group>"; };
 		BD67E8F8070963376E579A6D /* CompanionDuskAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDuskAtlas.png; path = Resources/CompanionDuskAtlas.png; sourceTree = "<group>"; };
 		BE06D70F11628F5D03F64503 /* CompanionSnowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSnowAtlas.png; path = Resources/CompanionSnowAtlas.png; sourceTree = "<group>"; };
+		C1AB7BD7895F8AAD47EC0A79 /* CompanionCoffeeTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoffeeTouchAtlas.png; path = Resources/CompanionCoffeeTouchAtlas.png; sourceTree = "<group>"; };
 		C3974235045F44668F7B14B0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C831F5403890C4504FE592BB /* CompanionBonsaiAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBonsaiAtlas.png; path = Resources/CompanionBonsaiAtlas.png; sourceTree = "<group>"; };
+		C9A3AC43FA12F96EA4A8AAF8 /* CompanionBeanTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBeanTouchAtlas.png; path = Resources/CompanionBeanTouchAtlas.png; sourceTree = "<group>"; };
 		CD60A9D0D46BD63290A613B7 /* CompanionTwinkleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionTwinkleAtlas.png; path = Resources/CompanionTwinkleAtlas.png; sourceTree = "<group>"; };
+		CFEC727FF0AD8B613663C168 /* CompanionDropletTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDropletTouchAtlas.png; path = Resources/CompanionDropletTouchAtlas.png; sourceTree = "<group>"; };
 		D2A3C3BF2B28D94B4C0CAC92 /* CompanionMossAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionMossAtlas.png; path = Resources/CompanionMossAtlas.png; sourceTree = "<group>"; };
+		D6642323D39D7725BD6C891A /* CompanionLunaTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionLunaTouchAtlas.png; path = Resources/CompanionLunaTouchAtlas.png; sourceTree = "<group>"; };
 		D7F09E3C47438AD141ECE35A /* CloudCircle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudCircle.swift; path = Shared/CloudCircle.swift; sourceTree = "<group>"; };
 		D854CFDA2B7A76A4EBD40C1E /* CompanionSproutAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSproutAtlas.png; path = Resources/CompanionSproutAtlas.png; sourceTree = "<group>"; };
+		D86D3476C2A3CAF0F53E9D9F /* CompanionToastTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionToastTouchAtlas.png; path = Resources/CompanionToastTouchAtlas.png; sourceTree = "<group>"; };
+		DD141CE31026B5AD77F9CC52 /* CompanionBubbleTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBubbleTouchAtlas.png; path = Resources/CompanionBubbleTouchAtlas.png; sourceTree = "<group>"; };
 		E039D7ADCFB21947495B9397 /* CompanionStormAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionStormAtlas.png; path = Resources/CompanionStormAtlas.png; sourceTree = "<group>"; };
 		E20566C5D3FB63FE5BCB7EA1 /* CompanionPillowAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPillowAtlas.png; path = Resources/CompanionPillowAtlas.png; sourceTree = "<group>"; };
+		E41B98F6CEDF7ECEA1352853 /* CompanionSnowTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSnowTouchAtlas.png; path = Resources/CompanionSnowTouchAtlas.png; sourceTree = "<group>"; };
 		E8A965F326C4E01571D03405 /* CompanionLunaAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionLunaAtlas.png; path = Resources/CompanionLunaAtlas.png; sourceTree = "<group>"; };
 		E9D0B1246924F12FC8C61D75 /* CompanionDuskAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDuskAtlas.png; path = Resources/CompanionDuskAtlas.png; sourceTree = "<group>"; };
 		EA2C0C43961C030ADCCF88E9 /* CompanionTwinkleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionTwinkleAtlas.png; path = Resources/CompanionTwinkleAtlas.png; sourceTree = "<group>"; };
@@ -184,9 +271,12 @@
 		EF8A5C9C89BD3843F55944E0 /* CloudSharingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudSharingView.swift; path = Dots/CloudSharingView.swift; sourceTree = "<group>"; };
 		F0F814FF1EE3B50A80F914FF /* CompanionRippleAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionRippleAtlas.png; path = Resources/CompanionRippleAtlas.png; sourceTree = "<group>"; };
 		F2401427FA031940CAA56C1B /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Dots/Assets.xcassets; sourceTree = "<group>"; };
+		F4B9B6DFEDD48AFCA534DA20 /* CompanionSproutTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSproutTouchAtlas.png; path = Resources/CompanionSproutTouchAtlas.png; sourceTree = "<group>"; };
 		F645417BEC6E7138C1CD7192 /* CompanionCoffeeAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoffeeAtlas.png; path = Resources/CompanionCoffeeAtlas.png; sourceTree = "<group>"; };
 		F744DD43DB632C651C411B99 /* CompanionMossAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionMossAtlas.png; path = Resources/CompanionMossAtlas.png; sourceTree = "<group>"; };
 		F836C054C56B40BC8243E338 /* CompanionSunnyAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSunnyAtlas.png; path = Resources/CompanionSunnyAtlas.png; sourceTree = "<group>"; };
+		F861ADD22022047B04CB1122 /* CompanionPuffTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuffTouchAtlas.png; path = Resources/CompanionPuffTouchAtlas.png; sourceTree = "<group>"; };
+		F86376120E9F82E6564B0856 /* CompanionEmberTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionEmberTouchAtlas.png; path = Resources/CompanionEmberTouchAtlas.png; sourceTree = "<group>"; };
 		F96A5CE7C23C3622CB3EE114 /* Dots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -312,6 +402,36 @@
 				CD60A9D0D46BD63290A613B7 /* CompanionTwinkleAtlas.png */,
 				F2401427FA031940CAA56C1B /* Assets.xcassets */,
 				363FB15A3175A4BFFAC15776 /* Nunito-ExtraBold.ttf */,
+				C9A3AC43FA12F96EA4A8AAF8 /* CompanionBeanTouchAtlas.png */,
+				1467D0C9A3A9B0678DAC9291 /* CompanionBlueTouchAtlas.png */,
+				A8E34DA5BB736E94078CFDE5 /* CompanionBonsaiTouchAtlas.png */,
+				DD141CE31026B5AD77F9CC52 /* CompanionBubbleTouchAtlas.png */,
+				811111E81ECA863F1EF0790F /* CompanionCumulusTouchAtlas.png */,
+				98C6A5AE38AC3CB853BE2114 /* CompanionDrizzleTouchAtlas.png */,
+				CFEC727FF0AD8B613663C168 /* CompanionDropletTouchAtlas.png */,
+				132C44A66E1EB4C72E6C8542 /* CompanionDuskTouchAtlas.png */,
+				F86376120E9F82E6564B0856 /* CompanionEmberTouchAtlas.png */,
+				D6642323D39D7725BD6C891A /* CompanionLunaTouchAtlas.png */,
+				A3613C4395519F7D9BE16872 /* CompanionMossTouchAtlas.png */,
+				9C708F5A6DA69C92D32D4C87 /* CompanionNimbusTouchAtlas.png */,
+				3D11B4A6116A67127D9FCE8D /* CompanionOnionTouchAtlas.png */,
+				A8C994892722E13F14D36981 /* CompanionPebbleTouchAtlas.png */,
+				4A88D12951F8C9EE416A2198 /* CompanionPetalTouchAtlas.png */,
+				53BA2C7B32759B108AC32801 /* CompanionPillowTouchAtlas.png */,
+				2EBB8C68FCDDE7B84EF90A92 /* CompanionPuddingTouchAtlas.png */,
+				F861ADD22022047B04CB1122 /* CompanionPuffTouchAtlas.png */,
+				5A2D3055A75BFB54AB88C111 /* CompanionRippleTouchAtlas.png */,
+				E41B98F6CEDF7ECEA1352853 /* CompanionSnowTouchAtlas.png */,
+				F4B9B6DFEDD48AFCA534DA20 /* CompanionSproutTouchAtlas.png */,
+				5BA6DD70759359BF47C27486 /* CompanionSunnyTouchAtlas.png */,
+				D86D3476C2A3CAF0F53E9D9F /* CompanionToastTouchAtlas.png */,
+				82CCC06742D3BD188A8967CF /* CompanionTouchAtlas.png */,
+				78623B44AB438A01FB92A9C3 /* CompanionTwinkleTouchAtlas.png */,
+				010C0E40110FE8B9887BEFE5 /* CompanionBowlingTouchAtlas.png */,
+				B20A9E432CB568B8BE911313 /* CompanionCoconutTouchAtlas.png */,
+				C1AB7BD7895F8AAD47EC0A79 /* CompanionCoffeeTouchAtlas.png */,
+				7855C0BA4CA5CFBA7E09A76E /* CompanionStormTouchAtlas.png */,
+				13B7EADFFF780E595BADA84D /* CompanionTouchLayout.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -418,6 +538,35 @@
 				F7EFBB5638A5C394A234374B /* CompanionTwinkleAtlas.png in Resources */,
 				0DEB393745DFFFAC32D8512E /* Assets.xcassets in Resources */,
 				8F5C8D883C812728B02B7407 /* Nunito-ExtraBold.ttf in Resources */,
+				7129F29813AB09B036B83D07 /* CompanionBeanTouchAtlas.png in Resources */,
+				85CA21E05214AD4A7371A455 /* CompanionBlueTouchAtlas.png in Resources */,
+				8A942EBDC09AF69EA654A6D5 /* CompanionBonsaiTouchAtlas.png in Resources */,
+				FA94C04F5BA43E64D60B8D7B /* CompanionBubbleTouchAtlas.png in Resources */,
+				F4828B0043FA7E3805EDF5F2 /* CompanionCumulusTouchAtlas.png in Resources */,
+				D114A8B9EEBB24DB6A0BB906 /* CompanionDrizzleTouchAtlas.png in Resources */,
+				F39C40A35957F994B49083B1 /* CompanionDropletTouchAtlas.png in Resources */,
+				B3969F9882C95D7D21FB2362 /* CompanionDuskTouchAtlas.png in Resources */,
+				2BF9610781A1BB82FCBA8497 /* CompanionEmberTouchAtlas.png in Resources */,
+				85F1381C6B72E237F36910AE /* CompanionLunaTouchAtlas.png in Resources */,
+				5551EACFF82E7CDDF4822221 /* CompanionMossTouchAtlas.png in Resources */,
+				28CA2BF9AD9CBE052C472A7A /* CompanionNimbusTouchAtlas.png in Resources */,
+				1C321C928F4D833E0B401BEF /* CompanionOnionTouchAtlas.png in Resources */,
+				B90DC29D81A66C590A43689D /* CompanionPebbleTouchAtlas.png in Resources */,
+				22AE5C177D864569C61F94C2 /* CompanionPetalTouchAtlas.png in Resources */,
+				8A2F748F7893D678837D9396 /* CompanionPillowTouchAtlas.png in Resources */,
+				EA0A75288B83A2F129F81983 /* CompanionPuddingTouchAtlas.png in Resources */,
+				C35FAE8CEDA13052705E97B1 /* CompanionPuffTouchAtlas.png in Resources */,
+				A4337BC0E7ACD0F649E6F635 /* CompanionRippleTouchAtlas.png in Resources */,
+				1753408F796551E31F84C0EE /* CompanionSnowTouchAtlas.png in Resources */,
+				D76B9BE77C688309FC65F71B /* CompanionSproutTouchAtlas.png in Resources */,
+				E8B4186938D842D2132BBAF6 /* CompanionSunnyTouchAtlas.png in Resources */,
+				D38E31F8942C3A2D0E58BA79 /* CompanionToastTouchAtlas.png in Resources */,
+				9F2305B1437EBCC74EDFFFC9 /* CompanionTouchAtlas.png in Resources */,
+				3AAA0ECD073782005240D938 /* CompanionTwinkleTouchAtlas.png in Resources */,
+				EA3FCC759C3A43F591EC183F /* CompanionBowlingTouchAtlas.png in Resources */,
+				D0CB7C9650E87416916577C5 /* CompanionCoconutTouchAtlas.png in Resources */,
+				11FCCDCA2CE07390E7670AC6 /* CompanionCoffeeTouchAtlas.png in Resources */,
+				823810411A139259B930C408 /* CompanionStormTouchAtlas.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +603,35 @@
 				ED1699EFE1CA6155DCB8578A /* CompanionSunnyAtlas.png in Resources */,
 				E610BE77045D9392B21F896D /* CompanionToastAtlas.png in Resources */,
 				7181B107DA3DCEAE74727BE4 /* CompanionTwinkleAtlas.png in Resources */,
+				9A28D1F218349BA28056F8EB /* CompanionBeanTouchAtlas.png in Resources */,
+				00598E0D76B9F2BBC5CBEB36 /* CompanionBlueTouchAtlas.png in Resources */,
+				77CE5521F03558F0F4DA1D53 /* CompanionBonsaiTouchAtlas.png in Resources */,
+				0435DB5AA79F861F6FBA4184 /* CompanionBubbleTouchAtlas.png in Resources */,
+				8356C68082ABA5E55E7D1CB5 /* CompanionCumulusTouchAtlas.png in Resources */,
+				DA613C9C1574EC265BA9C0EC /* CompanionDrizzleTouchAtlas.png in Resources */,
+				02109BFDDA88788398E1FFE4 /* CompanionDropletTouchAtlas.png in Resources */,
+				8EAC5DB9504E4DF6B0795ED2 /* CompanionDuskTouchAtlas.png in Resources */,
+				8E1F212C85EAD424968F90A1 /* CompanionEmberTouchAtlas.png in Resources */,
+				CDE895D7A5587D57F8E6C74F /* CompanionLunaTouchAtlas.png in Resources */,
+				496406609B87DA5855298B3E /* CompanionMossTouchAtlas.png in Resources */,
+				5FFCED162BB5B6258807A9F5 /* CompanionNimbusTouchAtlas.png in Resources */,
+				72119EC55F212C62D6C48BA9 /* CompanionOnionTouchAtlas.png in Resources */,
+				8F27320EE443D5FC43E796A9 /* CompanionPebbleTouchAtlas.png in Resources */,
+				350D15299F8D12BCBC89D913 /* CompanionPetalTouchAtlas.png in Resources */,
+				3A32442BD60D3037D4739822 /* CompanionPillowTouchAtlas.png in Resources */,
+				22B8AACCD375AABDD681D4FE /* CompanionPuddingTouchAtlas.png in Resources */,
+				665ED47F882D2BB08349220E /* CompanionPuffTouchAtlas.png in Resources */,
+				DCFBE42FD32D1CC18E2181AA /* CompanionRippleTouchAtlas.png in Resources */,
+				D5618431538BE049D92D5042 /* CompanionSnowTouchAtlas.png in Resources */,
+				9BC1A332C3692894D1B54DED /* CompanionSproutTouchAtlas.png in Resources */,
+				1B347B48CDE973EA62D7C32F /* CompanionSunnyTouchAtlas.png in Resources */,
+				0DE079BD4E9DBA3917F12F03 /* CompanionToastTouchAtlas.png in Resources */,
+				773A06229384C16FFC906FA3 /* CompanionTouchAtlas.png in Resources */,
+				C3D2E24529EBF8686167AC97 /* CompanionTwinkleTouchAtlas.png in Resources */,
+				128889F5DEE5C1E56B112207 /* CompanionBowlingTouchAtlas.png in Resources */,
+				3E4D2CD31F52E7489AA3E456 /* CompanionCoconutTouchAtlas.png in Resources */,
+				0702FE50BCA28F8BBA69E0C0 /* CompanionCoffeeTouchAtlas.png in Resources */,
+				C090BA70ED5D41C6CC4D3C66 /* CompanionStormTouchAtlas.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +647,7 @@
 				5CA5B58784BB16F6A08F61FC /* Companion.swift in Sources */,
 				D16F4A2E087A03420B74A6EA /* CompanionView.swift in Sources */,
 				7737D06523E475EE8D3811EE /* DotsWidget.swift in Sources */,
+				569D114B82EC53F9A9C5E122 /* CompanionTouchLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +666,7 @@
 				0773834163E41A2CA6A72D13 /* DotsViews.swift in Sources */,
 				3CBF6BD70E8D14E2D1EE4293 /* RestoreBudget.swift in Sources */,
 				62EEBFCB8FA8CBE81AB93A09 /* StoreCapture.swift in Sources */,
+				2C2A59E312D7CBBEF4CC164A /* CompanionTouchLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

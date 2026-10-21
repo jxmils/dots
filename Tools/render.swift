@@ -16,6 +16,17 @@ import CoreText
         try FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
         CTFontManagerRegisterFontsForURL(URL(fileURLWithPath: "Brand/Fonts/Nunito-ExtraBold.ttf") as CFURL, .process, nil)
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        for kind in CompanionKind.allCases {
+            let poses = HStack(spacing: 8) {
+                CompanionView(mood: .happy, kind: kind).frame(width: 140, height: 140)
+                ForEach(0..<6) { index in
+                    if let image = CompanionArt.touchImage(index, kind: kind) {
+                        Image(uiImage: image).resizable().scaledToFit().frame(width: 140, height: 140)
+                    }
+                }
+            }.padding(16).background(DotsStyle.paper)
+            try save(poses, to: out.appendingPathComponent("touch-\(kind.rawValue).png"), scale: 1)
+        }
         let now = Date()
         let friends = [
             Companion(id: "sam", ownerName: "Sam", petName: "Pip", mood: .happy, updatedAt: now.addingTimeInterval(-180), kind: .pillow),

@@ -55,6 +55,7 @@ enum CompanionKind: String, Codable, CaseIterable, Identifiable {
         default: title
         }
     }
+    var touchAsset: String { asset.replacingOccurrences(of: "Atlas", with: "TouchAtlas") }
     var asset: String {
         switch self {
         case .lavender: "CompanionAtlas"; case .blue: "CompanionBlueAtlas"; case .pillow: "CompanionPillowAtlas"
