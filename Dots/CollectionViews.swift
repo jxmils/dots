@@ -17,7 +17,7 @@ struct HatchingView: View {
     @FocusState private var nameFocused: Bool
 
     private var ready: Bool { warmth >= 1 }
-    private var hatchOwner: String { model.preview ? "Jason" : owner }
+    private var hatchOwner: String { model.preview ? model.state.companion?.ownerName ?? "Alex" : owner }
     var body: some View {
         Group {
             if model.preview { content }
@@ -29,7 +29,7 @@ struct HatchingView: View {
     private var content: some View {
         VStack(spacing: 24) {
             HStack {
-                Text("dots").font(DotsStyle.round(28, weight: .bold))
+                Text("dotlings").font(DotsStyle.brand(28))
                 Spacer()
                 if !free && revealed == nil { Button("Done") { dismiss() }.font(DotsStyle.round(14, weight: .semibold)) }
             }
@@ -54,10 +54,10 @@ struct HatchingView: View {
                 }
                 Text("A little companion for all your feelings.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
                 Button { finish(makePreferred: true) } label: {
-                    pill(free ? "Take them home" : "Make this my Dot", icon: "heart.fill")
+                    pill(free ? "Take them home" : "Make this my Dotling", icon: "heart.fill")
                 }
                 if !free {
-                    Button("Keep my current Dot") { finish(makePreferred: false) }
+                    Button("Keep my current Dotling") { finish(makePreferred: false) }
                         .font(DotsStyle.round(14, weight: .semibold))
                 }
             } else {
@@ -93,7 +93,7 @@ struct HatchingView: View {
                 }
                 if free {
                     if model.preview {
-                        Text("Jason").font(DotsStyle.round(16)).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(hatchOwner).font(DotsStyle.round(16)).frame(maxWidth: .infinity, alignment: .leading)
                             .padding(18).background(.white, in: RoundedRectangle(cornerRadius: 20))
                     } else {
                         TextField("Your first name", text: $owner).textContentType(.givenName)
@@ -176,7 +176,7 @@ struct CollectionView: View {
             Text("Little by little.").font(DotsStyle.round(32, weight: .bold)).padding(.top, 20)
             Text("\(progress.owned.count) of \(CompanionKind.allCases.count) companions have found their way to you.")
                 .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
-            Text("Choose an owned companion as your profile Dot. It's who your friends will see.")
+            Text("Choose an owned companion as your profile Dotling. It's who your friends will see.")
                 .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
             HStack {
                 stat("\(streak)", "day streak", "flame.fill")
@@ -225,7 +225,7 @@ struct CollectionView: View {
                 Text(model.state.collection.names[kind.rawValue] ?? kind.defaultName).font(DotsStyle.round(30, weight: .bold))
                 Text(kind.title).font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
                 Button { model.activate(kind); selected = nil } label: {
-                    Text(model.state.companion?.kind == kind ? "This is my Dot" : "Make this my Dot").font(DotsStyle.round(16, weight: .bold)).padding(18).frame(maxWidth: .infinity)
+                    Text(model.state.companion?.kind == kind ? "This is my Dotling" : "Make this my Dotling").font(DotsStyle.round(16, weight: .bold)).padding(18).frame(maxWidth: .infinity)
                         .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
                 }.disabled(model.state.companion?.kind == kind)
                 Text("Appears on your profile and in your friends' circle and widgets when shared.")

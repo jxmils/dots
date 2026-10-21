@@ -1,4 +1,4 @@
-# Dots
+# Dotlings
 
 A small companion for your feelings, and a quiet way to keep your friends close.
 
@@ -63,4 +63,7 @@ removing revoked access. Mood changes are saved locally before an upload is atte
 - `docs/mood-colours.md`: mood colour rationale and limitations.
 
 The Xcode project is checked in. `ruby Tools/project.rb` can regenerate it with the `xcodeproj` gem.
-The character designs are original; Dots is independent of OpenAI and Club Penguin.
+The character designs are original; Dotlings is independent of OpenAI and Club Penguin.
+
+The public app name is **Dotlings**. The existing Dots project/scheme, registered bundle IDs, App Group,
+CloudKit container and storage keys remain unchanged for signing and data continuity.

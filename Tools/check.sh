@@ -17,7 +17,7 @@ fi
 IOS=(-sdk "$SDK" -target arm64-apple-ios18.0-macabi -swift-version 5 -whole-module-optimization
      -Fsystem "$SDK/System/iOSSupport/System/Library/Frameworks" -I "$SDK/System/iOSSupport/usr/lib/swift")
 echo '== App type-check'
-swiftc -typecheck -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/*.swift
+swiftc -typecheck -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} -D DEBUG Shared/*.swift Dots/*.swift
 echo '== Widget type-check'
 swiftc -typecheck -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift DotsWidget/*.swift
 echo '== Plists and project'

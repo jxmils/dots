@@ -6,7 +6,7 @@ enum CircleError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .noICloud: "Sign in to iCloud in your iPhone Settings to connect with friends."
-        case .invalidCompanion: "This invitation doesn't contain a Dots companion."
+        case .invalidCompanion: "This invitation doesn't contain a Dotlings companion."
         }
     }
 }

@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 import ImageIO
 import UniformTypeIdentifiers
+import CoreText
 
 @main struct Render {
     @MainActor static func save<V: View>(_ view: V, to url: URL, scale: CGFloat = 2) throws {
@@ -13,6 +14,7 @@ import UniformTypeIdentifiers
     @MainActor static func main() throws {
         let out = URL(fileURLWithPath: CommandLine.arguments.dropFirst().first ?? "build/check")
         try FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
+        CTFontManagerRegisterFontsForURL(URL(fileURLWithPath: "Brand/Fonts/Nunito-ExtraBold.ttf") as CFURL, .process, nil)
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
         let now = Date()
         let friends = [
@@ -48,7 +50,7 @@ import UniformTypeIdentifiers
         let profile = VStack(alignment: .leading, spacing: 22) {
             Text("Your profile").font(DotsStyle.round(30, weight: .bold))
             ProfileDotCard(companion: Companion(id: "me", ownerName: "Jason", petName: "Coco", mood: .happy, updatedAt: now, kind: .coconut))
-            Label("Choose my profile Dot", systemImage: "sparkles").font(DotsStyle.round(16, weight: .bold)).foregroundStyle(DotsStyle.plum)
+            Label("Choose my profile Dotling", systemImage: "sparkles").font(DotsStyle.round(16, weight: .bold)).foregroundStyle(DotsStyle.plum)
             Text("Pick any companion you've hatched from your collection.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
         }.padding(28).frame(width: 402).background(DotsStyle.paper)
         try save(profile, to: out.appendingPathComponent("profile.png"))
@@ -92,7 +94,7 @@ import UniformTypeIdentifiers
         let gallery = VStack(alignment: .leading, spacing: 26) {
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("dots").font(DotsStyle.round(32, weight: .bold))
+                    Text("dotlings").font(DotsStyle.brand(32))
                     Text("Small friend. Big feelings.").font(DotsStyle.round(20)).foregroundStyle(DotsStyle.muted)
                 }
                 Spacer()
@@ -107,7 +109,9 @@ import UniformTypeIdentifiers
         try save(gallery, to: out.appendingPathComponent("preview.png"), scale: 1)
         let icon = ZStack {
             DotsStyle.lilac
-            CompanionView(mood: .happy, kind: .pillow).frame(width: 940, height: 940)
+            if let mascot = UIImage(contentsOfFile: "Brand/Mascot.png") {
+                Image(uiImage: mascot).resizable().scaledToFit().frame(width: 940, height: 940)
+            }
         }.frame(width: 1024, height: 1024)
         let iconDir = URL(fileURLWithPath: "Dots/Assets.xcassets/AppIcon.appiconset")
         try FileManager.default.createDirectory(at: iconDir, withIntermediateDirectories: true)

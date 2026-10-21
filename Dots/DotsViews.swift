@@ -26,7 +26,7 @@ struct DotsRoot: View {
                     HStack {
                         HStack(spacing: 6) {
                             Circle().fill(DotsStyle.plum).frame(width: 9, height: 9)
-                            Text("dots").font(DotsStyle.round(26, weight: .bold))
+                            Text("dotlings").font(DotsStyle.brand(26))
                         }
                         Spacer()
                         Button { model.showSettings = true } label: {
@@ -348,7 +348,7 @@ struct ProfileDotCard: View {
         VStack(spacing: 10) {
             CompanionView(mood: companion.mood, kind: companion.kind).frame(width: 154, height: 154)
             Text(companion.ownerName).font(DotsStyle.round(29, weight: .bold))
-            Text("\(companion.petName) is your Dot").font(DotsStyle.round(15, weight: .semibold))
+            Text("\(companion.petName) is your Dotling").font(DotsStyle.round(15, weight: .semibold))
             MoodBadge(mood: companion.mood)
             Text("Shown to friends when you share a mood.")
                 .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
@@ -369,8 +369,8 @@ struct SettingsView: View {
             Form {
                 Section {
                     if let companion = model.state.companion { ProfileDotCard(companion: companion) }
-                    Button("Choose my profile Dot", action: onChooseDot)
-                } header: { Text("Your preferred Dot") }
+                    Button("Choose my profile Dotling", action: onChooseDot)
+                } header: { Text("Your preferred Dotling") }
                 Section("Your little companion") {
                     TextField("Your first name", text: $owner)
                     TextField("Companion's name", text: $pet)
@@ -388,9 +388,13 @@ struct SettingsView: View {
                     Text("Friend invitations use iCloud. Only invited people can see your name, companion and current mood. You can remove their access in Manage sharing. There is no public profile or mood history.")
                 }
                 Section("Widgets") { Button("How to add a Lock Screen widget") { model.showSettings = false; DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { model.showWidgetGuide = true } } }
+                Section("Help & privacy") {
+                    Link("Dotlings support", destination: URL(string: "https://github.com/jxmils/dots/blob/main/docs/support.md")!)
+                    Link("Privacy policy", destination: URL(string: "https://github.com/jxmils/dots/blob/main/docs/privacy.md")!)
+                }
                 Section {
-                    Text("Dots doesn't guess your feelings. You choose what to share, and you never have to check in.")
-                    Text("Your companions, collection, streak and preferences are saved on this device. A secure receipt keeps track of your three lifetime streak restores. If you connect friends, your current name, companion and mood are shared through Apple's iCloud. Dots has no ads, analytics, chat or public directory.")
+                    Text("Dotlings doesn't guess your feelings. You choose what to share, and you never have to check in.")
+                    Text("Your companions, collection, streak and preferences are saved on this device. A secure receipt keeps track of your three lifetime streak restores. If you connect friends, your current name, companion and mood are shared through Apple's iCloud. Dotlings has no ads, analytics, chat or public directory.")
                 } header: { Text("A small, private space") }
                 Section {
                     Button("Delete my companion & shared mood", role: .destructive) { confirmDelete = true }
@@ -418,7 +422,7 @@ struct WidgetGuide: View {
                     ForEach(Array([
                         "Touch and hold your Lock Screen, then tap Customize.",
                         "Choose Lock Screen and tap the widget area below the time.",
-                        "Find Dots and add a circular or rectangular widget.",
+                        "Find Dotlings and add a circular or rectangular widget.",
                         "Tap the added widget to choose your default, the latest friend mood, or a specific friend.",
                         "Close the picker and tap Done."
                     ].enumerated()), id: \.offset) { index, text in
@@ -427,7 +431,7 @@ struct WidgetGuide: View {
                             Text(text).font(DotsStyle.round(15)).fixedSize(horizontal: false, vertical: true)
                         }
                     }
-                    Text("You can also add a Dots widget to your Home Screen from its widget gallery.").font(.footnote).foregroundStyle(DotsStyle.muted)
+                    Text("You can also add a Dotlings widget to your Home Screen from its widget gallery.").font(.footnote).foregroundStyle(DotsStyle.muted)
                 }.padding(28)
             }.background(DotsStyle.paper)
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }

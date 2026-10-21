@@ -10,6 +10,7 @@ enum DotsStyle {
     static func round(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
         .system(size: size, weight: weight, design: .rounded)
     }
+    static func brand(_ size: CGFloat) -> Font { .custom("Nunito-ExtraBold", size: size) }
 }
 
 extension Mood {
@@ -177,7 +178,7 @@ struct FriendWidgetView: View {
     var inline = false
     var body: some View {
         if inline {
-            Label(friend.map { "\($0.ownerName) · \($0.mood.title)" } ?? "Open Dots to add a friend", systemImage: friend?.mood.symbol ?? "heart")
+            Label(friend.map { "\($0.ownerName) · \($0.mood.title)" } ?? "Open Dotlings to add a friend", systemImage: friend?.mood.symbol ?? "heart")
                 .font(.system(size: 12, weight: .medium, design: .rounded)).lineLimit(1)
         } else if circular {
             VStack(spacing: 1) {
@@ -188,7 +189,7 @@ struct FriendWidgetView: View {
                                 .foregroundStyle(friend.mood.color)
                         }
                 } else { Image(systemName: "person.2").font(.system(size: 20, weight: .medium)) }
-                Text(friend?.ownerName ?? "Dots").font(.system(size: 10, weight: .semibold)).lineLimit(1)
+                Text(friend?.ownerName ?? "Dotlings").font(.system(size: 10, weight: .semibold)).lineLimit(1)
             }.accessibilityLabel(friend.map { "\($0.ownerName) is feeling \($0.mood.title)" } ?? "No friend selected")
         } else if let friend {
             HStack(spacing: 8) {
@@ -203,7 +204,7 @@ struct FriendWidgetView: View {
         } else {
             VStack(alignment: .leading, spacing: 3) {
                 Label("A little closer", systemImage: "heart.fill").font(.headline)
-                Text("Open Dots to add a friend").font(.caption)
+                Text("Open Dotlings to add a friend").font(.caption)
             }
         }
     }

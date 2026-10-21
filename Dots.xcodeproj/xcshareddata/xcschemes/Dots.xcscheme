@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C5A0CFFC8C945D14EFD50E3D"
+               BlueprintIdentifier = "B006C5D956E510175CA8365D"
                BuildableName = "Dots.app"
                BlueprintName = "Dots"
                ReferencedContainer = "container:Dots.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C5A0CFFC8C945D14EFD50E3D"
+            BlueprintIdentifier = "B006C5D956E510175CA8365D"
             BuildableName = "Dots.app"
             BlueprintName = "Dots"
             ReferencedContainer = "container:Dots.xcodeproj">
@@ -53,7 +53,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C5A0CFFC8C945D14EFD50E3D"
+            BlueprintIdentifier = "B006C5D956E510175CA8365D"
             BuildableName = "Dots.app"
             BlueprintName = "Dots"
             ReferencedContainer = "container:Dots.xcodeproj">
@@ -70,7 +70,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C5A0CFFC8C945D14EFD50E3D"
+            BlueprintIdentifier = "B006C5D956E510175CA8365D"
             BuildableName = "Dots.app"
             BlueprintName = "Dots"
             ReferencedContainer = "container:Dots.xcodeproj">

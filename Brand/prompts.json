@@ -1,0 +1,17 @@
+{
+  "tool": "built-in image_gen",
+  "items": [
+    {
+      "id": "icon",
+      "file": "Mascot.png",
+      "prompt": "Use case: stylized-concept. Asset type: high resolution original app mascot cutout for Dotlings app icon. Input image is a CHARACTER REFERENCE sprite sheet only. Recreate ONLY the happy blue pillow creature in the top left of the reference at much higher detail. A SINGLE character, not a grid. Preserve the exact wide squishy rounded blue body, three tiny soft tuft lobes on top, soft fuzzy plush, tiny side arm nubs, large glossy dark bead eyes, rosy cheeks and tiny open happy mouth. NO feet, no legs, no toes. Front facing, centered, character fills about 82 percent of a square 2048x2048 canvas with safe empty transparent margins. Soft professional studio lighting. Real transparent background, no floor, no cast backdrop, no letters or text, no logo, no border, no watermark.",
+      "source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-26bbb331-a5ef-40f5-ac6c-3bcebd47d516.png"
+    },
+    {
+      "id": "hero",
+      "file": "Hero.png",
+      "prompt": "Use case: ads-marketing. Asset type: high-resolution transparent hero illustration for the original Dotlings companion app. Input images are CHARACTER REFERENCES; each reference is a six-expression sprite sheet. Use only the happy character from each reference, not the sheet or grid. Create one lovingly composed cluster of THREE distinct original creatures: the tiny lavender pear-shaped plush with a curl, the wide blue squishy pillow with a small three-lobed tuft, and the rounded golden-yellow star. Same identities, short fuzzy velvet fur, glossy bead eyes, rosy cheeks, tiny smiles. The blue pillow is in front center, lavender behind slightly left, golden star behind slightly right, cozy overlapping group; each creature entirely visible, no feet or legs. Characters look like soft squeezable toys, no props. Center cluster occupies middle 75 percent of a 3072x2048 canvas, with generous transparent space on all edges. Single illustration, not a grid. Beautiful clean soft studio lighting, extremely detailed plush. Transparent background, no environment or floor, no text, lettering, logos, brands, badges or watermark.",
+      "source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-e096a5e3-88c7-4109-8f1d-ea260a01958e.png"
+    }
+  ]
+}

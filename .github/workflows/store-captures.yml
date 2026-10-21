@@ -1,0 +1,28 @@
+name: Dotlings store captures
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Dots/**'
+      - 'Shared/**'
+      - 'DotsWidget/**'
+      - 'Dots.xcodeproj/**'
+      - 'Tools/capture-store.sh'
+      - '.github/workflows/store-captures.yml'
+  workflow_dispatch:
+jobs:
+  capture:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: |
+          xc=$(ls -d /Applications/Xcode_26.*.app | sort -V | tail -1)
+          sudo xcode-select -s "$xc"
+      - name: Capture native iPhone screens
+        run: bash Tools/capture-store.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dotlings-native-screenshots
+          path: build/store-captures/

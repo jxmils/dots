@@ -6,7 +6,7 @@ enum FriendSelection: String, AppEnum {
     case appDefault, latest, selected
     static var typeDisplayRepresentation: TypeDisplayRepresentation = "Show"
     static var caseDisplayRepresentations: [FriendSelection: DisplayRepresentation] = [
-        .appDefault: "Use my Dots setting", .latest: "Latest friend mood", .selected: "One friend"
+        .appDefault: "Use my Dotlings setting", .latest: "Latest friend mood", .selected: "One friend"
     ]
 }
 
@@ -99,7 +99,7 @@ struct MoodWidgetView: View {
                         HStack { Text(friend.mood.title); Spacer(); Text(friend.updatedAt, style: .relative) }.font(.system(size: 10)).lineLimit(1)
                     } else {
                         Spacer(); Text("A small hello goes a long way.").font(DotsStyle.round(14)); Spacer()
-                        Text("Add a friend in Dots").font(.caption2)
+                        Text("Add a friend in Dotlings").font(.caption2)
                     }
                 }.foregroundStyle(DotsStyle.ink)
             default:

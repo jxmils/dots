@@ -1,0 +1,85 @@
+NAME
+Dotlings
+
+SUBTITLE
+Little pets. Closer friends.
+
+PROMOTIONAL TEXT
+Hatch a squishy friend, share how you feel, and keep your people close with Lock Screen widgets. Meet 29 Dotlings, each with six little moods.
+
+DESCRIPTION
+Small friend. Big feelings.
+
+Meet Dotlings: squishy little companions for the way you feel, and a gentle way to stay close to your people.
+
+HATCH YOUR LITTLE SOMEONE
+Your first Dotling is free. Warm its egg with a rub, give it three gentle taps, and meet the tiny friend inside. Keep its default name or choose one of your own.
+
+HOW ARE YOU, REALLY?
+Choose Happy, Calm, Sleepy, A little low, Overwhelmed or Focused. Your Dotling changes expression to match, with a little colour around each feeling.
+
+A SMALL HELLO FROM YOUR FRIENDS
+Invite your people to see your current mood, and accept their invitations to see theirs. Keep one friend close or see whoever last shared a feeling. Friend sharing uses iCloud.
+
+CLOSER, EVEN ON YOUR LOCK SCREEN
+Add a circular, rectangular or inline Lock Screen widget, or a small Home Screen widget. See the latest mood your iPhone has received from your chosen friend.
+
+BOOP. SQUISH. STAY A WHILE.
+Tap your Dotling for a happy little reaction or rub the screen to give it a gentle pet. Playing never changes the mood you chose to share.
+
+29 LITTLE PERSONALITIES TO MEET
+Stars, sprouts, clouds, coffee beans and more are waiting in the collection. Daily mood check-ins earn new, nonduplicate companions at streak milestones starting at 5, 10, 25 and 50 days. Collected Dotlings and earned eggs stay yours when a streak resets. Three lifetime streak restores give you a little room for life to happen.
+
+YOUR DOTLING, YOUR CHOICE
+Choose any companion you own for your profile. Each remembers its name, and new hatches keep your preferred Dotling until you decide to switch.
+
+A LITTLE SPACE THAT IS YOURS
+You choose what to share and who can see it. Local play needs no separate account; iCloud is needed for friend invitations. Manage sharing or delete your companion and shared mood from Your profile.
+
+Nothing to perform. Just a little way to say how you are.
+
+KEYWORDS
+widget,pet,mood,friends,companion,virtual,cute,feelings,checkin,streak,hatch,lockscreen,selfcare
+
+COPYRIGHT
+2026 Jason Miller
+
+VERSION
+1.0
+
+PRIMARY CATEGORY
+Lifestyle
+
+SECONDARY CATEGORY
+Social Networking
+
+SUPPORT URL
+https://github.com/jxmils/dots/blob/main/docs/support.md
+
+PRIVACY POLICY URL
+https://github.com/jxmils/dots/blob/main/docs/privacy.md
+
+MARKETING URL
+https://github.com/jxmils/dots
+
+SIGN IN REQUIRED
+False
+
+REVIEW NOTES
+Dotlings is a virtual-companion and friend-mood-sharing app. There is no separate Dotlings account or app username/password. A first name or nickname is used to name the local profile. Apple's iCloud account, already signed into the device, is required only for friend sharing.
+
+First launch: enter a first name or nickname. Rub the egg, or press Warm the shell four times, then tap the shell three times. The companion has a default name that can be edited. Take them home opens the app. Choose a mood to update the companion's expression. Tap or rub the companion for temporary play reactions; these do not change the shared mood.
+
+Collection contains 29 companions. The first random companion is free. Daily mood check-ins earn nonduplicate eggs at the milestones listed in Collection. Each milestone is earned once. There are three lifetime streak restores. An owned companion can be chosen with Make this my Dotling; the preferred companion and its name are used on the profile and in the owner's shared mood.
+
+Friend sharing uses private, read-only CloudKit invitations. Invite from A to B so B can see A's current name, companion and mood; invite back from B to A for reciprocal sharing. Two devices signed into different iCloud accounts are needed to test the full exchange. Users can manage participants or delete their own shared companion from Your profile, and can leave a friend's circle from that friend's details. There is no public feed, public profile directory or chat.
+
+Widgets offer circular, rectangular and inline Lock Screen layouts and a small Home Screen layout. They can show the latest friend or a selected friend. iOS controls refresh timing, so widgets may show the latest cached mood and its original timestamp.
+
+Support and privacy information are linked from Your profile. The screenshots use fictional sample profiles to demonstrate the interface.
+
+RELEASE NOTES
+Meet Dotlings: 29 squishy companions, six moods, private friend invitations, Lock Screen widgets, gentle play and milestone hatches.
+
+PUBLISHING STATUS
+Prepared copy. No App Store submission or signed build upload has been performed by this export.

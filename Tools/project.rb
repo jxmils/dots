@@ -38,6 +38,7 @@ project.files.select { |file| file.path&.end_with?('Foundation.framework') }.eac
   file.source_tree = 'SDKROOT'
 end
 app.resources_build_phase.add_file_reference(project.main_group.new_file('Dots/Assets.xcassets'))
+app.resources_build_phase.add_file_reference(project.main_group.new_file('Brand/Fonts/Nunito-ExtraBold.ttf'))
 app.add_dependency(widget)
 embed = app.new_copy_files_build_phase('Embed App Extensions')
 embed.dst_subfolder_spec = '13'

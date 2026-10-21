@@ -8,7 +8,14 @@ struct DotsApp: App {
     @UIApplicationDelegateAdaptor(DotsAppDelegate.self) private var delegate
     @State private var model = CircleModel()
     var body: some Scene {
-        WindowGroup { DotsRoot().environment(model) }
+        WindowGroup {
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--capture-store") { StoreCapture() }
+            else { DotsRoot().environment(model) }
+            #else
+            DotsRoot().environment(model)
+            #endif
+        }
     }
 }
 #endif

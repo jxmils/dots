@@ -16,7 +16,7 @@ struct CloudSharingView: UIViewControllerRepresentable {
     final class Coordinator: NSObject, UICloudSharingControllerDelegate {
         let model: CircleModel
         init(model: CircleModel) { self.model = model }
-        func itemTitle(for csc: UICloudSharingController) -> String? { "Your Dots companion" }
+        func itemTitle(for csc: UICloudSharingController) -> String? { "Your Dotlings companion" }
         func cloudSharingController(_ csc: UICloudSharingController, failedToSaveShareWithError error: Error) {
             model.error = error.localizedDescription
         }
