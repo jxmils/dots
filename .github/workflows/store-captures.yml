@@ -10,9 +10,13 @@ on:
       - 'Tools/capture-store.sh'
       - '.github/workflows/store-captures.yml'
   workflow_dispatch:
+concurrency:
+  group: dotlings-store-captures-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   capture:
     runs-on: macos-15
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Select Xcode

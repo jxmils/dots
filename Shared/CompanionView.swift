@@ -40,6 +40,9 @@ enum CompanionArt {
     static func touchImage(_ index: Int, kind: CompanionKind) -> UIImage? {
         frame(index, asset: kind.touchAsset)
     }
+    static func eggImage(_ stage: EggStage) -> UIImage? {
+        frame(stage.frame, asset: stage.asset)
+    }
     private static func frame(_ index: Int, asset: String) -> UIImage? {
         guard (0..<6).contains(index) else { return nil }
         let key = asset + String(index)
@@ -51,7 +54,7 @@ enum CompanionArt {
         let width = source.width / 3, height = source.height / 2
         var crop = CGRect(x: (index % 3) * width, y: (index / 3) * height, width: width, height: height)
         var destination = CGRect(x: 0, y: 0, width: width, height: height)
-        if let layout = CompanionTouchLayout.frames[asset]?[index] {
+        if let layout = (CompanionTouchLayout.frames[asset] ?? EggArtLayout.frames[asset])?[index] {
             crop = CGRect(x: layout[0], y: layout[1], width: layout[2], height: layout[3])
             let drawnWidth = layout[2] * layout[6], drawnHeight = layout[3] * layout[6]
             destination = CGRect(x: layout[4], y: CGFloat(height) - layout[5] - drawnHeight,
@@ -238,4 +241,5 @@ struct FriendWidgetView: View {
     static func tap() { firm.impactOccurred(intensity: 0.55); firm.prepare() }
     static func shell(warmth: Double) { firm.impactOccurred(intensity: 0.4 + warmth * 0.5); firm.prepare(); success.prepare() }
     static func hatch() { success.notificationOccurred(.success) }
+    static func hatchBeat(_ intensity: CGFloat) { soft.impactOccurred(intensity: intensity); soft.prepare() }
 }

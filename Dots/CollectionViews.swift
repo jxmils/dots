@@ -4,22 +4,37 @@ struct HatchingView: View {
     @Environment(CircleModel.self) private var model
     @Environment(\.dismiss) private var dismiss
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.scenePhase) private var scenePhase
     var free = false
     var onFinish: (() -> Void)?
     var previewRevealed: CompanionKind?
+    var previewStage: EggStage?
     @State private var owner = ""
     @State private var petName = ""
-    @State private var warmth: Double = 0
-    @State private var taps = 0
+    @State private var ritual = HatchRitual()
     @State private var lastPoint: CGPoint?
     @State private var lastHaptic = Date.distantPast
-    @State private var shellTilt = 0.0
+    @State private var motionFrame: EggStage?
+    @State private var ceremonyFrame: EggStage?
     @State private var shakeTask: Task<Void, Never>?
+    @State private var hatchTask: Task<Void, Never>?
+    @State private var pendingKind: CompanionKind?
     @State private var strokeDistance: CGFloat = 0
     @State private var revealed: CompanionKind?
     @FocusState private var nameFocused: Bool
 
+    private var warmth: Double {
+        guard model.preview, let previewStage else { return ritual.warmth }
+        return previewStage == .sleeping ? 0 : previewStage == .warming ? 0.5 : 1
+    }
+    private var taps: Int {
+        guard model.preview, let previewStage else { return ritual.cracks }
+        return previewStage.rawValue < 5 ? 0 : min(3, previewStage.rawValue - 4)
+    }
     private var ready: Bool { warmth >= 1 }
+    private var opening: Bool { ritual.isOpening || (model.preview && (previewStage?.rawValue ?? 0) >= EggStage.gatheringLight.rawValue) }
+    private var eggStage: EggStage { (model.preview ? previewStage : nil) ?? ceremonyFrame ?? motionFrame ?? ritual.stage }
+    private var canInteract: Bool { model.storageAvailable && (!free || !hatchOwner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) }
     private var hatchOwner: String { model.preview ? model.state.companion?.ownerName ?? "Alex" : owner }
     var body: some View {
         Group {
@@ -27,21 +42,27 @@ struct HatchingView: View {
             else { ScrollView { content }.scrollIndicators(.hidden).scrollDismissesKeyboard(.interactively) }
         }
         .foregroundStyle(DotsStyle.ink).background(DotsStyle.paper.ignoresSafeArea())
-        .interactiveDismissDisabled(revealed != nil)
-        .onDisappear { shakeTask?.cancel() }
+        .interactiveDismissDisabled(opening || revealed != nil)
+        .onDisappear { shakeTask?.cancel(); hatchTask?.cancel() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active {
+                shakeTask?.cancel(); motionFrame = nil; lastPoint = nil; strokeDistance = 0
+                if pendingKind != nil { completeReveal() }
+            }
+        }
     }
     private var content: some View {
         VStack(spacing: 24) {
             HStack {
                 Text("dotlings").font(DotsStyle.brand(28))
                 Spacer()
-                if !free && revealed == nil { Button("Done") { dismiss() }.font(DotsStyle.round(14, weight: .semibold)) }
+                if !free && revealed == nil && !opening { Button("Done") { dismiss() }.font(DotsStyle.round(14, weight: .semibold)) }
             }
             Spacer(minLength: 0)
             if let revealed = revealed ?? (model.preview ? previewRevealed : nil) {
-                Text("Someone small\nfound you.").font(DotsStyle.round(34, weight: .bold)).multilineTextAlignment(.center)
-                CompanionView(mood: .happy, kind: revealed, animate: true).frame(width: 280, height: 280)
-                    .transition(.scale(scale: reduceMotion ? 1 : 0.65).combined(with: .opacity))
+                Text("Hello, little one.").font(DotsStyle.round(34, weight: .bold)).multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                HatchPortrait(kind: revealed).transition(.opacity)
                 Text("Meet \(revealed.defaultName)").font(DotsStyle.round(27, weight: .bold))
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Their little name").font(DotsStyle.round(12, weight: .semibold)).foregroundStyle(DotsStyle.muted)
@@ -65,19 +86,21 @@ struct HatchingView: View {
                         .font(DotsStyle.round(14, weight: .semibold))
                 }
             } else {
-                Text(free ? "A little beginning." : "A little thank you.")
+                Text(opening ? "Someone's almost here." : free ? "A little beginning." : "A little thank you.")
                     .font(DotsStyle.round(32, weight: .bold)).multilineTextAlignment(.center)
-                Text(free ? "Your first companion is waiting inside." : "You showed up for yourself. Someone new is waiting.")
+                Text(opening ? "This little moment is yours." : free ? "Your first companion is waiting inside." : "You showed up for yourself. Someone new is waiting.")
                     .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
                 ZStack {
-                    Circle().fill(DotsStyle.lilac.opacity(0.2 + warmth * 0.6)).frame(width: 260, height: 260)
-                    EggShell(warmth: warmth, cracks: taps).frame(width: 174, height: 214)
-                        .rotationEffect(.degrees(reduceMotion ? 0 : shellTilt))
-                        .offset(x: reduceMotion ? 0 : shellTilt * 0.7, y: reduceMotion ? 0 : -abs(shellTilt) * 0.5)
-                }.frame(height: 282)
+                    if eggStage == .nest, let pendingKind {
+                        CompanionView(mood: .happy, kind: pendingKind).frame(width: 230, height: 230)
+                            .offset(y: -18).transition(.opacity)
+                    }
+                    EggArtwork(stage: eggStage)
+                }.frame(width: 320, height: 320)
                     .contentShape(Circle())
                     .gesture(DragGesture(minimumDistance: 0)
                         .onChanged { value in
+                            guard canInteract, !opening else { return }
                             nameFocused = false
                             if let lastPoint {
                                 let distance = hypot(value.location.x - lastPoint.x, value.location.y - lastPoint.y)
@@ -86,34 +109,36 @@ struct HatchingView: View {
                             }
                             lastPoint = value.location
                         }
-                        .onEnded { value in
+                        .onEnded { _ in
                             lastPoint = nil
                             if strokeDistance < 10 { tapEgg() }
                             strokeDistance = 0
                         })
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(ready ? "Warm egg, \(taps) of 3 taps to hatch" : "Egg, \(Int(warmth * 100)) percent warmed")
+                    .accessibilityLabel(opening ? "Your Dotling is hatching" : ready ? "Warm egg, \(taps) of 3 taps to hatch" : "Egg, \(Int(warmth * 100)) percent warmed")
                     .accessibilityAction(named: ready ? "Tap to hatch" : "Warm the shell") { tapEgg() }
                 VStack(spacing: 10) {
-                    DotsProgress(value: warmth, label: "Egg warmth").frame(width: 160)
-                    Text(ready ? "Three gentle taps. Someone's waking up." : "Rub the shell. A little warmth works wonders.")
+                    DotsProgress(value: warmth, label: "Egg warmth").frame(width: 160).opacity(opening ? 0 : 1)
+                    Text(opening ? "Watch the shell open…" : ready ? "Three gentle taps. Someone's waking up." : "Rub the shell. A little warmth works wonders.")
                         .font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
                 }
                 if free {
                     if model.preview {
                         Text(hatchOwner).font(DotsStyle.round(16)).frame(maxWidth: .infinity, alignment: .leading)
                             .padding(18).background(.white, in: RoundedRectangle(cornerRadius: 20))
+                            .opacity(opening ? 0 : 1)
                     } else {
                         TextField("Your first name", text: $owner).textContentType(.givenName)
                             .font(DotsStyle.round(16)).padding(18).background(.white, in: RoundedRectangle(cornerRadius: 20))
                             .accessibilityLabel("Your first name").focused($nameFocused).submitLabel(.done).onSubmit { nameFocused = false }
+                            .disabled(opening).opacity(opening ? 0 : 1).accessibilityHidden(opening)
                     }
                 }
                 Button { tapEgg() } label: {
                     pill(ready ? "Tap the shell · \(taps)/3" : "Warm the shell", icon: ready ? "sparkles" : "hands.sparkles.fill")
-                }.disabled(free && hatchOwner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !model.storageAvailable)
+                }.disabled(!canInteract || opening).opacity(opening ? 0 : 1).accessibilityHidden(opening)
                 Text(free ? "One free hatch. No purchase needed." : "Every milestone egg is a creature you haven't met.")
-                    .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
+                    .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center).opacity(opening ? 0 : 1)
             }
             Spacer(minLength: 0)
         }
@@ -128,64 +153,69 @@ struct HatchingView: View {
         Label(title, systemImage: icon).font(DotsStyle.round(16, weight: .bold)).frame(maxWidth: .infinity).padding(19)
             .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
     }
-    private func shakeShell() {
-        guard Date().timeIntervalSince(lastHaptic) > 0.18 else { return }
+    private func shakeShell(force: Bool = false) {
+        guard !opening, force || Date().timeIntervalSince(lastHaptic) > 0.24 else { return }
         lastHaptic = Date()
         shakeTask?.cancel()
         TouchFeedback.shell(warmth: warmth)
+        guard !reduceMotion, taps == 0, warmth >= 0.7 else { motionFrame = nil; return }
         shakeTask = Task { @MainActor in
-            for tilt in [7.0, -6.0, 4.0, -2.0, 0.0] {
+            for frame in [EggStage.stirringLeft, .awake, .stirringRight, .awake] {
                 guard !Task.isCancelled else { return }
-                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.055)) {
-                    shellTilt = tilt * (0.5 + warmth * 0.5)
-                }
-                try? await Task.sleep(for: .milliseconds(55))
+                motionFrame = frame
+                try? await Task.sleep(for: .milliseconds(110))
             }
+            guard !Task.isCancelled else { return }
+            motionFrame = nil
         }
     }
     private func warm(_ amount: Double) {
-        guard amount > 0, !free || !hatchOwner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.15)) { warmth = min(1, warmth + amount) }
+        guard canInteract, !opening, amount > 0 else { return }
+        ritual.warm(amount)
         shakeShell()
     }
 
     private func tapEgg() {
-        guard !free || !hatchOwner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-        if !ready { warm(0.25); return }
-        taps += 1
-        shakeShell()
-        if taps >= 3 {
-            if let kind = model.hatch(owner: free ? hatchOwner : nil) {
-                shakeTask?.cancel()
-                shellTilt = 0
-                petName = kind.defaultName
-                withAnimation(reduceMotion ? nil : .spring(response: 0.6, dampingFraction: 0.7)) { revealed = kind }
-                TouchFeedback.hatch()
-            } else { taps = 2 }
+        guard canInteract, !opening, revealed == nil else { return }
+        nameFocused = false
+        guard ritual.tap() else { shakeShell(force: true); return }
+        // Save the creature before its reveal so interruptions cannot lose an earned egg.
+        guard let kind = model.hatch(owner: free ? hatchOwner : nil) else {
+            ritual.retryOpening()
+            motionFrame = nil
+            return
+        }
+        shakeTask?.cancel(); motionFrame = nil
+        pendingKind = kind
+        petName = kind.defaultName
+        ceremonyFrame = .gatheringLight
+        hatchTask = Task { @MainActor in
+            let sequence: [(EggStage, Int, CGFloat)] = reduceMotion
+                ? [(.gatheringLight, 650, 0.3), (.nest, 900, 0)]
+                : [(.gatheringLight, 650, 0.3), (.opening, 400, 0.45),
+                   (.lifting, 500, 0.65), (.parting, 550, 0.35), (.nest, 900, 0)]
+            for (stage, duration, intensity) in sequence {
+                guard !Task.isCancelled else { return }
+                if stage == .nest {
+                    withAnimation(.easeOut(duration: reduceMotion ? 0.2 : 0.45)) { ceremonyFrame = stage }
+                    TouchFeedback.hatch()
+                } else {
+                    ceremonyFrame = stage
+                    TouchFeedback.hatchBeat(intensity)
+                }
+                try? await Task.sleep(for: .milliseconds(duration))
+            }
+            guard !Task.isCancelled else { return }
+            completeReveal()
         }
     }
-}
 
-struct EggShell: View {
-    var warmth: Double
-    var cracks: Int
-    var body: some View {
-        ZStack {
-            Ellipse().fill(LinearGradient(colors: [.white, DotsStyle.lilac.opacity(0.6 + warmth * 0.4)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .overlay(Ellipse().stroke(.white, lineWidth: 2))
-                .shadow(color: DotsStyle.plum.opacity(0.12), radius: 22, y: 12)
-            ForEach(0..<7) { index in
-                Circle().fill(DotsStyle.plum.opacity(0.12)).frame(width: CGFloat(6 + index % 3 * 4), height: CGFloat(6 + index % 3 * 4))
-                    .offset(x: CGFloat((index * 31) % 95 - 47), y: CGFloat((index * 47) % 140 - 70))
-            }
-            if cracks > 0 {
-                Path { path in
-                    path.move(to: CGPoint(x: 80, y: 45)); path.addLines([CGPoint(x: 65, y: 76), CGPoint(x: 91, y: 95), CGPoint(x: 73, y: 124)])
-                    if cracks > 1 { path.addLines([CGPoint(x: 105, y: 143), CGPoint(x: 87, y: 178)]) }
-                }.stroke(DotsStyle.plum.opacity(0.6), style: StrokeStyle(lineWidth: 2, lineCap: .round))
-            }
-            Image(systemName: "heart.fill").font(.system(size: 24)).foregroundStyle(.white.opacity(warmth)).offset(y: 12)
-        }
+    private func completeReveal() {
+        guard let kind = pendingKind else { return }
+        hatchTask?.cancel()
+        revealed = kind
+        pendingKind = nil
+        ceremonyFrame = nil
     }
 }
 

@@ -57,6 +57,20 @@ import CoreText
         try save(phone(.pillow, tab: .widget), to: out.appendingPathComponent("widgets.png"))
         try save(phone(.pillow, tab: .collection), to: out.appendingPathComponent("collection.png"))
         try save(HatchingView(free: true).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874), to: out.appendingPathComponent("hatching.png"))
+        for stage in [EggStage.awake, .firstCrack, .secondCrack, .lifting, .parting] {
+            try save(HatchingView(free: true, previewStage: stage).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874),
+                     to: out.appendingPathComponent("hatching-stage-\(stage.rawValue).png"))
+        }
+        let eggFrames = VStack(spacing: 8) {
+            ForEach(0..<2) { row in
+                HStack(spacing: 8) {
+                    ForEach(0..<6) { column in
+                        EggArtwork(stage: EggStage(rawValue: row * 6 + column)!).frame(width: 160, height: 160)
+                    }
+                }
+            }
+        }.padding(20).background(DotsStyle.paper)
+        try save(eggFrames, to: out.appendingPathComponent("egg-sequence.png"), scale: 1)
         try save(HatchingView(free: true, previewRevealed: .coconut).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874), to: out.appendingPathComponent("hatch-name.png"))
         let profile = VStack(alignment: .leading, spacing: 22) {
             Text("Your profile").font(DotsStyle.round(30, weight: .bold))

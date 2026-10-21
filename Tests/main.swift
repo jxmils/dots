@@ -98,7 +98,33 @@ import UIKit
         let budget = MemoryRestoreBudget(); try budget.record(3)
         let withBudget = CircleModel(store: CircleStore(root: root.appendingPathComponent("restores")), restoreBudget: budget)
         precondition(withBudget.state.collection.restoresRemaining == 0, "A fresh companion must retain the lifetime restore receipt")
+        var ritual = HatchRitual()
+        precondition(ritual.stage == .sleeping)
+        ritual.warm(.nan); ritual.warm(-1)
+        precondition(ritual.warmth == 0, "Invalid warmth cannot advance an egg")
+        for _ in 0..<4 { precondition(!ritual.tap(), "Warming taps cannot spend an egg") }
+        precondition(ritual.ready && ritual.cracks == 0)
+        precondition(!ritual.tap() && ritual.stage == .firstCrack)
+        precondition(!ritual.tap() && ritual.stage == .secondCrack)
+        precondition(ritual.tap() && ritual.isOpening, "Only the third crack starts the reveal")
+        for _ in 0..<20 { precondition(!ritual.tap(), "Repeated taps during the reveal cannot spend another egg") }
+        precondition(ritual.cracks == 3)
+        ritual.retryOpening()
+        precondition(!ritual.isOpening && ritual.cracks == 2 && ritual.tap(), "A failed save must allow a retry")
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        for stage in EggStage.allCases {
+            guard let cg = CompanionArt.eggImage(stage)?.cgImage else { fatalError("Missing egg frame \(stage)") }
+            precondition(cg.width == 512 && cg.height == 512, "Egg frames must keep a fixed canvas")
+            let raw = UnsafeMutablePointer<UInt8>.allocate(capacity: 512 * 512 * 4)
+            raw.initialize(repeating: 0, count: 512 * 512 * 4)
+            defer { raw.deallocate() }
+            let context = CGContext(data: raw, width: 512, height: 512, bitsPerComponent: 8, bytesPerRow: 2048,
+                                    space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+            context.draw(cg, in: CGRect(x: 0, y: 0, width: 512, height: 512))
+            for corner in [0, 511, 511 * 512, 512 * 512 - 1] { precondition(raw[corner * 4 + 3] <= 5, "Egg corners must be transparent") }
+            precondition((0..<(512 * 512)).filter { raw[$0 * 4 + 3] > 200 }.count > 10000, "Each egg stage must contain visible artwork")
+        }
+        print("Egg warming, three-tap reveal, repeat-tap protection and all 12 egg images passed")
         precondition(CompanionTouchLayout.frames.count == CompanionKind.allCases.count, "Every pet needs aligned touch artwork")
         for kind in CompanionKind.allCases {
             guard let layout = CompanionTouchLayout.frames[kind.touchAsset] else { fatalError("Missing touch layout") }
