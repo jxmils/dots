@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "character": "Sky",
+  "approval": "User described this version as almost perfect and asked to keep it in the 3D model.",
+  "stage": "approved_neutral_front_view",
+  "blender_version": [
+    5,
+    1,
+    0
+  ],
+  "method": "One fixed reference texture on a shaped 3D relief surface. No pose-image swapping.",
+  "generation_prompt": null,
+  "generation_prompt_note": "The accepted version used the supplied image directly; no new image generation prompt was used.",
+  "geometry": {
+    "grid": 129,
+    "image_extent": 526,
+    "center_x": 270,
+    "bottom_y": 484,
+    "units_per_pixel": 0.0037,
+    "z_offset": 0.025,
+    "surface_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "texture": {
+    "file": "reference.png",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "color_space": "sRGB",
+    "alpha_mode": "STRAIGHT",
+    "interpolation": "Linear",
+    "extension": "CLIP",
+    "alpha_min": 0.94,
+    "alpha_max": 0.985,
+    "max_u": 0.341796875,
+    "min_v": 0.51,
+    "emission_strength": 1.0
+  },
+  "camera": {
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -0.02590000070631504
+      ],
+      [
+        0.0,
+        -1.6292068494294654e-07,
+        -1.0,
+        -6.0
+      ],
+      [
+        0.0,
+        1.0,
+        -1.6292068494294654e-07,
+        0.8427000045776367
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "type": "ORTHO",
+    "ortho_scale": 1.9462000131607056,
+    "lens": 50.0,
+    "clip_start": 0.10000000149011612,
+    "clip_end": 1000.0,
+    "shift_x": 0.0,
+    "shift_y": 0.0
+  },
+  "render": {
+    "engine": "CYCLES",
+    "resolution_x": 1100,
+    "resolution_y": 1100,
+    "resolution_percentage": 100,
+    "pixel_aspect_x": 1.0,
+    "pixel_aspect_y": 1.0,
+    "film_transparent": true,
+    "filter_size": 1.5,
+    "dither_intensity": 1.0
+  },
+  "cycles": {
+    "samples": 32,
+    "seed": 0,
+    "use_animated_seed": false,
+    "use_adaptive_sampling": true,
+    "adaptive_threshold": 0.009999999776482582,
+    "adaptive_min_samples": 0,
+    "use_denoising": true,
+    "denoiser": "OPENIMAGEDENOISE",
+    "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+    "denoising_prefilter": "ACCURATE",
+    "pixel_filter_type": "BLACKMAN_HARRIS",
+    "max_bounces": 12,
+    "transparent_max_bounces": 8
+  },
+  "view": {
+    "view_transform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0,
+    "use_curve_mapping": false
+  },
+  "display": {
+    "display_device": "sRGB"
+  },
+  "output": {
+    "file_format": "PNG",
+    "color_mode": "RGBA",
+    "color_depth": "8",
+    "compression": 15,
+    "color_management": "FOLLOW_SCENE"
+  },
+  "world": {
+    "color": [
+      0.72,
+      0.81,
+      1,
+      1
+    ],
+    "strength": 0.28
+  },
+  "preserve": [
+    "Reference coat and tiny short fuzz",
+    "Broad gently flattened base and rounded sides",
+    "Small tucked curl",
+    "Original glossy brown eyes and soft cheeks",
+    "Fixed closed smile",
+    "Neutral silhouette and camera"
+  ],
+  "limits": [
+    "This locks the approved front view, not a finished 360-degree character.",
+    "The neutral facial features are still part of the texture.",
+    "Facial rig work must preserve this neutral look; it is not yet ready for the app."
+  ],
+  "files": {
+    "reference.png": {
+      "sha256": "372becb1d76e3209be672b7f8e6c99f429a48bee732135d640343133d558a64e",
+      "bytes": 1786254
+    },
+    "depth.json": {
+      "sha256": "dd3ba598dd2797d1083d6627a993a7c1d9c2e8eec4242ebb75ca6dbd1ddd8daa",
+      "bytes": 352388
+    },
+    "approved-neutral.png": {
+      "sha256": "be3743d24f0ddf406a309fc27e3332fd54b91c8ba290add075a3ee812facef48",
+      "bytes": 1099509
+    },
+    "approved-source.blend": {
+      "sha256": "07f0073092b35a8e7a31ebc7d0b28a775560144ff8afa69b29ad1ec06bd5e0d5",
+      "bytes": 21132700
+    }
+  }
+}

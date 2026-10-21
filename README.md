@@ -56,6 +56,8 @@ removing revoked access. Mood changes are saved locally before an upload is atte
 
 ## Source
 
+- `Art/Sky/`: preserved approved Sky model, original texture and exact front-view rebuild recipe.
+  Run `bash Tools/rebuild-sky.sh`; see [the Sky model notes](Art/Sky/README.md).
 - `Dots/`: SwiftUI screens, model, iCloud invitation handling, sharing sheet.
 - `Shared/`: companion/mood model, storage, CloudKit operations, character and widget views.
 - `DotsWidget/`: App Intent configuration and timeline provider.

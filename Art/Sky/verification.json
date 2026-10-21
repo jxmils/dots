@@ -1,0 +1,25 @@
+{
+  "blender_version": "5.1.0",
+  "source_hashes_verified": true,
+  "packed_texture": true,
+  "vertices": 16641,
+  "faces": 16384,
+  "model": "Sky.blend",
+  "preview": "Sky.png",
+  "scope": "Approved neutral front view only; not a facial animation or native-app check.",
+  "comparison": {
+    "metric": "Premultiplied visible color and alpha; invisible RGB excluded",
+    "max_visible_color_difference_255": 1.027451515197754,
+    "mean_visible_color_difference_255": 0.00043064766214229167,
+    "max_alpha_difference_255": 1.000003695487976,
+    "passed": true
+  },
+  "checked_on": "2026-10-21",
+  "builder_sha256": "4e3026e788ea84fd64d286f28f6486cd49614968f70ee4f5b8d02316151c925b",
+  "recipe_sha256": "7acbcb9a1c57e008ac6fb07f5e55b3adaab7f9c95613467ddf9050b4d9557393",
+  "source_directory_protection": {
+    "expected_exit_code": 1,
+    "observed_exit_code": 1,
+    "passed": true
+  }
+}
