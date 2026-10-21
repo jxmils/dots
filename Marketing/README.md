@@ -25,7 +25,7 @@ Marketing exports use the actual app capture on the search creative and screensh
 
 ## Before App Review
 
-The app record has been created by the owner. This kit does not submit an app or upload a signed build. App Store Connect still needs a signed build, private reviewer contact email/phone, completed age rating and privacy declarations, pricing/availability, and production CloudKit verification. Enter accurate accessibility declarations only after device checks. There is no separate Dotlings login. The review-notes draft describes optional iCloud sharing and the first hatch.
+The app record has been created by the owner. This kit does not submit an app or upload a signed build. App Store Connect still needs a signed build, private reviewer contact phone number, completed age rating and privacy declarations, pricing/availability, and production CloudKit verification. Enter accurate accessibility declarations only after device checks. There is no separate Dotlings login. The review-notes draft describes optional iCloud sharing and the first hatch.
 
 App Preview video and iPhone Duo captures are not included. These optional assets need footage/captures from the corresponding supported experience.
 

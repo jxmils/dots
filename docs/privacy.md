@@ -34,8 +34,10 @@ A small Keychain receipt containing only the number of used lifetime streak rest
 
 ## Support and this website
 
-Support and privacy questions can be submitted at https://github.com/jxmils/dots/issues/new/choose. GitHub issues are public: include a general description rather than private names, moods, Apple Account details or other sensitive information. GitHub processes website visits and submitted issue information under its own privacy statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement.
+For support or privacy questions, email Jason Miller at [jasonversamiller@gmail.com](mailto:jasonversamiller@gmail.com). If you email us, we use your email address and the information in your message to respond to your request. Please do not send passwords or Apple Account credentials.
+
+You can also submit a general question at https://github.com/jxmils/dots/issues/new/choose. GitHub issues are public: include a general description rather than private names, moods, Apple Account details or other sensitive information. GitHub processes website visits and submitted issue information under its own privacy statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement.
 
 ## Changes and contact
 
-We will update this policy and its effective date when the app's information practices change. For questions about this policy or your information, contact Jason Miller through the support page: https://github.com/jxmils/dots/blob/main/docs/support.md.
+We will update this policy and its effective date when the app's information practices change. For questions about this policy or your information, contact Jason Miller at [jasonversamiller@gmail.com](mailto:jasonversamiller@gmail.com) or visit the support page: https://github.com/jxmils/dots/blob/main/docs/support.md.

@@ -4,9 +4,11 @@ Little pets. Closer friends.
 
 ## Contact support
 
-[Report a problem or ask a question](https://github.com/jxmils/dots/issues/new/choose). Support is provided by Jason Miller through GitHub. A GitHub account is needed to submit an issue; you can read this guide without one. Issues are public, so describe the problem without sharing private moods, Apple Account information or personal screenshots.
+For help with Dotlings, email Jason Miller at [jasonversamiller@gmail.com](mailto:jasonversamiller@gmail.com). You do not need a GitHub account to contact support.
 
-When reporting a problem, include your iPhone model, iOS version, Dotlings version, what you expected and what happened. There is no public support email address.
+You can also [report a problem or ask a question on GitHub](https://github.com/jxmils/dots/issues/new/choose). GitHub issues are public, so describe the problem without sharing private moods, Apple Account information or personal screenshots.
+
+When reporting a problem, include your iPhone model, iOS version, Dotlings version, what you expected and what happened. Never send passwords or Apple Account credentials.
 
 ## Hatch and name a companion
 
