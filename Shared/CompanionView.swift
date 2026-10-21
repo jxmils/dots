@@ -59,11 +59,6 @@ struct CompanionView: View {
     var kind: CompanionKind = .lavender
     var animate = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var hop: CGFloat = 0
-    @State private var playfulTilt = 0.0
-    @State private var tapCount = 0
-    @State private var showHearts = false
-    @State private var floating = false
     @State private var squished = false
     @State private var touching = false
     @State private var drag = CGSize.zero
@@ -81,7 +76,7 @@ struct CompanionView: View {
                 .accessibilityHint("Tap to boop, or rub to pet your companion")
                 .accessibilityAction(named: "Boop") { react(rubbed: false) }
                 .accessibilityAction(named: "Pet") { react(rubbed: true) }
-                .onDisappear { reactionTask?.cancel(); reaction = nil; squished = false; touching = false; hop = 0; playfulTilt = 0; showHearts = false }
+                .onDisappear { reactionTask?.cancel(); reaction = nil; squished = false; touching = false; drag = .zero; previousPoint = nil; rubDistance = 0 }
         } else { character }
     }
 
@@ -93,32 +88,17 @@ struct CompanionView: View {
                 Image(systemName: "cloud.fill").resizable().scaledToFit().foregroundStyle(DotsStyle.lilac)
             }
         }
-        .scaleEffect(x: reduceMotion ? 1 : squished || touching ? 1.10 : 1,
-                     y: reduceMotion ? 1 : squished || touching ? 0.90 : 1, anchor: .bottom)
-        .rotationEffect(.degrees(reduceMotion ? 0 : playfulTilt + Double(max(-8, min(8, drag.width / 14)))))
-        .offset(x: reduceMotion ? 0 : max(-8, min(8, drag.width / 12)), y: reduceMotion ? 0 : hop + (floating ? -6 : 0))
-        .overlay(alignment: .top) {
-            if showHearts {
-                HStack(spacing: 22) {
-                    Image(systemName: "heart.fill").rotationEffect(.degrees(-18))
-                    Image(systemName: "sparkle").offset(y: -12)
-                    Image(systemName: "heart.fill").rotationEffect(.degrees(18))
-                }.font(.system(size: 16)).foregroundStyle(DotsStyle.plum.opacity(0.7))
-                    .transition(.opacity).allowsHitTesting(false)
-            }
-        }
-        .onAppear {
-            if animate && !reduceMotion {
-                withAnimation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true)) { floating = true }
-            }
-        }
+        .scaleEffect(x: reduceMotion ? 1 : squished || touching ? 1.015 : 1,
+                     y: reduceMotion ? 1 : squished || touching ? 0.985 : 1, anchor: .bottom)
+        .rotationEffect(.degrees(reduceMotion ? 0 : Double(max(-1, min(1, drag.width / 100)))))
+        .offset(x: reduceMotion ? 0 : max(-1, min(1, drag.width / 100)))
         .accessibilityLabel("Squishy companion, feeling \(mood.title.lowercased())")
     }
 
     private var playGesture: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
-                if !touching { reactionTask?.cancel(); hop = 0; playfulTilt = 0; squished = false; showHearts = false; TouchFeedback.prepare() }
+                if !touching { reactionTask?.cancel(); squished = false; TouchFeedback.prepare() }
                 touching = true
                 drag = value.translation
                 if let previousPoint {
@@ -137,7 +117,7 @@ struct CompanionView: View {
             .onEnded { _ in
                 let rubbed = rubDistance > 30
                 previousPoint = nil; rubDistance = 0
-                withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.4)) { touching = false; drag = .zero }
+                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.2)) { touching = false; drag = .zero }
                 react(rubbed: rubbed)
             }
     }
@@ -145,30 +125,16 @@ struct CompanionView: View {
     private func react(rubbed: Bool) {
         reactionTask?.cancel()
         reaction = rubbed ? .calm : .happy
-        tapCount += 1
         if rubbed { TouchFeedback.pet() } else { TouchFeedback.tap() }
-        withAnimation(reduceMotion ? nil : .spring(response: 0.18, dampingFraction: 0.55)) {
+        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.12)) {
             squished = true
-            showHearts = rubbed
         }
         reactionTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(180))
             guard !Task.isCancelled else { return }
-            withAnimation(reduceMotion ? nil : .spring(response: 0.28, dampingFraction: 0.55)) {
-                squished = false
-                hop = rubbed ? -4 : (tapCount.isMultiple(of: 3) ? -32 : -18)
-                playfulTilt = rubbed ? 0 : (tapCount.isMultiple(of: 2) ? -12 : 12)
-                showHearts = true
-            }
-            try? await Task.sleep(for: .milliseconds(230))
-            guard !Task.isCancelled else { return }
-            if !rubbed { TouchFeedback.land() }
-            withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.45)) {
-                hop = 0; playfulTilt = 0
-            }
+            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.2)) { squished = false }
             try? await Task.sleep(for: .seconds(2))
             guard !Task.isCancelled else { return }
-            withAnimation(.easeOut(duration: 0.25)) { showHearts = false }
             reaction = nil
         }
     }
@@ -248,7 +214,6 @@ struct FriendWidgetView: View {
     static func prepare() { soft.prepare(); firm.prepare(); success.prepare() }
     static func pet() { soft.impactOccurred(intensity: 0.65); soft.prepare() }
     static func tap() { firm.impactOccurred(intensity: 0.55); firm.prepare() }
-    static func land() { soft.impactOccurred(intensity: 0.45); soft.prepare() }
     static func shell(warmth: Double) { firm.impactOccurred(intensity: 0.4 + warmth * 0.5); firm.prepare(); success.prepare() }
     static func hatch() { success.notificationOccurred(.success) }
 }
