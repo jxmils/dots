@@ -171,7 +171,11 @@ private struct StoreCard: View {
         let out = URL(fileURLWithPath: CommandLine.arguments.dropFirst().first ?? "build/launch-kit")
         let captures = CommandLine.arguments.count > 2 ? CommandLine.arguments[2] : "build/store-captures"
         let fm = FileManager.default
-        for folder in ["logos", "app-store", "screenshots/6.9-inch", "screenshots/6.5-inch"] {
+        let screenshotSizes: [(folder: String, width: CGFloat, height: CGFloat)] = [
+            ("6.9-inch", 1320, 2868), ("6.5-inch", 1284, 2778),
+            ("6.3-inch", 1206, 2622), ("6.1-inch", 1179, 2556)
+        ]
+        for folder in ["logos", "app-store"] + screenshotSizes.map({ "screenshots/" + $0.folder }) {
             try fm.createDirectory(at: out.appendingPathComponent(folder), withIntermediateDirectories: true)
         }
         CTFontManagerRegisterFontsForURL(URL(fileURLWithPath: "Brand/Fonts/Nunito-ExtraBold.ttf") as CFURL, .process, nil)
@@ -213,9 +217,12 @@ private struct StoreCard: View {
             guard fm.fileExists(atPath: path) else { continue }
             let card = StoreCard(title: item.1, subtitle: item.2, screen: path, index: index)
             let name = String(format: "%02d-", index + 1) + item.0 + ".png"
-            try save(card, to: out.appendingPathComponent("screenshots/6.9-inch/" + name))
-            let small = ZStack { cream; card.scaleEffect(2778.0 / 2868.0) }.frame(width: 1284, height: 2778).clipped()
-            try save(small, to: out.appendingPathComponent("screenshots/6.5-inch/" + name))
+            for size in screenshotSizes {
+                let scale = min(size.width / 1320, size.height / 2868)
+                let fitted = ZStack { cream; card.scaleEffect(scale) }
+                    .frame(width: size.width, height: size.height).clipped()
+                try save(fitted, to: out.appendingPathComponent("screenshots/" + size.folder + "/" + name))
+            }
         }
         let board = VStack(alignment: .leading, spacing: 38) {
             HStack(spacing: 30) {

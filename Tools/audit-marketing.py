@@ -16,7 +16,8 @@ required = {
 }
 names = ["home", "low", "friends", "widget", "collection", "hatch", "name", "profile"]
 for i, name in enumerate(names, 1):
-    for folder, size in [("6.9-inch", (1320, 2868)), ("6.5-inch", (1284, 2778))]:
+    for folder, size in [("6.9-inch", (1320, 2868)), ("6.5-inch", (1284, 2778)),
+                         ("6.3-inch", (1206, 2622)), ("6.1-inch", (1179, 2556))]:
         required[f"screenshots/{folder}/{i:02d}-{name}.png"] = size
 
 manifest = []

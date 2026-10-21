@@ -6,7 +6,7 @@ The public app name is Dotlings. Registered Apple identifiers and the Dots Xcode
 
 - Header: `app-store/header-3840x1646.png` or `app-store/universal-5244x2950.png`.
 - Search Results: `app-store/search-results-3840x2560.png`, its 1920x1280 version, or the universal 5244x2950 image.
-- App Previews and Screenshots: upload the eight numbered PNGs from `screenshots/6.9-inch` in order. A matching 6.5-inch set is included.
+- App Previews and Screenshots: for the iPhone with Dynamic Island (medium display) slot, upload the eight numbered PNGs from `screenshots/6.3-inch` (1206 × 2622) in order. The `screenshots/6.1-inch` set (1179 × 2556) is an alternative for the same slot; use one set, not both. Matching 6.9-inch and 6.5-inch sets are also included for their corresponding slots.
 - The 1024px app icon is compiled into the app. SVG and transparent PNG logos are for brand use, not screenshot/header upload.
 - Listing copy: `listing-en-US.txt` and `listing-en-US.json`.
 - Privacy Policy URL: https://github.com/jxmils/dots/blob/main/docs/privacy.md
