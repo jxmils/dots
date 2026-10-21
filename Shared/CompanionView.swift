@@ -58,8 +58,11 @@ struct CompanionView: View {
     var mood: Mood
     var kind: CompanionKind = .lavender
     var animate = false
-    var onPlay: ((String) -> Void)?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var hop: CGFloat = 0
+    @State private var playfulTilt = 0.0
+    @State private var tapCount = 0
+    @State private var showHearts = false
     @State private var floating = false
     @State private var squished = false
     @State private var touching = false
@@ -78,7 +81,7 @@ struct CompanionView: View {
                 .accessibilityHint("Tap to boop, or rub to pet your companion")
                 .accessibilityAction(named: "Boop") { react(rubbed: false) }
                 .accessibilityAction(named: "Pet") { react(rubbed: true) }
-                .onDisappear { reactionTask?.cancel() }
+                .onDisappear { reactionTask?.cancel(); reaction = nil; squished = false; touching = false; hop = 0; playfulTilt = 0; showHearts = false }
         } else { character }
     }
 
@@ -92,8 +95,18 @@ struct CompanionView: View {
         }
         .scaleEffect(x: reduceMotion ? 1 : squished || touching ? 1.10 : 1,
                      y: reduceMotion ? 1 : squished || touching ? 0.90 : 1, anchor: .bottom)
-        .rotationEffect(.degrees(reduceMotion ? 0 : Double(max(-8, min(8, drag.width / 14)))))
-        .offset(x: reduceMotion ? 0 : max(-8, min(8, drag.width / 12)), y: floating && !reduceMotion ? -6 : 0)
+        .rotationEffect(.degrees(reduceMotion ? 0 : playfulTilt + Double(max(-8, min(8, drag.width / 14)))))
+        .offset(x: reduceMotion ? 0 : max(-8, min(8, drag.width / 12)), y: reduceMotion ? 0 : hop + (floating ? -6 : 0))
+        .overlay(alignment: .top) {
+            if showHearts {
+                HStack(spacing: 22) {
+                    Image(systemName: "heart.fill").rotationEffect(.degrees(-18))
+                    Image(systemName: "sparkle").offset(y: -12)
+                    Image(systemName: "heart.fill").rotationEffect(.degrees(18))
+                }.font(.system(size: 16)).foregroundStyle(DotsStyle.plum.opacity(0.7))
+                    .transition(.opacity).allowsHitTesting(false)
+            }
+        }
         .onAppear {
             if animate && !reduceMotion {
                 withAnimation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true)) { floating = true }
@@ -105,18 +118,20 @@ struct CompanionView: View {
     private var playGesture: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
+                if !touching { reactionTask?.cancel(); hop = 0; playfulTilt = 0; squished = false; showHearts = false; TouchFeedback.prepare() }
                 touching = true
                 drag = value.translation
                 if let previousPoint {
-                    rubDistance += hypot(value.location.x - previousPoint.x, value.location.y - previousPoint.y)
+                    let distance = hypot(value.location.x - previousPoint.x, value.location.y - previousPoint.y)
+                    rubDistance += distance
+                    if distance > 1, rubDistance > 15, Date().timeIntervalSince(lastFeedback) > 0.10 {
+                        TouchFeedback.pet()
+                        lastFeedback = Date()
+                    }
                 }
                 previousPoint = value.location
                 if rubDistance > 30 {
                     reaction = .calm
-                    if Date().timeIntervalSince(lastFeedback) > 0.22 {
-                        UIImpactFeedbackGenerator(style: .soft).impactOccurred(intensity: 0.35)
-                        lastFeedback = Date()
-                    }
                 }
             }
             .onEnded { _ in
@@ -130,15 +145,30 @@ struct CompanionView: View {
     private func react(rubbed: Bool) {
         reactionTask?.cancel()
         reaction = rubbed ? .calm : .happy
-        onPlay?(rubbed ? "A tiny purr. That was lovely." : "Boop. Hello to you, too.")
-        UIImpactFeedbackGenerator(style: .soft).impactOccurred(intensity: rubbed ? 0.4 : 0.7)
-        withAnimation(reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.35)) { squished = true }
+        tapCount += 1
+        if rubbed { TouchFeedback.pet() } else { TouchFeedback.tap() }
+        withAnimation(reduceMotion ? nil : .spring(response: 0.18, dampingFraction: 0.55)) {
+            squished = true
+            showHearts = rubbed
+        }
         reactionTask = Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(180))
             guard !Task.isCancelled else { return }
-            withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.4)) { squished = false }
+            withAnimation(reduceMotion ? nil : .spring(response: 0.28, dampingFraction: 0.55)) {
+                squished = false
+                hop = rubbed ? -4 : (tapCount.isMultiple(of: 3) ? -32 : -18)
+                playfulTilt = rubbed ? 0 : (tapCount.isMultiple(of: 2) ? -12 : 12)
+                showHearts = true
+            }
+            try? await Task.sleep(for: .milliseconds(230))
+            guard !Task.isCancelled else { return }
+            if !rubbed { TouchFeedback.land() }
+            withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.45)) {
+                hop = 0; playfulTilt = 0
+            }
             try? await Task.sleep(for: .seconds(2))
             guard !Task.isCancelled else { return }
+            withAnimation(.easeOut(duration: 0.25)) { showHearts = false }
             reaction = nil
         }
     }
@@ -208,4 +238,17 @@ struct FriendWidgetView: View {
             }
         }
     }
+}
+
+// Retain and prepare generators so feedback starts promptly on real iPhones.
+@MainActor enum TouchFeedback {
+    private static let soft = UIImpactFeedbackGenerator(style: .soft)
+    private static let firm = UIImpactFeedbackGenerator(style: .rigid)
+    private static let success = UINotificationFeedbackGenerator()
+    static func prepare() { soft.prepare(); firm.prepare(); success.prepare() }
+    static func pet() { soft.impactOccurred(intensity: 0.65); soft.prepare() }
+    static func tap() { firm.impactOccurred(intensity: 0.55); firm.prepare() }
+    static func land() { soft.impactOccurred(intensity: 0.45); soft.prepare() }
+    static func shell(warmth: Double) { firm.impactOccurred(intensity: 0.4 + warmth * 0.5); firm.prepare(); success.prepare() }
+    static func hatch() { success.notificationOccurred(.success) }
 }

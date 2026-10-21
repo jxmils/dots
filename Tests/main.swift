@@ -35,6 +35,9 @@ import UIKit
         precondition(CompanionKind.allCases.count == 29, "The collection must contain all 29 creatures")
         var progress = CollectionProgress()
         precondition(progress.hatch(.pillow, free: true), "The first hatch must be free")
+        precondition(progress.displayOrder.first == .pillow, "Owned creatures must appear before locked creatures")
+        precondition(Set(progress.displayOrder) == Set(CompanionKind.allCases) && progress.displayOrder.count == 29,
+                     "Collection ordering must preserve every creature exactly once")
         precondition(!progress.hatch(.blue, free: true), "The free hatch must not repeat")
         for day in 1...5 { progress.checkIn(on: day) }
         precondition(progress.streak == 5 && progress.eggs == [5], "The fifth actual check-in earns one egg")

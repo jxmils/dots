@@ -13,6 +13,9 @@ struct HatchingView: View {
     @State private var taps = 0
     @State private var lastPoint: CGPoint?
     @State private var lastHaptic = Date.distantPast
+    @State private var shellTilt = 0.0
+    @State private var shakeTask: Task<Void, Never>?
+    @State private var strokeDistance: CGFloat = 0
     @State private var revealed: CompanionKind?
     @FocusState private var nameFocused: Bool
 
@@ -25,6 +28,7 @@ struct HatchingView: View {
         }
         .foregroundStyle(DotsStyle.ink).background(DotsStyle.paper.ignoresSafeArea())
         .interactiveDismissDisabled(revealed != nil)
+        .onDisappear { shakeTask?.cancel() }
     }
     private var content: some View {
         VStack(spacing: 24) {
@@ -68,20 +72,24 @@ struct HatchingView: View {
                 ZStack {
                     Circle().fill(DotsStyle.lilac.opacity(0.2 + warmth * 0.6)).frame(width: 260, height: 260)
                     EggShell(warmth: warmth, cracks: taps).frame(width: 174, height: 214)
-                        .rotationEffect(.degrees(reduceMotion ? 0 : Double(taps.isMultiple(of: 2) ? -taps : taps) * 2))
+                        .rotationEffect(.degrees(reduceMotion ? 0 : shellTilt))
+                        .offset(x: reduceMotion ? 0 : shellTilt * 0.7, y: reduceMotion ? 0 : -abs(shellTilt) * 0.5)
                 }.frame(height: 282)
                     .contentShape(Circle())
                     .gesture(DragGesture(minimumDistance: 0)
                         .onChanged { value in
                             nameFocused = false
                             if let lastPoint {
-                                warm(Double(hypot(value.location.x - lastPoint.x, value.location.y - lastPoint.y)) / 1100)
+                                let distance = hypot(value.location.x - lastPoint.x, value.location.y - lastPoint.y)
+                                strokeDistance += distance
+                                warm(Double(distance) / 1100)
                             }
                             lastPoint = value.location
                         }
                         .onEnded { value in
                             lastPoint = nil
-                            if hypot(value.translation.width, value.translation.height) < 10 { tapEgg() }
+                            if strokeDistance < 10 { tapEgg() }
+                            strokeDistance = 0
                         })
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(ready ? "Warm egg, \(taps) of 3 taps to hatch" : "Egg, \(Int(warmth * 100)) percent warmed")
@@ -120,24 +128,39 @@ struct HatchingView: View {
         Label(title, systemImage: icon).font(DotsStyle.round(16, weight: .bold)).frame(maxWidth: .infinity).padding(19)
             .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
     }
-    private func warm(_ amount: Double) {
-        guard !ready, !free || !hatchOwner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.15)) { warmth = min(1, warmth + amount) }
-        if Date().timeIntervalSince(lastHaptic) > 0.25 {
-            UIImpactFeedbackGenerator(style: .soft).impactOccurred(intensity: 0.35)
-            lastHaptic = Date()
+    private func shakeShell() {
+        guard Date().timeIntervalSince(lastHaptic) > 0.18 else { return }
+        lastHaptic = Date()
+        shakeTask?.cancel()
+        TouchFeedback.shell(warmth: warmth)
+        shakeTask = Task { @MainActor in
+            for tilt in [7.0, -6.0, 4.0, -2.0, 0.0] {
+                guard !Task.isCancelled else { return }
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.055)) {
+                    shellTilt = tilt * (0.5 + warmth * 0.5)
+                }
+                try? await Task.sleep(for: .milliseconds(55))
+            }
         }
     }
+    private func warm(_ amount: Double) {
+        guard amount > 0, !free || !hatchOwner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.15)) { warmth = min(1, warmth + amount) }
+        shakeShell()
+    }
+
     private func tapEgg() {
         guard !free || !hatchOwner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         if !ready { warm(0.25); return }
         taps += 1
-        UIImpactFeedbackGenerator(style: .soft).impactOccurred(intensity: 0.5)
+        shakeShell()
         if taps >= 3 {
             if let kind = model.hatch(owner: free ? hatchOwner : nil) {
+                shakeTask?.cancel()
+                shellTilt = 0
                 petName = kind.defaultName
                 withAnimation(reduceMotion ? nil : .spring(response: 0.6, dampingFraction: 0.7)) { revealed = kind }
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                TouchFeedback.hatch()
             } else { taps = 2 }
         }
     }
@@ -173,8 +196,8 @@ struct CollectionView: View {
         let progress = model.state.collection
         let streak = progress.currentStreak(on: CheckInDay.number(Date()))
         VStack(alignment: .leading, spacing: 22) {
-            Text("Little by little.").font(DotsStyle.round(32, weight: .bold)).padding(.top, 20)
-            Text("\(progress.owned.count) of \(CompanionKind.allCases.count) companions have found their way to you.")
+            Text("Dotling collection").font(DotsStyle.round(32, weight: .bold)).padding(.top, 20)
+            Text("Little by little · \(progress.owned.count) of \(CompanionKind.allCases.count)")
                 .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
             Text("Choose an owned companion as your profile Dotling. It's who your friends will see.")
                 .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
@@ -193,27 +216,36 @@ struct CollectionView: View {
             }
             if let next = progress.nextMilestone {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Next little hello: \(next) days").font(DotsStyle.round(16, weight: .bold))
+                    Text("Next hatch: \(next) days").font(DotsStyle.round(16, weight: .bold))
                     DotsProgress(value: Double(min(streak, next)), total: Double(next), label: "Next companion reward")
                     Text("Choose a mood each day. \(max(0, next - streak)) more check-ins in this streak.")
                         .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }.padding(19).background(DotsStyle.lilac.opacity(0.4), in: RoundedRectangle(cornerRadius: 22))
             }
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 13) {
-                ForEach(CompanionKind.allCases) { kind in
+                ForEach(progress.displayOrder) { kind in
                     let owned = progress.owned.contains(kind)
                     Button { if owned { selected = kind } } label: {
                         VStack(spacing: 5) {
-                            CompanionView(mood: .happy, kind: kind).frame(height: 115).saturation(owned ? 1 : 0).opacity(owned ? 1 : 0.32)
+                            ZStack {
+                                if owned {
+                                    CompanionView(mood: .happy, kind: kind)
+                                } else {
+                                    Color.gray.opacity(0.35)
+                                        .mask(CompanionView(mood: .happy, kind: kind))
+                                    Text("?").font(DotsStyle.round(36, weight: .bold))
+                                        .foregroundStyle(DotsStyle.ink)
+                                }
+                            }.frame(height: 115)
                             HStack(spacing: 5) {
-                                Text(owned ? progress.names[kind.rawValue] ?? kind.defaultName : kind.title).font(DotsStyle.round(14, weight: .bold)).lineLimit(1)
+                                Text(owned ? progress.names[kind.rawValue] ?? kind.defaultName : "???").font(DotsStyle.round(14, weight: .bold)).lineLimit(1)
                                 if model.state.companion?.kind == kind { Image(systemName: "heart.fill").font(.system(size: 9)) }
                                 if !owned { Image(systemName: "lock.fill").font(.system(size: 10)) }
                             }
                             Text(owned ? kind.title : "Waiting in a milestone egg").font(DotsStyle.round(9)).foregroundStyle(DotsStyle.muted)
                         }.frame(maxWidth: .infinity).padding(12).background(.white.opacity(0.75), in: RoundedRectangle(cornerRadius: 25))
                     }.buttonStyle(.plain).disabled(!owned)
-                        .accessibilityLabel("\(kind.title), \(owned ? "owned" : "locked")")
+                        .accessibilityLabel(owned ? "\(kind.title), owned" : "Mystery Dotling, locked")
                 }
             }
             Text("Milestones: " + CollectionProgress.milestones.map(String.init).joined(separator: ", ") + " days. Each unlocks once. Earned creatures and eggs stay yours after a missed day.")

@@ -55,6 +55,7 @@ struct CollectionProgress: Codable, Equatable {
         }
         return nil
     }
+    var displayOrder: [CompanionKind] { owned + unowned }
     var unowned: [CompanionKind] { CompanionKind.allCases.filter { !owned.contains($0) } }
     mutating func hatch(_ kind: CompanionKind, free: Bool) -> Bool {
         guard !owned.contains(kind), free ? owned.isEmpty : !eggs.isEmpty else { return false }

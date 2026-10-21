@@ -113,7 +113,6 @@ struct DotsTabBar: View {
 struct CompanionHome: View {
     @Environment(CircleModel.self) private var model
     var onCircle: () -> Void
-    @State private var playMessage: String?
     var body: some View {
         if let companion = model.state.companion {
             VStack(alignment: .leading, spacing: 18) {
@@ -125,7 +124,7 @@ struct CompanionHome: View {
                     ZStack {
                         Circle().fill(companion.mood.color.opacity(0.16)).frame(width: 188, height: 188)
                         Ellipse().fill(DotsStyle.plum.opacity(0.09)).frame(width: 140, height: 15).offset(y: 85).blur(radius: 10)
-                        CompanionView(mood: companion.mood, kind: companion.kind, animate: true, onPlay: { playMessage = $0 })
+                        CompanionView(mood: companion.mood, kind: companion.kind, animate: true)
                             .frame(width: 218, height: 218)
                     }
                     Text(companion.petName).font(DotsStyle.round(26, weight: .bold)).padding(.top, 3)
@@ -133,8 +132,7 @@ struct CompanionHome: View {
                         Text("Feeling")
                         Text(companion.mood.title.lowercased()).fontWeight(.semibold)
                     }.font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted).padding(.top, 3)
-                    Text(playMessage ?? companion.mood.reassurance).font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
-                        .multilineTextAlignment(.center).padding(.top, 10)
+                    Spacer().frame(height: 24)
                 }.frame(maxWidth: .infinity).padding(.bottom, 5)
 
                 VStack(alignment: .leading, spacing: 13) {
