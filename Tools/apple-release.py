@@ -41,6 +41,12 @@ def private_file(path, data):
     path.chmod(0o600)
 
 
+def allows(value, expected, wildcard=False):
+    # Profiles list allowed values; signed app entitlements select one of those values.
+    values = [value] if isinstance(value, str) else value if isinstance(value, list) else []
+    return expected in values or (wildcard and "*" in values)
+
+
 def validate_profile(profile, bundle, team, now=None):
     now = now or dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
     entitlements = profile.get("Entitlements", {})
@@ -59,9 +65,9 @@ def validate_profile(profile, bundle, team, now=None):
         raise ValueError(f"{bundle}: provisioning profile is missing the Dotlings App Group")
     if "iCloud.com.jasonmiller.dots" not in entitlements.get("com.apple.developer.icloud-container-identifiers", []):
         raise ValueError(f"{bundle}: provisioning profile is missing the Dotlings iCloud container")
-    if entitlements.get("com.apple.developer.icloud-container-environment") != "Production":
+    if not allows(entitlements.get("com.apple.developer.icloud-container-environment"), "Production"):
         raise ValueError(f"{bundle}: provisioning profile must allow production iCloud")
-    if "CloudKit" not in entitlements.get("com.apple.developer.icloud-services", []):
+    if not allows(entitlements.get("com.apple.developer.icloud-services"), "CloudKit", wildcard=True):
         raise ValueError(f"{bundle}: provisioning profile is missing CloudKit")
     if bundle == BUNDLES["APP"] and entitlements.get("aps-environment") != "production":
         raise ValueError(f"{bundle}: provisioning profile must enable production push notifications")

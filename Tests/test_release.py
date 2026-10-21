@@ -36,6 +36,24 @@ class ReleaseTests(unittest.TestCase):
         for bundle in release.BUNDLES.values():
             release.validate_profile(self.profile(bundle), bundle, "KY3DU2D7QL")
 
+    def test_accepts_apple_profile_allow_lists_and_cloudkit_wildcard(self):
+        for bundle in release.BUNDLES.values():
+            profile = self.profile(bundle)
+            profile["Entitlements"]["com.apple.developer.icloud-container-environment"] = ["Production", "Development"]
+            profile["Entitlements"]["com.apple.developer.icloud-services"] = "*"
+            if bundle == release.BUNDLES["WIDGET"]:
+                del profile["Entitlements"]["aps-environment"]
+            release.validate_profile(profile, bundle, "KY3DU2D7QL")
+
+    def test_rejects_profiles_without_production_or_cloudkit_permission(self):
+        for key, value in [("com.apple.developer.icloud-container-environment", ["Development"]),
+                           ("com.apple.developer.icloud-services", ["CloudDocuments"]),
+                           ("com.apple.developer.icloud-services", "NotCloudKit")]:
+            profile = self.profile()
+            profile["Entitlements"][key] = value
+            with self.assertRaises(ValueError):
+                release.validate_profile(profile, release.BUNDLES["APP"], "KY3DU2D7QL")
+
     def test_rejects_wrong_team_or_bundle(self):
         for field, value in [("TeamIdentifier", ["OTHERTEAM1"]), ("UUID", "../../not-a-profile")]:
             profile = self.profile()
