@@ -22,6 +22,8 @@ shared = Dir[File.join(root, 'Shared/*.swift')].sort.map { |path| project.main_g
     s['INFOPLIST_FILE'] = "#{folder}/Info.plist"
     s['CODE_SIGN_ENTITLEMENTS'] = "#{folder}/#{folder}.entitlements"
     s['CODE_SIGN_STYLE'] = 'Automatic'
+    s['ICLOUD_CONTAINER_ENVIRONMENT'] = configuration.name == 'Release' ? 'Production' : 'Development'
+    s['APS_ENVIRONMENT'] = configuration.name == 'Release' ? 'production' : 'development' if folder == 'Dots'
     s['MARKETING_VERSION'] = '1.0'
     s['CURRENT_PROJECT_VERSION'] = '1'
     s['TARGETED_DEVICE_FAMILY'] = '1'

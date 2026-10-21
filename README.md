@@ -36,8 +36,11 @@ and renders the real SwiftUI screens and widget content. It uses the iOS compati
 macOS SDK and runs on an Apple Silicon Mac with the Command Line Tools or full Xcode.
 The output directory defaults to `build/check`; pass an absolute path to put the renders elsewhere.
 
-The GitHub workflow also archives the actual iOS app and embedded widget without distribution signing.
-There is no automatic TestFlight upload or App Store submission in this repository.
+Pull requests run checks and archive the actual iOS app and embedded widget without distribution signing.
+Pushes to `main`, and manual runs on `main`, also sign and upload a distribution build to App Store Connect
+after the checks pass. The upload waits for Apple's processing result and retains a receipt.
+Configure the seven GitHub Actions secrets in [docs/testflight.md](docs/testflight.md) first.
+App Review submission, tester distribution and public release remain manual.
 
 ## Verification boundary
 

@@ -1,4 +1,6 @@
-name: iOS checks
+name: Build and upload Dotlings
+permissions:
+  contents: read
 on:
   push:
     branches: [main]
@@ -16,6 +18,8 @@ jobs:
           xcodebuild -version
       - name: Check behavior and render screens
         run: Tools/check.sh
+      - name: Check release automation
+        run: PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s Tests -p 'test_release.py' -v
       - name: Archive iOS app and widget
         run: |
           set -o pipefail
@@ -47,3 +51,80 @@ jobs:
           path: |
             build/check/*.png
             build/archive.log
+  testflight:
+    name: Sign and upload to Apple
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: macos-15
+    timeout-minutes: 45
+    concurrency:
+      group: dotlings-apple-upload
+      cancel-in-progress: false
+    env:
+      APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID || 'KY3DU2D7QL' }}
+      APPLE_APP_ID: ${{ vars.APPLE_APP_ID || '6825127572' }}
+      APPLE_APP_VERSION: '1.0'
+      APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: |
+          xc=$(ls -d /Applications/Xcode_26.*.app | sort -V | tail -1)
+          sudo xcode-select -s "$xc"
+          xcodebuild -version
+      - name: Validate and install distribution credentials
+        env:
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          APP_PROVISION_PROFILE_BASE64: ${{ secrets.APP_PROVISION_PROFILE_BASE64 }}
+          WIDGET_PROVISION_PROFILE_BASE64: ${{ secrets.WIDGET_PROVISION_PROFILE_BASE64 }}
+        run: python3 Tools/apple-release.py prepare
+      - name: Choose an unused Apple build number
+        run: python3 Tools/apple-release.py number
+      - name: Configure app and widget signing
+        run: |
+          gem install xcodeproj --version 1.27.0 --user-install --no-document
+          ruby Tools/sign-project.rb
+      - name: Archive signed iOS app and widget
+        run: |
+          mkdir -p build/apple-logs
+          set -o pipefail
+          xcodebuild -project Dots.xcodeproj -scheme Dots -configuration Release \
+            -destination 'generic/platform=iOS' -derivedDataPath build/AppleDerivedData \
+            -archivePath build/Dots.xcarchive CURRENT_PROJECT_VERSION="$APPLE_BUILD_NUMBER" \
+            MARKETING_VERSION="$APPLE_APP_VERSION" archive 2>&1 | tee build/apple-logs/archive.log
+          python3 Tools/apple-release.py verify
+      - name: Export App Store package
+        run: |
+          set -o pipefail
+          xcodebuild -exportArchive -archivePath build/Dots.xcarchive \
+            -exportPath build/apple-export \
+            -exportOptionsPlist "$RUNNER_TEMP/dotlings-signing/ExportOptions.plist" \
+            2>&1 | tee build/apple-logs/export.log
+          test -s build/apple-export/Dots.ipa
+      - name: Upload to App Store Connect
+        env:
+          API_PRIVATE_KEYS_DIR: ${{ runner.temp }}/dotlings-signing
+        run: |
+          set -o pipefail
+          xcrun altool --upload-app --type ios --file build/apple-export/Dots.ipa \
+            --apiKey "$APP_STORE_CONNECT_KEY_ID" --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" \
+            --output-format json 2>&1 | tee build/apple-logs/upload.log
+      - name: Wait for Apple processing
+        run: python3 Tools/apple-release.py wait
+      - name: Remove signing material
+        if: always()
+        run: python3 Tools/apple-release.py cleanup
+      - name: Save release logs and receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-upload-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 14
+          path: |
+            build/apple-logs/*.log
+            build/apple-upload-receipt.json
