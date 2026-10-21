@@ -81,12 +81,24 @@ struct CompanionView: View {
     @State private var rubDistance: CGFloat = 0
     @State private var previousPoint: CGPoint?
     @State private var lastFeedback = Date.distantPast
-    @State private var touchFrame: Int?
+    @State private var playback = SpritePlayback(count: 7)
+    @State private var playImages: [UIImage] = []
+    @State private var loadedArtwork = ""
     @State private var petting = false
-    @State private var reactionTask: Task<Void, Never>?
+    private var artworkID: String { kind.rawValue + "/" + mood.rawValue }
     var body: some View {
         if animate {
             character
+                .task(id: artworkID) {
+                    let currentID = artworkID
+                    let currentMood = mood, currentKind = kind
+                    let images = await Task.detached(priority: .userInitiated) {
+                        [CompanionArt.image(currentMood, kind: currentKind)] + (0..<6).map { CompanionArt.touchImage($0, kind: currentKind) }
+                    }.value
+                    guard !Task.isCancelled, images.allSatisfy({ $0 != nil }) else { return }
+                    playImages = images.compactMap { $0 }
+                    loadedArtwork = currentID
+                }
                 .contentShape(Ellipse())
                 .gesture(playGesture)
                 .accessibilityAddTraits(.isButton)
@@ -96,26 +108,34 @@ struct CompanionView: View {
                 .onDisappear { stopPlaying() }
                 .onChange(of: kind) { _, _ in stopPlaying() }
                 .onChange(of: mood) { _, _ in stopPlaying() }
+                .onChange(of: reduceMotion) { _, _ in stopPlaying() }
                 .onChange(of: scenePhase) { _, phase in if phase != .active { stopPlaying() } }
         } else { character }
     }
 
     private var character: some View {
         Group {
-            if let image = touchFrame.flatMap({ CompanionArt.touchImage($0, kind: kind) }) ?? CompanionArt.image(mood, kind: kind) {
+            if animate && loadedArtwork == artworkID && playImages.count == 7 {
+                PlayingSprite(images: playImages, playback: playback)
+            } else if let image = CompanionArt.image(mood, kind: kind) {
                 Image(uiImage: image).resizable().scaledToFit()
             } else {
                 Image(systemName: "cloud.fill").resizable().scaledToFit().foregroundStyle(DotsStyle.lilac)
             }
         }
         .transaction { $0.animation = nil }
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel("Squishy companion, feeling \(mood.title.lowercased())")
     }
 
     private var playGesture: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
-                if !touching { reactionTask?.cancel(); touchFrame = nil; petting = false; TouchFeedback.prepare() }
+                if !touching {
+                    petting = false
+                    TouchFeedback.prepare()
+                    playFrames(rubbed: false)
+                }
                 touching = true
                 if let previousPoint {
                     let distance = hypot(value.location.x - previousPoint.x, value.location.y - previousPoint.y)
@@ -131,13 +151,17 @@ struct CompanionView: View {
             .onEnded { _ in
                 let rubbed = rubDistance > 30
                 touching = false; previousPoint = nil; rubDistance = 0
-                react(rubbed: rubbed)
+                if rubbed {
+                    // Continue from the exact visible blend, without replaying the rub.
+                    playback.play([0], interval: 0.24, at: ProcessInfo.processInfo.systemUptime)
+                    petting = false
+                } else { TouchFeedback.tap() }
             }
     }
 
     private func stopPlaying() {
-        reactionTask?.cancel()
-        touching = false; petting = false; touchFrame = nil
+        touching = false; petting = false
+        playback = SpritePlayback(count: 7)
         previousPoint = nil; rubDistance = 0
     }
     private func react(rubbed: Bool) {
@@ -145,22 +169,10 @@ struct CompanionView: View {
         playFrames(rubbed: rubbed)
     }
     private func playFrames(rubbed: Bool) {
-        reactionTask?.cancel()
         petting = rubbed
-        // Swap dedicated drawings at a fixed size. No scaling, warping or moving the pet.
-        let frames = reduceMotion ? [rubbed ? 4 : 2] : (rubbed ? [3, 4, 5, 4, 3] : [0, 1, 2, 1, 0])
-        touchFrame = frames[0]
-        reactionTask = Task { @MainActor in
-            repeat {
-                for frame in frames {
-                    guard !Task.isCancelled else { return }
-                    touchFrame = frame
-                    try? await Task.sleep(for: .milliseconds(reduceMotion ? 700 : 180))
-                }
-            } while touching && rubbed && !Task.isCancelled
-            guard !Task.isCancelled else { return }
-            touchFrame = nil; petting = false
-        }
+        let frames: [Int] = reduceMotion ? [rubbed ? 5 : 3, 0] : (rubbed ? CompanionMotion.rub + (touching ? [] : [1, 0]) : CompanionMotion.tap)
+        playback.play(frames, interval: reduceMotion ? 0.3 : rubbed ? CompanionMotion.rubInterval : CompanionMotion.tapInterval,
+                      repeats: rubbed && touching && !reduceMotion, at: ProcessInfo.processInfo.systemUptime)
     }
 
 }

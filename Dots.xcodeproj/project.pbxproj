@@ -52,6 +52,7 @@
 		3DCF567242344130B4FE2468 /* CompanionStormAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E039D7ADCFB21947495B9397 /* CompanionStormAtlas.png */; };
 		3E4D2CD31F52E7489AA3E456 /* CompanionCoconutTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = B20A9E432CB568B8BE911313 /* CompanionCoconutTouchAtlas.png */; };
 		3E9EC0F416CAE73E6A267397 /* CircleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C42E536493631C68BF2E41 /* CircleModel.swift */; };
+		41D3BF0B8DC2875CC78E0C11 /* SpritePlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8650B31158C9910B08E190C /* SpritePlayback.swift */; };
 		473A0876C78CBD895CBBF2B8 /* EggArtLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67F9EF13DD92F38FB3C5685 /* EggArtLayout.swift */; };
 		48468374D6DE8045F6FFB18C /* CompanionPuddingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A9B656DA9ED66691D9CE69E /* CompanionPuddingAtlas.png */; };
 		496406609B87DA5855298B3E /* CompanionMossTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = A3613C4395519F7D9BE16872 /* CompanionMossTouchAtlas.png */; };
@@ -100,6 +101,7 @@
 		8F5C8D883C812728B02B7407 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 363FB15A3175A4BFFAC15776 /* Nunito-ExtraBold.ttf */; };
 		91CD4E06852733F80869C8F1 /* CompanionRippleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F0F814FF1EE3B50A80F914FF /* CompanionRippleAtlas.png */; };
 		92193DAF726BD3A2D3F9EF9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3974235045F44668F7B14B0 /* Foundation.framework */; };
+		9995680BE28CDFEEE6B7F489 /* SpritePlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8650B31158C9910B08E190C /* SpritePlayback.swift */; };
 		9A1914034D98B4C4991A5B1A /* CompanionPetalAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9EDBA5D353B8FCA398508D /* CompanionPetalAtlas.png */; };
 		9A28D1F218349BA28056F8EB /* CompanionBeanTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A3AC43FA12F96EA4A8AAF8 /* CompanionBeanTouchAtlas.png */; };
 		9B136CAD01F034FC1F4AC18B /* CompanionSnowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD308A76298837ECFBD0FC3 /* CompanionSnowAtlas.png */; };
@@ -289,6 +291,7 @@
 		F836C054C56B40BC8243E338 /* CompanionSunnyAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSunnyAtlas.png; path = Resources/CompanionSunnyAtlas.png; sourceTree = "<group>"; };
 		F861ADD22022047B04CB1122 /* CompanionPuffTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuffTouchAtlas.png; path = Resources/CompanionPuffTouchAtlas.png; sourceTree = "<group>"; };
 		F86376120E9F82E6564B0856 /* CompanionEmberTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionEmberTouchAtlas.png; path = Resources/CompanionEmberTouchAtlas.png; sourceTree = "<group>"; };
+		F8650B31158C9910B08E190C /* SpritePlayback.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpritePlayback.swift; path = Shared/SpritePlayback.swift; sourceTree = "<group>"; };
 		F96A5CE7C23C3622CB3EE114 /* Dots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -448,6 +451,7 @@
 				F67F9EF13DD92F38FB3C5685 /* EggArtLayout.swift */,
 				EF3FA88EFEC90608CCE1C816 /* EggWakeAtlas.png */,
 				DD69A50AE0DE59CDDECEA69C /* EggOpenAtlas.png */,
+				F8650B31158C9910B08E190C /* SpritePlayback.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -670,6 +674,7 @@
 				569D114B82EC53F9A9C5E122 /* CompanionTouchLayout.swift in Sources */,
 				25AE168193B6835C71849A96 /* EggHatch.swift in Sources */,
 				7FD082CD6C4633A20F85A765 /* EggArtLayout.swift in Sources */,
+				9995680BE28CDFEEE6B7F489 /* SpritePlayback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +696,7 @@
 				2C2A59E312D7CBBEF4CC164A /* CompanionTouchLayout.swift in Sources */,
 				8740A09F6654AF2456D74FC6 /* EggHatch.swift in Sources */,
 				473A0876C78CBD895CBBF2B8 /* EggArtLayout.swift in Sources */,
+				41D3BF0B8DC2875CC78E0C11 /* SpritePlayback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

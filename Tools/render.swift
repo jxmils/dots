@@ -16,6 +16,34 @@ import CoreText
         try FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
         CTFontManagerRegisterFontsForURL(URL(fileURLWithPath: "Brand/Fonts/Nunito-ExtraBold.ttf") as CFURL, .process, nil)
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        if ProcessInfo.processInfo.environment["DOTLINGS_MOTION_PREVIEW"] == "1" {
+            let kinds: [CompanionKind] = [.lavender, .blue, .coconut]
+            let artwork = kinds.map { kind in
+                [CompanionArt.image(.happy, kind: kind)!] + (0..<6).map { CompanionArt.touchImage($0, kind: kind)! }
+            }
+            let eggs = EggStage.allCases.map { CompanionArt.eggImage($0)! }
+            var pet = SpritePlayback(count: 7)
+            var egg = SpritePlayback(count: 12, restingFrame: EggStage.awake.rawValue)
+            pet.play(CompanionMotion.rub, interval: CompanionMotion.rubInterval, repeats: true, at: 0)
+            egg.play([3, 2, 4, 2], interval: 0.11, repeats: true, at: 0)
+            for tick in 0..<180 {
+                let time = Double(tick) / 60
+                if tick == 108 {
+                    pet.play([0], interval: 0.24, at: time)
+                    egg.play([2], interval: 0.1, at: time)
+                }
+                if tick == 132 { pet.play(CompanionMotion.tap, interval: CompanionMotion.tapInterval, at: time) }
+                let scene = HStack(spacing: 0) {
+                    ForEach(0..<3) { index in
+                        SpriteCanvas(images: artwork[index], weights: pet.weights(at: time)).frame(width: 240, height: 280)
+                    }
+                    SpriteCanvas(images: eggs, weights: egg.weights(at: time)).frame(width: 240, height: 280)
+                }.background(DotsStyle.paper)
+                try save(scene, to: out.appendingPathComponent(String(format: "motion-%03d.png", tick)), scale: 1)
+            }
+            print("Rendered 180 continuous artwork samples at 60 Hz")
+            return
+        }
         for kind in CompanionKind.allCases {
             let poses = HStack(spacing: 8) {
                 CompanionView(mood: .happy, kind: kind).frame(width: 140, height: 140)

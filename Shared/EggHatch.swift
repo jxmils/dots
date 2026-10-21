@@ -43,12 +43,33 @@ struct HatchRitual {
 
 struct EggArtwork: View {
     var stage: EggStage
+    @State private var images: [UIImage] = []
+    @State private var playback = SpritePlayback(count: EggStage.allCases.count)
+    @Environment(\.scenePhase) private var scenePhase
+
     var body: some View {
         Group {
-            if let image = CompanionArt.eggImage(stage) {
+            if images.count == EggStage.allCases.count {
+                PlayingSprite(images: images, playback: playback)
+            } else if let image = CompanionArt.eggImage(stage) {
                 Image(uiImage: image).resizable().scaledToFit()
             }
-        }.transaction { $0.animation = nil }.accessibilityHidden(true)
+        }
+        .task {
+            let loaded = await Task.detached(priority: .userInitiated) {
+                EggStage.allCases.compactMap { CompanionArt.eggImage($0) }
+            }.value
+            guard !Task.isCancelled else { return }
+            playback = SpritePlayback(count: EggStage.allCases.count, restingFrame: stage.rawValue)
+            images = loaded
+        }
+        .onChange(of: stage) { _, next in
+            playback.play([next.rawValue], interval: 0.10, at: ProcessInfo.processInfo.systemUptime)
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active { playback = SpritePlayback(count: EggStage.allCases.count, restingFrame: stage.rawValue) }
+        }
+        .transaction { $0.animation = nil }.accessibilityHidden(true)
     }
 }
 

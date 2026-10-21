@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import UIKit
 
 @main struct Checks {
@@ -98,6 +99,46 @@ import UIKit
         let budget = MemoryRestoreBudget(); try budget.record(3)
         let withBudget = CircleModel(store: CircleStore(root: root.appendingPathComponent("restores")), restoreBudget: budget)
         precondition(withBudget.state.collection.restoresRemaining == 0, "A fresh companion must retain the lifetime restore receipt")
+        var motion = SpritePlayback(count: 7)
+        motion.play(CompanionMotion.rub, interval: CompanionMotion.rubInterval, repeats: true, at: 10)
+        var previous = motion.weights(at: 10)
+        for tick in 1...240 {
+            let weights = motion.weights(at: 10 + Double(tick) / 60)
+            precondition(abs(weights.reduce(0, +) - 1) < 1e-9 && weights.allSatisfy { $0 >= 0 && $0 <= 1 },
+                         "A blend must retain full opacity without overshoot")
+            precondition(zip(previous, weights).map { abs($0 - $1) }.max()! < 0.28,
+                         "Each display sample must advance smoothly, including the loop seam")
+            precondition(previous != weights, "Petting must not hold on a still drawing between display samples")
+            previous = weights
+        }
+        let interrupted = motion.weights(at: 10.537)
+        motion.play([0], interval: 0.24, at: 10.537)
+        precondition(motion.weights(at: 10.537) == interrupted, "Lifting a finger must start from the visible blend")
+        precondition(motion.weights(at: 11) == [1, 0, 0, 0, 0, 0, 0] && !motion.isMoving(at: 11),
+                     "Settling must return to rest and stop display updates")
+        motion.play(CompanionMotion.tap, interval: CompanionMotion.tapInterval, at: 12)
+        let tappedAgain = motion.weights(at: 12.137)
+        motion.play(CompanionMotion.tap, interval: CompanionMotion.tapInterval, at: 12.137)
+        precondition(motion.weights(at: 12.137) == tappedAgain, "Rapid taps must not reset to the resting image")
+        precondition(!motion.isMoving(at: 13), "A tap must finish without an idle animation timer")
+        func solid(_ color: UIColor) -> UIImage {
+            UIGraphicsImageRenderer(size: CGSize(width: 16, height: 16)).image { context in
+                color.setFill(); context.fill(CGRect(x: 0, y: 0, width: 16, height: 16))
+            }
+        }
+        let blend = ImageRenderer(content: SpriteCanvas(images: [solid(.red), solid(.blue)], weights: [0.5, 0.5]).frame(width: 16, height: 16))
+        blend.scale = 1
+        guard let mixed = blend.uiImage?.cgImage else { fatalError("Blend renderer must produce pixels") }
+        var rgba = [UInt8](repeating: 0, count: 16 * 16 * 4)
+        rgba.withUnsafeMutableBytes { bytes in
+            let context = CGContext(data: bytes.baseAddress, width: 16, height: 16, bitsPerComponent: 8, bytesPerRow: 64,
+                                    space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+            context.draw(mixed, in: CGRect(x: 0, y: 0, width: 16, height: 16))
+        }
+        let pixel = (8 * 16 + 8) * 4
+        precondition(rgba[pixel + 3] >= 254 && abs(Int(rgba[pixel]) - Int(rgba[pixel + 2])) < 3,
+                     "Mid-transition artwork must remain opaque with balanced colors")
+        print("Continuous 60 Hz sampling, loop seams, release, rapid taps, idle stopping and rendered blend alpha passed")
         var ritual = HatchRitual()
         precondition(ritual.stage == .sleeping)
         ritual.warm(.nan); ritual.warm(-1)
