@@ -19,6 +19,7 @@ The uploadable creative images are opaque sRGB PNGs. Header and search exports f
 The Dotlings store captures workflow builds the Debug app and captures eight native screens with `Tools/capture-store.sh`. Download its `dotlings-native-screenshots` artifact and pass that folder to:
 
     bash Tools/marketing.sh /absolute/output/folder /absolute/native/capture/folder
+    python3 Tools/audit-marketing.py /absolute/output/folder
 
 Marketing exports use the actual app capture on the search creative and screenshot cards. The original creature assets are generated with built-in image_gen; exact prompts and source provenance are in Brand/prompts.json. Layout and type are code-rendered. Logos include font-independent SVG outlines. Nunito ExtraBold is bundled under the SIL Open Font License in Brand/Fonts/OFL.txt.
 
