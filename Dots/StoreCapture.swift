@@ -3,8 +3,22 @@ import SwiftUI
 
 // Fictional sample data for repeatable simulator captures. Excluded from distribution builds.
 @MainActor struct StoreCapture: View {
-    @State private var page = "home"
-    @State private var model = CircleModel(previewState: StoreCapture.sample())
+    @State private var page: String
+    @State private var model: CircleModel
+
+    init() {
+        let args = ProcessInfo.processInfo.arguments
+        let index = args.firstIndex(of: "--capture-page")
+        let requested = index.flatMap { args.indices.contains($0 + 1) ? args[$0 + 1] : nil } ?? "home"
+        let page = ["home", "low", "friends", "collection", "widget", "hatch", "name", "profile"].contains(requested) ? requested : "home"
+        var state = Self.sample()
+        if ["low", "profile"].contains(page) {
+            state.companion?.kind = .coconut; state.companion?.petName = "Coco"
+            state.companion?.mood = page == "low" ? .sad : .happy
+        }
+        _page = State(initialValue: page)
+        _model = State(initialValue: CircleModel(previewState: state))
+    }
 
     static func sample() -> CircleState {
         let now = Date()
@@ -33,18 +47,6 @@ import SwiftUI
             }
         }.environment(model).preferredColorScheme(.light)
             .background(DotsStyle.paper.ignoresSafeArea())
-            .onOpenURL { url in
-                guard url.scheme == "dots", url.host == "capture" else { return }
-                let next = url.lastPathComponent
-                guard ["home", "low", "friends", "collection", "widget", "hatch", "name", "profile"].contains(next) else { return }
-                var state = Self.sample()
-                if ["low", "profile"].contains(next) {
-                    state.companion?.kind = .coconut; state.companion?.petName = "Coco"
-                    state.companion?.mood = next == "low" ? .sad : .happy
-                }
-                model = CircleModel(previewState: state)
-                page = next
-            }
     }
     private var tab: DotsTab {
         switch page {

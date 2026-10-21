@@ -15,17 +15,17 @@ PY
 )
 xcrun simctl boot "$DEVICE" || true
 xcrun simctl bootstatus "$DEVICE" -b
-xcrun simctl status_bar "$DEVICE" override --time '9:41' --dataNetwork wifi --wifiMode active --wifiBars 3 --batteryState charged --batteryLevel 100
+xcrun simctl status_bar "$DEVICE" override --time '9:41' --dataNetwork wifi --wifiMode active --wifiBars 3 --batteryState discharging --batteryLevel 100
 xcodebuild -project Dots.xcodeproj -scheme Dots -configuration Debug \
   -destination "platform=iOS Simulator,id=$DEVICE" -derivedDataPath build/CaptureData \
   CODE_SIGNING_ALLOWED=NO build > "$OUT/build.log" 2>&1 || { tail -80 "$OUT/build.log"; exit 1; }
 xcrun simctl install "$DEVICE" build/CaptureData/Build/Products/Debug-iphonesimulator/Dots.app
-xcrun simctl launch "$DEVICE" com.jasonmiller.dots --capture-store
-sleep 4
 for page in home low friends widget collection hatch name profile; do
-  xcrun simctl openurl "$DEVICE" "dots://capture/$page"
-  sleep 3
+  xcrun simctl terminate "$DEVICE" com.jasonmiller.dots || true
+  xcrun simctl launch "$DEVICE" com.jasonmiller.dots --capture-store --capture-page "$page"
+  sleep 4
   xcrun simctl io "$DEVICE" screenshot "$OUT/$page.png"
 done
+xcrun swift Tools/audit-captures.swift "$OUT"
 xcrun simctl shutdown "$DEVICE"
 echo 'CAPTURES COMPLETE'

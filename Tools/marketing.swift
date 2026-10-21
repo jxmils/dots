@@ -217,6 +217,41 @@ private struct StoreCard: View {
             let small = ZStack { cream; card.scaleEffect(2778.0 / 2868.0) }.frame(width: 1284, height: 2778).clipped()
             try save(small, to: out.appendingPathComponent("screenshots/6.5-inch/" + name))
         }
+        let board = VStack(alignment: .leading, spacing: 38) {
+            HStack(spacing: 30) {
+                Artwork(path: out.appendingPathComponent("logos/app-icon-1024.png").path)
+                    .frame(width: 190, height: 190).clipShape(RoundedRectangle(cornerRadius: 42))
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("dotlings").font(.custom("Nunito-ExtraBold", size: 84))
+                    Text("Little pets. Closer friends.").font(rounded(30, .medium))
+                    Text("APP STORE LAUNCH KIT").font(rounded(16, .semibold)).tracking(4).opacity(0.55)
+                }
+            }
+            Artwork(path: out.appendingPathComponent("app-store/header-3840x1646.png").path)
+                .frame(width: 1700, height: 729).clipShape(RoundedRectangle(cornerRadius: 36))
+            HStack(alignment: .center, spacing: 55) {
+                Artwork(path: out.appendingPathComponent("app-store/search-results-1920x1280.png").path)
+                    .frame(width: 950, height: 634).clipShape(RoundedRectangle(cornerRadius: 36))
+                VStack(alignment: .leading, spacing: 23) {
+                    Text("A little world,\nall belonging together.").font(rounded(44))
+                    Text("App icon · wordmarks · header\nSearch creative · native app views\nPrivacy · support · listing copy").font(rounded(24, .medium)).lineSpacing(12)
+                    HStack(spacing: 18) {
+                        ForEach(0..<4) { i in
+                            Circle().fill([ink, lilac, cream, Color(red: 0.51, green: 0.78, blue: 1)][i])
+                                .frame(width: 70, height: 70).overlay(Circle().stroke(ink.opacity(0.12)))
+                        }
+                    }
+                }
+            }
+            HStack(spacing: 16) {
+                ForEach(Array(cards.enumerated()), id: \.offset) { i, item in
+                    let name = String(format: "%02d-", i + 1) + item.0 + ".png"
+                    Artwork(path: out.appendingPathComponent("screenshots/6.9-inch/" + name).path)
+                        .frame(width: 198, height: 430).clipShape(RoundedRectangle(cornerRadius: 15))
+                }
+            }
+        }.padding(50).background(Color(red: 0.94, green: 0.90, blue: 0.95)).foregroundStyle(ink)
+        try save(board, to: out.appendingPathComponent("launch-kit-preview.png"))
         print("LAUNCH ARTWORK EXPORTED")
     }
 }

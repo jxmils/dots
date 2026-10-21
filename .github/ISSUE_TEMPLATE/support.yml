@@ -1,0 +1,35 @@
+name: Dotlings support
+description: Report a problem or ask a question about Dotlings.
+title: "[Dotlings] "
+body:
+  - type: markdown
+    attributes:
+      value: "This report is public. Please keep private moods, Apple Account details and personal screenshots out of your report."
+  - type: dropdown
+    id: area
+    attributes:
+      label: What do you need help with?
+      options:
+        - Hatching and collection
+        - Friend invitations and moods
+        - Widgets
+        - Names and profile
+        - Streaks and restores
+        - Privacy or something else
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: iPhone model and iOS version
+  - type: input
+    id: version
+    attributes:
+      label: Dotlings version
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened, or what would you like to know?
+      description: Include the steps you tried and what you expected.
+    validations:
+      required: true
