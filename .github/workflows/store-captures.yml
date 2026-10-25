@@ -9,6 +9,7 @@ on:
       - 'DotsWidget/**'
       - 'Dots.xcodeproj/**'
       - 'Tools/capture-store.sh'
+      - 'Tools/audit-captures.swift'
       - '.github/workflows/store-captures.yml'
   workflow_dispatch:
 concurrency:

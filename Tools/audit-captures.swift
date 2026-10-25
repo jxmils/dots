@@ -8,7 +8,7 @@ let expected = [
     "low": ["coco", "low"],
     "friends": ["your little circle", "sam"],
     "widget": ["lock screen preview"],
-    "collection": ["little by little", "29 companions"],
+    "collection": ["dotling collection", "little by little", "6 of 29", "next hatch"],
     "hatch": ["warm the shell"],
     "name": ["meet coco"],
     "profile": ["your profile", "coco"]
