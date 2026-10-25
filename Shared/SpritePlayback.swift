@@ -7,6 +7,14 @@ enum CompanionMotion {
     static let rub = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2]
     static let tapInterval = 0.055
     static let rubInterval = 0.09
+
+    // The new strip is a complete blink, rather than six progressively closed lids.
+    // Hold the closed drawing while petting; release eases back to the selected mood.
+    static func blink(rubbed: Bool, held: Bool, reducedMotion: Bool) -> [Int] {
+        if reducedMotion { return [0] }
+        if rubbed && held { return [2, 3, 4] }
+        return rubbed ? [2, 3, 4, 4, 5, 6, 0] : [2, 3, 4, 5, 6, 0]
+    }
 }
 
 // Interpolate artwork weights, never the character's geometry. Sampling elapsed

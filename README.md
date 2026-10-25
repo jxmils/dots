@@ -10,11 +10,11 @@ AI conversation, inferred feelings, feeding obligations, advertising, or analyti
 
 - A free random first hatch: warm a little egg by rubbing it, then give it three gentle taps.
 - 29 distinct companions, each with six expressions. Original Lilac, Sky and feet-free Cloud remain.
-- Tap to boop and squish, rub to pet, soft haptics, temporary reactions and Reduce Motion support.
+- Tap for a gentle illustrated reaction, rub to pet, with soft haptics and Reduce Motion support.
 - Daily mood check-ins earn nonduplicate random creatures at streak milestones starting at 5, 10,
   25, 50, 100, 150 and 200 days. Three lifetime restores can bridge missed days; otherwise only
   the streak resets. Earned creatures and eggs remain. Each milestone is earned once.
-- Mood selection, persistent names and preferences, an animated squish that respects Reduce Motion.
+- Mood selection, persistent names and preferences, and minimal touch reactions using 2D sprites.
 - Private iCloud invitations. Invite someone to see your current mood; accept their invitation to see theirs.
   Each person controls their own read-only share. There is no public profile or contact upload.
 - Choose any owned companion as your preferred profile Dot; the same creature and its remembered name
@@ -31,7 +31,7 @@ Open `Dots.xcodeproj`, select the Dots scheme, and choose your signing team for 
 Configure the App Group and CloudKit container in [docs/setup.md](docs/setup.md) before testing invitations.
 Local adoption and mood changes do not need an iCloud connection.
 
-`Tools/check.sh` type-checks both targets, checks storage/widget selection and all 174 transparent sprites,
+`Tools/check.sh` type-checks both targets, checks storage/widget selection, all 348 mood/touch sprites and 12 egg stages,
 and renders the real SwiftUI screens and widget content. It uses the iOS compatibility frameworks in the
 macOS SDK and runs on an Apple Silicon Mac with the Command Line Tools or full Xcode.
 The output directory defaults to `build/check`; pass an absolute path to put the renders elsewhere.
@@ -56,12 +56,13 @@ removing revoked access. Mood changes are saved locally before an upload is atte
 
 ## Source
 
-- `Art/Sky/`: preserved approved Sky model, original texture and exact front-view rebuild recipe.
-  Run `bash Tools/rebuild-sky.sh`; see [the Sky model notes](Art/Sky/README.md).
+- `Art/Dusk/SpriteTrial/`: retained new Dusk artwork, exact prompts, frames and reproducible export.
+- `docs/sprites.md`: active 2D artwork and playback workflow, integration scope and 3D archive location.
+- `Art/Sky/`: historical approved reference and rebuild recipe, excluded from both app targets.
 - `Dots/`: SwiftUI screens, model, iCloud invitation handling, sharing sheet.
 - `Shared/`: companion/mood model, storage, CloudKit operations, character and widget views.
 - `DotsWidget/`: App Intent configuration and timeline provider.
-- `Resources/`: all 29 project-owned character atlases (174 expressions).
+- `Resources/`: all 29 character mood/touch atlases, the new Dusk blink strip and illustrated egg sequence.
 - `Tools/`: project generation, render and check tools; `Tests/`: meaningful state/persistence checks.
 - `docs/*prompts.json`: the exact built-in imagegen prompts used for the artwork.
 - `docs/collection.md`: hatching, reward and lifetime restore rules.

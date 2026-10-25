@@ -109,6 +109,7 @@
 		9C785A322BC1DB806EC63431 /* CompanionOnionAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 322DF50FDD8C09F025E53AB8 /* CompanionOnionAtlas.png */; };
 		9DECFCCA4FCD3B06B86BB9BB /* CompanionCoconutAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE96E49EBE884EBF870B2D0 /* CompanionCoconutAtlas.png */; };
 		9F2305B1437EBCC74EDFFFC9 /* CompanionTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 82CCC06742D3BD188A8967CF /* CompanionTouchAtlas.png */; };
+		A0AC8366687790E43DA9EA12 /* CompanionDuskBlink.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F78610A1B95E4E5DE836892 /* CompanionDuskBlink.png */; };
 		A4337BC0E7ACD0F649E6F635 /* CompanionRippleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2D3055A75BFB54AB88C111 /* CompanionRippleTouchAtlas.png */; };
 		A7A72B2BAB4C1288FF5A3C4A /* CloudCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F09E3C47438AD141ECE35A /* CloudCircle.swift */; };
 		AB7090DCB00087DD4662A3C3 /* CompanionCoffeeAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B3A86674FB4D0FF35C7ACF /* CompanionCoffeeAtlas.png */; };
@@ -135,6 +136,7 @@
 		D38E31F8942C3A2D0E58BA79 /* CompanionToastTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D86D3476C2A3CAF0F53E9D9F /* CompanionToastTouchAtlas.png */; };
 		D416750FC1B1CFC05D9680D4 /* CompanionBeanAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 91DA0801867E4D46976613CE /* CompanionBeanAtlas.png */; };
 		D5618431538BE049D92D5042 /* CompanionSnowTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = E41B98F6CEDF7ECEA1352853 /* CompanionSnowTouchAtlas.png */; };
+		D6474D7DE46DE24E93F96122 /* CompanionDuskBlink.png in Resources */ = {isa = PBXBuildFile; fileRef = 190072F1D405FAC6FCCA6045 /* CompanionDuskBlink.png */; };
 		D76B9BE77C688309FC65F71B /* CompanionSproutTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B9B6DFEDD48AFCA534DA20 /* CompanionSproutTouchAtlas.png */; };
 		D902AECCA39DC713FB299126 /* CompanionBowlingAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 658FF73CC1D073066E995B8F /* CompanionBowlingAtlas.png */; };
 		DA613C9C1574EC265BA9C0EC /* CompanionDrizzleTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C6A5AE38AC3CB853BE2114 /* CompanionDrizzleTouchAtlas.png */; };
@@ -197,6 +199,7 @@
 		1467D0C9A3A9B0678DAC9291 /* CompanionBlueTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueTouchAtlas.png; path = Resources/CompanionBlueTouchAtlas.png; sourceTree = "<group>"; };
 		164BC27C343A10D0DACF9C81 /* DotsWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DotsWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B500201F4A1D3FFD8EAC1A /* CompanionDropletAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDropletAtlas.png; path = Resources/CompanionDropletAtlas.png; sourceTree = "<group>"; };
+		190072F1D405FAC6FCCA6045 /* CompanionDuskBlink.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDuskBlink.png; path = Resources/CompanionDuskBlink.png; sourceTree = "<group>"; };
 		1A9B656DA9ED66691D9CE69E /* CompanionPuddingAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuddingAtlas.png; path = Resources/CompanionPuddingAtlas.png; sourceTree = "<group>"; };
 		203306F145E638802FBE4490 /* CompanionBlueAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionBlueAtlas.png; path = Resources/CompanionBlueAtlas.png; sourceTree = "<group>"; };
 		2295E2C2FF3F4BB96CE12D45 /* StoreCapture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StoreCapture.swift; path = Dots/StoreCapture.swift; sourceTree = "<group>"; };
@@ -211,6 +214,7 @@
 		363FB15A3175A4BFFAC15776 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Nunito-ExtraBold.ttf"; path = "Brand/Fonts/Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		36A39483420A957E4DCED6C5 /* CompanionEmberAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionEmberAtlas.png; path = Resources/CompanionEmberAtlas.png; sourceTree = "<group>"; };
 		3D11B4A6116A67127D9FCE8D /* CompanionOnionTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionOnionTouchAtlas.png; path = Resources/CompanionOnionTouchAtlas.png; sourceTree = "<group>"; };
+		3F78610A1B95E4E5DE836892 /* CompanionDuskBlink.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionDuskBlink.png; path = Resources/CompanionDuskBlink.png; sourceTree = "<group>"; };
 		3F78B276AA7A257A64F1780D /* CompanionOnionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionOnionAtlas.png; path = Resources/CompanionOnionAtlas.png; sourceTree = "<group>"; };
 		4A88D12951F8C9EE416A2198 /* CompanionPetalTouchAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPetalTouchAtlas.png; path = Resources/CompanionPetalTouchAtlas.png; sourceTree = "<group>"; };
 		4B1C9B7C00950D425C939131 /* CompanionAtlas.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionAtlas.png; path = Resources/CompanionAtlas.png; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 				EF3FA88EFEC90608CCE1C816 /* EggWakeAtlas.png */,
 				DD69A50AE0DE59CDDECEA69C /* EggOpenAtlas.png */,
 				F8650B31158C9910B08E190C /* SpritePlayback.swift */,
+				190072F1D405FAC6FCCA6045 /* CompanionDuskBlink.png */,
+				3F78610A1B95E4E5DE836892 /* CompanionDuskBlink.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -589,6 +595,7 @@
 				823810411A139259B930C408 /* CompanionStormTouchAtlas.png in Resources */,
 				54628AB9C083C40BD00D8009 /* EggWakeAtlas.png in Resources */,
 				5F4582A662D833B6D79FAA68 /* EggOpenAtlas.png in Resources */,
+				D6474D7DE46DE24E93F96122 /* CompanionDuskBlink.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +663,7 @@
 				C090BA70ED5D41C6CC4D3C66 /* CompanionStormTouchAtlas.png in Resources */,
 				1F7DA4318F4B96E4DC2C0A70 /* EggWakeAtlas.png in Resources */,
 				C43A3D732539FE0013D7FA06 /* EggOpenAtlas.png in Resources */,
+				A0AC8366687790E43DA9EA12 /* CompanionDuskBlink.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

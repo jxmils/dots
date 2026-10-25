@@ -1,0 +1,72 @@
+{
+  "frames": [
+    {
+      "frame": 1,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "silhouette_iou_with_first": 1.0,
+      "opaque_core_pixels": 90569
+    },
+    {
+      "frame": 2,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "silhouette_iou_with_first": 0.9918882720183189,
+      "opaque_core_pixels": 90122
+    },
+    {
+      "frame": 3,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "silhouette_iou_with_first": 0.9901748848872651,
+      "opaque_core_pixels": 89844
+    },
+    {
+      "frame": 4,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "silhouette_iou_with_first": 0.9892405747002269,
+      "opaque_core_pixels": 89853
+    },
+    {
+      "frame": 5,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "silhouette_iou_with_first": 0.9901748848872651,
+      "opaque_core_pixels": 89844
+    },
+    {
+      "frame": 6,
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "silhouette_iou_with_first": 0.9941295175197211,
+      "opaque_core_pixels": 90424
+    }
+  ],
+  "gif_frames": 6,
+  "checked": "Transparency, frame completeness, consistent baseline and export sizes; visual previews inspected."
+}

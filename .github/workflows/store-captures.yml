@@ -5,6 +5,7 @@ on:
     paths:
       - 'Dots/**'
       - 'Shared/**'
+      - 'Resources/**'
       - 'DotsWidget/**'
       - 'Dots.xcodeproj/**'
       - 'Tools/capture-store.sh'

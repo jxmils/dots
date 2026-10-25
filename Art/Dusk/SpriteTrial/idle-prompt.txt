@@ -1,0 +1,13 @@
+Create one horizontal animation strip for the Dotlings app's pet Dusk, state idle.
+
+Input 1 is the canonical base and defines identity. Input 2 is the original identity reference. Input 3 is a blank layout guide ONLY for six invisible slots, spacing, centering and padding; never draw the guide.
+
+Output exactly SIX full-body frames in ONE left-to-right row on perfectly flat pure magenta #FF00FF. Treat the row as six equal-width invisible slots: one centered complete pose per slot, evenly spaced, with no overlap, clipping, empty slots, labels or borders. Request a wide landscape canvas around 2048x680.
+
+Identity: exactly the same squat rounded charcoal furry blob as input 1 in every frame: THREE top tufts, TWO short attached side arms, NO legs, glossy all-dark brown glass eyes with tiny white catchlights only, NO white sclera, pink cheeks, warm soft 3D plush appearance with extremely short fine close-fitting fuzz. Preserve the canonical silhouette, broad softly flattened bottom, body proportions, face construction, fur color, fur pattern, tuft shapes and lighting. Closed-mouth smile unchanged throughout; no speaking or mouth opening. No props or loose effects.
+
+State: calm resting loop with tiny gentle breathing and one slow small blink. Body movement must be absolutely minimal; keep base planted, arms resting, tuft positions nearly fixed and apparent scale stable. No squashing, walking, waving, jumping, large gestures or body rotation. Six-frame eye sequence: 1 eyes fully open at rest; 2 eyes open with barely perceptible breathing; 3 upper lids halfway closed; 4 both eyes fully softly closed; 5 lids half open; 6 eyes fully open, nearly identical to frame 1. Only eyelids should visibly move; do not redesign the face between frames. First and last frames must match closely for a quiet loop.
+
+CRITICAL SEPARATION: six SMALL complete characters, each occupying ONLY 65% of its equal-width slot, leaving large uninterrupted magenta gaps between complete arms, at least 70px pure magenta between neighbors. Generous outer padding. Do not enlarge characters to fill the gaps. All six must be equal scale and aligned to the same bottom baseline.
+
+Clean extraction: crisp opaque character interiors with natural fine furry edges. No scenery, text, guide lines, checkerboard, cast shadows, glow, motion blur, hearts, stars, symbols, speed lines, dust, detached effects, stray pixels or magenta inside the body. Output only ONE horizontal six-pose strip, not a grid.

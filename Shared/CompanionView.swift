@@ -34,25 +34,34 @@ enum CompanionArt {
         cache.countLimit = 24
         return cache
     }()
-    static func image(_ mood: Mood, kind: CompanionKind = .lavender) -> UIImage? {
-        frame(mood.spriteIndex, asset: kind.asset)
+    // New action strips can have their own layout; existing mood atlases stay compatible.
+    static func usesBlinkStrip(_ mood: Mood, kind: CompanionKind) -> Bool {
+        kind == .dusk && mood == .happy
     }
-    static func touchImage(_ index: Int, kind: CompanionKind) -> UIImage? {
-        frame(index, asset: kind.touchAsset)
+    static func image(_ mood: Mood, kind: CompanionKind = .lavender) -> UIImage? {
+        usesBlinkStrip(mood, kind: kind)
+            ? frame(0, asset: "CompanionDuskBlink", columns: 6, rows: 1)
+            : frame(mood.spriteIndex, asset: kind.asset)
+    }
+    static func touchImage(_ index: Int, kind: CompanionKind, mood: Mood = .happy) -> UIImage? {
+        usesBlinkStrip(mood, kind: kind)
+            ? frame(index, asset: "CompanionDuskBlink", columns: 6, rows: 1)
+            : frame(index, asset: kind.touchAsset)
     }
     static func eggImage(_ stage: EggStage) -> UIImage? {
         frame(stage.frame, asset: stage.asset)
     }
-    private static func frame(_ index: Int, asset: String) -> UIImage? {
-        guard (0..<6).contains(index) else { return nil }
-        let key = asset + String(index)
+    private static func frame(_ index: Int, asset: String, columns: Int = 3, rows: Int = 2) -> UIImage? {
+        guard (0..<(columns * rows)).contains(index) else { return nil }
+        let key = (directory?.path ?? "bundle") + asset + "/\(columns)x\(rows)/\(index)"
         if let cached = cache.object(forKey: key as NSString) { return cached }
         let url = directory?.appendingPathComponent(asset + ".png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png", subdirectory: "Resources")
         guard let url, let source = UIImage(contentsOfFile: url.path)?.cgImage else { return nil }
-        let width = source.width / 3, height = source.height / 2
-        var crop = CGRect(x: (index % 3) * width, y: (index / 3) * height, width: width, height: height)
+        guard source.width % columns == 0, source.height % rows == 0 else { return nil }
+        let width = source.width / columns, height = source.height / rows
+        var crop = CGRect(x: (index % columns) * width, y: (index / columns) * height, width: width, height: height)
         var destination = CGRect(x: 0, y: 0, width: width, height: height)
         if let layout = (CompanionTouchLayout.frames[asset] ?? EggArtLayout.frames[asset])?[index] {
             crop = CGRect(x: layout[0], y: layout[1], width: layout[2], height: layout[3])
@@ -85,6 +94,7 @@ struct CompanionView: View {
     @State private var playImages: [UIImage] = []
     @State private var loadedArtwork = ""
     @State private var petting = false
+    @GestureState private var gestureActive = false
     private var artworkID: String { kind.rawValue + "/" + mood.rawValue }
     var body: some View {
         if animate {
@@ -93,7 +103,7 @@ struct CompanionView: View {
                     let currentID = artworkID
                     let currentMood = mood, currentKind = kind
                     let images = await Task.detached(priority: .userInitiated) {
-                        [CompanionArt.image(currentMood, kind: currentKind)] + (0..<6).map { CompanionArt.touchImage($0, kind: currentKind) }
+                        [CompanionArt.image(currentMood, kind: currentKind)] + (0..<6).map { CompanionArt.touchImage($0, kind: currentKind, mood: currentMood) }
                     }.value
                     guard !Task.isCancelled, images.allSatisfy({ $0 != nil }) else { return }
                     playImages = images.compactMap { $0 }
@@ -110,6 +120,10 @@ struct CompanionView: View {
                 .onChange(of: mood) { _, _ in stopPlaying() }
                 .onChange(of: reduceMotion) { _, _ in stopPlaying() }
                 .onChange(of: scenePhase) { _, phase in if phase != .active { stopPlaying() } }
+                .onChange(of: gestureActive) { _, active in
+                    // SwiftUI also resets GestureState when a parent scroll view cancels a drag.
+                    if !active && touching { endTouch() }
+                }
         } else { character }
     }
 
@@ -130,6 +144,7 @@ struct CompanionView: View {
 
     private var playGesture: some Gesture {
         DragGesture(minimumDistance: 0)
+            .updating($gestureActive) { _, active, _ in active = true }
             .onChanged { value in
                 if !touching {
                     petting = false
@@ -148,17 +163,18 @@ struct CompanionView: View {
                 previousPoint = value.location
                 if rubDistance > 30, !petting { playFrames(rubbed: true) }
             }
-            .onEnded { _ in
-                let rubbed = rubDistance > 30
-                touching = false; previousPoint = nil; rubDistance = 0
-                if rubbed {
-                    // Continue from the exact visible blend, without replaying the rub.
-                    playback.play([0], interval: 0.24, at: ProcessInfo.processInfo.systemUptime)
-                    petting = false
-                } else { TouchFeedback.tap() }
-            }
+            .onEnded { _ in endTouch() }
     }
 
+    private func endTouch() {
+        guard touching else { return }
+        let rubbed = rubDistance > 30
+        touching = false; previousPoint = nil; rubDistance = 0
+        if rubbed {
+            playback.play([0], interval: 0.24, at: ProcessInfo.processInfo.systemUptime)
+            petting = false
+        } else { TouchFeedback.tap() }
+    }
     private func stopPlaying() {
         touching = false; petting = false
         playback = SpritePlayback(count: 7)
@@ -169,7 +185,13 @@ struct CompanionView: View {
         playFrames(rubbed: rubbed)
     }
     private func playFrames(rubbed: Bool) {
+        guard loadedArtwork == artworkID, playImages.count == 7 else { return }
         petting = rubbed
+        if CompanionArt.usesBlinkStrip(mood, kind: kind) {
+            let sequence = CompanionMotion.blink(rubbed: rubbed, held: touching, reducedMotion: reduceMotion)
+            playback.play(sequence, interval: reduceMotion ? 0.3 : 0.14, at: ProcessInfo.processInfo.systemUptime)
+            return
+        }
         let frames: [Int] = reduceMotion ? [rubbed ? 5 : 3, 0] : (rubbed ? CompanionMotion.rub + (touching ? [] : [1, 0]) : CompanionMotion.tap)
         playback.play(frames, interval: reduceMotion ? 0.3 : rubbed ? CompanionMotion.rubInterval : CompanionMotion.tapInterval,
                       repeats: rubbed && touching && !reduceMotion, at: ProcessInfo.processInfo.systemUptime)

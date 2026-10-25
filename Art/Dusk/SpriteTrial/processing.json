@@ -1,0 +1,86 @@
+{
+  "tool": "Built-in image generator; deterministic local postprocessing as requested",
+  "canonical_source_size": [
+    1202,
+    1308
+  ],
+  "idle_source_size": [
+    2172,
+    724
+  ],
+  "original_pose_bounds": [
+    [
+      21,
+      246,
+      368,
+      507
+    ],
+    [
+      380,
+      246,
+      724,
+      507
+    ],
+    [
+      736,
+      246,
+      1080,
+      507
+    ],
+    [
+      1092,
+      246,
+      1437,
+      507
+    ],
+    [
+      1449,
+      246,
+      1793,
+      507
+    ],
+    [
+      1805,
+      246,
+      2151,
+      507
+    ]
+  ],
+  "canonical_bounds": [
+    [
+      56,
+      223,
+      1133,
+      1056
+    ]
+  ],
+  "source_frame_order_zero_based": [
+    0,
+    1,
+    2,
+    3,
+    2,
+    5
+  ],
+  "uniform_scale": 1.2564841498559078,
+  "export_frame_size": [
+    512,
+    512
+  ],
+  "atlas_size": [
+    3072,
+    512
+  ],
+  "baseline_y": 460,
+  "durations_ms": [
+    1000,
+    300,
+    90,
+    150,
+    90,
+    700
+  ],
+  "note": "Output dimensions do not imply extra generated detail. Original magenta files are retained.",
+  "runtime_asset": "Resources/CompanionDuskBlink.png",
+  "runtime_use": "Dusk happy rest and touch; other moods keep their original 2D atlases"
+}

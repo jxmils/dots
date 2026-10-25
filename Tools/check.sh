@@ -3,7 +3,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 OUT=${1:-build/check}
 mkdir -p "$OUT"
-TMP=$(mktemp -d)
+OUT=$(cd "$OUT" && pwd)
+TMP=$(mktemp -d "$OUT/.checks.XXXXXX")
 trap 'rm -rf "$TMP"' EXIT
 SDK=$(xcrun --show-sdk-path)
 FLAGS=()
@@ -22,6 +23,7 @@ echo '== Widget type-check'
 swiftc -typecheck -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift DotsWidget/*.swift
 echo '== Plists and project'
 plutil -lint Dots/Info.plist DotsWidget/Info.plist Dots/*.entitlements DotsWidget/*.entitlements Dots.xcodeproj/project.pbxproj
+python3 Tools/check-sprite-build.py
 echo '== Behavior and artwork checks'
 swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/RestoreBudget.swift Dots/CircleModel.swift Tests/main.swift -o "$TMP/checks"
 "$TMP/checks"

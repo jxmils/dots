@@ -1,5 +1,8 @@
 # Sky's approved neutral look
 
+Historical reference: on 25 October 2026 the app returned to the [2D sprite workflow](../../docs/sprites.md).
+This preserved model is not part of the app or widget build. The facial work below describes the retired experiment.
+
 This is the version approved for preservation on 21 October 2026. Keep its
 rounded sides, gently flattened base, very short fuzzy coat, small tucked curl,
 brown eyes, pink cheeks and closed smile.

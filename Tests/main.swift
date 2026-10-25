@@ -153,6 +153,26 @@ import UIKit
         ritual.retryOpening()
         precondition(!ritual.isOpening && ritual.cracks == 2 && ritual.tap(), "A failed save must allow a retry")
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        let duskRest = CompanionArt.image(.happy, kind: .dusk)!
+        precondition(duskRest.pngData() == CompanionArt.touchImage(0, kind: .dusk)?.pngData(),
+                     "Dusk's resting and first action drawings must use the same registered artwork")
+        precondition(CompanionMotion.blink(rubbed: true, held: true, reducedMotion: false).last == 4,
+                     "Petting the new strip must hold the closed eyes rather than replay a full blink")
+        precondition(CompanionMotion.blink(rubbed: false, held: false, reducedMotion: true) == [0],
+                     "Reduce Motion must leave the new strip still")
+        var duskBlink = SpritePlayback(count: 7)
+        duskBlink.play(CompanionMotion.blink(rubbed: true, held: true, reducedMotion: false), interval: 0.14, at: 0)
+        precondition(duskBlink.weights(at: 1)[4] == 1 && !duskBlink.isMoving(at: 1))
+        let held = duskBlink.weights(at: 1)
+        duskBlink.play([0], interval: 0.24, at: 1)
+        precondition(duskBlink.weights(at: 1) == held && duskBlink.weights(at: 1.3)[0] == 1,
+                     "Releasing Dusk must blend from closed eyes to the selected rest frame")
+        for mood in Mood.allCases {
+            for frame in 0..<6 {
+                precondition(CompanionArt.touchImage(frame, kind: .dusk, mood: mood) != nil,
+                             "Every Dusk mood must retain its own supported touch sequence")
+            }
+        }
         for stage in EggStage.allCases {
             guard let cg = CompanionArt.eggImage(stage)?.cgImage else { fatalError("Missing egg frame \(stage)") }
             precondition(cg.width == 512 && cg.height == 512, "Egg frames must keep a fixed canvas")
