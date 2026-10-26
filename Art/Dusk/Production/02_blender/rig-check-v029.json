@@ -1,0 +1,117 @@
+{
+  "blender": "5.1.0",
+  "actual_3d_geometry": true,
+  "reference_images_used_as_materials": false,
+  "render_engine": "CYCLES",
+  "review_samples": 256,
+  "review_denoising": false,
+  "eye_highlight_mode": "geometry",
+  "eye_fill_energy": 220,
+  "fur_material": "textured",
+  "eye_layers": [
+    "non-refracting clear varnish",
+    "recessed iris",
+    "authored feathered highlight"
+  ],
+  "fur_material_texture": {
+    "file": "charcoal-short-fur-v002.png",
+    "sha256": "2b325986f0cdeb29cc8ab7a8ab9461f9eb4a23a959fab48372e512569d9b814e",
+    "content": "seamless fur only, no face or character portrait"
+  },
+  "art_direction": {
+    "fuzz_casts_shadows": false,
+    "corneal_reflection_multiplier": 0.14,
+    "highlight_is_authored_geometry": true,
+    "plush_surface_normal_weight": 0.67
+  },
+  "master_fps": 30,
+  "master_png": "16-bit RGBA",
+  "fixed_seed": 7319,
+  "controls": [
+    "CTRL_ROOT",
+    "CTRL_BODY_MOVE",
+    "CTRL_BODY_TURN",
+    "CTRL_BODY_SQUASH",
+    "CTRL_BODY_TOP",
+    "CTRL_TUFTS",
+    "CTRL_ARM_L",
+    "CTRL_ARM_R"
+  ],
+  "facial_controls": [
+    "Blink_L",
+    "Blink_R",
+    "Blink_Both",
+    "Eyes_Happy",
+    "Eyes_Sleepy",
+    "Brow_Worried",
+    "Brow_Angry"
+  ],
+  "grooms": [
+    {
+      "surface": "BODY",
+      "guides": 4000,
+      "target_fibers": 15000
+    },
+    {
+      "surface": "BODY",
+      "guides": 7000,
+      "target_fibers": 70000
+    },
+    {
+      "surface": "ARM_L",
+      "guides": 450,
+      "target_fibers": 3000
+    },
+    {
+      "surface": "ARM_L",
+      "guides": 300,
+      "target_fibers": 2600
+    },
+    {
+      "surface": "ARM_R",
+      "guides": 450,
+      "target_fibers": 3000
+    },
+    {
+      "surface": "ARM_R",
+      "guides": 300,
+      "target_fibers": 2600
+    },
+    {
+      "surface": "TUFT_01",
+      "guides": 450,
+      "target_fibers": 3000
+    },
+    {
+      "surface": "TUFT_01",
+      "guides": 300,
+      "target_fibers": 2600
+    },
+    {
+      "surface": "TUFT_02",
+      "guides": 450,
+      "target_fibers": 3000
+    },
+    {
+      "surface": "TUFT_02",
+      "guides": 300,
+      "target_fibers": 2600
+    },
+    {
+      "surface": "TUFT_03",
+      "guides": 450,
+      "target_fibers": 3000
+    },
+    {
+      "surface": "TUFT_03",
+      "guides": 300,
+      "target_fibers": 2600
+    }
+  ],
+  "mouth_fixed_closed": true,
+  "actions_authored": 0,
+  "style_frame_approved": false,
+  "app_integration": false,
+  "status": "STYLE_FRAME_REVIEW_REQUIRED_BEFORE_ANIMATION",
+  "reference_sha256": "34a4035478828bded4c2e56df49dd5dd2eb15fddeaf2b3b7320d73d2da3ebe17"
+}

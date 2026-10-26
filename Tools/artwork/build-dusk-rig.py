@@ -79,7 +79,7 @@ def material(name, color, roughness=.75):
     return mat
 
 CHARCOAL = (.01365, .0130, .01365)
-PINK = (.95, .16, .145)
+PINK = (.95, .22, .20)
 body_mat = material('MAT_CHARCOAL_PLUSH', CHARCOAL, .91)
 body_shader = body_mat.node_tree.nodes['Principled BSDF']
 body_shader.inputs['Specular IOR Level'].default_value = .12
@@ -122,7 +122,33 @@ if args.fur_material == 'textured':
     tint.blend_type = 'MULTIPLY'
     tint.inputs[0].default_value = 1
     bl.new(blush.outputs['Color'], tint.inputs[1])
-    bl.new(detail.outputs[0], tint.inputs[2])
+    channels = bn.new('ShaderNodeSeparateColor')
+    channels.mode = 'RGB'
+    bl.new(blush.outputs['Color'], channels.inputs[0])
+    saturation = bn.new('ShaderNodeMath')
+    saturation.operation = 'SUBTRACT'
+    bl.new(channels.outputs['Red'], saturation.inputs[0])
+    bl.new(channels.outputs['Green'], saturation.inputs[1])
+    detail_strength = bn.new('ShaderNodeMapRange')
+    detail_strength.clamp = True
+    detail_strength.inputs['From Min'].default_value = .02
+    detail_strength.inputs['From Max'].default_value = .50
+    detail_strength.inputs['To Min'].default_value = 1
+    detail_strength.inputs['To Max'].default_value = .40
+    bl.new(saturation.outputs[0], detail_strength.inputs['Value'])
+    centered = bn.new('ShaderNodeMath')
+    centered.operation = 'SUBTRACT'
+    centered.inputs[1].default_value = 1
+    bl.new(detail.outputs[0], centered.inputs[0])
+    attenuate = bn.new('ShaderNodeMath')
+    attenuate.operation = 'MULTIPLY'
+    bl.new(centered.outputs[0], attenuate.inputs[0])
+    bl.new(detail_strength.outputs[0], attenuate.inputs[1])
+    restore = bn.new('ShaderNodeMath')
+    restore.operation = 'ADD'
+    restore.inputs[1].default_value = 1
+    bl.new(attenuate.outputs[0], restore.inputs[0])
+    bl.new(restore.outputs[0], tint.inputs[2])
     bl.new(tint.outputs[0], body_shader.inputs['Base Color'])
     bump = bn.new('ShaderNodeBump')
     bump.inputs['Strength'].default_value = .15
@@ -130,7 +156,8 @@ if args.fur_material == 'textured':
     bl.new(detail.outputs[0], bump.inputs['Height'])
     bl.new(bump.outputs['Normal'], body_shader.inputs['Normal'])
 lid_mat = material('MAT_CLOSE_LYING_EYELIDS', CHARCOAL, .94)
-dark_mat = material('MAT_SOFT_BROWS', (.012, .010, .015), .8)
+dark_mat = material('MAT_SOFT_BROWS', (.035, .031, .029), .88)
+dark_mat.node_tree.nodes['Principled BSDF'].inputs['Specular IOR Level'].default_value = .12
 mouth_mat = material('MAT_CLOSED_SMILE', (.009, .0035, .0018), .75)
 mouth_mat.node_tree.nodes['Principled BSDF'].inputs['Specular IOR Level'].default_value = .05
 eye_mat = material('MAT_BROWN_GLASS', (.035, .010, .003), .11)
@@ -289,12 +316,19 @@ body.data.update()
 
 def blush_amount(point):
     x, y, z = point
-    amount = max(math.exp(-((x-cx)/(.165*.90))**2-((z-(.49*.92+.065))/(.105*.90))**2) for cx in [-.48, .48])
-    return amount*max(0, min(1, (-y-.25)/.16))*.70
+    amount = max(math.exp(-((x-cx)/.165)**2-((z-(.49*.92+.065))/(.105*1.10))**2) for cx in [-.48, .48])
+    return amount*max(0, min(1, (-y-.25)/.16))*.65
 
 def coat_color(point):
     amount = blush_amount(point)
     return tuple(a*(1-amount)+b*amount for a, b in zip(CHARCOAL, PINK))
+
+def groom_regions(point):
+    front_weight = max(0, min(1, (-point.y-.20)/.30))
+    forehead = math.exp(-(point.x/.55)**2-((point.z-1.03)/.27)**2)*front_weight
+    cheek = max(math.exp(-((point.x-cx)/.23)**2-((point.z-.52)/.17)**2) for cx in [-.48, .48])*front_weight
+    eye_rim = math.exp(-((eye_rho(point)-1.09)/.16)**2)*front_weight
+    return forehead, cheek, eye_rim
 
 def add_coat(obj):
     attribute = obj.data.color_attributes.new(name='CoatColor', type='FLOAT_COLOR', domain='POINT')
@@ -460,7 +494,7 @@ for side, label in [(-1, 'L'), (1, 'R')]:
             transparent = hn.new('ShaderNodeBsdfTransparent')
             emission = hn.new('ShaderNodeEmission')
             emission.inputs['Color'].default_value = (.98, .98, .95, 1)
-            emission.inputs['Strength'].default_value = 2.2
+            emission.inputs['Strength'].default_value = 2.5
             mask = hn.new('ShaderNodeAttribute')
             mask.attribute_name = 'HighlightMask'
             mix = hn.new('ShaderNodeMixShader')
@@ -469,7 +503,7 @@ for side, label in [(-1, 'L'), (1, 'R')]:
             hl.new(emission.outputs[0], mix.inputs[2])
             output = hn.new('ShaderNodeOutputMaterial')
             hl.new(mix.outputs[0], output.inputs['Surface'])
-        hx, hz, hr = x+rx*.35, z+rz*.44, .029
+        hx, hz, hr = x+rx*.35, z+rz*.44, .032
         hv, hf = [], []
         hrows, hcols = 8, 48
         for back in [False, True]:
@@ -499,7 +533,7 @@ for side, label in [(-1, 'L'), (1, 'R')]:
         mask_attribute = highlight.data.attributes.new('HighlightMask', 'FLOAT', 'POINT')
         for vertex, value in zip(highlight.data.vertices, mask_attribute.data):
             rho = math.hypot((vertex.co.x-hx)/hr, (vertex.co.z-hz)/hr)
-            value.value = 1-smoothstep((rho-.75)/.25)
+            value.value = 1-smoothstep((rho-.70)/.30)
         highlight.visible_shadow = False
         highlight.visible_glossy = False
         highlight.visible_diffuse = False
@@ -508,8 +542,8 @@ for side, label in [(-1, 'L'), (1, 'R')]:
     for vertex, color in zip(iris_surface.data.vertices, attribute.data):
         dx, dz = (vertex.co.x-x)/rx, (vertex.co.z-z)/rz
         radial = math.sqrt(dx*dx+dz*dz)
-        pupil_radius = math.hypot(dx/.92, (dz-.02)/1.02)
-        pupil = (1-smoothstep((pupil_radius-.28)/(.59-.28)))*.80
+        pupil_radius = math.hypot(dx/.88, (dz-.02)/.98)
+        pupil = (1-smoothstep((pupil_radius-.28)/(.59-.28)))*.72
         rim = smoothstep((radial-.76)/(.98-.76))
         warmth = smoothstep((-dz+.25)/1.15)
         iris_dark, iris_warm = (.012, .0035, .0014), (.1265, .044, .0176)
@@ -576,7 +610,7 @@ for index in range(21):
     x = (t-.5)*.250
     z = .550*.92+.070-.080*(1-(2*t-1)**2)
     smile_points.append((x, front(x, z)-.020, z))
-mouth_mat.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (.020, .006, .002, 1)
+mouth_mat.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (.035, .011, .004, 1)
 mouth_mat.node_tree.nodes['Principled BSDF'].inputs['Roughness'].default_value = .78
 mouth_mat.node_tree.nodes['Principled BSDF'].inputs['Specular IOR Level'].default_value = .03
 smile_vertices, smile_faces = [], []
@@ -699,6 +733,16 @@ def make_groom(surface, guide_count, fiber_count, seed, layer):
         macro = noise.noise_vector(point*7, noise_basis='PERLIN_ORIGINAL')
         micro = noise.noise_vector(point*61+Vector((seed*.01, 0, 0)), noise_basis='PERLIN_ORIGINAL')
         flow = macro*.25+micro*.75
+        forehead, cheek, eye_rim = groom_regions(point) if surface.name == 'BODY' else (0, 0, 0)
+        if surface.name == 'BODY':
+            head_flow = Vector((point.x+.025, 0, point.z-1.03))
+            cheek_flow = Vector((.5 if point.x > 0 else -.5, 0, -.30))
+            if head_flow.length > .001:
+                flow = flow*(1-.80*forehead)+head_flow.normalized()*(.80*forehead)
+            flow = flow*(1-.65*cheek)+cheek_flow.normalized()*(.65*cheek)
+        elif surface.name.startswith('ARM_'):
+            arm_flow = Vector((.40 if point.x > 0 else -.40, 0, -1)).normalized()
+            flow = flow*.25+arm_flow*.75
         tangent = flow-normal*flow.dot(normal)
         if tangent.length < .01:
             tangent = normal.cross(Vector((1, 0, 0)))
@@ -733,6 +777,21 @@ def make_groom(surface, guide_count, fiber_count, seed, layer):
         if args.fur_material == 'textured' and layer == 'pile':
             length *= .55
             root_radius *= .55
+        if layer == 'pile' and surface.name == 'BODY':
+            length = length*(1-forehead)+rng.uniform(.020, .026)*forehead
+            root_radius = root_radius*(1-forehead)+rng.uniform(.00065, .00095)*forehead
+            length = length*(1-cheek)+rng.uniform(.014, .019)*cheek
+            root_radius = root_radius*(1-cheek)+rng.uniform(.00050, .00080)*cheek
+            length = length*(1-eye_rim)+rng.uniform(.010, .016)*eye_rim
+            root_radius = root_radius*(1-eye_rim)+rng.uniform(.00045, .00070)*eye_rim
+            local_weight = max(forehead, cheek, eye_rim)
+            tilt = tilt*(1-.8*local_weight)+math.radians(rng.uniform(25, 35))*.8*local_weight
+            direction = normal*math.cos(tilt)+tangent*math.sin(tilt)
+            bend *= 1-.4*local_weight
+        elif layer == 'pile' and surface.name.startswith('ARM_'):
+            length, root_radius = rng.uniform(.012, .018), rng.uniform(.00050, .00080)
+            tilt = math.radians(rng.uniform(25, 35))
+            direction = normal*math.cos(tilt)+tangent*math.sin(tilt)
         if surface.name == 'BODY':
             length *= eye_fur_length(point)
             if layer == 'pile':
@@ -741,13 +800,14 @@ def make_groom(surface, guide_count, fiber_count, seed, layer):
         # Keep the historical RNG draws above so material studies preserve
         # identical guide geometry; colour uses its own deterministic stream.
         strand_value = random.Random(seed*100000+accepted).uniform(.97, 1.03)
+        local_lift = .10*forehead+.06*cheek+.08*eye_rim if layer == 'pile' else 0
         across = normal.cross(tangent).normalized()
         for index in range(7):
             t = index/6
             curl = across*length*bend*math.sin(t*math.pi)*math.cos(phase+t)
             positions.extend(point+direction*length*t+curl)
             radii.append(root_radius*((1-.85*t*t) if layer == 'pile' else (1-.97*t)))
-            colors.extend((*(value*strand_value for value in coat_color(point)), 1))
+            colors.extend((*(value*strand_value*(1+local_lift)*(1+.04*t*(forehead+eye_rim)) for value in coat_color(point)), 1))
     data = bpy.data.hair_curves.new('GUIDES_'+surface.name+'_'+layer)
     data.add_curves([7]*guide_count)
     data.attributes['position'].data.foreach_set('vector', positions)
@@ -768,6 +828,8 @@ def make_groom(surface, guide_count, fiber_count, seed, layer):
         value.value = multiplier*(eye_fur_fade(vertex.co) if surface.name == 'BODY' else 1)
         if layer == 'pile' and surface.name == 'BODY':
             value.value *= .25+.75*mouth_channel(vertex.co)
+            head_density, cheek_density, eye_density = groom_regions(vertex.co)
+            value.value *= 1+.5*head_density+.75*cheek_density+1.25*eye_density
     density_integral = sum(tri.area*sum(density.data[index].value for index in tri.vertices)/3 for tri in triangles)
     rest = bpy.data.objects.new('REST_SURFACE_'+surface.name+'_'+layer, surface.data.copy())
     scene.collection.objects.link(rest)

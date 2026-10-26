@@ -1,0 +1,16 @@
+{
+  "revision": "v029",
+  "status": "APPEARANCE_REJECTED_CLOSE_NOT_APPROVED",
+  "style_approved": false,
+  "animation_actions": 0,
+  "shipping_app_changed": false,
+  "expert_chat": "6ade6451-305c-8331-852f-70b36e9c082d",
+  "sha256": {
+    "Art/Dusk/Production/02_blender/dusk_rig_v029.blend": "10adcca0a8634d51ecb485e55065500feaf23a45c7d51baf27f915efc987953f",
+    "Art/Dusk/Production/02_blender/dusk_rig_v029.checks.json": "1913a9a5ae2ccf7bb969dcef9ff17e4d1353fb32ccafb6629ae9a135e8713fc4",
+    "Art/Dusk/Production/05_render_masters/style-v029-front.png": "4cdf2f4e6a852c45f211bbd144f0c6cffd556dd83d5b37d0e3e839dfcf9215d2",
+    "Art/Dusk/Review/build-v029.py": "ec9b091170f5b7a0b9fc16fbdff21808bac17db7021f671f63aa45022d11331f",
+    "Art/Dusk/Production/03_textures/charcoal-short-fur-v002.png": "2b325986f0cdeb29cc8ab7a8ab9461f9eb4a23a959fab48372e512569d9b814e",
+    "Art/Dusk/Production/03_textures/charcoal-short-fur-v002.prompt.txt": "8a067aa602a26cc80076c3afc3fd6f35acc04aef2dc8b093396b33effedd1404"
+  }
+}
