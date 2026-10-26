@@ -1,0 +1,14 @@
+{
+  "character": "Dusk",
+  "status": "STYLE_REVIEW_NOT_APPROVED",
+  "reference": "references/approved-front.png",
+  "closed_eye_reference": "references/approved-closed-eyes.png",
+  "silhouette": "Round squat charcoal blob, broad softly flattened bottom, two attached short arms, three rounded top tufts, no feet",
+  "material": "Very short fine close-lying charcoal fuzz; pink cheeks; dark brown glossy eyes with lighting-based catchlights",
+  "mouth": "Fixed closed smile, no tongue, no speech or opening",
+  "camera": "Fixed 90 mm perspective",
+  "motion_direction": "Minimal; style review precedes Actions or app clips",
+  "topology_locked": false,
+  "fur_locked": false,
+  "lighting_locked": false
+}

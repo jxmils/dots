@@ -1,0 +1,300 @@
+{
+  "blender": "5.1.0",
+  "status": "PASS_STRUCTURAL_AND_SAMPLED_ATTACHMENT_CHECKS",
+  "mouth_fixed": true,
+  "body_closed": true,
+  "body_volume": 1.7641509588375828,
+  "style_approved": false,
+  "animation_actions": 0,
+  "authored_highlight_occlusion": {
+    "L": {
+      "neutral": "EYE_HIGHLIGHT_L",
+      "closed": "EYELID_L"
+    },
+    "R": {
+      "neutral": "EYE_HIGHLIGHT_R",
+      "closed": "EYELID_R"
+    }
+  },
+  "poses": {
+    "neutral": {
+      "max_sampled_root_distance": 8.473003254039213e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950796757194405,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614729187957,
+        "FUR_GROOM_ARM_R_pile": 0.016787676035442185,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967198212440374,
+        "FUR_GROOM_BODY_pile": 0.016485638540716694,
+        "FUR_GROOM_BODY_undercoat": 0.011693579875561091,
+        "FUR_GROOM_TUFT_01_pile": 0.020833355889155344,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888857056689378,
+        "FUR_GROOM_TUFT_02_pile": 0.02013954979146417,
+        "FUR_GROOM_TUFT_02_undercoat": 0.016144835568048226,
+        "FUR_GROOM_TUFT_03_pile": 0.019912232019489388,
+        "FUR_GROOM_TUFT_03_undercoat": 0.015750036842917103
+      }
+    },
+    "turn_-25": {
+      "max_sampled_root_distance": 8.475154027109966e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.01695079758881962,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836613670738114,
+        "FUR_GROOM_ARM_R_pile": 0.016787677388616792,
+        "FUR_GROOM_ARM_R_undercoat": 0.0119671953066057,
+        "FUR_GROOM_BODY_pile": 0.01648563825109632,
+        "FUR_GROOM_BODY_undercoat": 0.011693580658973721,
+        "FUR_GROOM_TUFT_01_pile": 0.020833354646288747,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888856058716115,
+        "FUR_GROOM_TUFT_02_pile": 0.020139550246431086,
+        "FUR_GROOM_TUFT_02_undercoat": 0.01614483645401658,
+        "FUR_GROOM_TUFT_03_pile": 0.01991223377686193,
+        "FUR_GROOM_TUFT_03_undercoat": 0.015750035609713733
+      }
+    },
+    "turn_25": {
+      "max_sampled_root_distance": 8.474677451886237e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950797012456883,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614914284957,
+        "FUR_GROOM_ARM_R_pile": 0.01678767564542457,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967196818214485,
+        "FUR_GROOM_BODY_pile": 0.01648564017094547,
+        "FUR_GROOM_BODY_undercoat": 0.011693580772431166,
+        "FUR_GROOM_TUFT_01_pile": 0.020833356219063577,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888856315037916,
+        "FUR_GROOM_TUFT_02_pile": 0.020139549246517507,
+        "FUR_GROOM_TUFT_02_undercoat": 0.01614483583972536,
+        "FUR_GROOM_TUFT_03_pile": 0.01991223343673786,
+        "FUR_GROOM_TUFT_03_undercoat": 0.01575003765688891
+      }
+    },
+    "small_squash": {
+      "max_sampled_root_distance": 8.928299939725548e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950796757194405,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614729187957,
+        "FUR_GROOM_ARM_R_pile": 0.016787676035442185,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967198212440374,
+        "FUR_GROOM_BODY_pile": 0.016485638151799268,
+        "FUR_GROOM_BODY_undercoat": 0.011693576374544675,
+        "FUR_GROOM_TUFT_01_pile": 0.02083335886806332,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888855847627798,
+        "FUR_GROOM_TUFT_02_pile": 0.020139547092193923,
+        "FUR_GROOM_TUFT_02_undercoat": 0.016144832599089266,
+        "FUR_GROOM_TUFT_03_pile": 0.019912230977207828,
+        "FUR_GROOM_TUFT_03_undercoat": 0.015750038919340355
+      }
+    },
+    "root_translation": {
+      "max_sampled_root_distance": 8.473003254039213e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950797458262067,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614853809452,
+        "FUR_GROOM_ARM_R_pile": 0.016787676252738668,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967197992064773,
+        "FUR_GROOM_BODY_pile": 0.016485639377169795,
+        "FUR_GROOM_BODY_undercoat": 0.011693581679867738,
+        "FUR_GROOM_TUFT_01_pile": 0.020833356983819395,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888855499874503,
+        "FUR_GROOM_TUFT_02_pile": 0.020139548041305355,
+        "FUR_GROOM_TUFT_02_undercoat": 0.01614483388944758,
+        "FUR_GROOM_TUFT_03_pile": 0.019912231047578388,
+        "FUR_GROOM_TUFT_03_undercoat": 0.015750038127930247
+      }
+    },
+    "CTRL_ARM_L": {
+      "max_sampled_root_distance": 8.473003254039213e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950798179518112,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614976191253,
+        "FUR_GROOM_ARM_R_pile": 0.016787676035442185,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967198212440374,
+        "FUR_GROOM_BODY_pile": 0.016485638540716694,
+        "FUR_GROOM_BODY_undercoat": 0.011693579875561091,
+        "FUR_GROOM_TUFT_01_pile": 0.020833355889155344,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888857056689378,
+        "FUR_GROOM_TUFT_02_pile": 0.02013954979146417,
+        "FUR_GROOM_TUFT_02_undercoat": 0.016144835568048226,
+        "FUR_GROOM_TUFT_03_pile": 0.019912232019489388,
+        "FUR_GROOM_TUFT_03_undercoat": 0.015750036842917103
+      }
+    },
+    "CTRL_ARM_R": {
+      "max_sampled_root_distance": 8.473003254039213e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950796757194405,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614729187957,
+        "FUR_GROOM_ARM_R_pile": 0.016787681325667287,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967193770872702,
+        "FUR_GROOM_BODY_pile": 0.016485638540716694,
+        "FUR_GROOM_BODY_undercoat": 0.011693579875561091,
+        "FUR_GROOM_TUFT_01_pile": 0.020833355889155344,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888857056689378,
+        "FUR_GROOM_TUFT_02_pile": 0.02013954979146417,
+        "FUR_GROOM_TUFT_02_undercoat": 0.016144835568048226,
+        "FUR_GROOM_TUFT_03_pile": 0.019912232019489388,
+        "FUR_GROOM_TUFT_03_undercoat": 0.015750036842917103
+      }
+    },
+    "CTRL_TUFTS": {
+      "max_sampled_root_distance": 8.473003254039213e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950796757194405,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614729187957,
+        "FUR_GROOM_ARM_R_pile": 0.016787676035442185,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967198212440374,
+        "FUR_GROOM_BODY_pile": 0.016485638540716694,
+        "FUR_GROOM_BODY_undercoat": 0.011693579875561091,
+        "FUR_GROOM_TUFT_01_pile": 0.02083335170522031,
+        "FUR_GROOM_TUFT_01_undercoat": 0.01588885173788131,
+        "FUR_GROOM_TUFT_02_pile": 0.020139548586668398,
+        "FUR_GROOM_TUFT_02_undercoat": 0.016144834470030532,
+        "FUR_GROOM_TUFT_03_pile": 0.019912234081039665,
+        "FUR_GROOM_TUFT_03_undercoat": 0.01575003701764767
+      }
+    },
+    "CTRL_BODY_TOP": {
+      "max_sampled_root_distance": 8.473003254039213e-05,
+      "evaluated_fiber_counts": {
+        "FUR_GROOM_ARM_L_pile": 2607,
+        "FUR_GROOM_ARM_L_undercoat": 2975,
+        "FUR_GROOM_ARM_R_pile": 2570,
+        "FUR_GROOM_ARM_R_undercoat": 3034,
+        "FUR_GROOM_BODY_pile": 70037,
+        "FUR_GROOM_BODY_undercoat": 14911,
+        "FUR_GROOM_TUFT_01_pile": 2616,
+        "FUR_GROOM_TUFT_01_undercoat": 2987,
+        "FUR_GROOM_TUFT_02_pile": 2623,
+        "FUR_GROOM_TUFT_02_undercoat": 2957,
+        "FUR_GROOM_TUFT_03_pile": 2565,
+        "FUR_GROOM_TUFT_03_undercoat": 2996
+      },
+      "mean_sampled_strand_lengths": {
+        "FUR_GROOM_ARM_L_pile": 0.016950796757194405,
+        "FUR_GROOM_ARM_L_undercoat": 0.011836614729187957,
+        "FUR_GROOM_ARM_R_pile": 0.016787676035442185,
+        "FUR_GROOM_ARM_R_undercoat": 0.011967198212440374,
+        "FUR_GROOM_BODY_pile": 0.016485637397855565,
+        "FUR_GROOM_BODY_undercoat": 0.011693578397357638,
+        "FUR_GROOM_TUFT_01_pile": 0.020833357679281343,
+        "FUR_GROOM_TUFT_01_undercoat": 0.015888864583284586,
+        "FUR_GROOM_TUFT_02_pile": 0.020139550670419754,
+        "FUR_GROOM_TUFT_02_undercoat": 0.01614483498773146,
+        "FUR_GROOM_TUFT_03_pile": 0.01991223227006918,
+        "FUR_GROOM_TUFT_03_undercoat": 0.015750038233211316
+      }
+    }
+  }
+}

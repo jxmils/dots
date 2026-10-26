@@ -1,8 +1,7 @@
 {
-  "status": "Appearance review only; no production approval",
+  "status": "All Blender studies unapproved; appearance gate closed",
   "original_target": "reference.png",
   "rejected_candidate": "rejected-v006.png",
-  "unreviewed_study": "study-v007.png",
   "blender_actual": "5.1.0",
   "sha256": {
     "comparison-v007.png": "b6f031050442b9611945e327fe2b00d16a4f14919825dc1a494b9c82d59c9735",
@@ -87,5 +86,15 @@
     "detail-v028.png": "432df63a6db4b998788f2e1b75d3c74cb19a792b6aeb661677e38274ff54ff17",
     "study-v028.png": "45018e699023fffddc4bd9b733d5893440354ee8ca1fa49cf4bab1513f53204b"
   },
-  "latest_unapproved_study": "study-v028.png"
+  "latest_unapproved_study": "study-v028.png",
+  "expert_reviews_rejected": [
+    "v007",
+    "v010",
+    "v011",
+    "v012",
+    "v014",
+    "v017",
+    "v027"
+  ],
+  "latest_submitted": "v028"
 }
