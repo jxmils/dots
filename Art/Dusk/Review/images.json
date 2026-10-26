@@ -17,7 +17,11 @@
     "comparison-v011.png": "6190b7d8da08f7931f47a38bcf918101f680ebdfdc31e465a7cceb09c7112df7",
     "detail-v011.png": "0b37b66a43ef9c45a1e5f7024b43bc9972ff63cfe5eaccb7559684e6e1c9ae72",
     "build-v011.py": "8d7fd394a7aa17d18d0c89955404baeb8d28d9767ff22e43b9b0d3ede200a940",
-    "study-v011.png": "5a7398d811fb6bf784ea09f2709332b4c21a5cc20567985bfbfc896eaf075e83"
+    "study-v011.png": "5a7398d811fb6bf784ea09f2709332b4c21a5cc20567985bfbfc896eaf075e83",
+    "comparison-v012.png": "e2897a698387abcf120047847ecf45d14e4d56c145d2e9632f2f2daa312d5efa",
+    "build-v012.py": "33a58306d302b767454cfe527e10cdc7b4a3b7bed4e061e381654ddf6f981106",
+    "detail-v012.png": "d94e0837fb8d65007c33e0a6a89643fc9f51766c9c184b7d2e7208da8f120111",
+    "study-v012.png": "68a5a2bd51445ffd1bac83eced7ce423c12ccee1f253cd43b2e988a32676516f"
   },
-  "latest_unapproved_study": "study-v011.png"
+  "latest_unapproved_study": "study-v012.png"
 }
