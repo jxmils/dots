@@ -81,7 +81,11 @@
     "study-v027.png": "85203438dfa0ea51624fb8b821e7ab0cdee04bddf066714634f3c9e586dafafe",
     "detail-v027.png": "d4acc83b14bbd7cc0b39d5d372c7a6e2e633825e91a85d7dde26faecc9686c07",
     "build-v027.py": "1dcdee989ac3aac7b91883656e401119aa40ea16c6275be4909fb79585ee0e1c",
-    "comparison-v027.png": "dfd2de4ec159060f491d5cb2832423590b2c46467b167b54179e0814b039e014"
+    "comparison-v027.png": "dfd2de4ec159060f491d5cb2832423590b2c46467b167b54179e0814b039e014",
+    "build-v028.py": "a0f529a2e126cf095a7995f13c210fca66608aaceab03c26998b4b51c2ae1688",
+    "comparison-v028.png": "136a8824eb2cf8dcd631e0995612937616b2572fc7f653303a4951de1ca26aee",
+    "detail-v028.png": "432df63a6db4b998788f2e1b75d3c74cb19a792b6aeb661677e38274ff54ff17",
+    "study-v028.png": "45018e699023fffddc4bd9b733d5893440354ee8ca1fa49cf4bab1513f53204b"
   },
-  "latest_unapproved_study": "study-v027.png"
+  "latest_unapproved_study": "study-v028.png"
 }
