@@ -1,0 +1,14 @@
+{
+  "status": "Appearance review only; no production approval",
+  "original_target": "reference.png",
+  "rejected_candidate": "rejected-v006.png",
+  "unreviewed_study": "study-v007.png",
+  "blender_actual": "5.1.0",
+  "sha256": {
+    "comparison-v007.png": "b6f031050442b9611945e327fe2b00d16a4f14919825dc1a494b9c82d59c9735",
+    "comparison-v006.png": "cdf1b5b1e47e06b5b3ac12f2670efd195dcea6ea81a14edb392281a143b9fbd2",
+    "rejected-v006.png": "a76aa8271a4ef31871068f14d07ea9ce75fc0b8be92890611a80ca67975447ec",
+    "reference.png": "34a4035478828bded4c2e56df49dd5dd2eb15fddeaf2b3b7320d73d2da3ebe17",
+    "study-v007.png": "5e7ca7216f6d26efb68966e2ae97d9f79b856ab7c4f09f476e7000b642dde248"
+  }
+}
