@@ -1,0 +1,14 @@
+{
+  "generator": "built-in image_gen",
+  "usage": "seamless fur material only; no character/face/portrait",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "sha256": "afd9fb6df9e6c2a0bcdf65056aa8348863fe57d8c2133b1931bac0946dc9a90e",
+  "linear_luminance_p10_p50_p90": [
+    0.01184435690677333,
+    0.032719339037520286,
+    0.09686938752191783
+  ]
+}

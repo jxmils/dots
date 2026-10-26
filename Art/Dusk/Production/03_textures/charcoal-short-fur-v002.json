@@ -1,0 +1,18 @@
+{
+  "generator": "built-in image_gen",
+  "usage": "fur material only; no character/face/portrait",
+  "reference_inputs": [
+    "charcoal-short-fur-v001.png",
+    "approved-front.png"
+  ],
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "sha256": "2b325986f0cdeb29cc8ab7a8ab9461f9eb4a23a959fab48372e512569d9b814e",
+  "linear_luminance_p10_p50_p90": [
+    0.01681520786892703,
+    0.03392812672941647,
+    0.061275155165800864
+  ]
+}
