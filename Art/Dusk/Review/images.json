@@ -29,7 +29,19 @@
     "comparison-v014.png": "f4ca2bb6b07ca6e5c538a9e9813a992b43372e3cfdce0c3be6c4b8e49220fb6b",
     "detail-v014.png": "983db1dc8c481c32b0cb5e00a30902d77b85f5b2ce882c3537cb40262185905b",
     "build-v014.py": "3a72488a370da0ba77a6c2b4ed8d140c8e23cef33b04c65855921efdfda4c7fb",
-    "study-v014.png": "fe6778c1353c2c163892ad4a492875f693b2055966ecbab6cacfd7416f621cb7"
+    "study-v014.png": "fe6778c1353c2c163892ad4a492875f693b2055966ecbab6cacfd7416f621cb7",
+    "comparison-v015.png": "fb93df531d038e0df66c146a6611f9e3df05418a549d6f0c3bdb492929f875ab",
+    "detail-v015.png": "b7752effeddcb58ee4cb4cc406f27f6e38af8acc52a03d5a6282d7e5f0c68982",
+    "build-v015.py": "40c303d1fb3e5f78f094624df53c6458f46a8017b999ce007a52f77de50f5798",
+    "study-v015.png": "6ff210f6ce99e78876ef8e6d47acc1aefb15073257c9d14f5d13f743746a46c7",
+    "comparison-v016.png": "9b35a4e36888cee8dcd1f71abd807d4eb1891bee193f7aa14de104913f5193fb",
+    "build-v016.py": "c0a36e573f8d85c7a7446287a3089dd652e3b1b795c0471f0ac48718f6e5320c",
+    "detail-v016.png": "e4fbea931c2aa14c24399294da6f7154c4b3055513adcdb563b3b24f7b148ab8",
+    "study-v016.png": "2a0dc42e68feec7df2e55fce280a22cef715b25f859f823bc0d908406ebcabd3",
+    "comparison-v017.png": "bb71c01aab4432d7fcdf7f69667ecdabd8bc1442a3cbc34b92063e01a18d1d1a",
+    "build-v017.py": "45ef6efbc0925ab08a62d018fd6c1237538520fc46c9b2aa60a054956d05e5bb",
+    "detail-v017.png": "be66eed1c6bc7511343ae888d493fc76ac420fb0dca19e0606cf9d54b2068726",
+    "study-v017.png": "b79d877b14eecdf978ad23385cdd5e2dd77c34c9426d75fe69bda3fad15222ab"
   },
-  "latest_unapproved_study": "study-v014.png"
+  "latest_unapproved_study": "study-v017.png"
 }
