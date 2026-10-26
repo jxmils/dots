@@ -84,9 +84,13 @@
     "build-v028.py": "a0f529a2e126cf095a7995f13c210fca66608aaceab03c26998b4b51c2ae1688",
     "comparison-v028.png": "136a8824eb2cf8dcd631e0995612937616b2572fc7f653303a4951de1ca26aee",
     "detail-v028.png": "432df63a6db4b998788f2e1b75d3c74cb19a792b6aeb661677e38274ff54ff17",
-    "study-v028.png": "45018e699023fffddc4bd9b733d5893440354ee8ca1fa49cf4bab1513f53204b"
+    "study-v028.png": "45018e699023fffddc4bd9b733d5893440354ee8ca1fa49cf4bab1513f53204b",
+    "comparison-v029.png": "c3f28ba953041968e467ca70ff5bc256d68d98dcf397acd9b5470755c4eb8504",
+    "build-v029.py": "ec9b091170f5b7a0b9fc16fbdff21808bac17db7021f671f63aa45022d11331f",
+    "detail-v029.png": "4107aa1e898eefda2db9bf05c3c818bb63d7f041b5423c486e1b335f7ffbda15",
+    "study-v029.png": "4cdf2f4e6a852c45f211bbd144f0c6cffd556dd83d5b37d0e3e839dfcf9215d2"
   },
-  "latest_unapproved_study": "study-v028.png",
+  "latest_unapproved_study": "study-v029.png",
   "expert_reviews_rejected": [
     "v007",
     "v010",
