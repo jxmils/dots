@@ -9,6 +9,11 @@
     "comparison-v006.png": "cdf1b5b1e47e06b5b3ac12f2670efd195dcea6ea81a14edb392281a143b9fbd2",
     "rejected-v006.png": "a76aa8271a4ef31871068f14d07ea9ce75fc0b8be92890611a80ca67975447ec",
     "reference.png": "34a4035478828bded4c2e56df49dd5dd2eb15fddeaf2b3b7320d73d2da3ebe17",
-    "study-v007.png": "5e7ca7216f6d26efb68966e2ae97d9f79b856ab7c4f09f476e7000b642dde248"
-  }
+    "study-v007.png": "5e7ca7216f6d26efb68966e2ae97d9f79b856ab7c4f09f476e7000b642dde248",
+    "comparison-v010.png": "c73c06604f5c8cc03f8627c7371393ce18c346ee57c2fa264fc152871631d0ee",
+    "build-v010.py": "90e383e7420152b914c452189abcbab52f5461d8d9bd56e27b798114eae3d7e8",
+    "detail-v010.png": "ef8d340b93991a27d4efa9db3c249e05ff4d21dfbfb88f245b24b2453e185d4b",
+    "study-v010.png": "85f1e652797ec702857eb863c7d0ede9ae560eaeadece988cd8a7291a476f266"
+  },
+  "latest_unapproved_study": "study-v010.png"
 }
