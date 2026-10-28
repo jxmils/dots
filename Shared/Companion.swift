@@ -77,6 +77,25 @@ struct Companion: Codable, Identifiable, Equatable {
     var recordName: String?
 }
 
+// Local-only test data. Never published to CloudKit or added on a fresh install.
+enum TestFriend {
+    static let id = "dotlings-local-test-friend"
+    static let interval: TimeInterval = 30
+    static var available: Bool {
+        #if DEBUG
+        return true
+        #else
+        return Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+        #endif
+    }
+    static func companion(startedAt: Date, now: Date) -> Companion {
+        let step = floor(max(0, now.timeIntervalSince(startedAt)) / interval)
+        let mood = Mood.allCases[Int(step.truncatingRemainder(dividingBy: Double(Mood.allCases.count)))]
+        return Companion(id: id, ownerName: "Test friend", petName: "Sky", mood: mood,
+                         updatedAt: startedAt.addingTimeInterval(step * interval), kind: .blue)
+    }
+}
+
 enum WidgetMode: String, Codable, CaseIterable, Identifiable {
     case latest, pinned
     var id: String { rawValue }
@@ -90,6 +109,7 @@ struct CircleState: Codable, Equatable {
     var pinnedFriendID: String?
     var widgetMode: WidgetMode = .latest
     var lastSyncedAt: Date?
+    var testFriendStartedAt: Date?
     var collection = CollectionProgress()
 
     init(cloudEnabled: Bool = false, companion: Companion? = nil, friends: [Companion] = [], pinnedFriendID: String? = nil,
@@ -103,7 +123,7 @@ struct CircleState: Codable, Equatable {
         }
     }
 
-    private enum CodingKeys: String, CodingKey { case cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection }
+    private enum CodingKeys: String, CodingKey { case cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection, testFriendStartedAt }
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         cloudEnabled = try c.decodeIfPresent(Bool.self, forKey: .cloudEnabled) ?? false
@@ -112,6 +132,7 @@ struct CircleState: Codable, Equatable {
         pinnedFriendID = try c.decodeIfPresent(String.self, forKey: .pinnedFriendID)
         widgetMode = try c.decodeIfPresent(WidgetMode.self, forKey: .widgetMode) ?? .latest
         lastSyncedAt = try c.decodeIfPresent(Date.self, forKey: .lastSyncedAt)
+        testFriendStartedAt = try c.decodeIfPresent(Date.self, forKey: .testFriendStartedAt)
         collection = try c.decodeIfPresent(CollectionProgress.self, forKey: .collection) ?? CollectionProgress()
         if let companion {
             if !collection.owned.contains(companion.kind) { collection.owned.append(companion.kind) }
@@ -129,7 +150,26 @@ struct CircleState: Codable, Equatable {
         case .pinned: return friends.first { $0.id == pinnedFriendID }
         }
     }
+    mutating func enableTestFriend(at now: Date) {
+        guard testFriendStartedAt == nil else { return }
+        testFriendStartedAt = now
+        updateTestFriend(at: now)
+    }
+    @discardableResult mutating func updateTestFriend(at now: Date) -> Bool {
+        guard let start = testFriendStartedAt else { return false }
+        let friend = TestFriend.companion(startedAt: start, now: now)
+        if friends.first(where: { $0.id == TestFriend.id }) == friend { return false }
+        friends.removeAll { $0.id == TestFriend.id }
+        friends.append(friend)
+        return true
+    }
+    mutating func receiveFriends(_ received: [Companion], at now: Date) {
+        friends = received.filter { $0.id != TestFriend.id }
+        updateTestFriend(at: now)
+        if !friends.contains(where: { $0.id == pinnedFriendID }) { pinnedFriendID = nil }
+    }
     mutating func removeFriend(_ id: String) {
+        if id == TestFriend.id { testFriendStartedAt = nil }
         friends.removeAll { $0.id == id }
         if pinnedFriendID == id { pinnedFriendID = nil }
     }

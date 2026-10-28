@@ -86,3 +86,12 @@ button. It never puts CloudKit record IDs or server diagnostics into the mood-se
 error handling is separate from, and does not substitute for, the production schema deployment.
 
 See Apple's [schema deployment instructions](https://developer.apple.com/documentation/cloudkit/deploying-an-icloud-container-s-schema).
+
+
+## Device-only mood test friend
+
+In a TestFlight build (or a DEBUG build), hold the **dotlings** wordmark for three seconds, then choose **Add test friend on this device**. This is deliberately opt-in: new installs have no test friends, and ordinary App Store builds do not expose the control. It is not tied to a name such as Jason or enabled for every tester.
+
+The local Sky companion appears as **Test friend** in My circle. While the app is active it cycles Happy → Calm → Sleepy → A little low → Overwhelmed → Focused, every 30 seconds. The open detail view follows the current mood. The clock stops running in the background; reopening catches up from the saved start time. Nothing is sent to CloudKit, and the user's mood, check-in streak and collection are unaffected. Cloud refreshes preserve this local friend.
+
+You can pin it to a widget, but widget refresh timing is controlled by iOS: the 30-second cadence is an in-app test, not a promise of Lock Screen refresh frequency. In the friend's profile, choose **Remove test friend** to remove it and clear its pin. Normal App Store launches remove this testing data. This test does not validate real friend sharing or replace deploying the CloudKit production schema.

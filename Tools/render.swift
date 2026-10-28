@@ -82,6 +82,17 @@ import CoreText
         }
         for kind in [CompanionKind.lavender, .blue, .pillow, .dusk, .toast, .twinkle, .sprout] { try save(phone(kind), to: out.appendingPathComponent("\(kind.rawValue)-home.png")) }
         try save(phone(.pillow, tab: .friends), to: out.appendingPathComponent("friends.png"))
+        for (index, mood) in Mood.allCases.enumerated() {
+            var testState = state(.blue)
+            testState.friends = []
+            testState.cloudEnabled = false
+            testState.enableTestFriend(at: now)
+            testState.updateTestFriend(at: now.addingTimeInterval(Double(index) * 30))
+            let testModel = CircleModel(previewState: testState)
+            try save(CircleView(onFriend: { _ in }).environment(testModel).padding(24)
+                .frame(width: 402).background(DotsStyle.paper),
+                to: out.appendingPathComponent("test-friend-\(mood.rawValue).png"))
+        }
         try save(phone(.pillow, tab: .widget), to: out.appendingPathComponent("widgets.png"))
         try save(phone(.pillow, tab: .collection), to: out.appendingPathComponent("collection.png"))
         try save(HatchingView(free: true).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874), to: out.appendingPathComponent("hatching.png"))

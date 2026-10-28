@@ -14,6 +14,7 @@ struct DotsRoot: View {
     @State private var tab: DotsTab
     @State private var friend: Companion?
     @State private var welcoming = false
+    @State private var showTestFriend = false
     init(tab: DotsTab = .home) { _tab = State(initialValue: tab) }
 
     var body: some View {
@@ -27,6 +28,10 @@ struct DotsRoot: View {
                         HStack(spacing: 6) {
                             Circle().fill(DotsStyle.plum).frame(width: 9, height: 9)
                             Text("dotlings").font(DotsStyle.brand(26))
+                        }
+                        .contentShape(Rectangle())
+                        .onLongPressGesture(minimumDuration: 3) {
+                            if TestFriend.available { showTestFriend = true }
                         }
                         Spacer()
                         Button { model.showSettings = true } label: {
@@ -62,6 +67,24 @@ struct DotsRoot: View {
         .alert("A little hiccup", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
             Button("OK") { model.error = nil }
         } message: { Text(model.error ?? "") }
+        .confirmationDialog("Your test friend", isPresented: $showTestFriend, titleVisibility: .visible) {
+            if model.state.testFriendStartedAt == nil {
+                Button("Add test friend on this device") { model.addTestFriend(); tab = .friends }
+            } else {
+                Button("Show test friend") { tab = .friends }
+            }
+        } message: {
+            Text("A local test friend cycles through all six moods every 30 seconds while the app is open. It is only added on this device.")
+        }
+        .task(id: "\(phase)-\(model.state.testFriendStartedAt?.timeIntervalSince1970 ?? -1)") {
+            guard phase == .active, let start = model.state.testFriendStartedAt else { return }
+            while !Task.isCancelled {
+                model.tickTestFriend()
+                let elapsed = max(0, Date().timeIntervalSince(start))
+                let delay = TestFriend.interval - elapsed.truncatingRemainder(dividingBy: TestFriend.interval)
+                do { try await Task.sleep(for: .seconds(max(0.05, delay))) } catch { return }
+            }
+        }
         .task {
             if let metadata = PendingInvitation.metadata {
                 PendingInvitation.metadata = nil
@@ -318,28 +341,30 @@ struct FriendDetail: View {
     @Environment(CircleModel.self) private var model
     @Environment(\.dismiss) private var dismiss
     var friend: Companion
+    private var currentFriend: Companion { model.state.friends.first { $0.id == friend.id } ?? friend }
     @State private var confirmRemove = false
     var body: some View {
+        let friend = currentFriend
         NavigationStack {
             VStack(spacing: 18) {
                 CompanionView(mood: friend.mood, kind: friend.kind, animate: true).frame(width: 240, height: 240)
                 Text(friend.ownerName).font(DotsStyle.round(30, weight: .bold))
                 MoodBadge(mood: friend.mood)
-                Text("\(friend.petName) is keeping them company.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
-                HStack { Text("Mood shared"); Text(friend.updatedAt, style: .relative) }.font(.caption).foregroundStyle(DotsStyle.muted)
+                Text(friend.id == TestFriend.id ? "Only on this device · changes mood every 30 seconds" : "\(friend.petName) is keeping them company.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
+                HStack { Text(friend.id == TestFriend.id ? "Mood updated" : "Mood shared"); Text(friend.updatedAt, style: .relative) }.font(.caption).foregroundStyle(DotsStyle.muted)
                 Button {
                     model.setWidget(.pinned, pinned: friend.id); dismiss()
                 } label: {
                     Label("Pin to my widget", systemImage: "pin.fill").font(DotsStyle.round(16, weight: .bold))
                         .frame(maxWidth: .infinity).padding(18).foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
                 }
-                Button("Leave this friend's circle", role: .destructive) { confirmRemove = true }.font(.footnote)
+                Button(friend.id == TestFriend.id ? "Remove test friend" : "Leave this friend's circle", role: .destructive) { confirmRemove = true }.font(.footnote)
                 Spacer()
             }.padding(28).frame(maxWidth: .infinity).background(DotsStyle.paper)
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
-                .confirmationDialog("Leave \(friend.ownerName)'s circle?", isPresented: $confirmRemove, titleVisibility: .visible) {
-                    Button("Leave circle", role: .destructive) { Task { await model.remove(friend); if model.error == nil { dismiss() } } }
-                } message: { Text("You'll stop receiving their mood. To control who sees yours, use Manage sharing in Settings.") }
+                .confirmationDialog(friend.id == TestFriend.id ? "Remove test friend?" : "Leave \(friend.ownerName)'s circle?", isPresented: $confirmRemove, titleVisibility: .visible) {
+                    Button(friend.id == TestFriend.id ? "Remove test friend" : "Leave circle", role: .destructive) { Task { await model.remove(friend); if model.error == nil { dismiss() } } }
+                } message: { Text(friend.id == TestFriend.id ? "This removes the test friend from this device and your widget." : "You'll stop receiving their mood. To control who sees yours, use Manage sharing in Settings.") }
         }.tint(DotsStyle.plum)
     }
 }

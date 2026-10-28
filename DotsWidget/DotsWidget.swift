@@ -59,15 +59,16 @@ struct MoodProvider: AppIntentTimelineProvider {
                 let friends = try await CloudCircle().friends()
                 // Reload before saving so a slow fetch doesn't overwrite a newer local mood or widget setting.
                 state = try store.load()
-                state.friends = friends
+                state.receiveFriends(friends, at: Date())
                 state.lastSyncedAt = Date()
-                if !friends.contains(where: { $0.id == state.pinnedFriendID }) { state.pinnedFriendID = nil }
                 try store.save(state)
             } catch { /* Keep the last received mood, with its original timestamp. */ }
         }
         return Timeline(entries: [entry(configuration, state: state)], policy: .after(Date().addingTimeInterval(20 * 60)))
     }
     private func entry(_ configuration: FriendMoodIntent, state: CircleState) -> MoodEntry {
+        var state = state
+        state.updateTestFriend(at: Date())
         let friend: Companion?
         switch configuration.selection {
         case .appDefault: friend = state.widgetFriend()

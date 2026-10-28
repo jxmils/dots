@@ -33,9 +33,11 @@ final class DotsAppDelegate: NSObject, UIApplicationDelegate {
                 let store = CircleStore()
                 var state = try store.load()
                 guard state.cloudEnabled else { completion(.noData); return }
-                state.friends = try await CloudCircle().friends()
+                let friends = try await CloudCircle().friends()
+                state = try store.load()
+                guard state.cloudEnabled else { completion(.noData); return }
+                state.receiveFriends(friends, at: Date())
                 state.lastSyncedAt = Date()
-                if !state.friends.contains(where: { $0.id == state.pinnedFriendID }) { state.pinnedFriendID = nil }
                 try store.save(state)
                 WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind)
                 NotificationCenter.default.post(name: .dotsRefresh, object: nil)

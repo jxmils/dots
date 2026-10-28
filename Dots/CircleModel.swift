@@ -42,6 +42,11 @@ final class CircleModel {
             do { state.collection.restoresUsed = max(state.collection.restoresUsed, try self.restoreBudget.used()) }
             catch { self.error = error.localizedDescription }
         }
+        if state.testFriendStartedAt != nil {
+            if TestFriend.available { state.updateTestFriend(at: Date()) }
+            else { state.removeFriend(TestFriend.id) }
+            persist()
+        }
         if let pending = state.collection.pendingCheckInDay {
             state.collection.checkInQuietly(on: pending)
             state.collection.pendingCheckInDay = nil
@@ -194,8 +199,7 @@ final class CircleModel {
             do {
                 if let companion = state.companion { try await cloud.publish(companion) }
                 let friends = try await cloud.friends()
-                state.friends = friends
-                if !friends.contains(where: { $0.id == state.pinnedFriendID }) { state.pinnedFriendID = nil }
+                state.receiveFriends(friends, at: Date())
                 state.lastSyncedAt = Date()
                 persist()
                 try await cloud.subscribe()
@@ -224,7 +228,21 @@ final class CircleModel {
         } catch { self.error = "The invitation couldn't be accepted: \(error.localizedDescription)" }
     }
 
+    func addTestFriend() {
+        guard TestFriend.available, storageAvailable, state.companion != nil else { return }
+        state.enableTestFriend(at: Date())
+        persist()
+    }
+
+    func tickTestFriend() {
+        guard TestFriend.available, state.updateTestFriend(at: Date()) else { return }
+        persist()
+    }
+
     func remove(_ friend: Companion) async {
+        if friend.id == TestFriend.id {
+            state.removeFriend(friend.id); persist(); return
+        }
         do { try await cloud.leave(friend); state.removeFriend(friend.id); persist() }
         catch { self.error = "Couldn't leave this circle: \(error.localizedDescription)" }
     }
