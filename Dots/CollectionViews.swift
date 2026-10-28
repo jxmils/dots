@@ -236,6 +236,10 @@ struct CollectionView: View {
                 Spacer(); stat("\(progress.bestStreak)", "best streak", "sparkles")
                 Spacer(); stat("\(progress.restoresRemaining)/3", "lifetime restores", "arrow.uturn.backward")
             }.padding(20).background(.white.opacity(0.8), in: RoundedRectangle(cornerRadius: 25))
+            if progress.canRestoreCurrentStreak(on: CheckInDay.number(Date())) {
+                Button("Streak options") { model.showRestore = true }
+                    .font(DotsStyle.round(13, weight: .semibold))
+            }
             if !progress.eggs.isEmpty {
                 Button { model.showHatch = true } label: {
                     HStack {
@@ -310,17 +314,17 @@ struct RestoreStreakView: View {
         VStack(spacing: 20) {
             Image(systemName: "heart.circle.fill").font(.system(size: 58)).foregroundStyle(DotsStyle.plum)
             Text("Life happens.").font(DotsStyle.round(30, weight: .bold))
-            Text("Keep your \(model.state.collection.streak)-day streak with one of your \(model.state.collection.restoresRemaining) remaining lifetime restores?")
+            Text("Reconnect your previous \(model.state.collection.restorableStreak ?? 0)-day streak with one of your \(model.state.collection.restoresRemaining) remaining lifetime restores?")
                 .font(DotsStyle.round(17)).multilineTextAlignment(.center)
-            Text("Missed days won't count toward an egg. Today's check-in adds one day. Your creatures stay yours either way.")
+            Text("Only the days you checked in count. Your recent check-ins and creatures are already saved.")
                 .font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
             Button { model.resolveRestore(use: true) } label: {
                 Text("Use one restore").font(DotsStyle.round(16, weight: .bold)).padding(18).frame(maxWidth: .infinity)
                     .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
             }.disabled(model.state.collection.restoresRemaining == 0)
-            Button("Start a new streak") { model.resolveRestore(use: false) }.font(DotsStyle.round(14))
+            Button("Keep my current streak") { model.resolveRestore(use: false) }.font(DotsStyle.round(14))
         }.padding(30).frame(maxWidth: .infinity, maxHeight: .infinity).background(DotsStyle.paper)
-            .presentationDetents([.large]).interactiveDismissDisabled()
+            .presentationDetents([.large])
             .alert("A little hiccup", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
                 Button("OK") { model.error = nil }
             } message: { Text(model.error ?? "") }

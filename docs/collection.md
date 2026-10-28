@@ -21,9 +21,12 @@ plus the first free creature provide all 29. Eggs do not expire and survive stre
 
 ## Exactly three lifetime restores
 
-After a gap, the next mood check-in offers an explicit choice: spend one restore to continue the streak,
-or start a new streak. A restore adds only today's actual check-in; missed days do not count. Restores
-never refill. After three are used, gaps start a new streak while keeping all creatures and earned eggs.
+Mood check-ins count quietly, without a streak counter on the companion screen or an automatic restore popup.
+After a gap, a new streak begins immediately. Open Collection and choose **Streak options** to reconnect the
+previous streak with one of the three lifetime restores, or keep the current streak. This option remains
+available while the new streak is current; another gap replaces the previous opportunity. Only actual
+check-ins count, and a restore catches up any earned milestone rewards without counting missed days.
+Restores never refill. All creatures and earned eggs remain yours.
 A pending choice is saved and resumes on relaunch.
 
 A synchronizable Keychain receipt retains the number used outside the companion state. In-app deletion

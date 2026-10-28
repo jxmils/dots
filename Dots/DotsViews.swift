@@ -156,7 +156,7 @@ struct CompanionHome: View {
                             .accessibilityAddTraits(companion.mood == mood ? .isSelected : [])
                         }
                     }
-                    Text(model.state.cloudEnabled ? "Shared with the people you've invited." : "Just for you. Invite a friend when you're ready.")
+                    Text(model.syncIssue != nil ? "Saved on this device. Waiting to sync." : model.state.cloudEnabled ? "Shared with the people you've invited." : "Just for you. Invite a friend when you're ready.")
                         .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }
                 if !model.state.collection.eggs.isEmpty {
@@ -166,12 +166,7 @@ struct CompanionHome: View {
                             .foregroundStyle(.white).background(DotsStyle.plum, in: RoundedRectangle(cornerRadius: 22))
                     }
                 }
-                HStack(spacing: 6) {
-                    Image(systemName: "flame.fill").foregroundStyle(Mood.focused.color)
-                    Text("\(model.state.collection.currentStreak(on: CheckInDay.number(Date()))) day streak")
-                    Spacer()
-                    Text("\(model.state.collection.owned.count)/\(CompanionKind.allCases.count) little friends")
-                }.font(DotsStyle.round(11, weight: .semibold)).foregroundStyle(DotsStyle.muted)
+
                 Button(action: onCircle) {
                     HStack(spacing: 12) {
                         Image(systemName: "person.2.fill").font(.system(size: 18)).foregroundStyle(DotsStyle.plum)
@@ -198,6 +193,15 @@ struct CircleView: View {
                 Text("Your little circle.").font(DotsStyle.round(32, weight: .bold)).tracking(-0.8)
                 Text("A glimpse of how your people are feeling.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
             }.padding(.top, 20)
+            if let issue = model.syncIssue {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Your mood is saved on this device.").font(DotsStyle.round(14, weight: .bold))
+                    Text(issue).font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
+                    Button("Try again") { Task { await model.refresh() } }
+                        .disabled(model.syncing)
+                }.padding(18).frame(maxWidth: .infinity, alignment: .leading)
+                    .background(.white.opacity(0.8), in: RoundedRectangle(cornerRadius: 22))
+            }
             Button { Task { await model.invite() } } label: {
                 HStack {
                     Image(systemName: "plus")

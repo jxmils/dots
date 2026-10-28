@@ -23,7 +23,8 @@ struct CollectionProgress: Codable, Equatable {
     var earnedMilestones: Set<Int> = []
     var eggs: [Int] = []
     var restoresUsed = 0
-    var pendingCheckInDay: Int?
+    var pendingCheckInDay: Int? // Legacy deferred check-in, migrated on load.
+    var restorableStreak: Int?
     static let lifetimeRestores = 3
     var restoresRemaining: Int { max(0, Self.lifetimeRestores - restoresUsed) }
 
@@ -55,6 +56,37 @@ struct CollectionProgress: Codable, Equatable {
         }
         return nil
     }
+    // Count every real check-in immediately, without prompting about a missed day.
+    mutating func checkInQuietly(on day: Int) {
+        if let last = lastCheckInDay, day <= last { return }
+        let gap = lastCheckInDay.map { day > $0 + 1 } ?? false
+        let previous = canOfferRestore(on: day) ? streak : nil
+        checkIn(on: day)
+        if gap { restorableStreak = previous }
+    }
+
+    func canRestoreCurrentStreak(on day: Int) -> Bool {
+        guard let previous = restorableStreak, previous > 0, restoresRemaining > 0,
+              let last = lastCheckInDay else { return false }
+        return day >= last && day <= last + 1
+    }
+
+    @discardableResult mutating func restoreCurrentStreak(on day: Int) -> Bool {
+        guard canRestoreCurrentStreak(on: day), let previous = restorableStreak else { return false }
+        restoresUsed += 1
+        streak += previous
+        bestStreak = max(bestStreak, streak)
+        restorableStreak = nil
+        // Catch up rewards crossed by actual check-ins since the most recent gap.
+        for milestone in Self.milestones where milestone > previous && milestone <= streak {
+            if !earnedMilestones.contains(milestone), owned.count + eggs.count < CompanionKind.allCases.count {
+                earnedMilestones.insert(milestone)
+                eggs.append(milestone)
+            }
+        }
+        return true
+    }
+
     var displayOrder: [CompanionKind] { owned + unowned }
     var unowned: [CompanionKind] { CompanionKind.allCases.filter { !owned.contains($0) } }
     mutating func hatch(_ kind: CompanionKind, free: Bool) -> Bool {

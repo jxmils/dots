@@ -8,6 +8,7 @@ import UIKit
 final class CircleModel {
     private(set) var state: CircleState
     var error: String?
+    var syncIssue: String?
     var syncing = false
     var sharing = false
     var deleting = false
@@ -41,7 +42,11 @@ final class CircleModel {
             do { state.collection.restoresUsed = max(state.collection.restoresUsed, try self.restoreBudget.used()) }
             catch { self.error = error.localizedDescription }
         }
-        showRestore = state.collection.pendingCheckInDay != nil
+        if let pending = state.collection.pendingCheckInDay {
+            state.collection.checkInQuietly(on: pending)
+            state.collection.pendingCheckInDay = nil
+            persist()
+        }
     }
 
     init(previewState: CircleState) {
@@ -74,10 +79,7 @@ final class CircleModel {
         state.companion?.mood = mood
         state.companion?.updatedAt = Date()
         let day = CheckInDay.number(Date())
-        if state.collection.canOfferRestore(on: day) {
-            state.collection.pendingCheckInDay = day
-            showRestore = true
-        } else { state.collection.checkIn(on: day) }
+        state.collection.checkInQuietly(on: day)
         persist()
         Task { await refresh() }
     }
@@ -149,16 +151,17 @@ final class CircleModel {
     }
 
     func resolveRestore(use: Bool) {
-        guard let day = state.collection.pendingCheckInDay else { showRestore = false; return }
+        let day = CheckInDay.number(Date())
         let before = state
         do {
             let used = try restoreBudget.used()
             state.collection.restoresUsed = max(state.collection.restoresUsed, used)
-            if use && !state.collection.canOfferRestore(on: day) {
-                error = "All three lifetime restores have been used. Start a new streak to keep checking in."
-                return
-            }
-            state.collection.checkIn(on: day, restore: use)
+            if use {
+                guard state.collection.restoreCurrentStreak(on: day) else {
+                    error = "This streak can no longer be restored. Your check-ins and companions are safe."
+                    return
+                }
+            } else { state.collection.restorableStreak = nil }
             if !preview { try store.save(state) }
             if use { try restoreBudget.record(state.collection.restoresUsed) }
             showRestore = false
@@ -178,7 +181,7 @@ final class CircleModel {
             persist()
             UIApplication.shared.registerForRemoteNotifications()
             await refresh()
-        } catch { self.error = error.localizedDescription }
+        } catch { self.error = CircleSyncMessage.text(for: error) }
     }
 
     func refresh() async {
@@ -196,7 +199,8 @@ final class CircleModel {
                 state.lastSyncedAt = Date()
                 persist()
                 try await cloud.subscribe()
-            } catch { self.error = "Your mood is saved on this device. Friends couldn't be updated: \(error.localizedDescription)" }
+                syncIssue = nil
+            } catch { syncIssue = CircleSyncMessage.text(for: error) }
         } while syncAgain && !deleting
     }
 
@@ -208,7 +212,7 @@ final class CircleModel {
         do {
             share = try await cloud.sharingRecord(for: companion)
             showSharing = true
-        } catch { self.error = error.localizedDescription }
+        } catch { self.error = CircleSyncMessage.text(for: error) }
     }
 
     func accept(_ metadata: CKShare.Metadata) async {
@@ -236,6 +240,7 @@ final class CircleModel {
             let restores = max(state.collection.restoresUsed, try restoreBudget.used())
             try restoreBudget.record(restores)
             state = CircleState(); state.collection.restoresUsed = restores
+            syncIssue = nil
             persist(); showSettings = false
         } catch { self.error = "Couldn't remove the shared companion. Please reconnect and try again: \(error.localizedDescription)" }
     }

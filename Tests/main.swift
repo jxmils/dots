@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import UIKit
+import CloudKit
 
 @main struct Checks {
     @MainActor static func main() throws {
@@ -58,6 +59,47 @@ import UIKit
                      "After all restores are spent, reset only the streak and keep earned rewards")
         for day in 16...19 { progress.checkIn(on: day) }
         precondition(progress.eggs == [5], "A milestone can only be earned once across streak resets")
+        var quiet = CollectionProgress()
+        quiet.owned = [.lavender]
+        for day in 1...4 { quiet.checkInQuietly(on: day) }
+        quiet.checkInQuietly(on: 7); quiet.checkInQuietly(on: 8)
+        precondition(quiet.streak == 2 && quiet.totalDays == 6 && quiet.restoresUsed == 0,
+                     "Quiet check-ins must count immediately without consuming a restore")
+        quiet.checkInQuietly(on: 8)
+        precondition(quiet.totalDays == 6 && quiet.canRestoreCurrentStreak(on: 8))
+        precondition(quiet.restoreCurrentStreak(on: 8))
+        precondition(quiet.streak == 6 && quiet.totalDays == 6 && quiet.restoresUsed == 1 && quiet.eggs == [5],
+                     "An explicit restore counts only actual days and catches up milestone rewards")
+        precondition(!quiet.restoreCurrentStreak(on: 8), "A restore cannot be spent twice")
+        quiet.checkInQuietly(on: 11); quiet.checkInQuietly(on: 14)
+        precondition(quiet.restorableStreak == 1 && quiet.streak == 1,
+                     "A new gap replaces the previous restore opportunity")
+        quiet.restoresUsed = 3
+        precondition(!quiet.restoreCurrentStreak(on: 14), "Quiet check-ins retain the lifetime limit")
+        var quietState = CircleState(companion: a)
+        quietState.collection.owned = [.lavender]
+        quietState.collection.lastCheckInDay = CheckInDay.number(Date()) - 3
+        quietState.collection.streak = 4
+        let quietModel = CircleModel(previewState: quietState)
+        quietModel.setMood(.calm)
+        precondition(!quietModel.showRestore && quietModel.state.collection.streak == 1,
+                     "Setting a mood must never open a streak reminder")
+        let legacyStore = CircleStore(root: root.appendingPathComponent("pending-restore"))
+        var legacy = quietState
+        legacy.collection.pendingCheckInDay = CheckInDay.number(Date())
+        try legacyStore.save(legacy)
+        let migratedCheckIn = CircleModel(store: legacyStore)
+        precondition(!migratedCheckIn.showRestore && migratedCheckIn.state.collection.pendingCheckInDay == nil,
+                     "A saved restore prompt must not reopen after updating")
+        precondition(migratedCheckIn.state.collection.streak == 1 && migratedCheckIn.state.collection.restorableStreak == 4
+                     && migratedCheckIn.state.collection.totalDays == 1 && migratedCheckIn.state.collection.restoresUsed == 0,
+                     "Migrate a pending check-in without losing the day or spending a restore")
+        let savedMigration = try legacyStore.load()
+        precondition(savedMigration.collection == migratedCheckIn.state.collection)
+        let technicalError = CKError(.serverRejectedRequest, userInfo: [NSLocalizedDescriptionKey: "Cannot create new type Companion in production schema CKRecordID secret"])
+        let message = CircleSyncMessage.text(for: technicalError)
+        precondition(!message.contains("CKRecord") && !message.contains("schema") && !message.contains("secret"),
+                     "Server diagnostics must never appear in user-facing sync messages")
         var full = CollectionProgress()
         precondition(full.hatch(.lavender, free: true))
         for day in 1...CollectionProgress.milestones.last! { full.checkIn(on: day) }

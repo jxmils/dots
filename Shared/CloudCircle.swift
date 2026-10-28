@@ -11,6 +11,16 @@ enum CircleError: LocalizedError {
     }
 }
 
+enum CircleSyncMessage {
+    static func text(for error: Error) -> String {
+        if let error = error as? CircleError { return error.localizedDescription }
+        if let error = error as? CKError, error.code == .notAuthenticated {
+            return "Sign in to iCloud in your iPhone Settings to reconnect with friends."
+        }
+        return "Friends couldn't be updated right now. Please try again later."
+    }
+}
+
 @MainActor
 final class CloudCircle {
     lazy var container = CKContainer(identifier: DotsConfig.container)

@@ -68,3 +68,21 @@ They are not guaranteed to arrive immediately.
 - [CloudKit shared records](https://developer.apple.com/documentation/CloudKit/shared-records)
 - [Apple CloudKit Sharing sample](https://github.com/apple/sample-cloudkit-sharing)
 - [Keeping a widget up to date](https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date)
+
+## Production schema and mood-sync errors
+
+A TestFlight error saying `Cannot create new type Companion in production schema` means the container's
+production schema is missing the app's record type. Rebuilding or re-signing the app does not deploy it.
+
+In [CloudKit Console](https://icloud.developer.apple.com/), select team `KY3DU2D7QL` and container
+`iCloud.com.jasonmiller.dots`. Inspect Development record types and verify `Companion` has all six fields
+listed above. Also verify the private-sharing schema created by a successful development invitation.
+Choose **Deploy Schema Changes**, review the additive types and fields, deploy, then inspect Production
+to confirm they are present. Do not reset environments or delete records. Finally test a mood update and
+an invitation between two TestFlight devices; a successful archive is not evidence of working CloudKit sync.
+
+The app keeps mood updates locally and reports background sync failures under **My circle**, with a retry
+button. It never puts CloudKit record IDs or server diagnostics into the mood-selection alert. This calmer
+error handling is separate from, and does not substitute for, the production schema deployment.
+
+See Apple's [schema deployment instructions](https://developer.apple.com/documentation/cloudkit/deploying-an-icloud-container-s-schema).
