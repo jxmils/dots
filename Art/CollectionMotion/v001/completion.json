@@ -1,0 +1,25 @@
+{
+  "verified_at": "2026-10-28T16:51:38.583029+00:00",
+  "format": "2D sprite playback",
+  "app_check": "passed",
+  "artwork": {
+    "passed": true,
+    "characters": 29,
+    "app_frames_pixel_matched_to_preview": 2117,
+    "individual_preview_gifs_decoded": 348,
+    "transparent_corners": true,
+    "complete_silhouettes_inside_canvas": true,
+    "source_strips_counted_and_hash_matched": 292
+  },
+  "combined_gif": {
+    "passed": true,
+    "frames": 73,
+    "duration_ms": 27560,
+    "size": [
+      1020,
+      1310
+    ],
+    "bytes": 14781109
+  },
+  "app_and_widget_resource_strips_each": 290
+}

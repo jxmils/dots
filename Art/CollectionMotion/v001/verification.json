@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "characters": 29,
+  "app_frames_pixel_matched_to_preview": 2117,
+  "individual_preview_gifs_decoded": 348,
+  "transparent_corners": true,
+  "complete_silhouettes_inside_canvas": true,
+  "source_strips_counted_and_hash_matched": 292
+}

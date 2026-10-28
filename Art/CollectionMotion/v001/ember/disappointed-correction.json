@@ -1,0 +1,4 @@
+{
+  "prompt": "Edit the attached eight-pose animation strip. Keep the SAME EIGHT poses, exact expressions, CLOSED mouths, original plush material, colour, silhouette and existing limbs. Fix ONLY layout: make each complete character substantially SMALLER, occupying at most 60 percent of its invisible equal-width slot. Leave at least HALF A CHARACTER WIDTH of uninterrupted pure #FF00FF magenta between every pair of complete silhouettes. No arms or bodies may touch or overlap. Generous outer margins. Exactly EIGHT separate whole characters in ONE horizontal row. No text or guides. All body baselines and scale match. Restore complete edges where they had touched. Reference 2 is the original character identity. Flat pure magenta background. Do not change any expression or add features.",
+  "source": "/Users/jasonmiller/.codex/generated_images/01a15fa4-e514-7e63-a77d-edf4f6609139/exec-49aef14b-c5be-46d5-951b-67b5c6898bc6.png"
+}

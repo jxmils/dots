@@ -48,6 +48,34 @@ enum CompanionArt {
             ? frame(index, asset: "CompanionDuskBlink", columns: 6, rows: 1)
             : frame(index, asset: kind.touchAsset)
     }
+    static func motionImage(_ motion: DotlingAnimation, frame index: Int, kind: CompanionKind = .dusk) -> UIImage? {
+        frame(index, asset: motion.asset(for: kind), columns: motion.durations.count, rows: 1)
+    }
+    static func motionFrames(_ motion: DotlingAnimation, kind: CompanionKind) -> [UIImage] {
+        let asset = motion.asset(for: kind)
+        let url = directory?.appendingPathComponent(asset + ".png")
+            ?? Bundle.main.url(forResource: asset, withExtension: "png")
+            ?? Bundle.main.url(forResource: asset, withExtension: "png", subdirectory: "Resources")
+        guard let url, let data = try? Data(contentsOf: url), let source = UIImage(data: data)?.cgImage,
+              source.width % motion.durations.count == 0 else { return [] }
+        // ImageIO crops can retain a lazy PNG provider. Decode the whole strip
+        // once so individual frames never re-read or re-decompress the file.
+        guard let atlasContext = CGContext(data: nil, width: source.width, height: source.height,
+                                           bitsPerComponent: 8, bytesPerRow: source.width * 4,
+                                           space: CGColorSpaceCreateDeviceRGB(),
+                                           bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return [] }
+        atlasContext.draw(source, in: CGRect(x: 0, y: 0, width: source.width, height: source.height))
+        guard let decoded = atlasContext.makeImage() else { return [] }
+        let width = source.width / motion.durations.count, height = source.height
+        return motion.durations.indices.compactMap { index in
+            guard let cell = decoded.cropping(to: CGRect(x: index * width, y: 0, width: width, height: height)),
+                  let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8,
+                                          bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(),
+                                          bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+            context.draw(cell, in: CGRect(x: 0, y: 0, width: width, height: height))
+            return context.makeImage().map { UIImage(cgImage: $0) }
+        }
+    }
     static func eggImage(_ stage: EggStage) -> UIImage? {
         frame(stage.frame, asset: stage.asset)
     }
@@ -58,7 +86,7 @@ enum CompanionArt {
         let url = directory?.appendingPathComponent(asset + ".png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png", subdirectory: "Resources")
-        guard let url, let source = UIImage(contentsOfFile: url.path)?.cgImage else { return nil }
+        guard let url, let data = try? Data(contentsOf: url), let source = UIImage(data: data)?.cgImage else { return nil }
         guard source.width % columns == 0, source.height % rows == 0 else { return nil }
         let width = source.width / columns, height = source.height / rows
         var crop = CGRect(x: (index % columns) * width, y: (index / columns) * height, width: width, height: height)
@@ -97,7 +125,9 @@ struct CompanionView: View {
     @GestureState private var gestureActive = false
     private var artworkID: String { kind.rawValue + "/" + mood.rawValue }
     var body: some View {
-        if animate {
+        if animate && mood == .happy {
+            DotlingAnimationView(kind: kind).id(kind)
+        } else if animate {
             character
                 .task(id: artworkID) {
                     let currentID = artworkID

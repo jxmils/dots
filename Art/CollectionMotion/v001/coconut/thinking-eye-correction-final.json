@@ -1,0 +1,5 @@
+{
+  "prompt": "Edit the attached SIX-pose horizontal Coconut animation strip. Preserve the composition, all six complete separate poses, exact size/baseline, brown fuzzy coconut body, creamy coconut crown, short arms, blush, closed line mouth and flat magenta background. ONLY correct the eyes: in every pose with partially open eyes replace every white sclera crescent with the same dark warm brown glass eyeball surface. Eyes are glossy dark brown beads with a black pupil, no white sclera at all. Only one tiny round white specular catchlight per visible eye. Keep the closed eyelids in poses 3 and 4 unchanged. Preserve all six silhouettes without clipping. Wider empty magenta gaps between each complete pose if necessary. No new props, feet, open mouths, text, shadows or border. Output exactly one horizontal row of six, matching reference 1. Reference 2 is the canonical character for dark glossy eye construction only; do not copy its open mouth.",
+  "tool": "built-in image_gen",
+  "source": "/Users/jasonmiller/.codex/generated_images/01a15fa4-e514-7e63-a77d-edf4f6609139/exec-5994f49f-54ab-459c-aa28-dcfd70f4b2b1.png"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "coconut",
+  "state": "look-second",
+  "prompt": "Make an exact corrective edit of image 1, preserving its EIGHT separate complete poses, identity, colours, fur, shapes, expression, closed mouths and pose order. Correct ONLY the eyeball construction: EVERY entire eye oval must be a single solid glossy espresso-dark-brown glass bead. Enlarge the dark brown glass to fill the WHOLE eye outline, replacing ALL white/cream/pale/skin-coloured rings, crescents, whites, and wedges with dark brown. The eyes are plush-toy safety eyes, NOT human eyeballs. There is NO sclera and no separate iris floating inside a lighter surface. Exactly one very small white circular highlight at the TOP of each dark bead, never a white bottom or side band. Image 2 shows the original character's dark bead eyes. Keep eye SIZE stable; replace the light surface with dark glass rather than shrinking eyes. Preserve gazes through face orientation only. Keep exact eight poses, full silhouettes, same scale and baseline, very wide empty pure #FF00FF gaps, one horizontal row. No text or extra body parts. The mouth stays closed.",
+  "source": "/Users/jasonmiller/.codex/generated_images/01a15fa4-e514-7e63-a77d-edf4f6609139/exec-7c9fe355-919b-4f6d-9f40-34fdd5957b66.png",
+  "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/coconut/look-second-source.png"
+}

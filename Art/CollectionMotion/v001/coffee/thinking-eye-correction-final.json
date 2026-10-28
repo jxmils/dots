@@ -1,0 +1,5 @@
+{
+  "prompt": "Correct the attached six-frame coffee sprite strip. ONLY change the eyes. Preserve ALL six complete separated full-body poses, fuzzy material, silhouette, colours, fixed ground baseline, tiny closed line mouths, rosy cheeks, subtle tilts, and magenta background. Every open eye must be ONE solid glossy very dark chocolate-brown BEAD, with one tiny white catchlight DOT. Fill ALL existing white crescents/sclera/white rings with dark brown, continuously extending the brown eyeball to the full outer eye boundary. Do NOT leave any white or grey crescent or pale ring anywhere along any eye edge. Closed eyes remain softly closed dark eyelid lines. Preserve six poses in one horizontal row with plenty of pure magenta gaps, no touching or clipping. Do not add anything or redesign anything else.",
+  "source": "/Users/jasonmiller/.codex/generated_images/01a15fa4-e514-7e63-a77d-edf4f6609139/exec-30918710-f23b-446b-bd2e-6dea8a282848.png",
+  "tool": "built-in image_gen"
+}

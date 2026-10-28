@@ -1,0 +1,22 @@
+{
+  "id": "dusk",
+  "name": "Dusk",
+  "complete": true,
+  "frames": 73,
+  "states": {
+    "idle": 6,
+    "move-right": 8,
+    "move-left": 8,
+    "wave": 4,
+    "hop": 5,
+    "disappointed": 8,
+    "waiting": 6,
+    "thinking": 6,
+    "reviewing": 6,
+    "look-around": 16
+  },
+  "metadata": {
+    "source": "Retained approved Dusk complete-v001 frames"
+  },
+  "app_exported": true
+}

@@ -1,0 +1,4 @@
+{
+  "prompt": "Edit the attached eight-pose Lilac animation strip. Keep the SAME EIGHT poses, exact expressions, closed mouths, lavender plush material, curled crest, two arms and identity. Fix only layout: make each complete character substantially smaller, occupying at most 60 percent of its invisible equal-width slot. Leave at least half a character-width of uninterrupted pure #FF00FF magenta between every pair of full silhouettes. No arms may touch or overlap. Generous outer margins. Exactly EIGHT separate whole characters in ONE horizontal row. No text or guides. All body baselines and scale match. Restore complete arm edges where they had touched. Reference 2 is the original identity. Flat pure magenta background.",
+  "source": "/Users/jasonmiller/.codex/generated_images/01a15fa4-e514-7e63-a77d-edf4f6609139/exec-5c94846f-bbeb-48c2-909f-1490ab16fb28.png"
+}

@@ -1,0 +1,278 @@
+[
+  {
+    "id": "lavender",
+    "name": "Lilac",
+    "file": "Resources/CompanionAtlas.png",
+    "identity": "Lavender pear-shaped mochi with small curled crest and two petal-like side nubs",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/lavender/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionAtlas.png"
+  },
+  {
+    "id": "blue",
+    "name": "Sky",
+    "file": "Resources/CompanionBlueAtlas.png",
+    "identity": "Sky-blue rounded pear with a curved top curl and short attached side arms",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/blue/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionBlueAtlas.png"
+  },
+  {
+    "id": "pillow",
+    "name": "Cloud",
+    "file": "Resources/CompanionPillowAtlas.png",
+    "identity": "Very wide sky-blue rounded pillow, three small tufts, short side arms, smooth flat bottom without feet",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/pillow/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionPillowAtlas.png"
+  },
+  {
+    "id": "pebble",
+    "name": "Pebble",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a low, smooth sage-green oval pebble, asymmetrical like a very soft river stone, no tuft.",
+    "file": "Resources/CompanionPebbleAtlas.png",
+    "identity": "a low, smooth sage-green oval pebble, asymmetrical like a very soft river stone, no tuft.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/pebble/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionPebbleAtlas.png"
+  },
+  {
+    "id": "sprout",
+    "name": "Sprout",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a rounded mint-green seed body, with two tiny soft leaf-shaped sprouts on top.",
+    "file": "Resources/CompanionSproutAtlas.png",
+    "identity": "a rounded mint-green seed body, with two tiny soft leaf-shaped sprouts on top.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/sprout/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionSproutAtlas.png"
+  },
+  {
+    "id": "twinkle",
+    "name": "Twinkle",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a plump buttery-yellow five-pointed star body with very rounded short points.",
+    "file": "Resources/CompanionTwinkleAtlas.png",
+    "identity": "a plump buttery-yellow five-pointed star body with very rounded short points.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/twinkle/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionTwinkleAtlas.png"
+  },
+  {
+    "id": "pudding",
+    "name": "Pudding",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a peach-pink rounded pudding dome, broad flat pillowy base and a soft wavy top tuft.",
+    "file": "Resources/CompanionPuddingAtlas.png",
+    "identity": "a peach-pink rounded pudding dome, broad flat pillowy base and a soft wavy top tuft.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/pudding/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionPuddingAtlas.png"
+  },
+  {
+    "id": "bean",
+    "name": "Bean",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a pistachio-green kidney-bean shaped body, a clear gentle inward curve on one side.",
+    "file": "Resources/CompanionBeanAtlas.png",
+    "identity": "a pistachio-green kidney-bean shaped body, a clear gentle inward curve on one side.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/bean/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionBeanAtlas.png"
+  },
+  {
+    "id": "ember",
+    "name": "Ember",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a soft coral-orange flame-droplet body, with three gentle rounded flame peaks on top.",
+    "file": "Resources/CompanionEmberAtlas.png",
+    "identity": "a soft coral-orange flame-droplet body, with three gentle rounded flame peaks on top.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/ember/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionEmberAtlas.png"
+  },
+  {
+    "id": "moss",
+    "name": "Moss",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a chunky moss-green rounded boulder shape, three uneven puffy lobes on top.",
+    "file": "Resources/CompanionMossAtlas.png",
+    "identity": "a chunky moss-green rounded boulder shape, three uneven puffy lobes on top.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/moss/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionMossAtlas.png"
+  },
+  {
+    "id": "luna",
+    "name": "Luna",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a sleepy dusty-periwinkle crescent moon body with a softly indented side, face on the broad center.",
+    "file": "Resources/CompanionLunaAtlas.png",
+    "identity": "a sleepy dusty-periwinkle crescent moon body with a softly indented side, face on the broad center.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/luna/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionLunaAtlas.png"
+  },
+  {
+    "id": "bubble",
+    "name": "Bubble",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: an aqua-blue spherical bubble body with one tiny bubble-shaped top nub.",
+    "file": "Resources/CompanionBubbleAtlas.png",
+    "identity": "an aqua-blue spherical bubble body with one tiny bubble-shaped top nub.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/bubble/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionBubbleAtlas.png"
+  },
+  {
+    "id": "snow",
+    "name": "Snow",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a snowy ivory three-lobed soft cloud body, small rounded scallops on top.",
+    "file": "Resources/CompanionSnowAtlas.png",
+    "identity": "a snowy ivory three-lobed soft cloud body, small rounded scallops on top.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/snow/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionSnowAtlas.png"
+  },
+  {
+    "id": "sunny",
+    "name": "Sunny",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a honey-yellow round sun body, surrounded by six very short soft rounded ray nubs.",
+    "file": "Resources/CompanionSunnyAtlas.png",
+    "identity": "a honey-yellow round sun body, surrounded by six very short soft rounded ray nubs.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/sunny/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionSunnyAtlas.png"
+  },
+  {
+    "id": "dusk",
+    "name": "Dusk",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a plump CHARCOAL BLACK rounded triangle dumpling, soft deep-black plush with subtle silver edge lighting, little dark fuzzy top tuft, glossy dark eyes with bright white catchlights, softly visible mouth and warm tiny blush, unmistakably black not purple or blue.",
+    "file": "Resources/CompanionDuskAtlas.png",
+    "identity": "a plump CHARCOAL BLACK rounded triangle dumpling, soft deep-black plush with subtle silver edge lighting, little dark fuzzy top tuft, glossy dark eyes with bright white catchlights, softly visible mouth and warm tiny blush, unmistakably black not purple or blue.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/dusk/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionDuskAtlas.png"
+  },
+  {
+    "id": "petal",
+    "name": "Petal",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a pale rose-pink heart-shaped plush body with two round top lobes and a broad round bottom.",
+    "file": "Resources/CompanionPetalAtlas.png",
+    "identity": "a pale rose-pink heart-shaped plush body with two round top lobes and a broad round bottom.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/petal/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionPetalAtlas.png"
+  },
+  {
+    "id": "nimbus",
+    "name": "Nimbus",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a wide pale-lilac cloud body with five fluffy scalloped lobes, distinctly wider than tall.",
+    "file": "Resources/CompanionNimbusAtlas.png",
+    "identity": "a wide pale-lilac cloud body with five fluffy scalloped lobes, distinctly wider than tall.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/nimbus/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionNimbusAtlas.png"
+  },
+  {
+    "id": "toast",
+    "name": "Toast",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a cocoa-brown plump acorn-like squishy body, broad round lower half, slightly narrower soft domed top with one tiny tilted fuzzy leaf nub, no hard shell, completely soft plush, warm caramel muzzle highlights and bright glossy bead eyes.",
+    "file": "Resources/CompanionToastAtlas.png",
+    "identity": "a cocoa-brown plump acorn-like squishy body, broad round lower half, slightly narrower soft domed top with one tiny tilted fuzzy leaf nub, no hard shell, completely soft plush, warm caramel muzzle highlights and bright glossy bead eyes.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/toast/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionToastAtlas.png"
+  },
+  {
+    "id": "puff",
+    "name": "Puff",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a creamy apricot plump diamond-shaped body with four softly rounded corners, slightly tilted silhouette.",
+    "file": "Resources/CompanionPuffAtlas.png",
+    "identity": "a creamy apricot plump diamond-shaped body with four softly rounded corners, slightly tilted silhouette.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/puff/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionPuffAtlas.png"
+  },
+  {
+    "id": "ripple",
+    "name": "Ripple",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes, accessories, or hard edges. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a seafoam-turquoise body shaped as two overlapping soft round bubbles, big lower bubble and small offset top bubble.",
+    "file": "Resources/CompanionRippleAtlas.png",
+    "identity": "a seafoam-turquoise body shaped as two overlapping soft round bubbles, big lower bubble and small offset top bubble.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/ripple/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionRippleAtlas.png"
+  },
+  {
+    "id": "onion",
+    "name": "Onion",
+    "defaultName": "Ollie",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a little round pearl-cream onion with softly sculpted layered segments, a lavender blush at its base, pointed crown and two tiny soft green sprout leaves. Its face is on the round onion body.",
+    "file": "Resources/CompanionOnionAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-77291ade-39f0-41f3-88bb-6387344ff519.png",
+    "identity": "a little round pearl-cream onion with softly sculpted layered segments, a lavender blush at its base, pointed crown and two tiny soft green sprout leaves. Its face is on the round onion body.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/onion/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionOnionAtlas.png"
+  },
+  {
+    "id": "cumulus",
+    "name": "Cumulus",
+    "defaultName": "Floss",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a plump white cloud with a broad low scalloped silhouette of three soft rounded lobes, white fluffy plush and pale sky-blue shading, a tiny face in the middle.",
+    "file": "Resources/CompanionCumulusAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-73e6fb54-7bf5-405c-91c7-558e0256952d.png",
+    "identity": "a plump white cloud with a broad low scalloped silhouette of three soft rounded lobes, white fluffy plush and pale sky-blue shading, a tiny face in the middle.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/cumulus/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionCumulusAtlas.png"
+  },
+  {
+    "id": "bonsai",
+    "name": "Bonsai",
+    "defaultName": "Bonsy",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a miniature bonsai tree creature, one rounded squishy cocoa trunk supporting an asymmetrical tiered emerald and sage fluffy canopy, a tiny face on the trunk, no pot, no feet, all one coherent soft living plush tree.",
+    "file": "Resources/CompanionBonsaiAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-0dc99283-bda3-4f64-ae56-91fcbe5e3578.png",
+    "identity": "a miniature bonsai tree creature, one rounded squishy cocoa trunk supporting an asymmetrical tiered emerald and sage fluffy canopy, a tiny face on the trunk, no pot, no feet, all one coherent soft living plush tree.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/bonsai/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionBonsaiAtlas.png"
+  },
+  {
+    "id": "droplet",
+    "name": "Droplet",
+    "defaultName": "Dew",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a single sky-blue water droplet creature with a round wide base and one tall soft pointed teardrop tip leaning slightly, blue velvety plush rather than glass, tiny face on its round body.",
+    "file": "Resources/CompanionDropletAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-bf64493f-cfc4-452c-85ea-69c1cab99992.png",
+    "identity": "a single sky-blue water droplet creature with a round wide base and one tall soft pointed teardrop tip leaning slightly, blue velvety plush rather than glass, tiny face on its round body.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/droplet/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionDropletAtlas.png"
+  },
+  {
+    "id": "drizzle",
+    "name": "Drizzle",
+    "defaultName": "Pitter",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a little rainy cloud creature, a low slate-blue scalloped fluffy cloud body with three tiny soft blue rain droplets hanging just below its body, face on the cloud, all droplets stay well inside each cell.",
+    "file": "Resources/CompanionDrizzleAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-863d53dd-45e9-4ce9-bbfa-974eb92d8418.png",
+    "identity": "a little rainy cloud creature, a low slate-blue scalloped fluffy cloud body with three tiny soft blue rain droplets hanging just below its body, face on the cloud, all droplets stay well inside each cell.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/drizzle/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionDrizzleAtlas.png"
+  },
+  {
+    "id": "storm",
+    "name": "Storm",
+    "defaultName": "Zippy",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a rainy cloud creature, rounded periwinkle-gray scalloped fluffy body with two tiny rain droplets below and exactly one tiny golden-yellow soft lightning bolt sprouting from the TOP of its head. Face on the cloud. Lightning is a defining tiny feature.",
+    "file": "Resources/CompanionStormAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-8cedc6b1-34cd-46bc-9692-16082f7bb449.png",
+    "identity": "a rainy cloud creature, rounded periwinkle-gray scalloped fluffy body with two tiny rain droplets below and exactly one tiny golden-yellow soft lightning bolt sprouting from the TOP of its head. Face on the cloud. Lightning is a defining tiny feature.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/storm/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionStormAtlas.png"
+  },
+  {
+    "id": "bowling",
+    "name": "Bowling",
+    "defaultName": "Rollie",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a plump charcoal-purple fuzzy plush bowling ball creature, sphere with THREE small dark finger-hole dimples on the upper-left forehead clearly separate from its two large glossy eyes and tiny mouth beneath. Cute soft toy, not realistic heavy equipment.",
+    "file": "Resources/CompanionBowlingAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-2e7fec21-b071-4350-96eb-be39b214ffb9.png",
+    "identity": "a plump charcoal-purple fuzzy plush bowling ball creature, sphere with THREE small dark finger-hole dimples on the upper-left forehead clearly separate from its two large glossy eyes and tiny mouth beneath. Cute soft toy, not realistic heavy equipment.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/bowling/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionBowlingAtlas.png"
+  },
+  {
+    "id": "coffee",
+    "name": "Coffee",
+    "defaultName": "Mocha",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a warm rich espresso-brown squishy coffee bean, broad oval slightly tilted bean silhouette with a soft curved central coffee-bean crease and caramel highlights. Tiny glossy eyes and mouth across the front, no limbs.",
+    "file": "Resources/CompanionCoffeeAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-2fc7b985-3055-4c3b-99b9-6fc33e6cd4e5.png",
+    "identity": "a warm rich espresso-brown squishy coffee bean, broad oval slightly tilted bean silhouette with a soft curved central coffee-bean crease and caramel highlights. Tiny glossy eyes and mouth across the front, no limbs.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/coffee/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionCoffeeAtlas.png"
+  },
+  {
+    "id": "coconut",
+    "name": "Coconut",
+    "defaultName": "Coco",
+    "prompt": "Use case: stylized-concept. Create a new original squishy companion in the same family as the reference: extremely soft short fuzzy plush, glossy dark bead eyes, tiny mouth, rosy cheeks, adorable gentle 3D toy styling. IMPORTANT: make the body the new specified silhouette, not the reference's pillow shape. No feet, legs, toes, clothes or hard edges. Only defining shape features requested below. Tiny side nubs are fine. Single sprite atlas, exactly 1536x1024, 3 columns by 2 rows, six equal 512x512 cells. SAME new character in all six cells, centered at consistent scale with generous transparent margins. Six expressions in order: top row happy, calm, sleepy; bottom row sad, overwhelmed, focused. Focused is quietly determined, not angry. Real transparent background, transparent gaps, no cast floor, decorative glow, grid, text, labels, logos or watermark. New character: a round squishy coconut creature, cocoa-brown short shaggy plush husk, a small creamy-white oval coconut flesh patch on its crown surrounded by a soft brown rim, tiny friendly glossy eyes and mouth on the brown front. Clearly coconut shaped, no straw, no drink, no feet.",
+    "file": "Resources/CompanionCoconutAtlas.png",
+    "generated_source": "/Users/jasonmiller/.codex/generated_images/01a15a9c-bc2d-71e2-8560-56057d7075ba/exec-354f166c-3f62-4ff4-bead-ffc3592ba8e3.png",
+    "identity": "a round squishy coconut creature, cocoa-brown short shaggy plush husk, a small creamy-white oval coconut flesh patch on its crown surrounded by a soft brown rim, tiny friendly glossy eyes and mouth on the brown front. Clearly coconut shaped, no straw, no drink, no feet.",
+    "reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Art/CollectionMotion/v001/coconut/reference.png",
+    "original_reference": "/Volumes/new one/Apple Apps/Dotlings/Source/Resources/CompanionCoconutAtlas.png"
+  }
+]

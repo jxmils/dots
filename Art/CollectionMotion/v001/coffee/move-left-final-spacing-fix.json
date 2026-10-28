@@ -1,0 +1,4 @@
+{
+  "prompt": "Repair this animation strip's layout. Exactly EIGHT SMALL complete poses in one horizontal row, identical to the input in sequence, identity, colour, fur, expressions and angles. Each character occupies ONLY HALF of an invisible equal-width slot, with at least half a character's width of uninterrupted pure #FF00FF between silhouettes. Entire arms and bodies must be separated. Keep all eight the same scale and baseline. Preserve distinguishing features. All mouths closed. Eye surfaces are dark brown glass beads without white sclera or pale wedges inside their outline. No new parts, text or effects. Layout correction only; do not change the character design. Wide landscape one row with large empty magenta gutters and outer margins.",
+  "source": "/Users/jasonmiller/.codex/generated_images/01a15fa4-e514-7e63-a77d-edf4f6609139/exec-00e35369-7f65-439e-ae97-62dd569fd1a0.png"
+}

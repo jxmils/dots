@@ -153,6 +153,35 @@ import UIKit
         ritual.retryOpening()
         precondition(!ritual.isOpening && ritual.cracks == 2 && ritual.tap(), "A failed save must allow a retry")
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        precondition(DotlingAnimation.allCases.reduce(0) { $0 + $1.durations.count } == 73)
+        for motion in DotlingAnimation.allCases {
+            for index in motion.durations.indices {
+                guard let image = CompanionArt.motionImage(motion, frame: index)?.cgImage else {
+                    fatalError("Missing Dusk movement frame")
+                }
+                precondition(image.width == 384 && image.height == 416)
+            }
+            precondition(CompanionArt.motionImage(motion, frame: -1) == nil)
+            precondition(CompanionArt.motionImage(motion, frame: motion.durations.count) == nil)
+            let resting = DotlingAnimation.pose(for: motion, elapsed: motion.duration, reducedMotion: false)
+            precondition(resting.0 == .idle && resting.1 == 0, "Completed actions return to rest")
+            let reduced = DotlingAnimation.pose(for: motion, elapsed: 0.5, reducedMotion: true)
+            precondition(reduced.0 == .idle && reduced.1 == 0)
+        }
+        precondition(DotlingAnimation.idle.frame(at: 1.8) == 2, "Blink timing must reach the half-closed eyes")
+        for kind in CompanionKind.allCases {
+            for action in DotlingAnimation.allCases {
+                let images = CompanionArt.motionFrames(action, kind: kind)
+                precondition(images.count == action.durations.count, "Every companion must support every action: \(kind)/\(action)")
+                for image in images {
+                    guard let cg = image.cgImage else { fatalError("Undecodable animation frame") }
+                    precondition(cg.width == 384 && cg.height == 416)
+                }
+            }
+        }
+        print("All 2,117 collection animation frames decoded")
+
+        print("All 73 Dusk movement frames, return to idle and reduced motion passed")
         let duskRest = CompanionArt.image(.happy, kind: .dusk)!
         precondition(duskRest.pngData() == CompanionArt.touchImage(0, kind: .dusk)?.pngData(),
                      "Dusk's resting and first action drawings must use the same registered artwork")

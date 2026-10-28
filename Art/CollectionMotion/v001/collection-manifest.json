@@ -1,0 +1,252 @@
+{
+  "characters": 29,
+  "frames_per_character": 73,
+  "total_frames": 2117,
+  "states": {
+    "idle": {
+      "title": "Idle / blink",
+      "durations": [
+        1.25,
+        0.5,
+        0.07,
+        0.07,
+        0.11,
+        1.2
+      ]
+    },
+    "move-right": {
+      "title": "Move right",
+      "durations": [
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16
+      ]
+    },
+    "move-left": {
+      "title": "Move left",
+      "durations": [
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16,
+        0.16
+      ]
+    },
+    "wave": {
+      "title": "Wave",
+      "durations": [
+        1.25,
+        0.18,
+        0.45,
+        1.32
+      ]
+    },
+    "hop": {
+      "title": "Little hop",
+      "durations": [
+        1.5,
+        0.13,
+        0.15,
+        0.15,
+        1.27
+      ]
+    },
+    "disappointed": {
+      "title": "Disappointed",
+      "durations": [
+        0.7,
+        0.35,
+        0.2,
+        0.25,
+        0.45,
+        0.2,
+        0.35,
+        0.7
+      ]
+    },
+    "waiting": {
+      "title": "Waiting",
+      "durations": [
+        0.65,
+        0.5,
+        0.18,
+        0.5,
+        0.5,
+        0.67
+      ]
+    },
+    "thinking": {
+      "title": "Thinking",
+      "durations": [
+        0.65,
+        0.5,
+        0.25,
+        0.18,
+        0.7,
+        0.72
+      ]
+    },
+    "reviewing": {
+      "title": "Look closely",
+      "durations": [
+        0.6,
+        0.5,
+        0.5,
+        0.18,
+        0.62,
+        0.6
+      ]
+    },
+    "look-around": {
+      "title": "Look around",
+      "durations": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    }
+  },
+  "characters_detail": [
+    {
+      "id": "lavender",
+      "name": "Lilac"
+    },
+    {
+      "id": "blue",
+      "name": "Sky"
+    },
+    {
+      "id": "pillow",
+      "name": "Cloud"
+    },
+    {
+      "id": "pebble",
+      "name": "Pebble"
+    },
+    {
+      "id": "sprout",
+      "name": "Sprout"
+    },
+    {
+      "id": "twinkle",
+      "name": "Twinkle"
+    },
+    {
+      "id": "pudding",
+      "name": "Pudding"
+    },
+    {
+      "id": "bean",
+      "name": "Bean"
+    },
+    {
+      "id": "ember",
+      "name": "Ember"
+    },
+    {
+      "id": "moss",
+      "name": "Moss"
+    },
+    {
+      "id": "luna",
+      "name": "Luna"
+    },
+    {
+      "id": "bubble",
+      "name": "Bubble"
+    },
+    {
+      "id": "snow",
+      "name": "Snow"
+    },
+    {
+      "id": "sunny",
+      "name": "Sunny"
+    },
+    {
+      "id": "dusk",
+      "name": "Dusk"
+    },
+    {
+      "id": "petal",
+      "name": "Petal"
+    },
+    {
+      "id": "nimbus",
+      "name": "Nimbus"
+    },
+    {
+      "id": "toast",
+      "name": "Toast"
+    },
+    {
+      "id": "puff",
+      "name": "Puff"
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple"
+    },
+    {
+      "id": "onion",
+      "name": "Onion"
+    },
+    {
+      "id": "cumulus",
+      "name": "Cumulus"
+    },
+    {
+      "id": "bonsai",
+      "name": "Bonsai"
+    },
+    {
+      "id": "droplet",
+      "name": "Droplet"
+    },
+    {
+      "id": "drizzle",
+      "name": "Drizzle"
+    },
+    {
+      "id": "storm",
+      "name": "Storm"
+    },
+    {
+      "id": "bowling",
+      "name": "Bowling"
+    },
+    {
+      "id": "coffee",
+      "name": "Coffee"
+    },
+    {
+      "id": "coconut",
+      "name": "Coconut"
+    }
+  ],
+  "format": "2D sprite playback",
+  "generator": "Built-in image_gen",
+  "preview": "preview.html",
+  "gif": "all-dotlings-all-animations.gif"
+}
