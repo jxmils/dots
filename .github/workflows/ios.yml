@@ -55,7 +55,8 @@ jobs:
     name: Sign and upload to Apple
     needs: check
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    runs-on: macos-15
+    # Keep signing independent of the constrained Apple Silicon runner pool.
+    runs-on: macos-15-intel
     timeout-minutes: 45
     concurrency:
       group: dotlings-apple-upload
