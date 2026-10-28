@@ -163,10 +163,20 @@ import UIKit
             }
             precondition(CompanionArt.motionImage(motion, frame: -1) == nil)
             precondition(CompanionArt.motionImage(motion, frame: motion.durations.count) == nil)
-            let resting = DotlingAnimation.pose(for: motion, elapsed: motion.duration, reducedMotion: false)
-            precondition(resting.0 == .idle && resting.1 == 0, "Completed actions return to rest")
-            let reduced = DotlingAnimation.pose(for: motion, elapsed: 0.5, reducedMotion: true)
-            precondition(reduced.0 == .idle && reduced.1 == 0)
+            for mood in Mood.allCases {
+                let rest: DotlingPose = mood == .happy ? .frame(.idle, 0) : .rest(mood)
+                precondition(DotlingAnimation.pose(for: nil, mood: mood, elapsed: 0, reducedMotion: false) == rest)
+                for elapsed in [0.0, motion.duration / 2, motion.duration - 0.001] {
+                    precondition(DotlingAnimation.pose(for: motion, mood: mood, elapsed: elapsed, reducedMotion: false)
+                                 == .frame(motion, motion.frame(at: elapsed)), "Every mood can play every action")
+                }
+                precondition(DotlingAnimation.pose(for: motion, mood: mood, elapsed: motion.duration, reducedMotion: false) == rest,
+                             "Completed actions, including Blink, restore the chosen mood")
+                precondition(DotlingAnimation.pose(for: motion, mood: mood, elapsed: 0.5, petting: true, reducedMotion: false)
+                             == .frame(.idle, 3), "Petting works in every mood")
+                precondition(DotlingAnimation.pose(for: motion, mood: mood, elapsed: 0.5, petting: true, reducedMotion: true) == rest,
+                             "Reduce Motion preserves the selected mood without movement")
+            }
         }
         precondition(DotlingAnimation.idle.frame(at: 1.8) == 2, "Blink timing must reach the half-closed eyes")
         for kind in CompanionKind.allCases {
@@ -181,7 +191,7 @@ import UIKit
         }
         print("All 2,117 collection animation frames decoded")
 
-        print("All 73 Dusk movement frames, return to idle and reduced motion passed")
+        print("All 10 actions across 6 moods, return to selected mood, petting and reduced motion passed")
         let duskRest = CompanionArt.image(.happy, kind: .dusk)!
         precondition(duskRest.pngData() == CompanionArt.touchImage(0, kind: .dusk)?.pngData(),
                      "Dusk's resting and first action drawings must use the same registered artwork")

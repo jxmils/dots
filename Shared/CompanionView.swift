@@ -112,121 +112,23 @@ struct CompanionView: View {
     var mood: Mood
     var kind: CompanionKind = .lavender
     var animate = false
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Environment(\.scenePhase) private var scenePhase
-    @State private var touching = false
-    @State private var rubDistance: CGFloat = 0
-    @State private var previousPoint: CGPoint?
-    @State private var lastFeedback = Date.distantPast
-    @State private var playback = SpritePlayback(count: 7)
-    @State private var playImages: [UIImage] = []
-    @State private var loadedArtwork = ""
-    @State private var petting = false
-    @GestureState private var gestureActive = false
-    private var artworkID: String { kind.rawValue + "/" + mood.rawValue }
     var body: some View {
-        if animate && mood == .happy {
-            DotlingAnimationView(kind: kind).id(kind)
-        } else if animate {
-            character
-                .task(id: artworkID) {
-                    let currentID = artworkID
-                    let currentMood = mood, currentKind = kind
-                    let images = await Task.detached(priority: .userInitiated) {
-                        [CompanionArt.image(currentMood, kind: currentKind)] + (0..<6).map { CompanionArt.touchImage($0, kind: currentKind, mood: currentMood) }
-                    }.value
-                    guard !Task.isCancelled, images.allSatisfy({ $0 != nil }) else { return }
-                    playImages = images.compactMap { $0 }
-                    loadedArtwork = currentID
+        if animate {
+            DotlingAnimationView(kind: kind, mood: mood)
+                .id(kind.rawValue + "/" + mood.rawValue)
+        } else {
+            Group {
+                if let image = CompanionArt.image(mood, kind: kind) {
+                    Image(uiImage: image).resizable().scaledToFit()
+                } else {
+                    Image(systemName: "cloud.fill").resizable().scaledToFit().foregroundStyle(DotsStyle.lilac)
                 }
-                .contentShape(Ellipse())
-                .gesture(playGesture)
-                .accessibilityAddTraits(.isButton)
-                .accessibilityHint("Tap to boop, or rub to pet your companion")
-                .accessibilityAction(named: "Boop") { react(rubbed: false) }
-                .accessibilityAction(named: "Pet") { react(rubbed: true) }
-                .onDisappear { stopPlaying() }
-                .onChange(of: kind) { _, _ in stopPlaying() }
-                .onChange(of: mood) { _, _ in stopPlaying() }
-                .onChange(of: reduceMotion) { _, _ in stopPlaying() }
-                .onChange(of: scenePhase) { _, phase in if phase != .active { stopPlaying() } }
-                .onChange(of: gestureActive) { _, active in
-                    // SwiftUI also resets GestureState when a parent scroll view cancels a drag.
-                    if !active && touching { endTouch() }
-                }
-        } else { character }
-    }
-
-    private var character: some View {
-        Group {
-            if animate && loadedArtwork == artworkID && playImages.count == 7 {
-                PlayingSprite(images: playImages, playback: playback)
-            } else if let image = CompanionArt.image(mood, kind: kind) {
-                Image(uiImage: image).resizable().scaledToFit()
-            } else {
-                Image(systemName: "cloud.fill").resizable().scaledToFit().foregroundStyle(DotsStyle.lilac)
             }
+            .transaction { $0.animation = nil }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Squishy companion, feeling \(mood.title.lowercased())")
         }
-        .transaction { $0.animation = nil }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Squishy companion, feeling \(mood.title.lowercased())")
     }
-
-    private var playGesture: some Gesture {
-        DragGesture(minimumDistance: 0)
-            .updating($gestureActive) { _, active, _ in active = true }
-            .onChanged { value in
-                if !touching {
-                    petting = false
-                    TouchFeedback.prepare()
-                    playFrames(rubbed: false)
-                }
-                touching = true
-                if let previousPoint {
-                    let distance = hypot(value.location.x - previousPoint.x, value.location.y - previousPoint.y)
-                    rubDistance += distance
-                    if distance > 1, rubDistance > 15, Date().timeIntervalSince(lastFeedback) > 0.10 {
-                        TouchFeedback.pet()
-                        lastFeedback = Date()
-                    }
-                }
-                previousPoint = value.location
-                if rubDistance > 30, !petting { playFrames(rubbed: true) }
-            }
-            .onEnded { _ in endTouch() }
-    }
-
-    private func endTouch() {
-        guard touching else { return }
-        let rubbed = rubDistance > 30
-        touching = false; previousPoint = nil; rubDistance = 0
-        if rubbed {
-            playback.play([0], interval: 0.24, at: ProcessInfo.processInfo.systemUptime)
-            petting = false
-        } else { TouchFeedback.tap() }
-    }
-    private func stopPlaying() {
-        touching = false; petting = false
-        playback = SpritePlayback(count: 7)
-        previousPoint = nil; rubDistance = 0
-    }
-    private func react(rubbed: Bool) {
-        if rubbed { TouchFeedback.pet() } else { TouchFeedback.tap() }
-        playFrames(rubbed: rubbed)
-    }
-    private func playFrames(rubbed: Bool) {
-        guard loadedArtwork == artworkID, playImages.count == 7 else { return }
-        petting = rubbed
-        if CompanionArt.usesBlinkStrip(mood, kind: kind) {
-            let sequence = CompanionMotion.blink(rubbed: rubbed, held: touching, reducedMotion: reduceMotion)
-            playback.play(sequence, interval: reduceMotion ? 0.3 : 0.14, at: ProcessInfo.processInfo.systemUptime)
-            return
-        }
-        let frames: [Int] = reduceMotion ? [rubbed ? 5 : 3, 0] : (rubbed ? CompanionMotion.rub + (touching ? [] : [1, 0]) : CompanionMotion.tap)
-        playback.play(frames, interval: reduceMotion ? 0.3 : rubbed ? CompanionMotion.rubInterval : CompanionMotion.tapInterval,
-                      repeats: rubbed && touching && !reduceMotion, at: ProcessInfo.processInfo.systemUptime)
-    }
-
 }
 
 struct DotsProgress: View {

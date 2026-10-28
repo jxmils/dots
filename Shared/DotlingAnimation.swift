@@ -40,21 +40,34 @@ enum DotlingAnimation: String, CaseIterable, Identifiable {
         return durations.count - 1
     }
 
-    static func pose(for motion: Self, elapsed: Double, reducedMotion: Bool) -> (Self, Int) {
-        if reducedMotion { return (.idle, 0) }
-        if motion != .idle && elapsed >= motion.duration {
-            return (.idle, Self.idle.frame(at: elapsed - motion.duration))
+    // A reaction temporarily overlays the chosen mood; it never changes the mood.
+    static func pose(for motion: Self?, mood: Mood, elapsed: Double,
+                     petting: Bool = false, reducedMotion: Bool) -> DotlingPose {
+        if reducedMotion { return mood == .happy ? .frame(.idle, 0) : .rest(mood) }
+        if petting { return .frame(.idle, 3) }
+        if let motion, elapsed < motion.duration {
+            return .frame(motion, motion.frame(at: elapsed))
         }
-        return (motion, motion.frame(at: elapsed))
+        if mood == .happy {
+            return .frame(.idle, Self.idle.frame(at: elapsed - (motion?.duration ?? 0)))
+        }
+        return .rest(mood)
     }
+}
+
+enum DotlingPose: Equatable {
+    case rest(Mood)
+    case frame(DotlingAnimation, Int)
 }
 
 struct DotlingAnimationView: View {
     var kind: CompanionKind
+    var mood: Mood
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.scenePhase) private var scenePhase
-    @State private var motion = DotlingAnimation.idle
+    @State private var motion: DotlingAnimation?
     @State private var idleImages: [UIImage] = []
+    @State private var restImage: UIImage?
     @State private var actionImages: [UIImage] = []
     @State private var loadingAction: Task<Void, Never>?
     @State private var requestID = UUID()
@@ -66,16 +79,22 @@ struct DotlingAnimationView: View {
 
     var body: some View {
         TimelineView(.animation(minimumInterval: 1.0 / 60,
-                                paused: !visible || reduceMotion || scenePhase != .active)) { _ in
+                                paused: !visible || reduceMotion || scenePhase != .active
+                                    || petting || (mood != .happy && motion == nil))) { _ in
             let elapsed = ProcessInfo.processInfo.systemUptime - startedAt
-            let pose = petting && !reduceMotion ? (DotlingAnimation.idle, 3)
-                : DotlingAnimation.pose(for: motion, elapsed: elapsed, reducedMotion: reduceMotion)
-            let images = pose.0 == .idle ? idleImages : actionImages
-            if images.indices.contains(pose.1) {
-                Image(uiImage: images[pose.1]).resizable().scaledToFit()
-            } else if let image = idleImages.first ?? CompanionArt.image(.happy, kind: kind) {
+            let pose = DotlingAnimation.pose(for: motion, mood: mood, elapsed: elapsed,
+                                               petting: petting, reducedMotion: reduceMotion)
+            if let image = image(for: pose) ?? restImage ?? CompanionArt.image(mood, kind: kind) {
                 Image(uiImage: image).resizable().scaledToFit()
             }
+        }
+        .task(id: startedAt) {
+            guard let motion else { return }
+            let remaining = max(0, motion.duration - (ProcessInfo.processInfo.systemUptime - startedAt))
+            do { try await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000)) }
+            catch { return }
+            guard !Task.isCancelled else { return }
+            rest()
         }
         .contentShape(Ellipse())
         .onTapGesture(count: 2) { play(.jump); TouchFeedback.tap() }
@@ -93,10 +112,10 @@ struct DotlingAnimationView: View {
                 petting = false
                 if abs(value.translation.width) > 60 {
                     play(value.translation.width > 0 ? .moveRight : .moveLeft)
-                } else { play(.idle) }
+                } else { rest() }
             })
         .onChange(of: gestureActive) { _, active in
-            if !active && petting { petting = false; play(.idle) }
+            if !active && petting { petting = false; rest() }
         }
         .contextMenu {
             ForEach(DotlingAnimation.allCases) { action in
@@ -104,7 +123,7 @@ struct DotlingAnimationView: View {
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(kind.title), feeling happy")
+        .accessibilityLabel("\(kind.title), feeling \(mood.title.lowercased())")
         .accessibilityHint("Tap to wave, double tap to hop, rub to pet, or hold for more movements")
         .accessibilityActions {
             ForEach(DotlingAnimation.allCases) { action in
@@ -113,31 +132,48 @@ struct DotlingAnimationView: View {
         }
         .task(id: kind) {
             visible = true
-            let currentKind = kind
-            let frames = await Task.detached(priority: .userInitiated) {
-                CompanionArt.motionFrames(.idle, kind: currentKind)
+            let currentKind = kind, currentMood = mood
+            let artwork = await Task.detached(priority: .userInitiated) {
+                (CompanionArt.motionFrames(.idle, kind: currentKind),
+                 CompanionArt.image(currentMood, kind: currentKind))
             }.value
             guard !Task.isCancelled else { return }
-            idleImages = frames
-            play(.idle)
+            idleImages = artwork.0
+            restImage = artwork.1
+            rest()
         }
         .onDisappear {
             visible = false; petting = false
             loadingAction?.cancel(); requestID = UUID()
-            actionImages = []; idleImages = []
+            actionImages = []; idleImages = []; restImage = nil
         }
         .onChange(of: scenePhase) { _, phase in
             petting = false
-            if phase == .active { play(.idle) }
+            rest()
         }
-        .onChange(of: reduceMotion) { _, _ in petting = false; play(.idle) }
+        .onChange(of: reduceMotion) { _, _ in petting = false; rest() }
+    }
+
+    private func image(for pose: DotlingPose) -> UIImage? {
+        switch pose {
+        case .rest: return restImage
+        case let .frame(action, index):
+            let images = action == .idle ? idleImages : actionImages
+            return images.indices.contains(index) ? images[index] : nil
+        }
+    }
+
+    private func rest() {
+        loadingAction?.cancel(); requestID = UUID()
+        motion = nil; actionImages = []
+        startedAt = ProcessInfo.processInfo.systemUptime
     }
 
     private func play(_ next: DotlingAnimation) {
-        loadingAction?.cancel()
-        let request = UUID()
-        requestID = request
-        if next == .idle || reduceMotion {
+        rest()
+        let request = requestID
+        if reduceMotion { return }
+        if next == .idle {
             motion = .idle
             actionImages = []
             startedAt = ProcessInfo.processInfo.systemUptime
