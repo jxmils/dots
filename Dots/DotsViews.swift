@@ -34,7 +34,7 @@ struct DotsRoot: View {
                             if TestFriend.available { showTestFriend = true }
                         }
                         Spacer()
-                        Button { TouchFeedback.choose(); model.showSettings = true } label: {
+                        Button { model.showSettings = true } label: {
                             CompanionView(mood: model.state.companion?.mood ?? .calm, kind: model.state.companion?.kind ?? .lavender)
                                 .frame(width: 44, height: 44).background(.white.opacity(0.7), in: Circle())
                         }.accessibilityLabel("Your profile and settings")
@@ -87,15 +87,13 @@ struct DotsRoot: View {
             }
         }
         .task {
-            TouchFeedback.prepare()
             if let metadata = PendingInvitation.metadata {
                 PendingInvitation.metadata = nil
                 await model.accept(metadata)
             } else { await model.refresh() }
         }
         .onChange(of: phase) { _, value in
-            if value == .active { TouchFeedback.prepare(); Task { await model.refresh() } }
-            else { TouchFeedback.suspend() }
+            if value == .active { Task { await model.refresh() } }
         }
         .onReceive(NotificationCenter.default.publisher(for: .dotsShareAccepted)) { notification in
             if let metadata = notification.object as? CKShare.Metadata { Task { await model.accept(metadata) } }
@@ -123,7 +121,7 @@ struct DotsTabBar: View {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(DotsTab.allCases, id: \.self) { item in
-                Button { if tab != item { TouchFeedback.choose(); tab = item } } label: {
+                Button { if tab != item { tab = item } } label: {
                     VStack(spacing: 5) {
                         Image(systemName: item.icon).font(.system(size: 18, weight: .semibold))
                         Text(item.rawValue).font(DotsStyle.round(10, weight: .semibold))
@@ -172,7 +170,7 @@ struct CompanionHome: View {
                     }
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 9), count: 3), spacing: 9) {
                         ForEach(Mood.allCases) { mood in
-                            Button { TouchFeedback.choose(); model.setMood(mood) } label: {
+                            Button { model.setMood(mood) } label: {
                                 VStack(spacing: 7) {
                                     Image(systemName: mood.symbol).font(.system(size: 18, weight: .medium)).frame(height: 23)
                                         .foregroundStyle(companion.mood == mood ? DotsStyle.ink : DotsStyle.plum.opacity(0.8))
@@ -190,14 +188,14 @@ struct CompanionHome: View {
                         .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }
                 if !model.state.collection.eggs.isEmpty {
-                    Button { TouchFeedback.choose(); model.showHatch = true } label: {
+                    Button { model.showHatch = true } label: {
                         Label("Someone new is ready to hatch", systemImage: "sparkles")
                             .font(DotsStyle.round(14, weight: .bold)).frame(maxWidth: .infinity).padding(16)
                             .foregroundStyle(.white).background(DotsStyle.plum, in: RoundedRectangle(cornerRadius: 22))
                     }
                 }
 
-                Button { TouchFeedback.choose(); onCircle() } label: {
+                Button { onCircle() } label: {
                     HStack(spacing: 12) {
                         Image(systemName: "person.2.fill").font(.system(size: 18)).foregroundStyle(DotsStyle.plum)
                         VStack(alignment: .leading, spacing: 3) {
@@ -254,7 +252,7 @@ struct CircleView: View {
                     .background(.white.opacity(0.65), in: RoundedRectangle(cornerRadius: 30))
             } else {
                 ForEach(model.state.sortedFriends) { friend in
-                    Button { TouchFeedback.choose(); onFriend(friend) } label: {
+                    Button { onFriend(friend) } label: {
                         HStack(spacing: 14) {
                             CompanionView(mood: friend.mood, kind: friend.kind).frame(width: 78, height: 78)
                             VStack(alignment: .leading, spacing: 6) {
@@ -302,7 +300,7 @@ struct WidgetSettingsView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Who pops up?").font(DotsStyle.round(19, weight: .bold))
                 ForEach(WidgetMode.allCases) { mode in
-                    Button { TouchFeedback.choose(); model.setWidget(mode, pinned: model.state.pinnedFriendID) } label: {
+                    Button { model.setWidget(mode, pinned: model.state.pinnedFriendID) } label: {
                         HStack(spacing: 12) {
                             Image(systemName: mode == .latest ? "sparkles" : "pin.fill").frame(width: 25)
                             VStack(alignment: .leading, spacing: 4) {
@@ -360,7 +358,7 @@ struct FriendDetail: View {
                 Text(friend.id == TestFriend.id ? "Only on this device · changes mood every 30 seconds" : "\(friend.petName) is keeping them company.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
                 HStack { Text(friend.id == TestFriend.id ? "Mood updated" : "Mood shared"); Text(friend.updatedAt, style: .relative) }.font(.caption).foregroundStyle(DotsStyle.muted)
                 Button {
-                    TouchFeedback.choose(); model.setWidget(.pinned, pinned: friend.id); dismiss()
+                    model.setWidget(.pinned, pinned: friend.id); dismiss()
                 } label: {
                     Label("Pin to my widget", systemImage: "pin.fill").font(DotsStyle.round(16, weight: .bold))
                         .frame(maxWidth: .infinity).padding(18).foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
@@ -398,7 +396,6 @@ struct SettingsView: View {
     @State private var owner = ""
     @State private var pet = ""
     @State private var confirmDelete = false
-    @AppStorage("dotlings.haptics") private var hapticsEnabled = true
     var body: some View {
         NavigationStack {
             Form {
@@ -423,13 +420,6 @@ struct SettingsView: View {
                     Text("Friend invitations use iCloud. Only invited people can see your name, companion and current mood. You can remove their access in Manage sharing. There is no public profile or mood history.")
                 }
                 Section("Widgets") { Button("How to add a Lock Screen widget") { model.showSettings = false; DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { model.showWidgetGuide = true } } }
-                Section("Touch") {
-                    Toggle("Gentle haptics", isOn: $hapticsEnabled)
-                        .onChange(of: hapticsEnabled) { _, enabled in
-                            if enabled { TouchFeedback.prepare(); TouchFeedback.choose() }
-                            else { TouchFeedback.suspend() }
-                        }
-                }
                 Section("Help & privacy") {
                     Link("Dotlings support", destination: URL(string: "https://github.com/jxmils/dots/blob/main/docs/support.md")!)
                     Link("Privacy policy", destination: URL(string: "https://github.com/jxmils/dots/blob/main/docs/privacy.md")!)

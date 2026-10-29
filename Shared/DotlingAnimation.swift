@@ -74,7 +74,6 @@ struct DotlingAnimationView: View {
     @State private var startedAt = ProcessInfo.processInfo.systemUptime
     @State private var visible = false
     @State private var petting = false
-    @State private var lastFeedback = 0.0
     @GestureState private var gestureActive = false
 
     var body: some View {
@@ -97,16 +96,12 @@ struct DotlingAnimationView: View {
             rest()
         }
         .contentShape(Ellipse())
-        .onTapGesture(count: 2) { play(.jump); TouchFeedback.tap() }
-        .onTapGesture { play(.wave); TouchFeedback.tap() }
+        .onTapGesture(count: 2) { play(.jump) }
+        .onTapGesture { play(.wave) }
         .simultaneousGesture(DragGesture(minimumDistance: 10)
             .updating($gestureActive) { _, active, _ in active = true }
             .onChanged { _ in
                 petting = true
-                let now = ProcessInfo.processInfo.systemUptime
-                if now - lastFeedback > 0.12 {
-                    TouchFeedback.pet(); lastFeedback = now
-                }
             }
             .onEnded { value in
                 petting = false
@@ -119,7 +114,7 @@ struct DotlingAnimationView: View {
         }
         .contextMenu {
             ForEach(DotlingAnimation.allCases) { action in
-                Button(action.title) { TouchFeedback.tap(); play(action) }
+                Button(action.title) { play(action) }
             }
         }
         .accessibilityElement(children: .ignore)
@@ -127,12 +122,11 @@ struct DotlingAnimationView: View {
         .accessibilityHint("Tap to wave, double tap to hop, rub to pet, or hold for more movements")
         .accessibilityActions {
             ForEach(DotlingAnimation.allCases) { action in
-                Button(action.title) { TouchFeedback.tap(); play(action) }
+                Button(action.title) { play(action) }
             }
         }
         .task(id: kind) {
             visible = true
-            TouchFeedback.prepare()
             let currentKind = kind, currentMood = mood
             let artwork = await Task.detached(priority: .userInitiated) {
                 (CompanionArt.motionFrames(.idle, kind: currentKind),

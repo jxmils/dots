@@ -45,5 +45,5 @@ mood colours; the creature's own material colour stays consistent. iOS may tint 
 
 Automated checks exercise daily counting, duplicate prevention, restored gaps, the three-use limit,
 reset behavior, all milestones, migration and every decoded sprite. SwiftUI renders show the actual
-screens and circular, rectangular and inline widget content. Haptics, touch feel, VoiceOver, iCloud
+screens and circular, rectangular and inline widget content. Touch feel, VoiceOver, iCloud
 Keychain and two-device sharing still need signed physical-device acceptance.

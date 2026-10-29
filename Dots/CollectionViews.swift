@@ -13,7 +13,7 @@ struct HatchingView: View {
     @State private var petName = ""
     @State private var ritual = HatchRitual()
     @State private var lastPoint: CGPoint?
-    @State private var lastHaptic = Date.distantPast
+    @State private var lastShake = Date.distantPast
     @State private var motionFrame: EggStage?
     @State private var ceremonyFrame: EggStage?
     @State private var shakeTask: Task<Void, Never>?
@@ -154,10 +154,9 @@ struct HatchingView: View {
             .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
     }
     private func shakeShell(force: Bool = false) {
-        guard !opening, force || Date().timeIntervalSince(lastHaptic) > 0.24 else { return }
-        lastHaptic = Date()
+        guard !opening, force || Date().timeIntervalSince(lastShake) > 0.24 else { return }
+        lastShake = Date()
         shakeTask?.cancel()
-        TouchFeedback.shell(warmth: warmth)
         guard !reduceMotion, taps == 0, warmth >= 0.7 else { motionFrame = nil; return }
         shakeTask = Task { @MainActor in
             for frame in [EggStage.stirringLeft, .awake, .stirringRight, .awake] {
@@ -190,18 +189,16 @@ struct HatchingView: View {
         petName = kind.defaultName
         ceremonyFrame = .gatheringLight
         hatchTask = Task { @MainActor in
-            let sequence: [(EggStage, Int, CGFloat)] = reduceMotion
-                ? [(.gatheringLight, 650, 0.3), (.nest, 900, 0)]
-                : [(.gatheringLight, 650, 0.3), (.opening, 400, 0.45),
-                   (.lifting, 500, 0.65), (.parting, 550, 0.35), (.nest, 900, 0)]
-            for (stage, duration, intensity) in sequence {
+            let sequence: [(EggStage, Int)] = reduceMotion
+                ? [(.gatheringLight, 650), (.nest, 900)]
+                : [(.gatheringLight, 650), (.opening, 400),
+                   (.lifting, 500), (.parting, 550), (.nest, 900)]
+            for (stage, duration) in sequence {
                 guard !Task.isCancelled else { return }
                 if stage == .nest {
                     withAnimation(.easeOut(duration: reduceMotion ? 0.2 : 0.45)) { ceremonyFrame = stage }
-                    TouchFeedback.hatch()
                 } else {
                     ceremonyFrame = stage
-                    TouchFeedback.hatchBeat(intensity)
                 }
                 try? await Task.sleep(for: .milliseconds(duration))
             }
@@ -241,7 +238,7 @@ struct CollectionView: View {
                     .font(DotsStyle.round(13, weight: .semibold))
             }
             if !progress.eggs.isEmpty {
-                Button { TouchFeedback.choose(); model.showHatch = true } label: {
+                Button { model.showHatch = true } label: {
                     HStack {
                         Image(systemName: "sparkles"); Text("\(progress.eggs.count) \(progress.eggs.count == 1 ? "egg is" : "eggs are") ready to hatch")
                         Spacer(); Image(systemName: "arrow.up.right")
@@ -259,7 +256,7 @@ struct CollectionView: View {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 13) {
                 ForEach(progress.displayOrder) { kind in
                     let owned = progress.owned.contains(kind)
-                    Button { if owned { TouchFeedback.choose(); selected = kind } } label: {
+                    Button { if owned { selected = kind } } label: {
                         VStack(spacing: 5) {
                             ZStack {
                                 if owned {
@@ -290,7 +287,7 @@ struct CollectionView: View {
                 CompanionView(mood: .happy, kind: kind, animate: true).frame(width: 250, height: 250)
                 Text(model.state.collection.names[kind.rawValue] ?? kind.defaultName).font(DotsStyle.round(30, weight: .bold))
                 Text(kind.title).font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
-                Button { TouchFeedback.choose(); model.activate(kind); selected = nil } label: {
+                Button { model.activate(kind); selected = nil } label: {
                     Text(model.state.companion?.kind == kind ? "This is my Dotling" : "Make this my Dotling").font(DotsStyle.round(16, weight: .bold)).padding(18).frame(maxWidth: .infinity)
                         .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
                 }.disabled(model.state.companion?.kind == kind)

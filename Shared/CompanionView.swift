@@ -1,6 +1,5 @@
 import SwiftUI
 import UIKit
-import CoreHaptics
 
 enum DotsStyle {
     static let paper = Color(red: 0.98, green: 0.96, blue: 0.93)
@@ -252,76 +251,6 @@ struct FriendWidgetView: View {
             }
         }
     }
-}
-
-// Only direct interactions trigger feedback; idle animations stay silent.
-@MainActor enum TouchFeedback {
-    private static let soft = UIImpactFeedbackGenerator(style: .soft)
-    private static let firm = UIImpactFeedbackGenerator(style: .light)
-    private static let selection = UISelectionFeedbackGenerator()
-    private static let success = UINotificationFeedbackGenerator()
-    private static var engine: CHHapticEngine?
-    private static var player: (any CHHapticPatternPlayer)?
-    private static var lastPet = -Double.infinity
-
-    static var enabled: Bool {
-        get { UserDefaults.standard.object(forKey: "dotlings.haptics") as? Bool ?? true }
-        set { UserDefaults.standard.set(newValue, forKey: "dotlings.haptics"); if !newValue { suspend() } }
-    }
-    static func prepare() {
-        guard enabled else { return }
-        soft.prepare(); firm.prepare(); selection.prepare(); success.prepare()
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-        if engine == nil {
-            engine = try? CHHapticEngine()
-            engine?.playsHapticsOnly = true
-            engine?.isAutoShutdownEnabled = true
-            engine?.resetHandler = { Task { @MainActor in player = nil } }
-            engine?.stoppedHandler = { _ in Task { @MainActor in player = nil } }
-        }
-        try? engine?.start()
-    }
-    static func suspend() {
-        try? player?.stop(atTime: CHHapticTimeImmediate)
-        player = nil; engine?.stop(completionHandler: nil)
-        lastPet = -Double.infinity
-    }
-    private static func pulse(intensity: Float, sharpness: Float, duration: TimeInterval = 0) -> Bool {
-        guard enabled, let engine else { return false }
-        do {
-            try engine.start()
-            let event = CHHapticEvent(eventType: duration > 0 ? .hapticContinuous : .hapticTransient,
-                parameters: [.init(parameterID: .hapticIntensity, value: intensity),
-                             .init(parameterID: .hapticSharpness, value: sharpness)],
-                relativeTime: 0, duration: duration)
-            let pattern = try CHHapticPattern(events: [event], parameters: [])
-            let next = try engine.makePlayer(with: pattern)
-            try next.start(atTime: CHHapticTimeImmediate)
-            player = next
-            return true
-        } catch { return false }
-    }
-    static func choose() {
-        guard enabled else { return }
-        if !pulse(intensity: 0.45, sharpness: 0.35) { selection.selectionChanged(); selection.prepare() }
-    }
-    static func pet() {
-        guard enabled else { return }
-        let now = ProcessInfo.processInfo.systemUptime
-        guard now - lastPet >= 0.12 else { return }
-        lastPet = now
-        if !pulse(intensity: 0.48, sharpness: 0.12, duration: 0.075) { soft.impactOccurred(intensity: 0.8); soft.prepare() }
-    }
-    static func tap() {
-        guard enabled else { return }
-        if !pulse(intensity: 0.6, sharpness: 0.25) { firm.impactOccurred(intensity: 0.8); firm.prepare() }
-    }
-    static func shell(warmth: Double) {
-        guard enabled else { return }
-        firm.impactOccurred(intensity: 0.4 + warmth * 0.5); firm.prepare(); success.prepare()
-    }
-    static func hatch() { guard enabled else { return }; success.notificationOccurred(.success) }
-    static func hatchBeat(_ intensity: CGFloat) { guard enabled else { return }; soft.impactOccurred(intensity: intensity); soft.prepare() }
 }
 
 struct QuietPressStyle: ButtonStyle {
