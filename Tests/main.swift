@@ -226,6 +226,26 @@ import CloudKit
         ritual.retryOpening()
         precondition(!ritual.isOpening && ritual.cracks == 2 && ritual.tap(), "A failed save must allow a retry")
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        for kind in CompanionKind.allCases {
+            let anchor = CompanionArt.motionImage(.idle, frame: 0, kind: kind)!
+            let target = CompanionArt.opaqueBounds(anchor)!
+            for mood in Mood.allCases {
+                guard let portrait = CompanionArt.displayImage(mood, kind: kind),
+                      let bounds = CompanionArt.opaqueBounds(portrait) else { fatalError("Missing registered mood") }
+                precondition(portrait.size == anchor.size, "Rest and motion must share a canvas")
+                precondition(abs(bounds.maxY - target.maxY) <= 2,
+                             "Rest and motion must share a baseline: \(kind)/\(mood): \(bounds) vs \(target)")
+                precondition(bounds.width <= target.width + 2 && bounds.height <= target.height + 2,
+                             "Resting moods must not grow beyond Happy: \(kind)/\(mood)")
+                precondition(min(abs(bounds.width - target.width), abs(bounds.height - target.height)) <= 2,
+                             "Resting moods must fit Happy without arbitrary shrinking: \(kind)/\(mood): \(bounds) vs \(target)")
+                precondition(abs(bounds.midX - target.midX) <= 2, "Mood changes must not shift sideways")
+                if mood == .happy {
+                    precondition(portrait.pngData() == anchor.pngData(), "Happy must remain pixel-identical to its approved anchor")
+                }
+            }
+        }
+        print("All 174 mood portraits match the Happy canvas, envelope, center and resting baseline")
         precondition(DotlingAnimation.allCases.reduce(0) { $0 + $1.durations.count } == 73)
         for motion in DotlingAnimation.allCases {
             for index in motion.durations.indices {
@@ -265,6 +285,7 @@ import CloudKit
         print("All 2,117 collection animation frames decoded")
 
         print("All 10 actions across 6 moods, return to selected mood, petting and reduced motion passed")
+
         let duskRest = CompanionArt.image(.happy, kind: .dusk)!
         precondition(duskRest.pngData() == CompanionArt.touchImage(0, kind: .dusk)?.pngData(),
                      "Dusk's resting and first action drawings must use the same registered artwork")

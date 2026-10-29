@@ -1,10 +1,11 @@
 import SwiftUI
 import UIKit
+import CoreHaptics
 
 enum DotsStyle {
     static let paper = Color(red: 0.98, green: 0.96, blue: 0.93)
     static let ink = Color(red: 0.20, green: 0.18, blue: 0.26)
-    static let muted = Color(red: 0.49, green: 0.46, blue: 0.52)
+    static let muted = Color(red: 0.44, green: 0.41, blue: 0.48)
     static let plum = Color(red: 0.43, green: 0.34, blue: 0.57)
     static let lilac = Color(red: 0.90, green: 0.85, blue: 0.96)
     static func round(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
@@ -43,6 +44,62 @@ enum CompanionArt {
             ? frame(0, asset: "CompanionDuskBlink", columns: 6, rows: 1)
             : frame(mood.spriteIndex, asset: kind.asset)
     }
+    // Match each resting portrait to the approved Happy animation's canvas,
+    // silhouette envelope and planted baseline. Never scale an active reaction.
+    static func displayImage(_ mood: Mood, kind: CompanionKind) -> UIImage? {
+        let key = (directory?.path ?? "bundle") + "/display/" + kind.rawValue + "/" + mood.rawValue
+        if let cached = cache.object(forKey: key as NSString) { return cached }
+        guard let anchor = motionImage(.idle, frame: 0, kind: kind) else { return image(mood, kind: kind) }
+        if mood == .happy { return anchor }
+        guard let portrait = image(mood, kind: kind),
+              let source = opaqueBounds(portrait), let target = opaqueBounds(anchor) else { return anchor }
+        let scale = min(target.width / source.width, target.height / source.height)
+        var rect = CGRect(x: target.midX - source.midX * scale,
+                          y: target.maxY - source.maxY * scale,
+                          width: portrait.size.width * scale, height: portrait.size.height * scale)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1; format.opaque = false; format.preferredRange = .standard
+        let renderer = UIGraphicsImageRenderer(size: anchor.size, format: format)
+        var result = renderer.image { _ in portrait.draw(in: rect) }
+        // Fine fur can disappear below the alpha threshold when downsampled.
+        // Register the rasterized outline too, always redrawing the original art.
+        for _ in 0..<3 {
+            guard let actual = opaqueBounds(result) else { break }
+            if abs(actual.maxY - target.maxY) <= 1 && abs(actual.midX - target.midX) <= 1
+                && min(abs(actual.width - target.width), abs(actual.height - target.height)) <= 1
+                && actual.width <= target.width + 1 && actual.height <= target.height + 1 { break }
+            let correction = min(target.width / actual.width, target.height / actual.height)
+            rect = CGRect(x: target.midX - (actual.midX - rect.minX) * correction,
+                          y: target.maxY - (actual.maxY - rect.minY) * correction,
+                          width: rect.width * correction, height: rect.height * correction)
+            result = renderer.image { _ in portrait.draw(in: rect) }
+        }
+        cache.setObject(result, forKey: key as NSString, cost: Int(anchor.size.width * anchor.size.height) * 4)
+        return result
+    }
+
+    static func opaqueBounds(_ image: UIImage) -> CGRect? {
+        guard let cg = image.cgImage else { return nil }
+        let width = cg.width, height = cg.height
+        var bytes = [UInt8](repeating: 0, count: width * height * 4)
+        return bytes.withUnsafeMutableBytes { buffer in
+            guard let context = CGContext(data: buffer.baseAddress, width: width, height: height,
+                bitsPerComponent: 8, bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(),
+                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+            context.draw(cg, in: CGRect(x: 0, y: 0, width: width, height: height))
+            let pixels = buffer.bindMemory(to: UInt8.self)
+            var left = width, top = height, right = -1, bottom = -1
+            for y in 0..<height {
+                for x in 0..<width where pixels[(y * width + x) * 4 + 3] >= 32 {
+                    left = min(left, x); right = max(right, x)
+                    top = min(top, y); bottom = max(bottom, y)
+                }
+            }
+            guard right >= left, bottom >= top else { return nil }
+            return CGRect(x: left, y: top, width: right - left + 1, height: bottom - top + 1)
+        }
+    }
+
     static func touchImage(_ index: Int, kind: CompanionKind, mood: Mood = .happy) -> UIImage? {
         usesBlinkStrip(mood, kind: kind)
             ? frame(index, asset: "CompanionDuskBlink", columns: 6, rows: 1)
@@ -118,7 +175,7 @@ struct CompanionView: View {
                 .id(kind.rawValue + "/" + mood.rawValue)
         } else {
             Group {
-                if let image = CompanionArt.image(mood, kind: kind) {
+                if let image = CompanionArt.displayImage(mood, kind: kind) {
                     Image(uiImage: image).resizable().scaledToFit()
                 } else {
                     Image(systemName: "cloud.fill").resizable().scaledToFit().foregroundStyle(DotsStyle.lilac)
@@ -197,15 +254,78 @@ struct FriendWidgetView: View {
     }
 }
 
-// Retain and prepare generators so feedback starts promptly on real iPhones.
+// Only direct interactions trigger feedback; idle animations stay silent.
 @MainActor enum TouchFeedback {
     private static let soft = UIImpactFeedbackGenerator(style: .soft)
-    private static let firm = UIImpactFeedbackGenerator(style: .rigid)
+    private static let firm = UIImpactFeedbackGenerator(style: .light)
+    private static let selection = UISelectionFeedbackGenerator()
     private static let success = UINotificationFeedbackGenerator()
-    static func prepare() { soft.prepare(); firm.prepare(); success.prepare() }
-    static func pet() { soft.impactOccurred(intensity: 0.65); soft.prepare() }
-    static func tap() { firm.impactOccurred(intensity: 0.55); firm.prepare() }
-    static func shell(warmth: Double) { firm.impactOccurred(intensity: 0.4 + warmth * 0.5); firm.prepare(); success.prepare() }
-    static func hatch() { success.notificationOccurred(.success) }
-    static func hatchBeat(_ intensity: CGFloat) { soft.impactOccurred(intensity: intensity); soft.prepare() }
+    private static var engine: CHHapticEngine?
+    private static var player: (any CHHapticPatternPlayer)?
+    private static var lastPet = -Double.infinity
+
+    static var enabled: Bool {
+        get { UserDefaults.standard.object(forKey: "dotlings.haptics") as? Bool ?? true }
+        set { UserDefaults.standard.set(newValue, forKey: "dotlings.haptics"); if !newValue { suspend() } }
+    }
+    static func prepare() {
+        guard enabled else { return }
+        soft.prepare(); firm.prepare(); selection.prepare(); success.prepare()
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        if engine == nil {
+            engine = try? CHHapticEngine()
+            engine?.playsHapticsOnly = true
+            engine?.isAutoShutdownEnabled = true
+            engine?.resetHandler = { Task { @MainActor in player = nil } }
+            engine?.stoppedHandler = { _ in Task { @MainActor in player = nil } }
+        }
+        try? engine?.start()
+    }
+    static func suspend() {
+        try? player?.stop(atTime: CHHapticTimeImmediate)
+        player = nil; engine?.stop(completionHandler: nil)
+        lastPet = -Double.infinity
+    }
+    private static func pulse(intensity: Float, sharpness: Float, duration: TimeInterval = 0) -> Bool {
+        guard enabled, let engine else { return false }
+        do {
+            try engine.start()
+            let event = CHHapticEvent(eventType: duration > 0 ? .hapticContinuous : .hapticTransient,
+                parameters: [.init(parameterID: .hapticIntensity, value: intensity),
+                             .init(parameterID: .hapticSharpness, value: sharpness)],
+                relativeTime: 0, duration: duration)
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
+            let next = try engine.makePlayer(with: pattern)
+            try next.start(atTime: CHHapticTimeImmediate)
+            player = next
+            return true
+        } catch { return false }
+    }
+    static func choose() {
+        guard enabled else { return }
+        if !pulse(intensity: 0.45, sharpness: 0.35) { selection.selectionChanged(); selection.prepare() }
+    }
+    static func pet() {
+        guard enabled else { return }
+        let now = ProcessInfo.processInfo.systemUptime
+        guard now - lastPet >= 0.12 else { return }
+        lastPet = now
+        if !pulse(intensity: 0.48, sharpness: 0.12, duration: 0.075) { soft.impactOccurred(intensity: 0.8); soft.prepare() }
+    }
+    static func tap() {
+        guard enabled else { return }
+        if !pulse(intensity: 0.6, sharpness: 0.25) { firm.impactOccurred(intensity: 0.8); firm.prepare() }
+    }
+    static func shell(warmth: Double) {
+        guard enabled else { return }
+        firm.impactOccurred(intensity: 0.4 + warmth * 0.5); firm.prepare(); success.prepare()
+    }
+    static func hatch() { guard enabled else { return }; success.notificationOccurred(.success) }
+    static func hatchBeat(_ intensity: CGFloat) { guard enabled else { return }; soft.impactOccurred(intensity: intensity); soft.prepare() }
+}
+
+struct QuietPressStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label.opacity(configuration.isPressed ? 0.75 : 1)
+    }
 }

@@ -241,7 +241,7 @@ struct CollectionView: View {
                     .font(DotsStyle.round(13, weight: .semibold))
             }
             if !progress.eggs.isEmpty {
-                Button { model.showHatch = true } label: {
+                Button { TouchFeedback.choose(); model.showHatch = true } label: {
                     HStack {
                         Image(systemName: "sparkles"); Text("\(progress.eggs.count) \(progress.eggs.count == 1 ? "egg is" : "eggs are") ready to hatch")
                         Spacer(); Image(systemName: "arrow.up.right")
@@ -259,7 +259,7 @@ struct CollectionView: View {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 13) {
                 ForEach(progress.displayOrder) { kind in
                     let owned = progress.owned.contains(kind)
-                    Button { if owned { selected = kind } } label: {
+                    Button { if owned { TouchFeedback.choose(); selected = kind } } label: {
                         VStack(spacing: 5) {
                             ZStack {
                                 if owned {
@@ -278,7 +278,7 @@ struct CollectionView: View {
                             }
                             Text(owned ? kind.title : "Waiting in a milestone egg").font(DotsStyle.round(9)).foregroundStyle(DotsStyle.muted)
                         }.frame(maxWidth: .infinity).padding(12).background(.white.opacity(0.75), in: RoundedRectangle(cornerRadius: 25))
-                    }.buttonStyle(.plain).disabled(!owned)
+                    }.buttonStyle(QuietPressStyle()).disabled(!owned)
                         .accessibilityLabel(owned ? "\(kind.title), owned" : "Mystery Dotling, locked")
                 }
             }
@@ -290,7 +290,7 @@ struct CollectionView: View {
                 CompanionView(mood: .happy, kind: kind, animate: true).frame(width: 250, height: 250)
                 Text(model.state.collection.names[kind.rawValue] ?? kind.defaultName).font(DotsStyle.round(30, weight: .bold))
                 Text(kind.title).font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
-                Button { model.activate(kind); selected = nil } label: {
+                Button { TouchFeedback.choose(); model.activate(kind); selected = nil } label: {
                     Text(model.state.companion?.kind == kind ? "This is my Dotling" : "Make this my Dotling").font(DotsStyle.round(16, weight: .bold)).padding(18).frame(maxWidth: .infinity)
                         .foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
                 }.disabled(model.state.companion?.kind == kind)

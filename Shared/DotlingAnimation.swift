@@ -84,7 +84,7 @@ struct DotlingAnimationView: View {
             let elapsed = ProcessInfo.processInfo.systemUptime - startedAt
             let pose = DotlingAnimation.pose(for: motion, mood: mood, elapsed: elapsed,
                                                petting: petting, reducedMotion: reduceMotion)
-            if let image = image(for: pose) ?? restImage ?? CompanionArt.image(mood, kind: kind) {
+            if let image = image(for: pose) ?? restImage ?? CompanionArt.displayImage(mood, kind: kind) {
                 Image(uiImage: image).resizable().scaledToFit()
             }
         }
@@ -119,7 +119,7 @@ struct DotlingAnimationView: View {
         }
         .contextMenu {
             ForEach(DotlingAnimation.allCases) { action in
-                Button(action.title) { play(action) }
+                Button(action.title) { TouchFeedback.tap(); play(action) }
             }
         }
         .accessibilityElement(children: .ignore)
@@ -127,15 +127,16 @@ struct DotlingAnimationView: View {
         .accessibilityHint("Tap to wave, double tap to hop, rub to pet, or hold for more movements")
         .accessibilityActions {
             ForEach(DotlingAnimation.allCases) { action in
-                Button(action.title) { play(action) }
+                Button(action.title) { TouchFeedback.tap(); play(action) }
             }
         }
         .task(id: kind) {
             visible = true
+            TouchFeedback.prepare()
             let currentKind = kind, currentMood = mood
             let artwork = await Task.detached(priority: .userInitiated) {
                 (CompanionArt.motionFrames(.idle, kind: currentKind),
-                 CompanionArt.image(currentMood, kind: currentKind))
+                 CompanionArt.displayImage(currentMood, kind: currentKind))
             }.value
             guard !Task.isCancelled else { return }
             idleImages = artwork.0

@@ -55,6 +55,22 @@ import CoreText
             }.padding(16).background(DotsStyle.paper)
             try save(poses, to: out.appendingPathComponent("touch-\(kind.rawValue).png"), scale: 1)
         }
+        for kind in [CompanionKind.blue, .lavender, .dusk, .coconut] {
+            let comparison = HStack(alignment: .bottom, spacing: 8) {
+                ForEach(Mood.allCases) { mood in
+                    VStack {
+                        CompanionView(mood: mood, kind: kind).frame(width: 140, height: 152)
+                        Text(mood.title).font(.system(size: 11))
+                    }
+                }
+                VStack {
+                    Image(uiImage: CompanionArt.motionImage(.idle, frame: 0, kind: kind)!).resizable().scaledToFit()
+                        .frame(width: 140, height: 152)
+                    Text("Happy motion").font(.system(size: 11))
+                }
+            }.padding(20).background(DotsStyle.paper)
+            try save(comparison, to: out.appendingPathComponent("mood-size-\(kind.rawValue).png"), scale: 2)
+        }
         let now = Date()
         let friends = [
             Companion(id: "sam", ownerName: "Sam", petName: "Pip", mood: .happy, updatedAt: now.addingTimeInterval(-180), kind: .pillow),
