@@ -320,6 +320,14 @@ import CloudKit
         }
         print("All 174 mood portraits match the Happy canvas, envelope, center and resting baseline")
         precondition(DotlingAnimation.allCases.reduce(0) { $0 + $1.durations.count } == 73)
+        precondition(DotlingAnimation.automaticInterval == 10_000_000_000)
+        precondition(Set(DotlingAnimation.automaticChoices(after: nil)) == Set(DotlingAnimation.allCases),
+                     "Automatic emotes must include every available movement")
+        for previous in DotlingAnimation.allCases {
+            let choices = DotlingAnimation.automaticChoices(after: previous)
+            precondition(!choices.contains(previous) && choices.count == DotlingAnimation.allCases.count - 1,
+                         "Random emotes must vary without excluding any other movement")
+        }
         for motion in DotlingAnimation.allCases {
             for index in motion.durations.indices {
                 guard let image = CompanionArt.motionImage(motion, frame: index)?.cgImage else {

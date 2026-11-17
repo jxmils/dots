@@ -4,6 +4,10 @@ import UIKit
 enum DotlingAnimation: String, CaseIterable, Identifiable {
     case idle, moveRight, moveLeft, wave, jump, disappointed, waiting, thinking, reviewing, lookAround
     var id: String { rawValue }
+    static let automaticInterval: UInt64 = 10_000_000_000
+    static func automaticChoices(after previous: Self?) -> [Self] {
+        allCases.filter { $0 != previous }
+    }
     var title: String {
         switch self {
         case .idle: "Blink"; case .moveRight: "Move right"; case .moveLeft: "Move left"
@@ -76,7 +80,12 @@ struct DotlingAnimationView: View {
     @State private var startedAt = ProcessInfo.processInfo.systemUptime
     @State private var visible = false
     @State private var petting = false
+    @State private var lastAutomaticEmote: DotlingAnimation?
     @GestureState private var gestureActive = false
+
+    private var automaticEmotesEnabled: Bool {
+        visible && scenePhase == .active && !reduceMotion
+    }
 
     var body: some View {
         TimelineView(.animation(minimumInterval: 1.0 / 60,
@@ -99,6 +108,23 @@ struct DotlingAnimationView: View {
             catch { return }
             guard !Task.isCancelled else { return }
             rest()
+        }
+        .task(id: automaticEmotesEnabled) {
+            guard automaticEmotesEnabled else { return }
+            // A separate clock keeps the ten-second cadence independent of an
+            // emote finishing. Cancellation prevents offscreen/background playback.
+            while !Task.isCancelled {
+                do { try await Task.sleep(nanoseconds: DotlingAnimation.automaticInterval) }
+                catch { return }
+                guard !Task.isCancelled else { return }
+                // Let touch reactions and frame decoding finish without interruption.
+                guard !petting, !gestureActive, !signature, motion == nil,
+                      loadingAction == nil, !idleImages.isEmpty,
+                      let next = DotlingAnimation.automaticChoices(after: lastAutomaticEmote).randomElement()
+                else { continue }
+                lastAutomaticEmote = next
+                play(next)
+            }
         }
         .contentShape(Ellipse())
         .onTapGesture(count: 2) { play(.jump) }
@@ -126,7 +152,7 @@ struct DotlingAnimationView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(kind.title), feeling \(mood.title.lowercased())")
-        .accessibilityHint("Tap for a little reaction, double tap to hop, rub to pet, or hold for more movements")
+        .accessibilityHint("Plays a random emote every ten seconds. Tap for a little reaction, double tap to hop, or rub to pet.")
         .accessibilityActions {
             Button(DotlingSignature.reaction(for: kind).title) { playSignature() }
             ForEach(DotlingAnimation.allCases) { action in
@@ -167,7 +193,7 @@ struct DotlingAnimationView: View {
     }
 
     private func rest() {
-        loadingAction?.cancel(); requestID = UUID()
+        loadingAction?.cancel(); loadingAction = nil; requestID = UUID()
         signature = false; signatureImage = nil
         motion = nil; actionImages = []
         startedAt = ProcessInfo.processInfo.systemUptime
@@ -201,8 +227,9 @@ struct DotlingAnimationView: View {
             let frames = await Task.detached(priority: .userInitiated) {
                 CompanionArt.motionFrames(next, kind: currentKind)
             }.value
-            guard !Task.isCancelled, requestID == request,
-                  frames.count == next.durations.count else { return }
+            guard !Task.isCancelled, requestID == request else { return }
+            loadingAction = nil
+            guard frames.count == next.durations.count else { return }
             actionImages = frames
             motion = next
             startedAt = ProcessInfo.processInfo.systemUptime
