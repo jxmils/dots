@@ -86,8 +86,10 @@ import CoreText
             collection.earnedMilestones = [5, 10]
             return CircleState(cloudEnabled: true, companion: Companion(id: "me", ownerName: "Jason", petName: kind == .pillow ? "Cloud" : kind.title, mood: .calm, updatedAt: now, kind: kind), friends: friends, pinnedFriendID: "sam", widgetMode: .pinned, lastSyncedAt: now, collection: collection)
         }
-        func phone(_ kind: CompanionKind, tab: DotsTab = .home) -> some View {
-            let model = CircleModel(previewState: state(kind))
+        func phone(_ kind: CompanionKind, tab: DotsTab = .home, mood: Mood = .calm) -> some View {
+            var previewState = state(kind)
+            previewState.companion?.mood = mood
+            let model = CircleModel(previewState: previewState)
             return ZStack(alignment: .top) {
                 DotsStyle.paper
                 DotsRoot(tab: tab).environment(model).frame(width: 402, height: 810).offset(y: 42)
@@ -97,6 +99,9 @@ import CoreText
             }.frame(width: 402, height: 874).clipped()
         }
         for kind in [CompanionKind.lavender, .blue, .pillow, .dusk, .toast, .twinkle, .sprout] { try save(phone(kind), to: out.appendingPathComponent("\(kind.rawValue)-home.png")) }
+        for mood in Mood.allCases {
+            try save(phone(.blue, mood: mood), to: out.appendingPathComponent("mood-color-\(mood.rawValue).png"))
+        }
         try save(phone(.pillow, tab: .friends), to: out.appendingPathComponent("friends.png"))
         for (index, mood) in Mood.allCases.enumerated() {
             var testState = state(.blue)

@@ -148,7 +148,7 @@ struct CompanionHome: View {
                 }.padding(.top, 16)
                 VStack(spacing: 0) {
                     ZStack {
-                        Circle().fill(RadialGradient(colors: [companion.mood.color.opacity(0.18), companion.mood.color.opacity(0.03)],
+                        Circle().fill(RadialGradient(colors: [companion.mood.color.opacity(0.36), companion.mood.color.opacity(0.12)],
                             center: .center, startRadius: 20, endRadius: 88)).frame(width: 176, height: 176)
                         Ellipse().fill(DotsStyle.plum.opacity(0.06)).frame(width: 112, height: 12).offset(y: 85).blur(radius: 10)
                         CompanionView(mood: companion.mood, kind: companion.kind, animate: true)
@@ -177,7 +177,7 @@ struct CompanionHome: View {
                                     Text(mood.title).font(DotsStyle.round(11, weight: .semibold)).lineLimit(1).minimumScaleFactor(0.85)
                                 }.frame(maxWidth: .infinity).padding(.vertical, 14)
                                     .foregroundStyle(DotsStyle.ink)
-                                    .background(companion.mood == mood ? mood.color.opacity(0.18) : .white.opacity(0.8), in: RoundedRectangle(cornerRadius: 19))
+                                    .background(companion.mood == mood ? mood.color.opacity(0.30) : .white.opacity(0.8), in: RoundedRectangle(cornerRadius: 19))
                                     .overlay(RoundedRectangle(cornerRadius: 19).stroke(companion.mood == mood ? mood.color.opacity(0.7) : DotsStyle.plum.opacity(0.05), lineWidth: 1))
                             }
                             .accessibilityLabel("Set mood to \(mood.title)")

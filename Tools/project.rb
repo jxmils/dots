@@ -10,6 +10,7 @@ shared = Dir[File.join(root, 'Shared/*.swift')].sort.map { |path| project.main_g
 [[app, 'Dots'], [widget, 'DotsWidget']].each do |target, folder|
   files = Dir[File.join(root, folder, '*.swift')].sort.map { |path| project.main_group.new_file(path.delete_prefix(root + '/')) }
   target.add_file_references(shared + files)
+  target.resources_build_phase.add_file_reference(project.main_group.new_file("Shared/PrivacyInfo.xcprivacy"))
   Dir[File.join(root, 'Resources', '*.png')].sort.each do |path|
     resource = project.main_group.new_file(path.delete_prefix(root + '/'))
     target.resources_build_phase.add_file_reference(resource)

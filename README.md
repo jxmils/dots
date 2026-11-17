@@ -10,7 +10,7 @@ AI conversation, inferred feelings, feeding obligations, advertising, or analyti
 
 - A free random first hatch: warm a little egg by rubbing it, then give it three gentle taps.
 - 29 distinct companions, each with six expressions. Original Lilac, Sky and feet-free Cloud remain.
-- Tap for a gentle illustrated reaction, rub to pet, with soft haptics and Reduce Motion support.
+- Tap for a gentle illustrated reaction, rub to pet, with Reduce Motion support and no haptics.
 - Daily mood check-ins earn nonduplicate random creatures at streak milestones starting at 5, 10,
   25, 50, 100, 150 and 200 days. Three lifetime restores can bridge missed days; otherwise only
   the streak resets. Earned creatures and eggs remain. Each milestone is earned once.
@@ -62,7 +62,7 @@ removing revoked access. Mood changes are saved locally before an upload is atte
 - `Dots/`: SwiftUI screens, model, iCloud invitation handling, sharing sheet.
 - `Shared/`: companion/mood model, storage, CloudKit operations, character and widget views.
 - `DotsWidget/`: App Intent configuration and timeline provider.
-- `Resources/`: all 29 character mood/touch atlases, the new Dusk blink strip and illustrated egg sequence.
+- `Resources/`: all 29 character mood/touch atlases, 290 motion atlases and the illustrated egg sequence.
 - `Tools/`: project generation, render and check tools; `Tests/`: meaningful state/persistence checks.
 - `docs/*prompts.json`: the exact built-in imagegen prompts used for the artwork.
 - `docs/collection.md`: hatching, reward and lifetime restore rules.

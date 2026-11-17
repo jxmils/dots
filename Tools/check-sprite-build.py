@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check the app and widget actually compile and bundle the 2D artwork."""
 import json
+import plistlib
 from pathlib import Path
 import struct
 import subprocess
@@ -26,6 +27,10 @@ for name, folder in [("Dots", "Dots"), ("DotsWidget", "DotsWidget")]:
         source = (ROOT / path).read_text()
         assert "import RealityKit" not in source and "import SceneKit" not in source, path
         assert "LiveCompanionView" not in source and "SkyMoodPreview" not in source, path
+    assert "Shared/PrivacyInfo.xcprivacy" in resources, f"{name}: missing privacy manifest"
+    manifest = plistlib.loads((ROOT / "Shared/PrivacyInfo.xcprivacy").read_bytes())
+    assert {"NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategorySystemBootTime",
+            "NSPrivacyAccessedAPITypeReasons": ["35F9.1"]} in manifest["NSPrivacyAccessedAPITypes"]
     expected_art = {str(p.relative_to(ROOT)) for p in (ROOT / "Resources").glob("*.png")}
     assert expected_art <= resources, f"{name}: missing sprite resources: {expected_art - resources}"
     assert not any(p.endswith(".usdz") or "Archive3D" in p or "Resources/Models/" in p

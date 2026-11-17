@@ -26,26 +26,23 @@ and processing measurements. Rebuild and install that selected strip with Python
 python3 Tools/artwork/prepare-dusk-trial.py --install
 ```
 
-`Resources/CompanionDuskBlink.png` is six 512 × 512 cells in one horizontal row. It supplies Dusk's happy
-rest and touch response. Dusk's other five moods keep their existing mood and touch art; this migration
-does not claim new strips have been generated for all moods or pets. All other current atlases use
-three columns and two rows. `CompanionArt` accepts column/row counts, and registered crop layouts keep
-the original touch and egg sources aligned. Add each new strip to both targets and keep the same static
-rest frame in the app and widgets. Widgets display still images.
+All 29 companions have 10 motion atlases each: idle, move right, move left, wave, jump,
+disappointed, waiting, thinking, reviewing, and a 16-direction look sequence. The collection contains
+2,117 frames. `Art/CollectionMotion/v001/README.md` records the retained source and execution workflow.
+The older Dusk trial is preserved for provenance. Widgets display still images.
 
 ## Interaction
 
-`SpritePlayback` samples elapsed time and blends registered drawings at up to 60 display updates per
-second. This smooths transitions; it does not create 60 distinct drawn frames per second. The character
-geometry is never warped or scaled during touch. Dusk's new strip plays one blink on tap and gently
-closes its eyes on rubbing, holding that pose until release. The remaining companions retain their
-existing illustrated reactions. Soft haptics accompany strokes and taps. No reaction captions or
-floating icons are added.
+`DotlingAnimationView` plays the approved frames without warping the character. Tap to wave,
+double tap to hop, rub to hold a closed-eye pose, and swipe to move. Long press exposes the action menu.
+Actions work from every mood and return to that mood when finished. Happy has a continuous idle loop;
+the other five moods use their registered rest portraits between actions. The movement clips are
+shared across moods, not separately generated mood-specific animation packs.
 
-Release blends from the currently visible pose to the selected mood. Rapid touches start from the
-current blend. Gesture cancellation, backgrounding, mood/companion changes and disappearance clear the
-touch state. Reduce Motion uses the still rest frame for the new Dusk strip and a short response for
-the existing packs. Hatching keeps its illustrated warming, cracking and reveal sequence with haptics.
+All rest portraits use the Happy motion scale to prevent a size jump when interaction begins.
+Playback stops offscreen and resets on mood or character changes. Reduce Motion keeps a still portrait.
+Hatching retains its illustrated warming, cracking and reveal sequence. No app-generated haptics,
+reaction captions or floating icons are used.
 
 ## Checks and delivery
 
@@ -55,7 +52,7 @@ and renders the actual SwiftUI screens and widget layouts. `Tools/check-sprite-b
 target includes a retired 3D model or renderer, omits an active source/sprite, or bundles a Dusk strip
 different from its retained export. The same checks run before the GitHub TestFlight upload job.
 
-Local checks do not prove physical-device haptics or perceived animation smoothness. Confirm those
+Local checks do not prove perceived animation smoothness on a physical device. Confirm those
 with the signed TestFlight build. Native iPhone screenshots run in the separate store-capture workflow,
 which also triggers when sprite resources change.
 
