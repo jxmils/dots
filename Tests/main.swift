@@ -262,24 +262,29 @@ import CloudKit
         motion.play(CompanionMotion.tap, interval: CompanionMotion.tapInterval, at: 12.137)
         precondition(motion.weights(at: 12.137) == tappedAgain, "Rapid taps must not reset to the resting image")
         precondition(!motion.isMoving(at: 13), "A tap must finish without an idle animation timer")
-        func solid(_ color: UIColor) -> UIImage {
-            UIGraphicsImageRenderer(size: CGSize(width: 16, height: 16)).image { context in
-                color.setFill(); context.fill(CGRect(x: 0, y: 0, width: 16, height: 16))
+        print("Continuous 60 Hz sampling, loop seams, release, rapid taps and idle stopping passed")
+        if ProcessInfo.processInfo.environment["DOTLINGS_HEADLESS"] == "1" {
+            print("SKIPPED: SwiftUI GPU blend render on headless host; run full local visual checks separately")
+        } else {
+            func solid(_ color: UIColor) -> UIImage {
+                UIGraphicsImageRenderer(size: CGSize(width: 16, height: 16)).image { context in
+                    color.setFill(); context.fill(CGRect(x: 0, y: 0, width: 16, height: 16))
+                }
             }
+            let blend = ImageRenderer(content: SpriteCanvas(images: [solid(.red), solid(.blue)], weights: [0.5, 0.5]).frame(width: 16, height: 16))
+            blend.scale = 1
+            guard let mixed = blend.uiImage?.cgImage else { fatalError("Blend renderer must produce pixels") }
+            var rgba = [UInt8](repeating: 0, count: 16 * 16 * 4)
+            rgba.withUnsafeMutableBytes { bytes in
+                let context = CGContext(data: bytes.baseAddress, width: 16, height: 16, bitsPerComponent: 8, bytesPerRow: 64,
+                                        space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+                context.draw(mixed, in: CGRect(x: 0, y: 0, width: 16, height: 16))
+            }
+            let pixel = (8 * 16 + 8) * 4
+            precondition(rgba[pixel + 3] >= 254 && abs(Int(rgba[pixel]) - Int(rgba[pixel + 2])) < 3,
+                         "Mid-transition artwork must remain opaque with balanced colors")
+            print("Rendered blend alpha passed")
         }
-        let blend = ImageRenderer(content: SpriteCanvas(images: [solid(.red), solid(.blue)], weights: [0.5, 0.5]).frame(width: 16, height: 16))
-        blend.scale = 1
-        guard let mixed = blend.uiImage?.cgImage else { fatalError("Blend renderer must produce pixels") }
-        var rgba = [UInt8](repeating: 0, count: 16 * 16 * 4)
-        rgba.withUnsafeMutableBytes { bytes in
-            let context = CGContext(data: bytes.baseAddress, width: 16, height: 16, bitsPerComponent: 8, bytesPerRow: 64,
-                                    space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
-            context.draw(mixed, in: CGRect(x: 0, y: 0, width: 16, height: 16))
-        }
-        let pixel = (8 * 16 + 8) * 4
-        precondition(rgba[pixel + 3] >= 254 && abs(Int(rgba[pixel]) - Int(rgba[pixel + 2])) < 3,
-                     "Mid-transition artwork must remain opaque with balanced colors")
-        print("Continuous 60 Hz sampling, loop seams, release, rapid taps, idle stopping and rendered blend alpha passed")
         var ritual = HatchRitual()
         precondition(ritual.stage == .sleeping)
         ritual.warm(.nan); ritual.warm(-1)

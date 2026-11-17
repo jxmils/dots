@@ -59,6 +59,15 @@ an Apple Silicon runner; GitHub reported hosted-runner capacity constraints, not
 so it runs natively on Intel CI and Apple Silicon development Macs. This does not change the
 architecture of the iPhone app or widget archives, which remain device builds selected by Xcode.
 
+The hosted Intel machine cannot run SwiftUI GPU previews: run
+[44136379635](https://github.com/jxmils/dots/actions/runs/44136379635) aborted inside Metal's
+loader (`Target device architecture is nil`). CI therefore explicitly sets `DOTLINGS_HEADLESS=1`:
+it keeps behavior/persistence tests, all sprite decoding/registration/alpha checks, both target
+checks, preview-harness compilation, and native iOS archives. Only the SwiftUI blend-render assertion
+and screen-image generation are skipped, with explicit log messages. The default local
+`Tools/check.sh` still runs both visual checks; run it on a Mac with graphics before release.
+CI retains `build/check/check.log` even if checks fail before an archive or preview exists.
+
 ## Running and checking an upload
 
 1. Open Actions → Build and upload Dotlings → Run workflow → select `main`.

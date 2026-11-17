@@ -32,13 +32,21 @@ python3 Tools/check-sprite-build.py
 echo '== Behavior and artwork checks'
 swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/RestoreBudget.swift Dots/CircleModel.swift Tests/main.swift -o "$TMP/checks"
 "$TMP/checks"
-echo '== App and widget renders'
+echo '== Compile app and widget preview harness'
 swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/RestoreBudget.swift Dots/CircleModel.swift Dots/DotsViews.swift Dots/CloudSharingView.swift Dots/DotsApp.swift Dots/CollectionViews.swift Tools/render.swift -D DOTS_RENDER -o "$TMP/render"
-"$TMP/render" "$OUT"
-if [[ "${DOTLINGS_CAPTURE_SIGNATURES:-0}" == "1" ]]; then
-  DOTLINGS_SIGNATURE_PREVIEW=1 "$TMP/render" "$OUT"
+if [[ "${DOTLINGS_HEADLESS:-0}" == "1" ]]; then
+  echo 'SKIPPED: SwiftUI GPU screen renders on headless host; full visual checks remain the local default'
+else
+  "$TMP/render" "$OUT"
+  if [[ "${DOTLINGS_CAPTURE_SIGNATURES:-0}" == "1" ]]; then
+    DOTLINGS_SIGNATURE_PREVIEW=1 "$TMP/render" "$OUT"
+  fi
+  test -s "$OUT/preview.png"
 fi
-test -s "$OUT/preview.png"
 test -s Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png
 sips -g hasAlpha Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png | grep -q 'hasAlpha: no'
-echo 'CHECKS PASSED'
+if [[ "${DOTLINGS_HEADLESS:-0}" == "1" ]]; then
+  echo 'HEADLESS CHECKS PASSED (GPU previews not run)'
+else
+  echo 'CHECKS PASSED'
+fi

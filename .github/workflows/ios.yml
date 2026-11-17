@@ -17,8 +17,11 @@ jobs:
           xc=$(ls -d /Applications/Xcode_26.*.app | sort -V | tail -1)
           sudo xcode-select -s "$xc"
           xcodebuild -version
-      - name: Check behavior and render screens
-        run: Tools/check.sh
+      - name: Check behavior and artwork on the headless runner
+        run: |
+          set -o pipefail
+          mkdir -p build/check
+          DOTLINGS_HEADLESS=1 Tools/check.sh 2>&1 | tee build/check/check.log
       - name: Check release automation
         run: PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s Tests -p 'test_release.py' -v
       - name: Archive iOS app and widget
@@ -53,6 +56,7 @@ jobs:
           if-no-files-found: error
           path: |
             build/check/*.png
+            build/check/check.log
             build/archive.log
   testflight:
     name: Sign and upload to Apple
