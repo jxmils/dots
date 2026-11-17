@@ -7,6 +7,11 @@ OUT=$(cd "$OUT" && pwd)
 TMP=$(mktemp -d "$OUT/.checks.XXXXXX")
 trap 'rm -rf "$TMP"' EXIT
 SDK=$(xcrun --show-sdk-path)
+CHECK_ARCH=$(uname -m)
+case "$CHECK_ARCH" in
+  arm64|x86_64) ;;
+  *) echo "Unsupported check host architecture: $CHECK_ARCH" >&2; exit 1 ;;
+esac
 FLAGS=()
 if [[ -f /Library/Developer/CommandLineTools/usr/include/swift/module.modulemap && -f /Library/Developer/CommandLineTools/usr/include/swift/bridging.modulemap ]]; then
   : > "$TMP/empty.modulemap"
@@ -15,7 +20,7 @@ if [[ -f /Library/Developer/CommandLineTools/usr/include/swift/module.modulemap 
 YAML
   FLAGS+=(-vfsoverlay "$TMP/overlay.yaml" -Xcc -ivfsoverlay -Xcc "$TMP/overlay.yaml")
 fi
-IOS=(-sdk "$SDK" -target arm64-apple-ios18.0-macabi -swift-version 5 -whole-module-optimization
+IOS=(-sdk "$SDK" -target "${CHECK_ARCH}-apple-ios18.0-macabi" -swift-version 5 -whole-module-optimization
      -Fsystem "$SDK/System/iOSSupport/System/Library/Frameworks" -I "$SDK/System/iOSSupport/usr/lib/swift")
 echo '== App type-check'
 swiftc -typecheck -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} -D DEBUG Shared/*.swift Dots/*.swift

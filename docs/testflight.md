@@ -50,6 +50,15 @@ Run one line at a time. Each replaces the clipboard. The file paths above are ex
 The `.p8` secret is its original text, not Base64. A `.cer` without its matching private key is not a `.p12`.
 Cloud-managed signing in Xcode Cloud does not automatically install signing material in GitHub Actions.
 
+## Runner selection
+
+Both release checks and signing use `macos-15-intel`. On 17 November 2026, run
+[44132309037](https://github.com/jxmils/dots/actions/runs/44132309037) failed before acquiring
+an Apple Silicon runner; GitHub reported hosted-runner capacity constraints, not a compiler failure.
+`Tools/check.sh` uses the current Mac's architecture for its executable Catalyst checks and renders,
+so it runs natively on Intel CI and Apple Silicon development Macs. This does not change the
+architecture of the iPhone app or widget archives, which remain device builds selected by Xcode.
+
 ## Running and checking an upload
 
 1. Open Actions → Build and upload Dotlings → Run workflow → select `main`.

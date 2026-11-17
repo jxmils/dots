@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
 jobs:
   check:
-    runs-on: macos-15
+    # Avoid the Apple Silicon capacity queue for the release gate as well.
+    runs-on: macos-15-intel
     steps:
       - uses: actions/checkout@v4
       - name: Select Xcode
