@@ -229,6 +229,18 @@ final class CircleModel {
         } catch { self.error = "The invitation couldn't be accepted: \(error.localizedDescription)" }
     }
 
+    func arrangeFriends(_ ids: [String]) {
+        guard storageAvailable else { return }
+        var updated = state
+        updated.arrangeFriends(ids)
+        do {
+            if !preview { try store.save(updated) }
+            state = updated
+        } catch {
+            self.error = "Your friend order couldn't be saved. Please try again."
+        }
+    }
+
     func unlockOwnerCollection(code: String) -> Bool {
         guard TestBuild.hasLocalTools, storageAvailable, state.companion != nil else { return false }
         let normalized = code.lowercased().filter { !$0.isWhitespace && $0 != "-" }

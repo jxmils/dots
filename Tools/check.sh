@@ -30,6 +30,9 @@ swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Do
 echo '== App and widget renders'
 swiftc -parse-as-library "${IOS[@]}" ${FLAGS[@]+"${FLAGS[@]}"} Shared/*.swift Dots/RestoreBudget.swift Dots/CircleModel.swift Dots/DotsViews.swift Dots/CloudSharingView.swift Dots/DotsApp.swift Dots/CollectionViews.swift Tools/render.swift -D DOTS_RENDER -o "$TMP/render"
 "$TMP/render" "$OUT"
+if [[ "${DOTLINGS_CAPTURE_SIGNATURES:-0}" == "1" ]]; then
+  DOTLINGS_SIGNATURE_PREVIEW=1 "$TMP/render" "$OUT"
+fi
 test -s "$OUT/preview.png"
 test -s Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png
 sips -g hasAlpha Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png | grep -q 'hasAlpha: no'

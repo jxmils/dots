@@ -65,6 +65,8 @@ struct DotlingAnimationView: View {
     var mood: Mood
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.scenePhase) private var scenePhase
+    @State private var signature = false
+    @State private var signatureImage: UIImage?
     @State private var motion: DotlingAnimation?
     @State private var idleImages: [UIImage] = []
     @State private var restImage: UIImage?
@@ -79,17 +81,20 @@ struct DotlingAnimationView: View {
     var body: some View {
         TimelineView(.animation(minimumInterval: 1.0 / 60,
                                 paused: !visible || reduceMotion || scenePhase != .active
-                                    || petting || (mood != .happy && motion == nil))) { _ in
+                                    || (mood != .happy && motion == nil && !signature))) { _ in
             let elapsed = ProcessInfo.processInfo.systemUptime - startedAt
             let pose = DotlingAnimation.pose(for: motion, mood: mood, elapsed: elapsed,
-                                               petting: petting, reducedMotion: reduceMotion)
-            if let image = image(for: pose) ?? restImage ?? CompanionArt.displayImage(mood, kind: kind) {
+                                               petting: false, reducedMotion: reduceMotion)
+            if signature, let image = signatureImage {
+                DotlingSignatureImage(image: image, reaction: .reaction(for: kind), elapsed: elapsed, reducedMotion: reduceMotion)
+            } else if let image = image(for: pose) ?? restImage ?? CompanionArt.displayImage(mood, kind: kind) {
                 Image(uiImage: image).resizable().scaledToFit()
             }
         }
         .task(id: startedAt) {
-            guard let motion else { return }
-            let remaining = max(0, motion.duration - (ProcessInfo.processInfo.systemUptime - startedAt))
+            guard signature || motion != nil else { return }
+            let duration = signature ? DotlingSignature.reaction(for: kind).duration : motion!.duration
+            let remaining = max(0, duration - (ProcessInfo.processInfo.systemUptime - startedAt))
             do { try await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000)) }
             catch { return }
             guard !Task.isCancelled else { return }
@@ -97,30 +102,33 @@ struct DotlingAnimationView: View {
         }
         .contentShape(Ellipse())
         .onTapGesture(count: 2) { play(.jump) }
-        .onTapGesture { play(.wave) }
+        .onTapGesture { playSignature() }
         .simultaneousGesture(DragGesture(minimumDistance: 10)
             .updating($gestureActive) { _, active, _ in active = true }
             .onChanged { _ in
+                if !signature { playSignature() }
                 petting = true
             }
             .onEnded { value in
                 petting = false
                 if abs(value.translation.width) > 60 {
                     play(value.translation.width > 0 ? .moveRight : .moveLeft)
-                } else { rest() }
+                }
             })
         .onChange(of: gestureActive) { _, active in
-            if !active && petting { petting = false; rest() }
+            if !active && petting { petting = false }
         }
         .contextMenu {
+            Button(DotlingSignature.reaction(for: kind).title) { playSignature() }
             ForEach(DotlingAnimation.allCases) { action in
                 Button(action.title) { play(action) }
             }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(kind.title), feeling \(mood.title.lowercased())")
-        .accessibilityHint("Tap to wave, double tap to hop, rub to pet, or hold for more movements")
+        .accessibilityHint("Tap for a little reaction, double tap to hop, rub to pet, or hold for more movements")
         .accessibilityActions {
+            Button(DotlingSignature.reaction(for: kind).title) { playSignature() }
             ForEach(DotlingAnimation.allCases) { action in
                 Button(action.title) { play(action) }
             }
@@ -160,7 +168,20 @@ struct DotlingAnimationView: View {
 
     private func rest() {
         loadingAction?.cancel(); requestID = UUID()
+        signature = false; signatureImage = nil
         motion = nil; actionImages = []
+        startedAt = ProcessInfo.processInfo.systemUptime
+    }
+
+    private func playSignature() {
+        guard !reduceMotion, !signature else { return }
+        // Freeze the current resting mood during the reaction; no smiling
+        // replacement face, pose swapping, or size changes on touch.
+        let image = restImage ?? CompanionArt.displayImage(mood, kind: kind)
+        rest()
+        guard let image else { return }
+        signatureImage = image
+        signature = true
         startedAt = ProcessInfo.processInfo.systemUptime
     }
 
@@ -185,6 +206,110 @@ struct DotlingAnimationView: View {
             actionImages = frames
             motion = next
             startedAt = ProcessInfo.processInfo.systemUptime
+        }
+    }
+}
+
+// A single, mood-preserving reaction per kind. Values are fractions of the
+// fixed canvas, never scale factors. The approved artwork stays the source.
+struct DotlingSignature {
+    enum Style { case drift, rock, nod, leaves }
+    var title: String
+    var style: Style
+    var duration: Double
+    var amount: Double
+    var foliageHeight: Double = 0.32
+
+    static func reaction(for kind: CompanionKind) -> Self {
+        switch kind {
+        case .lavender: .init(title: "Little hello", style: .rock, duration: 1.8, amount: 0.9)
+        case .blue: .init(title: "Shy sway", style: .rock, duration: 1.9, amount: 1.0)
+        case .pillow: .init(title: "Cloud drift", style: .drift, duration: 2.4, amount: 0.009)
+        case .pebble: .init(title: "Pebble rock", style: .rock, duration: 1.8, amount: 0.7)
+        case .sprout: .init(title: "Leaf wiggle", style: .leaves, duration: 2.0, amount: 0.012)
+        case .twinkle: .init(title: "Star tilt", style: .rock, duration: 1.7, amount: 1.2)
+        case .pudding: .init(title: "Pudding wobble", style: .rock, duration: 2.1, amount: 1.1)
+        case .bean: .init(title: "Bean nod", style: .nod, duration: 1.7, amount: 0.005)
+        case .ember: .init(title: "Ember float", style: .drift, duration: 1.9, amount: 0.006)
+        case .moss: .init(title: "Moss sway", style: .rock, duration: 2.3, amount: 0.6)
+        case .luna: .init(title: "Moon drift", style: .drift, duration: 2.6, amount: 0.007)
+        case .bubble: .init(title: "Bubble float", style: .drift, duration: 2.1, amount: 0.01)
+        case .snow: .init(title: "Snow settle", style: .nod, duration: 2.4, amount: 0.004)
+        case .sunny: .init(title: "Sunny nod", style: .nod, duration: 1.8, amount: 0.006)
+        case .dusk: .init(title: "Quiet hello", style: .rock, duration: 2.2, amount: 0.75)
+        case .petal: .init(title: "Petal sway", style: .rock, duration: 2.0, amount: 0.85)
+        case .nimbus: .init(title: "Nimbus drift", style: .drift, duration: 2.5, amount: 0.008)
+        case .toast: .init(title: "Toast tip", style: .rock, duration: 1.6, amount: 0.8)
+        case .puff: .init(title: "Puff settle", style: .nod, duration: 2.2, amount: 0.005)
+        case .ripple: .init(title: "Ripple sway", style: .drift, duration: 2.2, amount: 0.008)
+        case .onion: .init(title: "Onion sway", style: .rock, duration: 2.1, amount: 0.8)
+        case .cumulus: .init(title: "Floss float", style: .drift, duration: 2.3, amount: 0.01)
+        case .bonsai: .init(title: "Canopy rustle", style: .leaves, duration: 2.4, amount: 0.008, foliageHeight: 0.48)
+        case .droplet: .init(title: "Dew bob", style: .nod, duration: 2.0, amount: 0.007)
+        case .drizzle: .init(title: "Raincloud drift", style: .drift, duration: 2.7, amount: 0.006)
+        case .storm: .init(title: "Storm sway", style: .rock, duration: 1.9, amount: 0.65)
+        case .bowling: .init(title: "Tiny roll", style: .rock, duration: 2.0, amount: 1.3)
+        case .coffee: .init(title: "Coffee nod", style: .nod, duration: 1.6, amount: 0.004)
+        case .coconut: .init(title: "Coconut rock", style: .rock, duration: 2.3, amount: 0.9)
+        }
+    }
+
+    func phase(at elapsed: Double, reducedMotion: Bool = false) -> Double {
+        guard !reducedMotion, elapsed > 0, elapsed < duration else { return 0 }
+        let t = elapsed / duration
+        // Zero position AND velocity at both ends, with a soft return to rest.
+        return sin(t * .pi * 2) * pow(sin(t * .pi), 2)
+    }
+}
+
+struct DotlingSignatureImage: View {
+    let image: UIImage
+    let reaction: DotlingSignature
+    let elapsed: Double
+    var reducedMotion = false
+
+    var body: some View {
+        Canvas { context, size in
+            let fit = min(size.width / image.size.width, size.height / image.size.height)
+            let width = image.size.width * fit, height = image.size.height * fit
+            let rect = CGRect(x: (size.width - width) / 2, y: (size.height - height) / 2,
+                              width: width, height: height)
+            let resolved = context.resolve(Image(uiImage: image))
+            let phase = reaction.phase(at: elapsed, reducedMotion: reducedMotion)
+            switch reaction.style {
+            case .drift:
+                context.translateBy(x: width * reaction.amount * phase, y: -height * reaction.amount * phase * 0.35)
+                context.draw(resolved, in: rect)
+            case .nod:
+                context.translateBy(x: 0, y: height * reaction.amount * phase)
+                context.draw(resolved, in: rect)
+            case .rock:
+                context.translateBy(x: rect.midX, y: rect.maxY)
+                context.rotate(by: .degrees(reaction.amount * phase))
+                context.translateBy(x: -rect.midX, y: -rect.maxY)
+                context.draw(resolved, in: rect)
+            case .leaves:
+                if abs(phase) < 0.00001 {
+                    context.draw(resolved, in: rect)
+                } else {
+                    // Shift only the crown, tapering to zero above the face.
+                    // Render at screen-pixel band height to retain the original
+                    // texture and alpha without redrawing or stretching the pet.
+                    let crown = height * reaction.foliageHeight
+                    let bands = max(1, Int(ceil(crown * image.scale * 3)))
+                    for band in 0..<bands {
+                        let y = crown * Double(band) / Double(bands)
+                        let nextY = crown * Double(band + 1) / Double(bands)
+                        var strip = context
+                        strip.clip(to: Path(CGRect(x: 0, y: rect.minY + y, width: size.width, height: nextY - y)), style: FillStyle(antialiased: false))
+                        let weight = pow(min(1, (crown - (y + nextY) / 2) / (crown - height * 0.12)), 2)
+                        strip.translateBy(x: width * reaction.amount * phase * weight, y: 0)
+                        strip.draw(resolved, in: rect)
+                    }
+                    context.clip(to: Path(CGRect(x: 0, y: rect.minY + crown, width: size.width, height: size.height)), style: FillStyle(antialiased: false))
+                    context.draw(resolved, in: rect)
+                }
+            }
         }
     }
 }

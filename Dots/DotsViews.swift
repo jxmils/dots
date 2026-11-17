@@ -215,6 +215,7 @@ struct CompanionHome: View {
 struct CircleView: View {
     @Environment(CircleModel.self) private var model
     var onFriend: (Companion) -> Void
+    @State private var arranging = false
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             VStack(alignment: .leading, spacing: 8) {
@@ -251,6 +252,14 @@ struct CircleView: View {
                 }.frame(maxWidth: .infinity).padding(.vertical, 30).padding(.horizontal, 22)
                     .background(.white.opacity(0.65), in: RoundedRectangle(cornerRadius: 30))
             } else {
+                if model.state.friends.count > 1 {
+                    HStack {
+                        Text("Your people").font(DotsStyle.round(16, weight: .bold))
+                        Spacer()
+                        Button("Arrange") { arranging = true }
+                            .font(DotsStyle.round(14, weight: .bold)).foregroundStyle(DotsStyle.plum)
+                    }
+                }
                 ForEach(model.state.sortedFriends) { friend in
                     Button { onFriend(friend) } label: {
                         HStack(spacing: 14) {
@@ -275,6 +284,39 @@ struct CircleView: View {
                     .font(DotsStyle.round(10)).foregroundStyle(DotsStyle.muted)
             }
         }
+        .sheet(isPresented: $arranging) { CircleOrderView().environment(model) }
+    }
+}
+
+// Native reorder handles support dragging and VoiceOver's move actions.
+struct CircleOrderView: View {
+    @Environment(CircleModel.self) private var model
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    ForEach(model.state.sortedFriends) { friend in
+                        HStack(spacing: 12) {
+                            CompanionView(mood: friend.mood, kind: friend.kind).frame(width: 48, height: 48)
+                                .accessibilityHidden(true)
+                            Text(friend.ownerName).font(DotsStyle.round(17, weight: .semibold))
+                        }.listRowBackground(Color.white.opacity(0.8))
+                    }
+                    .onMove { source, destination in
+                        var ids = model.state.sortedFriends.map(\.id)
+                        ids.move(fromOffsets: source, toOffset: destination)
+                        model.arrangeFriends(ids)
+                    }
+                } footer: {
+                    Text("Drag your closest people to the top. Your order stays the same when their moods change.")
+                }
+            }
+            .environment(\.editMode, .constant(.active))
+            .scrollContentBackground(.hidden).background(DotsStyle.paper)
+            .navigationTitle("Arrange your circle").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+        }.tint(DotsStyle.plum)
     }
 }
 

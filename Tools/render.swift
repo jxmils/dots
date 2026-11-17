@@ -16,6 +16,42 @@ import CoreText
         try FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
         CTFontManagerRegisterFontsForURL(URL(fileURLWithPath: "Brand/Fonts/Nunito-ExtraBold.ttf") as CFURL, .process, nil)
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        if ProcessInfo.processInfo.environment["DOTLINGS_SIGNATURE_PREVIEW"] == "1" {
+            let kinds = CompanionKind.allCases
+            let images = kinds.map { CompanionArt.displayImage(.calm, kind: $0)! }
+            let url = out.appendingPathComponent("signature-reactions.gif")
+            guard let gif = CGImageDestinationCreateWithURL(url as CFURL, UTType.gif.identifier as CFString, 60, nil) else { fatalError("GIF unavailable") }
+            CGImageDestinationSetProperties(gif, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFLoopCount: 0]] as CFDictionary)
+            for tick in 0..<60 {
+                let elapsed = Double(tick) / 20
+                let scene = VStack(spacing: 8) {
+                    Text("A little character in every Dotling").font(DotsStyle.round(22, weight: .bold))
+                    Text("Signature reactions · calm mood · actual app renderer").font(DotsStyle.round(12))
+                    ForEach(0..<6) { row in
+                        HStack(spacing: 4) {
+                            ForEach(0..<5) { column in
+                                let index = row * 5 + column
+                                if index < kinds.count {
+                                    VStack(spacing: 2) {
+                                        DotlingSignatureImage(image: images[index], reaction: .reaction(for: kinds[index]), elapsed: elapsed)
+                                            .frame(width: 140, height: 142)
+                                        Text(kinds[index].title).font(DotsStyle.round(12, weight: .semibold))
+                                    }
+                                } else { Color.clear.frame(width: 140, height: 158) }
+                            }
+                        }
+                    }
+                }.padding(20).foregroundStyle(DotsStyle.ink).background(DotsStyle.paper)
+                let renderer = ImageRenderer(content: scene)
+                renderer.scale = 1
+                guard let frame = renderer.cgImage else { fatalError("Signature render failed") }
+                CGImageDestinationAddImage(gif, frame, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: 0.05]] as CFDictionary)
+                if tick == 15 { try save(scene, to: out.appendingPathComponent("signature-reactions.png"), scale: 1) }
+            }
+            precondition(CGImageDestinationFinalize(gif))
+            print("Rendered all 29 signature reactions with the app's Canvas renderer")
+            return
+        }
         if ProcessInfo.processInfo.environment["DOTLINGS_MOTION_PREVIEW"] == "1" {
             let kinds: [CompanionKind] = [.lavender, .blue, .coconut]
             let artwork = kinds.map { kind in

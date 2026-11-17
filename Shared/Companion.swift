@@ -112,6 +112,7 @@ struct CircleState: Codable, Equatable {
     var companion: Companion?
     var friends: [Companion] = []
     var pinnedFriendID: String?
+    var friendOrder: [String] = []
     var widgetMode: WidgetMode = .latest
     var lastSyncedAt: Date?
     var testFriendStartedAt: Date?
@@ -128,7 +129,7 @@ struct CircleState: Codable, Equatable {
         }
     }
 
-    private enum CodingKeys: String, CodingKey { case cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection, testFriendStartedAt }
+    private enum CodingKeys: String, CodingKey { case cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection, testFriendStartedAt, friendOrder }
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         cloudEnabled = try c.decodeIfPresent(Bool.self, forKey: .cloudEnabled) ?? false
@@ -137,6 +138,7 @@ struct CircleState: Codable, Equatable {
         pinnedFriendID = try c.decodeIfPresent(String.self, forKey: .pinnedFriendID)
         widgetMode = try c.decodeIfPresent(WidgetMode.self, forKey: .widgetMode) ?? .latest
         lastSyncedAt = try c.decodeIfPresent(Date.self, forKey: .lastSyncedAt)
+        friendOrder = try c.decodeIfPresent([String].self, forKey: .friendOrder) ?? []
         testFriendStartedAt = try c.decodeIfPresent(Date.self, forKey: .testFriendStartedAt)
         collection = try c.decodeIfPresent(CollectionProgress.self, forKey: .collection) ?? CollectionProgress()
         if let companion {
@@ -145,13 +147,28 @@ struct CircleState: Codable, Equatable {
         }
     }
 
-    var sortedFriends: [Companion] {
+    var latestFriends: [Companion] {
         friends.sorted { $0.updatedAt == $1.updatedAt ? $0.id < $1.id : $0.updatedAt > $1.updatedAt }
+    }
+    var sortedFriends: [Companion] {
+        var remaining = latestFriends
+        var ordered: [Companion] = []
+        for id in friendOrder {
+            if let index = remaining.firstIndex(where: { $0.id == id }) {
+                ordered.append(remaining.remove(at: index))
+            }
+        }
+        return ordered + remaining
+    }
+    mutating func arrangeFriends(_ ids: [String]) {
+        let existing = Set(friends.map(\.id))
+        var seen = Set<String>()
+        friendOrder = (ids + sortedFriends.map(\.id)).filter { existing.contains($0) && seen.insert($0).inserted }
     }
     func widgetFriend(mode: WidgetMode? = nil, friendID: String? = nil) -> Companion? {
         if let friendID { return friends.first { $0.id == friendID } }
         switch mode ?? widgetMode {
-        case .latest: return sortedFriends.first
+        case .latest: return latestFriends.first
         case .pinned: return friends.first { $0.id == pinnedFriendID }
         }
     }
@@ -166,16 +183,22 @@ struct CircleState: Codable, Equatable {
         if friends.first(where: { $0.id == TestFriend.id }) == friend { return false }
         friends.removeAll { $0.id == TestFriend.id }
         friends.append(friend)
+        if !friendOrder.isEmpty && !friendOrder.contains(friend.id) { friendOrder.append(friend.id) }
         return true
     }
     mutating func receiveFriends(_ received: [Companion], at now: Date) {
+        let hasArrangement = !friendOrder.isEmpty
         friends = received.filter { $0.id != TestFriend.id }
         updateTestFriend(at: now)
+        let currentIDs = Set(friends.map(\.id))
+        friendOrder.removeAll { !currentIDs.contains($0) }
+        if hasArrangement { arrangeFriends(friendOrder) }
         if !friends.contains(where: { $0.id == pinnedFriendID }) { pinnedFriendID = nil }
     }
     mutating func removeFriend(_ id: String) {
         if id == TestFriend.id { testFriendStartedAt = nil }
         friends.removeAll { $0.id == id }
+        friendOrder.removeAll { $0 == id }
         if pinnedFriendID == id { pinnedFriendID = nil }
     }
 }

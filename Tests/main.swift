@@ -16,6 +16,44 @@ import CloudKit
         precondition(state.widgetFriend(friendID: "missing") == nil, "Missing friend must never silently become another person")
         state.removeFriend("a")
         precondition(state.pinnedFriendID == nil && state.widgetFriend() == nil, "Removing a pinned friend must clear the widget")
+        var arranged = CircleState(companion: a, friends: [a, b])
+        arranged.arrangeFriends(["a", "a", "unknown", "b"])
+        precondition(arranged.sortedFriends.map(\.id) == ["a", "b"])
+        precondition(arranged.friendOrder == ["a", "b"], "Ignore duplicates and unknown IDs")
+        precondition(arranged.widgetFriend(mode: .latest)?.id == "b", "Circle order must not change the latest widget")
+        var updatedB = b
+        updatedB.updatedAt = now.addingTimeInterval(1200)
+        let newcomer = Companion(id: "c", ownerName: "Mia", petName: "Leaf", mood: .sad, updatedAt: now.addingTimeInterval(1800))
+        arranged.receiveFriends([newcomer, updatedB, a], at: now)
+        precondition(arranged.sortedFriends.map(\.id) == ["a", "b", "c"], "Refresh preserves chosen order and appends newcomers")
+        precondition(arranged.widgetFriend(mode: .latest)?.id == "c")
+        precondition(arranged.friendOrder == ["a", "b", "c"], "Append newcomers to the saved arrangement")
+        var latestA = a
+        latestA.updatedAt = now.addingTimeInterval(2400)
+        arranged.receiveFriends([updatedB, newcomer, latestA], at: now)
+        precondition(arranged.sortedFriends.map(\.id) == ["a", "b", "c"])
+        precondition(arranged.widgetFriend(mode: .latest)?.id == "a")
+        let roundtrip = try JSONDecoder().decode(CircleState.self, from: JSONEncoder().encode(arranged))
+        precondition(roundtrip == arranged, "Arrangement survives relaunch")
+        arranged.removeFriend("a")
+        precondition(arranged.sortedFriends.map(\.id) == ["b", "c"] && !arranged.friendOrder.contains("a"))
+        arranged.receiveFriends([newcomer], at: now)
+        precondition(arranged.sortedFriends.map(\.id) == ["c"] && !arranged.friendOrder.contains("b"))
+        let legacyOrder = try JSONDecoder().decode(CircleState.self, from: Data("{}".utf8))
+        precondition(legacyOrder.friendOrder.isEmpty, "Existing saved circles migrate without reset")
+        for kind in CompanionKind.allCases {
+            let reaction = DotlingSignature.reaction(for: kind)
+            precondition(reaction.phase(at: 0) == 0 && reaction.phase(at: reaction.duration) == 0)
+            for sample in 0...120 {
+                let time = Double(sample) / 120 * reaction.duration
+                precondition(abs(reaction.phase(at: time)) <= 1)
+                precondition(reaction.phase(at: time, reducedMotion: true) == 0)
+            }
+            precondition(abs(reaction.phase(at: 0.001)) < 0.00001
+                         && abs(reaction.phase(at: reaction.duration - 0.001)) < 0.00001,
+                         "Reactions ease in and out without snapping")
+        }
+        print("Circle arrangement persistence, refresh, migration, latest-widget isolation and 29 reaction boundaries passed")
         var localTest = CircleState(companion: a, friends: [b])
         precondition(localTest.testFriendStartedAt == nil && !localTest.updateTestFriend(at: now))
         let originalCollection = localTest.collection

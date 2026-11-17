@@ -33,8 +33,16 @@ The older Dusk trial is preserved for provenance. Widgets display still images.
 
 ## Interaction
 
-`DotlingAnimationView` plays the approved frames without warping the character. Tap to wave,
-double tap to hop, rub to hold a closed-eye pose, and swipe to move. Long press exposes the action menu.
+Tap or rub for the character's signature reaction; double tap to hop and swipe to move.
+Long press exposes the existing frame-based actions, including Wave.
+Signature reactions reuse the registered portrait for the selected mood. Clouds drift, rounded
+characters rock or nod, and Sprout/Bonsai move only their crown. Body scale stays fixed.
+`DotlingSignature.reaction(for:)` contains the per-character name, duration and amplitude for all 29.
+A sine envelope brings motion and velocity to zero at both ends (1.6–2.7 seconds).
+Crown motion tapers to zero before the face and renders the original texture in pixel-height bands;
+no new images, 3D assets, expression substitutions, scaling, haptics or effects are introduced.
+Repeated taps during a signature do not restart it. Releasing a rub lets it settle naturally.
+The original action strips remain available; they temporarily change pose as before.
 Actions work from every mood and return to that mood when finished. Happy has a continuous idle loop;
 the other five moods use their registered rest portraits between actions. The movement clips are
 shared across moods, not separately generated mood-specific animation packs.
@@ -62,3 +70,14 @@ The unshipped 3D prototype source, models, generators and comparison renders are
 on the external drive at `/Volumes/new one/Apple Apps/Dotlings/Archive3D-2026-10-25` with a SHA256
 manifest. The earlier approved Sky reference and reconstruction recipe remain in `Art/Sky/` as
 historical source artwork. Neither archive is compiled into the app or widget.
+
+## Circle order
+
+My circle → Arrange opens native drag handles, with VoiceOver move actions. Moves save immediately
+to `CircleState.friendOrder`; existing data defaults to chronological ordering until arranged.
+Refreshes keep the selected order, append new people, and remove departed IDs. Widget latest-mood
+selection uses `latestFriends` independently; a chosen order never changes which mood is newest.
+
+Set `DOTLINGS_CAPTURE_SIGNATURES=1` when running `Tools/check.sh` to render a GIF of all 29
+signature reactions through the same Canvas view used in the app. The native List reorder sheet
+requires an on-device check; SwiftUI ImageRenderer cannot capture its UIKit-backed controls.
