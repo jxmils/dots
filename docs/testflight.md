@@ -99,3 +99,11 @@ are still needed to verify invitations and widgets. Choose internal/external tes
 - https://developer.apple.com/help/account/provisioning-profiles/create-an-app-store-provisioning-profile
 - https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds/
 - https://docs.github.com/en/actions/how-tos/deploy/deploy-to-third-party-platforms/sign-xcode-applications
+# Recover an interrupted processing check
+
+If the upload log contains `UPLOAD SUCCEEDED` and a delivery UUID but the job
+ended before Apple processing was verified, run **Verify existing Apple build**
+with the accepted build number and the full commit of that uploaded app.
+This uses the existing API credentials to read Apple status and save a processing
+receipt. It does not rebuild, sign, upload, submit for review, or release the app.
+Do not restart an upload solely because its processing check was interrupted.

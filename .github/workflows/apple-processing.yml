@@ -1,0 +1,67 @@
+name: Verify existing Apple build
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: Build number already accepted by Apple's uploader
+        required: true
+        type: string
+      source_commit:
+        description: Full source commit of the uploaded app
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  processing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      APPLE_APP_ID: ${{ vars.APPLE_APP_ID || '6825127572' }}
+      APPLE_APP_VERSION: '1.0'
+      APPLE_BUILD_NUMBER: ${{ inputs.build_number }}
+      UPLOADED_SOURCE_COMMIT: ${{ inputs.source_commit }}
+      APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify processing of the existing upload
+        env:
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: |
+          python3 - <<'PY'
+          import importlib.util, os, pathlib, re, shutil
+          spec = importlib.util.spec_from_file_location('release', 'Tools/apple-release.py')
+          release = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(release)
+          if not re.fullmatch(r'[1-9][0-9]{0,3}', os.environ['APPLE_BUILD_NUMBER']):
+              raise ValueError('Use the existing numeric Apple build number')
+          if not re.fullmatch(r'[0-9a-f]{40}', os.environ['UPLOADED_SOURCE_COMMIT']):
+              raise ValueError('Use the full source commit of the uploaded app')
+          key_id = os.environ['APP_STORE_CONNECT_KEY_ID']
+          if not re.fullmatch(r'[A-Za-z0-9]+', key_id):
+              raise ValueError('Invalid App Store Connect key ID')
+          folder = release.signing_dir()
+          folder.mkdir(mode=0o700, parents=True, exist_ok=True)
+          try:
+              release.private_file(folder / f'AuthKey_{key_id}.p8',
+                  os.environ.pop('APP_STORE_CONNECT_PRIVATE_KEY').replace('\\n', '\n').encode())
+              app = release.get('/v1/apps/' + os.environ['APPLE_APP_ID'])['data']
+              if app['attributes']['bundleId'] != release.BUNDLES['APP']:
+                  raise ValueError('APPLE_APP_ID points to a different app')
+              # Receipt provenance belongs to the uploaded app, not this recovery workflow.
+              os.environ['GITHUB_SHA'] = os.environ['UPLOADED_SOURCE_COMMIT']
+              pathlib.Path('build').mkdir(exist_ok=True)
+              release.wait()
+          finally:
+              shutil.rmtree(folder, ignore_errors=True)
+          PY
+      - name: Save processing receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-processing-${{ github.run_id }}
+          path: build/apple-upload-receipt.json
+          if-no-files-found: ignore
+          retention-days: 14
