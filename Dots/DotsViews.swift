@@ -1,5 +1,7 @@
 import SwiftUI
 import CloudKit
+import CoreTransferable
+import UniformTypeIdentifiers
 
 enum DotsTab: String, CaseIterable {
     case home = "Companion", friends = "My circle", collection = "Collection", widget = "Widgets"
@@ -215,7 +217,7 @@ struct CompanionHome: View {
 struct CircleView: View {
     @Environment(CircleModel.self) private var model
     var onFriend: (Companion) -> Void
-    @State private var arranging = false
+    @State private var dragScope = UUID()
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             VStack(alignment: .leading, spacing: 8) {
@@ -253,28 +255,11 @@ struct CircleView: View {
                     .background(.white.opacity(0.65), in: RoundedRectangle(cornerRadius: 30))
             } else {
                 if model.state.friends.count > 1 {
-                    HStack {
-                        Text("Your people").font(DotsStyle.round(16, weight: .bold))
-                        Spacer()
-                        Button("Arrange") { arranging = true }
-                            .font(DotsStyle.round(14, weight: .bold)).foregroundStyle(DotsStyle.plum)
-                    }
+                    Text("Hold and drag to rearrange.")
+                        .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }
                 ForEach(model.state.sortedFriends) { friend in
-                    Button { onFriend(friend) } label: {
-                        HStack(spacing: 14) {
-                            CompanionView(mood: friend.mood, kind: friend.kind).frame(width: 78, height: 78)
-                            VStack(alignment: .leading, spacing: 6) {
-                                HStack(spacing: 5) {
-                                    Text(friend.ownerName).font(DotsStyle.round(18, weight: .bold))
-                                    if model.state.pinnedFriendID == friend.id { Image(systemName: "pin.fill").font(.system(size: 10)).foregroundStyle(DotsStyle.plum) }
-                                }
-                                Text(friend.mood.title).font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
-                                Text(friend.updatedAt, style: .relative).font(DotsStyle.round(10)).foregroundStyle(DotsStyle.muted)
-                            }
-                            Spacer(); Image(systemName: "chevron.right").font(.system(size: 12)).foregroundStyle(DotsStyle.muted)
-                        }.padding(15).background(.white.opacity(0.8), in: RoundedRectangle(cornerRadius: 25))
-                    }.buttonStyle(QuietPressStyle())
+                    CircleFriendCard(friend: friend, scope: dragScope, onFriend: onFriend)
                 }
             }
             Label("Only people you invite can see your mood.", systemImage: "lock.fill")
@@ -284,39 +269,75 @@ struct CircleView: View {
                     .font(DotsStyle.round(10)).foregroundStyle(DotsStyle.muted)
             }
         }
-        .sheet(isPresented: $arranging) { CircleOrderView().environment(model) }
     }
 }
 
-// Native reorder handles support dragging and VoiceOver's move actions.
-struct CircleOrderView: View {
+// A private transfer type prevents ordinary text or unrelated drags from
+// rearranging the circle. The scope also rejects drags from another window.
+struct CircleFriendDrag: Codable, Transferable {
+    var id: String
+    var scope: UUID
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: UTType(exportedAs: "com.jasonmiller.dots.friend-order", conformingTo: .data))
+            .visibility(.ownProcess)
+    }
+}
+
+struct CircleFriendCard: View {
     @Environment(CircleModel.self) private var model
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    let friend: Companion
+    let scope: UUID
+    var onFriend: (Companion) -> Void
+    @State private var targeted = false
+    @State private var rowHeight: CGFloat = 108
+
     var body: some View {
-        NavigationStack {
-            List {
-                Section {
-                    ForEach(model.state.sortedFriends) { friend in
-                        HStack(spacing: 12) {
-                            CompanionView(mood: friend.mood, kind: friend.kind).frame(width: 48, height: 48)
-                                .accessibilityHidden(true)
-                            Text(friend.ownerName).font(DotsStyle.round(17, weight: .semibold))
-                        }.listRowBackground(Color.white.opacity(0.8))
+        Button { onFriend(friend) } label: {
+            HStack(spacing: 14) {
+                CompanionView(mood: friend.mood, kind: friend.kind).frame(width: 78, height: 78)
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 5) {
+                        Text(friend.ownerName).font(DotsStyle.round(18, weight: .bold))
+                        if model.state.pinnedFriendID == friend.id {
+                            Image(systemName: "pin.fill").font(.system(size: 10)).foregroundStyle(DotsStyle.plum)
+                        }
                     }
-                    .onMove { source, destination in
-                        var ids = model.state.sortedFriends.map(\.id)
-                        ids.move(fromOffsets: source, toOffset: destination)
-                        model.arrangeFriends(ids)
-                    }
-                } footer: {
-                    Text("Drag your closest people to the top. Your order stays the same when their moods change.")
+                    Text(friend.mood.title).font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
+                    Text(friend.updatedAt, style: .relative).font(DotsStyle.round(10)).foregroundStyle(DotsStyle.muted)
+                }
+                Spacer()
+                Image(systemName: "chevron.right").font(.system(size: 12)).foregroundStyle(DotsStyle.muted)
+            }.padding(15).background(.white.opacity(0.8), in: RoundedRectangle(cornerRadius: 25))
+        }
+        .buttonStyle(QuietPressStyle())
+        .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 25))
+        .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { rowHeight = $0 }
+        .overlay {
+            RoundedRectangle(cornerRadius: 25)
+                .strokeBorder(DotsStyle.plum.opacity(targeted ? 0.5 : 0), lineWidth: 2)
+                .allowsHitTesting(false)
+        }
+        .draggable(CircleFriendDrag(id: friend.id, scope: scope))
+        .dropDestination(for: CircleFriendDrag.self) { items, location in
+            guard items.count == 1, let item = items.first, item.scope == scope else { return false }
+            // Save only on release. Cancelling a drag never changes the order.
+            return withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.2)) {
+                model.moveFriend(item.id, relativeTo: friend.id, after: location.y >= rowHeight / 2)
+            }
+        } isTargeted: { targeted = $0 }
+        .accessibilityHint("Tap to visit. Touch and hold to drag into a new position.")
+        .accessibilityActions {
+            let ids = model.state.sortedFriends.map(\.id)
+            if let index = ids.firstIndex(of: friend.id) {
+                if index > 0 {
+                    Button("Move up") { model.moveFriend(friend.id, relativeTo: ids[index - 1], after: false) }
+                }
+                if index + 1 < ids.count {
+                    Button("Move down") { model.moveFriend(friend.id, relativeTo: ids[index + 1], after: true) }
                 }
             }
-            .environment(\.editMode, .constant(.active))
-            .scrollContentBackground(.hidden).background(DotsStyle.paper)
-            .navigationTitle("Arrange your circle").navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
-        }.tint(DotsStyle.plum)
+        }
     }
 }
 

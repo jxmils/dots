@@ -73,11 +73,18 @@ historical source artwork. Neither archive is compiled into the app or widget.
 
 ## Circle order
 
-My circle → Arrange opens native drag handles, with VoiceOver move actions. Moves save immediately
-to `CircleState.friendOrder`; existing data defaults to chronological ordering until arranged.
-Refreshes keep the selected order, append new people, and remove departed IDs. Widget latest-mood
-selection uses `latestFriends` independently; a chosen order never changes which mood is newest.
+Press and hold a friend card in My circle, then drag and release it over another card.
+Dropping on the upper half inserts before it; the lower half inserts after it. A quiet outline
+marks the destination. A normal tap still opens the friend. VoiceOver offers Move up/down actions.
+There is no Arrange button or separate editing sheet. Native drag recognition leaves ordinary
+scrolling available. Orders save only on a valid drop, so cancellation does not rearrange anything.
+The process-only transfer type and per-view scope reject unrelated drags; missing/departed friend IDs
+are ignored. `CircleState.friendOrder` retains the order across refreshes and app launches.
+New people append after the arranged friends. Widget latest-mood selection remains chronological.
 
 Set `DOTLINGS_CAPTURE_SIGNATURES=1` when running `Tools/check.sh` to render a GIF of all 29
-signature reactions through the same Canvas view used in the app. The native List reorder sheet
-requires an on-device check; SwiftUI ImageRenderer cannot capture its UIKit-backed controls.
+signature reactions through the same Canvas view used in the app. Physical iPhone testing is
+still needed to assess native drag lift, scrolling, cancellation and drop feel.
+
+The custom drag type is declared in the app Info.plist, as required by Apple’s
+[CodableRepresentation documentation](https://developer.apple.com/documentation/coretransferable/codablerepresentation).

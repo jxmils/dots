@@ -18,5 +18,10 @@
 <key>UIBackgroundModes</key><array><string>remote-notification</string></array>
 <key>CFBundleURLTypes</key><array><dict><key>CFBundleURLSchemes</key><array><string>dots</string></array></dict></array>
 <key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
+<key>UTExportedTypeDeclarations</key><array><dict>
+<key>UTTypeIdentifier</key><string>com.jasonmiller.dots.friend-order</string>
+<key>UTTypeDescription</key><string>Dotlings friend order</string>
+<key>UTTypeConformsTo</key><array><string>public.data</string></array>
+</dict></array>
 <key>ITSAppUsesNonExemptEncryption</key><false/>
 </dict></plist>

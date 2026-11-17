@@ -229,8 +229,8 @@ final class CircleModel {
         } catch { self.error = "The invitation couldn't be accepted: \(error.localizedDescription)" }
     }
 
-    func arrangeFriends(_ ids: [String]) {
-        guard storageAvailable else { return }
+    @discardableResult func arrangeFriends(_ ids: [String]) -> Bool {
+        guard storageAvailable else { return false }
         var updated = state
         updated.arrangeFriends(ids)
         do {
@@ -238,7 +238,14 @@ final class CircleModel {
             state = updated
         } catch {
             self.error = "Your friend order couldn't be saved. Please try again."
+            return false
         }
+        return true
+    }
+
+    @discardableResult func moveFriend(_ id: String, relativeTo target: String, after: Bool) -> Bool {
+        guard let order = state.friendOrder(moving: id, relativeTo: target, after: after) else { return false }
+        return arrangeFriends(order)
     }
 
     func unlockOwnerCollection(code: String) -> Bool {

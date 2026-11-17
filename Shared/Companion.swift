@@ -165,6 +165,14 @@ struct CircleState: Codable, Equatable {
         var seen = Set<String>()
         friendOrder = (ids + sortedFriends.map(\.id)).filter { existing.contains($0) && seen.insert($0).inserted }
     }
+    func friendOrder(moving id: String, relativeTo target: String, after: Bool) -> [String]? {
+        var ids = sortedFriends.map(\.id)
+        guard id != target, let source = ids.firstIndex(of: id), ids.contains(target) else { return nil }
+        ids.remove(at: source)
+        guard let destination = ids.firstIndex(of: target) else { return nil }
+        ids.insert(id, at: destination + (after ? 1 : 0))
+        return ids
+    }
     func widgetFriend(mode: WidgetMode? = nil, friendID: String? = nil) -> Companion? {
         if let friendID { return friends.first { $0.id == friendID } }
         switch mode ?? widgetMode {
