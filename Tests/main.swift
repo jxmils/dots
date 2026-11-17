@@ -137,6 +137,20 @@ import CloudKit
         precondition(full.eggs.count == CompanionKind.allCases.count - 1, "The milestone schedule must supply every remaining creature")
         while let kind = full.unowned.first { precondition(full.hatch(kind, free: false)) }
         precondition(Set(full.owned).count == CompanionKind.allCases.count && full.eggs.isEmpty, "All reward hatches must be new creatures")
+        var ownerCollection = progress
+        ownerCollection.names[CompanionKind.pillow.rawValue] = "Cloud"
+        ownerCollection.completeCollection()
+        precondition(ownerCollection.isComplete && ownerCollection.eggs.isEmpty)
+        precondition(ownerCollection.names[CompanionKind.pillow.rawValue] == "Cloud")
+        precondition(ownerCollection.earnedMilestones == progress.earnedMilestones
+                     && ownerCollection.streak == progress.streak
+                     && ownerCollection.restoresUsed == progress.restoresUsed,
+                     "Completing the collection must not add streak credit or spend a restore")
+        for day in 20...24 { ownerCollection.checkIn(on: day) }
+        precondition(ownerCollection.earnedMilestones.contains(10) && ownerCollection.eggs.isEmpty,
+                     "A full collection still records later milestones without adding an egg")
+        let wrongCode = CircleModel(previewState: quietState)
+        precondition(!wrongCode.unlockOwnerCollection(code: "invalid") && wrongCode.state == quietState)
         let namingStore = CircleStore(root: root.appendingPathComponent("names"))
         var namingState = CircleState(companion: a)
         namingState.collection.names[a.kind.rawValue] = a.petName

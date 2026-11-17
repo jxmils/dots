@@ -37,6 +37,7 @@ struct CollectionProgress: Codable, Equatable {
         guard let last = lastCheckInDay, day <= last + 1 else { return 0 }
         return streak
     }
+    var isComplete: Bool { unowned.isEmpty }
     var nextMilestone: Int? { Self.milestones.first { !earnedMilestones.contains($0) } }
 
     @discardableResult mutating func checkIn(on day: Int, restore: Bool = false) -> Int? {
@@ -49,11 +50,7 @@ struct CollectionProgress: Codable, Equatable {
         lastCheckInDay = day
         totalDays += 1
         bestStreak = max(bestStreak, streak)
-        if Self.milestones.contains(streak), !earnedMilestones.contains(streak), owned.count + eggs.count < CompanionKind.allCases.count {
-            earnedMilestones.insert(streak)
-            eggs.append(streak)
-            return streak
-        }
+        if Self.milestones.contains(streak), recordMilestone(streak) { return streak }
         return nil
     }
     // Count every real check-in immediately, without prompting about a missed day.
@@ -79,12 +76,25 @@ struct CollectionProgress: Codable, Equatable {
         restorableStreak = nil
         // Catch up rewards crossed by actual check-ins since the most recent gap.
         for milestone in Self.milestones where milestone > previous && milestone <= streak {
-            if !earnedMilestones.contains(milestone), owned.count + eggs.count < CompanionKind.allCases.count {
-                earnedMilestones.insert(milestone)
-                eggs.append(milestone)
-            }
+            recordMilestone(milestone)
         }
         return true
+    }
+
+    // Reaching a streak milestone and receiving an egg are separate events when the collection is full.
+    @discardableResult private mutating func recordMilestone(_ milestone: Int) -> Bool {
+        guard earnedMilestones.insert(milestone).inserted,
+              owned.count + eggs.count < CompanionKind.allCases.count else { return false }
+        eggs.append(milestone)
+        return true
+    }
+
+    mutating func completeCollection() {
+        for kind in unowned {
+            owned.append(kind)
+            names[kind.rawValue] = names[kind.rawValue] ?? kind.defaultName
+        }
+        eggs.removeAll()
     }
 
     var displayOrder: [CompanionKind] { owned + unowned }

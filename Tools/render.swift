@@ -116,6 +116,11 @@ import CoreText
         }
         try save(phone(.pillow, tab: .widget), to: out.appendingPathComponent("widgets.png"))
         try save(phone(.pillow, tab: .collection), to: out.appendingPathComponent("collection.png"))
+        var milestonePreview = state(.pillow).collection
+        milestonePreview.eggs = [10]
+        try save(StreakMilestoneTimeline(progress: milestonePreview).padding(24)
+            .frame(width: 402).foregroundStyle(DotsStyle.ink).tint(DotsStyle.plum).background(DotsStyle.paper),
+            to: out.appendingPathComponent("streak-milestones.png"))
         try save(HatchingView(free: true).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874), to: out.appendingPathComponent("hatching.png"))
         for stage in [EggStage.awake, .firstCrack, .secondCrack, .lifting, .parting] {
             try save(HatchingView(free: true, previewStage: stage).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874),

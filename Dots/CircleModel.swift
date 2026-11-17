@@ -1,6 +1,7 @@
 import Foundation
 import Observation
 import CloudKit
+import CryptoKit
 import WidgetKit
 import UIKit
 
@@ -226,6 +227,24 @@ final class CircleModel {
             persist()
             await refresh()
         } catch { self.error = "The invitation couldn't be accepted: \(error.localizedDescription)" }
+    }
+
+    func unlockOwnerCollection(code: String) -> Bool {
+        guard TestBuild.hasLocalTools, storageAvailable, state.companion != nil else { return false }
+        let normalized = code.lowercased().filter { !$0.isWhitespace && $0 != "-" }
+        let digest = SHA256.hash(data: Data(normalized.utf8)).map { String(format: "%02x", $0) }.joined()
+        guard digest == "f946e27586a11014aba3aaded3c67ee2153692b1ce5b6c6fbd1a347fe7d6ccb3" else { return false }
+
+        var updated = state
+        updated.collection.completeCollection()
+        do {
+            if !preview { try store.save(updated) }
+            state = updated
+            return true
+        } catch {
+            self.error = "Your collection couldn't be saved. Please try again."
+            return false
+        }
     }
 
     func addTestFriend() {

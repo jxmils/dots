@@ -77,17 +77,22 @@ struct Companion: Codable, Identifiable, Equatable {
     var recordName: String?
 }
 
-// Local-only test data. Never published to CloudKit or added on a fresh install.
-enum TestFriend {
-    static let id = "dotlings-local-test-friend"
-    static let interval: TimeInterval = 30
-    static var available: Bool {
+enum TestBuild {
+    static var hasLocalTools: Bool {
         #if DEBUG
         return true
         #else
         return Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
         #endif
     }
+}
+
+// Local-only test data. Never published to CloudKit or added on a fresh install.
+enum TestFriend {
+    static let id = "dotlings-local-test-friend"
+    static let interval: TimeInterval = 30
+    static var available: Bool { TestBuild.hasLocalTools }
+
     static func companion(startedAt: Date, now: Date) -> Companion {
         let step = floor(max(0, now.timeIntervalSince(startedAt)) / interval)
         let mood = Mood.allCases[Int(step.truncatingRemainder(dividingBy: Double(Mood.allCases.count)))]

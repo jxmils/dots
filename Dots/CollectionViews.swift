@@ -219,12 +219,22 @@ struct HatchingView: View {
 struct CollectionView: View {
     @Environment(CircleModel.self) private var model
     @State private var selected: CompanionKind?
+    @State private var showOwnerUnlock = false
+    @State private var ownerCode = ""
+    @State private var ownerCodeError = false
     var body: some View {
         let progress = model.state.collection
         let streak = progress.currentStreak(on: CheckInDay.number(Date()))
         VStack(alignment: .leading, spacing: 22) {
             Text("Dotling collection").font(DotsStyle.round(32, weight: .bold)).padding(.top, 20)
-            Text("Little by little · \(progress.owned.count) of \(CompanionKind.allCases.count)")
+                .contentShape(Rectangle())
+                .onLongPressGesture(minimumDuration: 3) {
+                    guard TestBuild.hasLocalTools, !progress.isComplete else { return }
+                    ownerCode = ""
+                    ownerCodeError = false
+                    showOwnerUnlock = true
+                }
+            Text("\(progress.isComplete ? "Collection complete" : "Little by little") · \(progress.owned.count) of \(CompanionKind.allCases.count)")
                 .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
             Text("Choose an owned companion as your profile Dotling. It's who your friends will see.")
                 .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
@@ -245,7 +255,7 @@ struct CollectionView: View {
                     }.font(DotsStyle.round(14, weight: .bold)).padding(19).foregroundStyle(.white).background(DotsStyle.plum, in: RoundedRectangle(cornerRadius: 22))
                 }
             }
-            if let next = progress.nextMilestone {
+            if !progress.isComplete, let next = progress.nextMilestone {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Next hatch: \(next) days").font(DotsStyle.round(16, weight: .bold))
                     DotsProgress(value: Double(min(streak, next)), total: Double(next), label: "Next companion reward")
@@ -279,8 +289,36 @@ struct CollectionView: View {
                         .accessibilityLabel(owned ? "\(kind.title), owned" : "Mystery Dotling, locked")
                 }
             }
-            Text("Milestones: " + CollectionProgress.milestones.map(String.init).joined(separator: ", ") + " days. Each unlocks once. Earned creatures and eggs stay yours after a missed day.")
-                .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
+            StreakMilestoneTimeline(progress: progress)
+        }
+        .sheet(isPresented: $showOwnerUnlock) {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Owner collection").font(DotsStyle.round(24, weight: .bold))
+                SecureField("Enter your owner code", text: $ownerCode)
+                    .textContentType(nil)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    .textFieldStyle(.roundedBorder)
+                if ownerCodeError {
+                    Text(model.error ?? "That code doesn't match.").font(DotsStyle.round(13))
+                        .foregroundStyle(DotsStyle.muted)
+                }
+                Button("Unlock all Dotlings") {
+                    if model.unlockOwnerCollection(code: ownerCode) {
+                        ownerCode = ""
+                        showOwnerUnlock = false
+                    } else {
+                        ownerCodeError = true
+                    }
+                }
+                .font(DotsStyle.round(15, weight: .bold))
+                .disabled(ownerCode.isEmpty)
+                Button("Cancel") { showOwnerUnlock = false }
+                    .font(DotsStyle.round(13))
+            }
+            .padding(24)
+            .presentationDetents([.medium])
+            .presentationBackground(DotsStyle.paper)
         }
         .sheet(item: $selected) { kind in
             VStack(spacing: 20) {
@@ -302,6 +340,63 @@ struct CollectionView: View {
             Text(value).font(DotsStyle.round(24, weight: .bold))
             Text(label).font(DotsStyle.round(8)).foregroundStyle(DotsStyle.muted)
         }
+    }
+}
+
+struct StreakMilestoneTimeline: View {
+    let progress: CollectionProgress
+    @State private var expanded = false
+
+    var body: some View {
+        let milestones = CollectionProgress.milestones
+        let nextIndex = milestones.firstIndex { $0 == progress.nextMilestone } ?? milestones.count
+        let start = min(max(0, nextIndex - 2), milestones.count - 4)
+        let visible = expanded ? milestones : Array(milestones[start..<(start + 4)])
+        VStack(alignment: .leading, spacing: 14) {
+            Text("Streak milestones").font(DotsStyle.round(16, weight: .bold))
+                .accessibilityAddTraits(.isHeader)
+            VStack(spacing: 0) {
+                ForEach(visible, id: \.self) { day in
+                    row(day, connectsToNext: day != visible.last)
+                }
+            }
+            Button {
+                expanded.toggle()
+            } label: {
+                Label(expanded ? "Show fewer milestones" : "See all milestones",
+                      systemImage: expanded ? "chevron.up" : "chevron.down")
+                    .font(DotsStyle.round(13, weight: .semibold))
+            }
+        }
+        .padding(19)
+        .background(.white.opacity(0.8), in: RoundedRectangle(cornerRadius: 22))
+    }
+
+    private func row(_ day: Int, connectsToNext: Bool) -> some View {
+        let earned = progress.earnedMilestones.contains(day)
+        let isNext = day == progress.nextMilestone
+        let status = if progress.eggs.contains(day) { "Ready to hatch" }
+                     else if earned { "Reached" }
+                     else if isNext { "Next" }
+                     else { "Upcoming" }
+        let color = earned || isNext ? DotsStyle.plum : DotsStyle.muted
+        return HStack(spacing: 12) {
+            Image(systemName: earned ? "checkmark.circle.fill" : isNext ? "circle.inset.filled" : "circle")
+                .font(.system(size: 17, weight: .medium))
+                .frame(width: 24, height: 42)
+                .foregroundStyle(color)
+                .background(alignment: .bottom) {
+                    if connectsToNext {
+                        Rectangle().fill(DotsStyle.plum.opacity(0.15))
+                            .frame(width: 1, height: 21).offset(y: 10)
+                    }
+                }
+                .accessibilityHidden(true)
+            Text("\(day) days").font(DotsStyle.round(14, weight: .semibold))
+            Spacer(minLength: 6)
+            Text(status).font(DotsStyle.round(12)).foregroundStyle(color)
+        }
+        .accessibilityElement(children: .combine)
     }
 }
 
