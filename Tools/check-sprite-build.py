@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check the app and widget actually compile and bundle the 2D artwork."""
 import json
+import hashlib
 import plistlib
 from pathlib import Path
 import struct
@@ -42,3 +43,17 @@ strip = ROOT / "Resources/CompanionDuskBlink.png"
 assert struct.unpack(">II", strip.read_bytes()[16:24]) == (3072, 512)
 assert strip.read_bytes() == (ROOT / "Art/Dusk/SpriteTrial/idle.png").read_bytes(), "Dusk export differs from retained source"
 print("App and widget use only 2D sources, bundle every sprite, and include Dusk's retained strip")
+
+egg = json.loads((ROOT / "Art/EggHatch/v001/verification.json").read_text())
+kinds = {c['id'] for c in json.loads((ROOT / "Art/CollectionMotion/v001/catalog.json").read_text())}
+assert set(egg['characters']) == kinds, "Every awarded kind needs its own hatch artwork"
+for kind, record in egg['characters'].items():
+    path = ROOT / 'Resources' / record['asset']
+    data = path.read_bytes()
+    assert struct.unpack('>II', data[16:24]) == (6144, 600), kind
+    assert hashlib.sha256(data).hexdigest() == record['output_sha256'], f"{kind}: hatch export differs from retained source"
+for name, key in [('EggWakingStrip', 'waking_sha256'), ('EggCrackingStrip', 'cracking_sha256')]:
+    data = (ROOT / 'Resources' / (name + '.png')).read_bytes()
+    assert struct.unpack('>II', data[16:24]) == (3072, 600), name
+    assert hashlib.sha256(data).hexdigest() == egg[key], name
+print("All 29 personalized hatches and the approved shared egg strips are bundled and hash-verified")

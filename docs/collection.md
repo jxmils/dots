@@ -2,6 +2,10 @@
 
 There are 29 creatures with six expressions each. The first random creature is free. The user warms an
 egg by rubbing, then taps three times to reveal it. VoiceOver actions provide the same path without rubbing.
+The approved plush egg wakes and cracks, then plays a character-specific reveal for the awarded
+Dotling. The award is saved before playback, and the same creature remains in the shell on the naming
+screen. All 29 kinds have their own reveal. Reduce Motion skips rocking and rising; no haptics are used.
+Production sources, timings and export instructions are recorded in `Art/EggHatch/v001/README.md`.
 The reveal prefills a default creature name, which can be changed before taking them home. Names can
 also be edited in Settings and are remembered separately for each owned creature. Blank input keeps
 the default name. No hatch can duplicate an owned creature. Any owned creature can be selected from Collection with Make this my Dot. This sets the profile Dot,

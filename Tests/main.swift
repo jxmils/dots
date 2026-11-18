@@ -387,19 +387,43 @@ import CloudKit
                              "Every Dusk mood must retain its own supported touch sequence")
             }
         }
-        for stage in EggStage.allCases {
-            guard let cg = CompanionArt.eggImage(stage)?.cgImage else { fatalError("Missing egg frame \(stage)") }
-            precondition(cg.width == 512 && cg.height == 512, "Egg frames must keep a fixed canvas")
-            let raw = UnsafeMutablePointer<UInt8>.allocate(capacity: 512 * 512 * 4)
-            raw.initialize(repeating: 0, count: 512 * 512 * 4)
-            defer { raw.deallocate() }
-            let context = CGContext(data: raw, width: 512, height: 512, bitsPerComponent: 8, bytesPerRow: 2048,
-                                    space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
-            context.draw(cg, in: CGRect(x: 0, y: 0, width: 512, height: 512))
-            for corner in [0, 511, 511 * 512, 512 * 512 - 1] { precondition(raw[corner * 4 + 3] <= 5, "Egg corners must be transparent") }
-            precondition((0..<(512 * 512)).filter { raw[$0 * 4 + 3] > 200 }.count > 10000, "Each egg stage must contain visible artwork")
+        let sharedEgg = CompanionArt.eggFrames()
+        precondition(sharedEgg.count == 12, "A closed egg must not choose a placeholder pet")
+        for stage in EggStage.allCases where stage.needsCompanion {
+            precondition(CompanionArt.eggImage(stage) == nil, "An open egg requires its actual awarded Dotling")
         }
-        print("Egg warming, three-tap reveal, repeat-tap protection and all 12 egg images passed")
+        var finalPortraits = Set<Data>()
+        var hatchAssets = Set<String>()
+        for kind in CompanionKind.allCases {
+            autoreleasepool {
+                let frames = CompanionArt.eggFrames(kind: kind)
+                precondition(frames.count == 24, "Every awarded Dotling needs a complete hatch: \(kind)")
+                hatchAssets.insert(EggStage.nest.asset(for: kind)!)
+                finalPortraits.insert(frames.last!.pngData()!)
+                precondition(frames[11].pngData() == frames[12].pngData(), "The shell must share exact pixels at the opening join")
+                precondition(frames[17].pngData() == frames[18].pngData(), "The pet peek must share exact pixels at the reveal join")
+                for (index, image) in frames.enumerated() {
+                    guard let cg = image.cgImage else { fatalError("Undecodable egg frame") }
+                    precondition(cg.width == 512 && cg.height == 600, "Egg frames must keep the approved fixed canvas")
+                    var raw = [UInt8](repeating: 0, count: 512 * 600 * 4)
+                    raw.withUnsafeMutableBytes { bytes in
+                        let context = CGContext(data: bytes.baseAddress, width: 512, height: 600, bitsPerComponent: 8, bytesPerRow: 2048,
+                                                space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+                        context.draw(cg, in: CGRect(x: 0, y: 0, width: 512, height: 600))
+                    }
+                    for corner in [0, 511, 599 * 512, 512 * 600 - 1] { precondition(raw[corner * 4 + 3] <= 5, "Egg corners must be transparent") }
+                    precondition((0..<(512 * 600)).filter { raw[$0 * 4 + 3] > 200 }.count > 10000, "Empty hatch pose: \(kind)/\(index)")
+                }
+            }
+        }
+        precondition(hatchAssets.count == CompanionKind.allCases.count && finalPortraits.count == CompanionKind.allCases.count,
+                     "Every Dotling must have its own reveal, never a shared Lavender placeholder")
+        for reduced in [false, true] {
+            let sequence = EggStage.ceremony(reduceMotion: reduced)
+            precondition(sequence.last?.stage == .nest && sequence.allSatisfy { $0.milliseconds > 0 })
+            if reduced { precondition(sequence.count == 2, "Reduce Motion must skip rocking and rising") }
+        }
+        print("Egg warming, three-tap reveal, repeat-tap protection, exact joins and all 29 character hatches passed")
         precondition(CompanionTouchLayout.frames.count == CompanionKind.allCases.count, "Every pet needs aligned touch artwork")
         for kind in CompanionKind.allCases {
             guard let layout = CompanionTouchLayout.frames[kind.touchAsset] else { fatalError("Missing touch layout") }

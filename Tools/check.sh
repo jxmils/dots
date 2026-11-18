@@ -41,6 +41,9 @@ else
   if [[ "${DOTLINGS_CAPTURE_SIGNATURES:-0}" == "1" ]]; then
     DOTLINGS_SIGNATURE_PREVIEW=1 "$TMP/render" "$OUT"
   fi
+  if [[ "${DOTLINGS_CAPTURE_HATCH:-0}" == "1" ]]; then
+    DOTLINGS_HATCH_PREVIEW=1 "$TMP/render" "$OUT"
+  fi
   test -s "$OUT/preview.png"
 fi
 test -s Dots/Assets.xcassets/AppIcon.appiconset/AppIcon.png

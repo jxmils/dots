@@ -16,6 +16,32 @@ import CoreText
         try FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
         CTFontManagerRegisterFontsForURL(URL(fileURLWithPath: "Brand/Fonts/Nunito-ExtraBold.ttf") as CFURL, .process, nil)
         CompanionArt.directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("Resources")
+        if ProcessInfo.processInfo.environment["DOTLINGS_HATCH_PREVIEW"] == "1" {
+            let kinds: [CompanionKind] = [.lavender, .dusk, .bonsai, .coconut]
+            let frames = kinds.map { CompanionArt.eggFrames(kind: $0) }
+            let stages = [0,1,2,3,4,5,7,8,9,10,11,13,14,15,16,17,19,20,21,22,23]
+            let delays: [Double] = [1,0.18,0.14,0.14,0.18,0.5,0.26,0.24,0.26,0.18,0.25,0.16,0.16,0.16,0.18,0.38,0.16,0.16,0.25,0.17,1.6]
+            let url = out.appendingPathComponent("hatching-in-app.gif")
+            guard let gif = CGImageDestinationCreateWithURL(url as CFURL, UTType.gif.identifier as CFString, stages.count, nil) else { fatalError("GIF unavailable") }
+            CGImageDestinationSetProperties(gif, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFLoopCount: 0]] as CFDictionary)
+            for (index, stage) in stages.enumerated() {
+                let scene = HStack(spacing: 0) {
+                    ForEach(kinds.indices, id: \.self) { i in
+                        VStack(spacing: 0) {
+                            EggArtwork(stage: EggStage(rawValue: stage)!, kind: kinds[i], frames: frames[i]).frame(width: 256, height: 300)
+                            Text(kinds[i].defaultName).font(DotsStyle.round(17, weight: .bold))
+                        }.padding(.bottom, 16)
+                    }
+                }.foregroundStyle(DotsStyle.ink).background(DotsStyle.paper)
+                let renderer = ImageRenderer(content: scene)
+                renderer.scale = 1
+                guard let frame = renderer.cgImage else { fatalError("Hatch render failed") }
+                CGImageDestinationAddImage(gif, frame, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: delays[index]]] as CFDictionary)
+            }
+            precondition(CGImageDestinationFinalize(gif))
+            print("Rendered the approved hatch with four actual awarded Dotlings through EggArtwork")
+            return
+        }
         if ProcessInfo.processInfo.environment["DOTLINGS_SIGNATURE_PREVIEW"] == "1" {
             let kinds = CompanionKind.allCases
             let images = kinds.map { CompanionArt.displayImage(.calm, kind: $0)! }
@@ -57,9 +83,9 @@ import CoreText
             let artwork = kinds.map { kind in
                 [CompanionArt.image(.happy, kind: kind)!] + (0..<6).map { CompanionArt.touchImage($0, kind: kind)! }
             }
-            let eggs = EggStage.allCases.map { CompanionArt.eggImage($0)! }
+            let eggs = CompanionArt.eggFrames(kind: .lavender)
             var pet = SpritePlayback(count: 7)
-            var egg = SpritePlayback(count: 12, restingFrame: EggStage.awake.rawValue)
+            var egg = SpritePlayback(count: EggStage.allCases.count, restingFrame: EggStage.awake.rawValue)
             pet.play(CompanionMotion.rub, interval: CompanionMotion.rubInterval, repeats: true, at: 0)
             egg.play([3, 2, 4, 2], interval: 0.11, repeats: true, at: 0)
             for tick in 0..<180 {
@@ -159,14 +185,14 @@ import CoreText
             to: out.appendingPathComponent("streak-milestones.png"))
         try save(HatchingView(free: true).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874), to: out.appendingPathComponent("hatching.png"))
         for stage in [EggStage.awake, .firstCrack, .secondCrack, .lifting, .parting] {
-            try save(HatchingView(free: true, previewStage: stage).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874),
+            try save(HatchingView(free: true, previewStage: stage, previewKind: .lavender).environment(CircleModel(previewState: CircleState())).frame(width: 402, height: 874),
                      to: out.appendingPathComponent("hatching-stage-\(stage.rawValue).png"))
         }
         let eggFrames = VStack(spacing: 8) {
-            ForEach(0..<2) { row in
+            ForEach(0..<4) { row in
                 HStack(spacing: 8) {
                     ForEach(0..<6) { column in
-                        EggArtwork(stage: EggStage(rawValue: row * 6 + column)!).frame(width: 160, height: 160)
+                        EggArtwork(stage: EggStage(rawValue: row * 6 + column)!, kind: .lavender).frame(width: 160, height: 160)
                     }
                 }
             }

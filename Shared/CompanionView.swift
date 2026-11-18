@@ -108,12 +108,14 @@ enum CompanionArt {
         frame(index, asset: motion.asset(for: kind), columns: motion.durations.count, rows: 1)
     }
     static func motionFrames(_ motion: DotlingAnimation, kind: CompanionKind) -> [UIImage] {
-        let asset = motion.asset(for: kind)
+        stripFrames(asset: motion.asset(for: kind), columns: motion.durations.count)
+    }
+    private static func stripFrames(asset: String, columns: Int) -> [UIImage] {
         let url = directory?.appendingPathComponent(asset + ".png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png", subdirectory: "Resources")
         guard let url, let data = try? Data(contentsOf: url), let source = UIImage(data: data)?.cgImage,
-              source.width % motion.durations.count == 0 else { return [] }
+              source.width % columns == 0 else { return [] }
         // ImageIO crops can retain a lazy PNG provider. Decode the whole strip
         // once so individual frames never re-read or re-decompress the file.
         guard let atlasContext = CGContext(data: nil, width: source.width, height: source.height,
@@ -122,8 +124,8 @@ enum CompanionArt {
                                            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return [] }
         atlasContext.draw(source, in: CGRect(x: 0, y: 0, width: source.width, height: source.height))
         guard let decoded = atlasContext.makeImage() else { return [] }
-        let width = source.width / motion.durations.count, height = source.height
-        return motion.durations.indices.compactMap { index in
+        let width = source.width / columns, height = source.height
+        return (0..<columns).compactMap { index in
             guard let cell = decoded.cropping(to: CGRect(x: index * width, y: 0, width: width, height: height)),
                   let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8,
                                           bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(),
@@ -132,8 +134,18 @@ enum CompanionArt {
             return context.makeImage().map { UIImage(cgImage: $0) }
         }
     }
-    static func eggImage(_ stage: EggStage) -> UIImage? {
-        frame(stage.frame, asset: stage.asset)
+    static func eggImage(_ stage: EggStage, kind: CompanionKind? = nil) -> UIImage? {
+        guard let asset = stage.asset(for: kind) else { return nil }
+        return frame(stage.frame, asset: asset, columns: stage.columns, rows: 1)
+    }
+    static func eggFrames(kind: CompanionKind? = nil) -> [UIImage] {
+        let waking = stripFrames(asset: "EggWakingStrip", columns: 6)
+        let cracking = stripFrames(asset: "EggCrackingStrip", columns: 6)
+        guard waking.count == 6, cracking.count == 6 else { return [] }
+        guard let kind, let asset = EggStage.nest.asset(for: kind) else { return waking + cracking }
+        let reveal = stripFrames(asset: asset, columns: 12)
+        guard reveal.count == 12 else { return [] }
+        return waking + cracking + reveal
     }
     private static func frame(_ index: Int, asset: String, columns: Int = 3, rows: Int = 2) -> UIImage? {
         guard (0..<(columns * rows)).contains(index) else { return nil }

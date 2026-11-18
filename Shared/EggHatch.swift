@@ -1,11 +1,28 @@
 import SwiftUI
 
 enum EggStage: Int, CaseIterable {
-    case sleeping, warming, awake, stirringLeft, stirringRight, firstCrack
-    case secondCrack, gatheringLight, opening, lifting, parting, nest
+    case sleeping, stirringLeft, warming, stirringRight, awake, awakeSettled
+    case crackStart, firstCrack, crackGrowing, secondCrack, gatheringLight, capLoosened
+    case hatchStart, tuft, opening, lifting, parting, peeking
+    case revealStart, rising, smiling, armsOut, blink, nest
 
-    var asset: String { rawValue < 6 ? "EggWakeAtlas" : "EggOpenAtlas" }
-    var frame: Int { rawValue % 6 }
+    var needsCompanion: Bool { rawValue >= EggStage.hatchStart.rawValue }
+    var frame: Int { needsCompanion ? rawValue - EggStage.hatchStart.rawValue : rawValue % 6 }
+    var columns: Int { needsCompanion ? 12 : 6 }
+    func asset(for kind: CompanionKind?) -> String? {
+        if rawValue < 6 { return "EggWakingStrip" }
+        if rawValue < 12 { return "EggCrackingStrip" }
+        guard let kind else { return nil }
+        return "EggHatch\(kind.rawValue.prefix(1).uppercased())\(kind.rawValue.dropFirst())Strip"
+    }
+
+    // Authored sprite timing from the approved preview; no geometric deformation.
+    static func ceremony(reduceMotion: Bool) -> [(stage: EggStage, milliseconds: Int)] {
+        if reduceMotion { return [(.capLoosened, 650), (.nest, 1600)] }
+        return [(.gatheringLight, 180), (.capLoosened, 250),
+                (.tuft, 160), (.opening, 160), (.lifting, 160), (.parting, 180), (.peeking, 380),
+                (.rising, 160), (.smiling, 160), (.armsOut, 250), (.blink, 170), (.nest, 1600)]
+    }
 }
 
 struct HatchRitual {
@@ -43,31 +60,33 @@ struct HatchRitual {
 
 struct EggArtwork: View {
     var stage: EggStage
+    var kind: CompanionKind? = nil
+    var frames: [UIImage] = []
     @State private var images: [UIImage] = []
-    @State private var playback = SpritePlayback(count: EggStage.allCases.count)
-    @Environment(\.scenePhase) private var scenePhase
+    @State private var loadedKind: CompanionKind?
+
+    private var image: UIImage? {
+        let available = frames.isEmpty && loadedKind == kind ? images : frames
+        if available.indices.contains(stage.rawValue) { return available[stage.rawValue] }
+        return CompanionArt.eggImage(stage, kind: kind)
+            ?? CompanionArt.eggImage(.capLoosened)
+    }
 
     var body: some View {
         Group {
-            if images.count == EggStage.allCases.count {
-                PlayingSprite(images: images, playback: playback)
-            } else if let image = CompanionArt.eggImage(stage) {
+            if let image {
                 Image(uiImage: image).resizable().scaledToFit()
             }
         }
-        .task {
+        .task(id: kind) {
+            guard frames.isEmpty else { return }
+            let requestedKind = kind
             let loaded = await Task.detached(priority: .userInitiated) {
-                EggStage.allCases.compactMap { CompanionArt.eggImage($0) }
+                CompanionArt.eggFrames(kind: requestedKind)
             }.value
             guard !Task.isCancelled else { return }
-            playback = SpritePlayback(count: EggStage.allCases.count, restingFrame: stage.rawValue)
+            loadedKind = requestedKind
             images = loaded
-        }
-        .onChange(of: stage) { _, next in
-            playback.play([next.rawValue], interval: 0.10, at: ProcessInfo.processInfo.systemUptime)
-        }
-        .onChange(of: scenePhase) { _, phase in
-            if phase != .active { playback = SpritePlayback(count: EggStage.allCases.count, restingFrame: stage.rawValue) }
         }
         .transaction { $0.animation = nil }.accessibilityHidden(true)
     }
@@ -75,11 +94,9 @@ struct EggArtwork: View {
 
 struct HatchPortrait: View {
     var kind: CompanionKind
+    var frames: [UIImage] = []
     var body: some View {
-        ZStack {
-            CompanionView(mood: .happy, kind: kind, animate: true)
-                .frame(width: 230, height: 230).offset(y: -18)
-            EggArtwork(stage: .nest).allowsHitTesting(false)
-        }.frame(width: 320, height: 320)
+        EggArtwork(stage: .nest, kind: kind, frames: frames)
+            .frame(width: 320, height: 320).allowsHitTesting(false)
     }
 }

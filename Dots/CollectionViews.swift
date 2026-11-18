@@ -9,6 +9,7 @@ struct HatchingView: View {
     var onFinish: (() -> Void)?
     var previewRevealed: CompanionKind?
     var previewStage: EggStage?
+    var previewKind: CompanionKind?
     @State private var owner = ""
     @State private var petName = ""
     @State private var ritual = HatchRitual()
@@ -19,6 +20,7 @@ struct HatchingView: View {
     @State private var shakeTask: Task<Void, Never>?
     @State private var hatchTask: Task<Void, Never>?
     @State private var pendingKind: CompanionKind?
+    @State private var hatchFrames: [UIImage] = []
     @State private var strokeDistance: CGFloat = 0
     @State private var revealed: CompanionKind?
     @FocusState private var nameFocused: Bool
@@ -29,7 +31,9 @@ struct HatchingView: View {
     }
     private var taps: Int {
         guard model.preview, let previewStage else { return ritual.cracks }
-        return previewStage.rawValue < 5 ? 0 : min(3, previewStage.rawValue - 4)
+        if previewStage.rawValue >= EggStage.gatheringLight.rawValue { return 3 }
+        if previewStage.rawValue >= EggStage.secondCrack.rawValue { return 2 }
+        return previewStage.rawValue >= EggStage.firstCrack.rawValue ? 1 : 0
     }
     private var ready: Bool { warmth >= 1 }
     private var opening: Bool { ritual.isOpening || (model.preview && (previewStage?.rawValue ?? 0) >= EggStage.gatheringLight.rawValue) }
@@ -62,7 +66,7 @@ struct HatchingView: View {
             if let revealed = revealed ?? (model.preview ? previewRevealed : nil) {
                 Text("Hello, little one.").font(DotsStyle.round(34, weight: .bold)).multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
-                HatchPortrait(kind: revealed).transition(.opacity)
+                HatchPortrait(kind: revealed, frames: hatchFrames).transition(.opacity)
                 Text("Meet \(revealed.defaultName)").font(DotsStyle.round(27, weight: .bold))
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Their little name").font(DotsStyle.round(12, weight: .semibold)).foregroundStyle(DotsStyle.muted)
@@ -90,13 +94,8 @@ struct HatchingView: View {
                     .font(DotsStyle.round(32, weight: .bold)).multilineTextAlignment(.center)
                 Text(opening ? "This little moment is yours." : free ? "Your first companion is waiting inside." : "You showed up for yourself. Someone new is waiting.")
                     .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
-                ZStack {
-                    if eggStage == .nest, let pendingKind {
-                        CompanionView(mood: .happy, kind: pendingKind).frame(width: 230, height: 230)
-                            .offset(y: -18).transition(.opacity)
-                    }
-                    EggArtwork(stage: eggStage)
-                }.frame(width: 320, height: 320)
+                EggArtwork(stage: eggStage, kind: pendingKind ?? (model.preview ? previewKind : nil), frames: hatchFrames)
+                    .frame(width: 320, height: 320)
                     .contentShape(Circle())
                     .gesture(DragGesture(minimumDistance: 0)
                         .onChanged { value in
@@ -159,10 +158,10 @@ struct HatchingView: View {
         shakeTask?.cancel()
         guard !reduceMotion, taps == 0, warmth >= 0.7 else { motionFrame = nil; return }
         shakeTask = Task { @MainActor in
-            for frame in [EggStage.stirringLeft, .awake, .stirringRight, .awake] {
+            for frame in [EggStage.stirringLeft, .warming, .stirringRight, .awake, .awakeSettled] {
                 guard !Task.isCancelled else { return }
                 motionFrame = frame
-                try? await Task.sleep(for: .milliseconds(110))
+                try? await Task.sleep(for: .milliseconds(160))
             }
             guard !Task.isCancelled else { return }
             motionFrame = nil
@@ -177,7 +176,20 @@ struct HatchingView: View {
     private func tapEgg() {
         guard canInteract, !opening, revealed == nil else { return }
         nameFocused = false
-        guard ritual.tap() else { shakeShell(force: true); return }
+        guard ritual.tap() else {
+            if ritual.cracks == 2 && !reduceMotion {
+                shakeTask?.cancel()
+                motionFrame = .crackGrowing
+                shakeTask = Task { @MainActor in
+                    try? await Task.sleep(for: .milliseconds(240))
+                    guard !Task.isCancelled else { return }
+                    motionFrame = nil
+                }
+            } else {
+                shakeShell(force: true)
+            }
+            return
+        }
         // Save the creature before its reveal so interruptions cannot lose an earned egg.
         guard let kind = model.hatch(owner: free ? hatchOwner : nil) else {
             ritual.retryOpening()
@@ -189,17 +201,20 @@ struct HatchingView: View {
         petName = kind.defaultName
         ceremonyFrame = .gatheringLight
         hatchTask = Task { @MainActor in
-            let sequence: [(EggStage, Int)] = reduceMotion
-                ? [(.gatheringLight, 650), (.nest, 900)]
-                : [(.gatheringLight, 650), (.opening, 400),
-                   (.lifting, 500), (.parting, 550), (.nest, 900)]
-            for (stage, duration) in sequence {
+            // Decode the awarded character's whole sequence before opening the
+            // shell. Holding these frames prevents disk reads during playback.
+            let loaded = await Task.detached(priority: .userInitiated) {
+                CompanionArt.eggFrames(kind: kind)
+            }.value
+            guard !Task.isCancelled, pendingKind == kind else { return }
+            hatchFrames = loaded
+            guard loaded.count == EggStage.allCases.count else {
+                completeReveal()
+                return
+            }
+            for (stage, duration) in EggStage.ceremony(reduceMotion: reduceMotion) {
                 guard !Task.isCancelled else { return }
-                if stage == .nest {
-                    withAnimation(.easeOut(duration: reduceMotion ? 0.2 : 0.45)) { ceremonyFrame = stage }
-                } else {
-                    ceremonyFrame = stage
-                }
+                ceremonyFrame = stage
                 try? await Task.sleep(for: .milliseconds(duration))
             }
             guard !Task.isCancelled else { return }
