@@ -4,7 +4,7 @@ import UIKit
 enum DotlingAnimation: String, CaseIterable, Identifiable {
     case idle, moveRight, moveLeft, wave, jump, disappointed, waiting, thinking, reviewing, lookAround
     var id: String { rawValue }
-    static let automaticInterval: UInt64 = 10_000_000_000
+    static let automaticInterval: UInt64 = 6_000_000_000
     static func automaticChoices(after previous: Self?) -> [Self] {
         allCases.filter { $0 != previous }
     }
@@ -111,7 +111,7 @@ struct DotlingAnimationView: View {
         }
         .task(id: automaticEmotesEnabled) {
             guard automaticEmotesEnabled else { return }
-            // A separate clock keeps the ten-second cadence independent of an
+            // A separate clock keeps the six-second cadence independent of an
             // emote finishing. Cancellation prevents offscreen/background playback.
             while !Task.isCancelled {
                 do { try await Task.sleep(nanoseconds: DotlingAnimation.automaticInterval) }
@@ -127,7 +127,6 @@ struct DotlingAnimationView: View {
             }
         }
         .contentShape(Ellipse())
-        .onTapGesture(count: 2) { play(.jump) }
         .onTapGesture { playSignature() }
         .simultaneousGesture(DragGesture(minimumDistance: 10)
             .updating($gestureActive) { _, active, _ in active = true }
@@ -135,30 +134,14 @@ struct DotlingAnimationView: View {
                 if !signature { playSignature() }
                 petting = true
             }
-            .onEnded { value in
-                petting = false
-                if abs(value.translation.width) > 60 {
-                    play(value.translation.width > 0 ? .moveRight : .moveLeft)
-                }
-            })
+            .onEnded { _ in petting = false })
         .onChange(of: gestureActive) { _, active in
             if !active && petting { petting = false }
         }
-        .contextMenu {
-            Button(DotlingSignature.reaction(for: kind).title) { playSignature() }
-            ForEach(DotlingAnimation.allCases) { action in
-                Button(action.title) { play(action) }
-            }
-        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(kind.title), feeling \(mood.title.lowercased())")
-        .accessibilityHint("Plays a random emote every ten seconds. Tap for a little reaction, double tap to hop, or rub to pet.")
-        .accessibilityActions {
-            Button(DotlingSignature.reaction(for: kind).title) { playSignature() }
-            ForEach(DotlingAnimation.allCases) { action in
-                Button(action.title) { play(action) }
-            }
-        }
+        .accessibilityHint("Plays a random emote every six seconds. Tap or rub to pet.")
+        .accessibilityAction { playSignature() }
         .task(id: kind) {
             visible = true
             let currentKind = kind, currentMood = mood

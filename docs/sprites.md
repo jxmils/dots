@@ -33,15 +33,13 @@ The older Dusk trial is preserved for provenance. Widgets display still images.
 
 ## Interaction
 
-Tap or rub for the character's signature reaction; double tap to hop and swipe to move.
-The main companion, friend detail, and owned-character detail also play a random
-emote every ten seconds, across every character and mood. Consecutive automatic
-emotes differ. The timer pauses when the view disappears, the app is inactive, or
-Reduce Motion is enabled; it starts a fresh ten-second interval on return. A tick
-during touch, another reaction, or frame decoding is skipped rather than interrupting
-it. Each emote restores the selected mood. Holding remains an optional way to choose
-a particular movement, not a requirement to see the emotes.
-Long press exposes the existing frame-based actions, including Wave.
+Tap or rub for the character's signature reaction. The main companion, friend detail,
+and owned-character detail play a random emote every six seconds across every
+character and mood. The timer is the only way to start a sprite emote. Consecutive
+emotes differ, and each returns to the selected mood. The timer pauses while the
+view is hidden, the app is inactive, or Reduce Motion is enabled. A fresh
+six-second interval starts on return. A tick during petting, another reaction,
+or frame decoding is skipped so the current interaction can finish.
 Signature reactions reuse the registered portrait for the selected mood. Clouds drift, rounded
 characters rock or nod, and Sprout/Bonsai move only their crown. Body scale stays fixed.
 `DotlingSignature.reaction(for:)` contains the per-character name, duration and amplitude for all 29.
