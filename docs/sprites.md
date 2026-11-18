@@ -33,9 +33,9 @@ The older Dusk trial is preserved for provenance. Widgets display still images.
 
 ## Interaction
 
-Tap or rub for the character's signature reaction. The main companion, friend detail,
+Tap for a short blink, swipe left or right for the matching movement, or rub for the character's signature reaction. The main companion, friend detail,
 and owned-character detail play a random emote every six seconds across every
-character and mood. The timer is the only way to start a sprite emote. Consecutive
+character and mood. Holding the companion opens no menu. Consecutive
 emotes differ, and each returns to the selected mood. The timer pauses while the
 view is hidden, the app is inactive, or Reduce Motion is enabled. A fresh
 six-second interval starts on return. A tick during petting, another reaction,
@@ -46,7 +46,7 @@ characters rock or nod, and Sprout/Bonsai move only their crown. Body scale stay
 A sine envelope brings motion and velocity to zero at both ends (1.6–2.7 seconds).
 Crown motion tapers to zero before the face and renders the original texture in pixel-height bands;
 no new images, 3D assets, expression substitutions, scaling, haptics or effects are introduced.
-Repeated taps during a signature do not restart it. Releasing a rub lets it settle naturally.
+Repeated taps during a blink let it finish. Releasing a rub lets it settle naturally.
 The original action strips remain available; they temporarily change pose as before.
 Actions work from every mood and return to that mood when finished. Happy has a continuous idle loop;
 the other five moods use their registered rest portraits between actions. The movement clips are

@@ -30,6 +30,16 @@ enum DotlingAnimation: String, CaseIterable, Identifiable {
         }
     }
     var duration: Double { durations.reduce(0, +) }
+    // The idle strip holds its eyes open at both ends. A tap plays just the blink.
+    static let blinkStart = idle.durations.prefix(2).reduce(0, +)
+    static let blinkDuration = idle.durations[2...4].reduce(0, +)
+
+    static func swipe(translation: CGSize) -> Self? {
+        let distance = abs(translation.width)
+        guard distance >= 40, distance > abs(translation.height) else { return nil }
+        return translation.width > 0 ? .moveRight : .moveLeft
+    }
+
     func asset(for kind: CompanionKind) -> String {
         let character = kind == .dusk ? "Dusk" : kind.rawValue.prefix(1).uppercased() + kind.rawValue.dropFirst()
         return "Companion" + character + "Motion" + rawValue.prefix(1).uppercased() + rawValue.dropFirst()
@@ -71,6 +81,7 @@ struct DotlingAnimationView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var signature = false
     @State private var signatureImage: UIImage?
+    @State private var tapBlink = false
     @State private var motion: DotlingAnimation?
     @State private var idleImages: [UIImage] = []
     @State private var restImage: UIImage?
@@ -92,7 +103,7 @@ struct DotlingAnimationView: View {
                                 paused: !visible || reduceMotion || scenePhase != .active
                                     || (mood != .happy && motion == nil && !signature))) { _ in
             let elapsed = ProcessInfo.processInfo.systemUptime - startedAt
-            let pose = DotlingAnimation.pose(for: motion, mood: mood, elapsed: elapsed,
+            let pose = DotlingAnimation.pose(for: motion, mood: mood, elapsed: elapsed + (tapBlink ? DotlingAnimation.blinkStart : 0),
                                                petting: false, reducedMotion: reduceMotion)
             if signature, let image = signatureImage {
                 DotlingSignatureImage(image: image, reaction: .reaction(for: kind), elapsed: elapsed, reducedMotion: reduceMotion)
@@ -102,7 +113,8 @@ struct DotlingAnimationView: View {
         }
         .task(id: startedAt) {
             guard signature || motion != nil else { return }
-            let duration = signature ? DotlingSignature.reaction(for: kind).duration : motion!.duration
+            let duration = signature ? DotlingSignature.reaction(for: kind).duration
+                : (tapBlink ? DotlingAnimation.blinkDuration : motion!.duration)
             let remaining = max(0, duration - (ProcessInfo.processInfo.systemUptime - startedAt))
             do { try await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000)) }
             catch { return }
@@ -127,21 +139,28 @@ struct DotlingAnimationView: View {
             }
         }
         .contentShape(Ellipse())
-        .onTapGesture { playSignature() }
+        .onTapGesture { blink() }
         .simultaneousGesture(DragGesture(minimumDistance: 10)
             .updating($gestureActive) { _, active, _ in active = true }
             .onChanged { _ in
                 if !signature { playSignature() }
                 petting = true
             }
-            .onEnded { _ in petting = false })
+            .onEnded { value in
+                petting = false
+                if let direction = DotlingAnimation.swipe(translation: value.translation) {
+                    play(direction)
+                }
+            })
         .onChange(of: gestureActive) { _, active in
             if !active && petting { petting = false }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(kind.title), feeling \(mood.title.lowercased())")
-        .accessibilityHint("Plays a random emote every six seconds. Tap or rub to pet.")
-        .accessibilityAction { playSignature() }
+        .accessibilityHint("Plays a random emote every six seconds. Tap to blink, swipe left or right to move, or rub to pet.")
+        .accessibilityAction { blink() }
+        .accessibilityAction(named: "Move left") { play(.moveLeft) }
+        .accessibilityAction(named: "Move right") { play(.moveRight) }
         .task(id: kind) {
             visible = true
             let currentKind = kind, currentMood = mood
@@ -178,8 +197,15 @@ struct DotlingAnimationView: View {
     private func rest() {
         loadingAction?.cancel(); loadingAction = nil; requestID = UUID()
         signature = false; signatureImage = nil
+        tapBlink = false
         motion = nil; actionImages = []
         startedAt = ProcessInfo.processInfo.systemUptime
+    }
+
+    private func blink() {
+        guard !reduceMotion, !tapBlink else { return }
+        play(.idle)
+        tapBlink = true
     }
 
     private func playSignature() {

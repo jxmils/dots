@@ -322,6 +322,13 @@ import CloudKit
         }
         print("All 174 mood portraits match the Happy canvas, envelope, center and resting baseline")
         precondition(DotlingAnimation.allCases.reduce(0) { $0 + $1.durations.count } == 73)
+        precondition(DotlingAnimation.swipe(translation: CGSize(width: -65, height: 5)) == .moveLeft)
+        precondition(DotlingAnimation.swipe(translation: CGSize(width: 45, height: -8)) == .moveRight)
+        precondition(DotlingAnimation.swipe(translation: CGSize(width: 45, height: 60)) == nil)
+        precondition(DotlingAnimation.swipe(translation: CGSize(width: 8, height: 0)) == nil)
+        precondition(DotlingAnimation.idle.frame(at: DotlingAnimation.blinkStart) == 2)
+        precondition(DotlingAnimation.idle.frame(at: DotlingAnimation.blinkStart + 0.08) == 3)
+        precondition(DotlingAnimation.blinkDuration < 0.3)
         precondition(DotlingAnimation.automaticInterval == 6_000_000_000)
         precondition(Set(DotlingAnimation.automaticChoices(after: nil)) == Set(DotlingAnimation.allCases),
                      "Automatic emotes must include every available movement")
