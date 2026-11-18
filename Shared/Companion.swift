@@ -90,7 +90,7 @@ enum TestBuild {
 // Local-only test data. Never published to CloudKit or added on a fresh install.
 enum TestFriend {
     static let id = "dotlings-local-test-friend"
-    static let interval: TimeInterval = 30
+    static let interval: TimeInterval = 5
     static var available: Bool { TestBuild.hasLocalTools }
 
     static func companion(startedAt: Date, now: Date) -> Companion {

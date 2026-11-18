@@ -170,7 +170,7 @@ import CoreText
             testState.friends = []
             testState.cloudEnabled = false
             testState.enableTestFriend(at: now)
-            testState.updateTestFriend(at: now.addingTimeInterval(Double(index) * 30))
+            testState.updateTestFriend(at: now.addingTimeInterval(Double(index) * TestFriend.interval))
             let testModel = CircleModel(previewState: testState)
             try save(CircleView(onFriend: { _ in }).environment(testModel).padding(24)
                 .frame(width: 402).background(DotsStyle.paper),

@@ -248,11 +248,15 @@ final class CircleModel {
         return arrangeFriends(order)
     }
 
-    func unlockOwnerCollection(code: String) -> Bool {
-        guard TestBuild.hasLocalTools, storageAvailable, state.companion != nil else { return false }
+    private func matchesOwnerCode(_ code: String) -> Bool {
         let normalized = code.lowercased().filter { !$0.isWhitespace && $0 != "-" }
         let digest = SHA256.hash(data: Data(normalized.utf8)).map { String(format: "%02x", $0) }.joined()
-        guard digest == "f946e27586a11014aba3aaded3c67ee2153692b1ce5b6c6fbd1a347fe7d6ccb3" else { return false }
+        return digest == "f946e27586a11014aba3aaded3c67ee2153692b1ce5b6c6fbd1a347fe7d6ccb3"
+    }
+
+    func unlockOwnerCollection(code: String) -> Bool {
+        guard TestBuild.hasLocalTools, storageAvailable, state.companion != nil else { return false }
+        guard matchesOwnerCode(code) else { return false }
 
         var updated = state
         updated.collection.completeCollection()
@@ -266,15 +270,26 @@ final class CircleModel {
         }
     }
 
-    func addTestFriend() {
-        guard TestFriend.available, storageAvailable, state.companion != nil else { return }
-        state.enableTestFriend(at: Date())
-        persist()
+    func addTestFriend(ownerCode: String) -> Bool {
+        guard TestFriend.available, storageAvailable, state.companion != nil,
+              matchesOwnerCode(ownerCode) else { return false }
+        var updated = state
+        updated.enableTestFriend(at: Date())
+        do {
+            if !preview { try store.save(updated) }
+            state = updated
+            if !preview { WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
+            return true
+        } catch {
+            self.error = "Sky couldn't be saved on this device. Please try again."
+            return false
+        }
     }
 
     func tickTestFriend() {
-        guard TestFriend.available, state.updateTestFriend(at: Date()) else { return }
-        persist()
+        guard TestFriend.available else { return }
+        // The start time is already saved. Widgets derive the mood when iOS refreshes them.
+        state.updateTestFriend(at: Date())
     }
 
     func remove(_ friend: Companion) async {

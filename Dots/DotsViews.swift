@@ -17,6 +17,7 @@ struct DotsRoot: View {
     @State private var friend: Companion?
     @State private var welcoming = false
     @State private var showTestFriend = false
+    @State private var testFriendCode = ""
     init(tab: DotsTab = .home) { _tab = State(initialValue: tab) }
 
     var body: some View {
@@ -33,7 +34,13 @@ struct DotsRoot: View {
                         }
                         .contentShape(Rectangle())
                         .onLongPressGesture(minimumDuration: 3) {
-                            if TestFriend.available { showTestFriend = true }
+                            guard TestFriend.available else { return }
+                            if model.state.testFriendStartedAt != nil {
+                                tab = .friends
+                            } else {
+                                testFriendCode = ""
+                                showTestFriend = true
+                            }
                         }
                         Spacer()
                         Button { model.showSettings = true } label: {
@@ -70,14 +77,16 @@ struct DotsRoot: View {
         .alert("A little hiccup", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
             Button("OK") { model.error = nil }
         } message: { Text(model.error ?? "") }
-        .confirmationDialog("Your test friend", isPresented: $showTestFriend, titleVisibility: .visible) {
-            if model.state.testFriendStartedAt == nil {
-                Button("Add test friend on this device") { model.addTestFriend(); tab = .friends }
-            } else {
-                Button("Show test friend") { tab = .friends }
+        .alert("Add your test friend", isPresented: $showTestFriend) {
+            SecureField("Owner code", text: $testFriendCode)
+            Button("Cancel", role: .cancel) { testFriendCode = "" }
+            Button("Add Sky") {
+                if model.addTestFriend(ownerCode: testFriendCode) { tab = .friends }
+                else { model.error = "Couldn't add Sky. Check your owner code and try again." }
+                testFriendCode = ""
             }
         } message: {
-            Text("A local test friend cycles through all six moods every 30 seconds while the app is open. It is only added on this device.")
+            Text("Use your collection owner code. Sky changes mood every five seconds on this device while Dotlings is open.")
         }
         .task(id: "\(phase)-\(model.state.testFriendStartedAt?.timeIntervalSince1970 ?? -1)") {
             guard phase == .active, let start = model.state.testFriendStartedAt else { return }
@@ -418,7 +427,7 @@ struct FriendDetail: View {
                 CompanionView(mood: friend.mood, kind: friend.kind, animate: true).frame(width: 240, height: 240)
                 Text(friend.ownerName).font(DotsStyle.round(30, weight: .bold))
                 MoodBadge(mood: friend.mood)
-                Text(friend.id == TestFriend.id ? "Only on this device · changes mood every 30 seconds" : "\(friend.petName) is keeping them company.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
+                Text(friend.id == TestFriend.id ? "Only on this device · changes mood every 5 seconds" : "\(friend.petName) is keeping them company.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
                 HStack { Text(friend.id == TestFriend.id ? "Mood updated" : "Mood shared"); Text(friend.updatedAt, style: .relative) }.font(.caption).foregroundStyle(DotsStyle.muted)
                 Button {
                     model.setWidget(.pinned, pinned: friend.id); dismiss()

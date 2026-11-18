@@ -64,26 +64,27 @@ import CloudKit
         print("Circle arrangement persistence, refresh, migration, latest-widget isolation and 29 reaction boundaries passed")
         var localTest = CircleState(companion: a, friends: [b])
         precondition(localTest.testFriendStartedAt == nil && !localTest.updateTestFriend(at: now))
+        precondition(TestFriend.interval == 5)
         let originalCollection = localTest.collection
         localTest.enableTestFriend(at: now)
         localTest.enableTestFriend(at: now.addingTimeInterval(10))
         precondition(localTest.testFriendStartedAt == now && localTest.friends.count == 2)
-        precondition(!localTest.updateTestFriend(at: now.addingTimeInterval(29.999)))
+        precondition(!localTest.updateTestFriend(at: now.addingTimeInterval(4.999)))
         for (index, mood) in Mood.allCases.enumerated() {
-            localTest.updateTestFriend(at: now.addingTimeInterval(Double(index) * 30))
+            localTest.updateTestFriend(at: now.addingTimeInterval(Double(index) * 5))
             precondition(localTest.friends.first { $0.id == TestFriend.id }?.mood == mood)
         }
-        localTest.updateTestFriend(at: now.addingTimeInterval(180))
+        localTest.updateTestFriend(at: now.addingTimeInterval(30))
         precondition(localTest.friends.first { $0.id == TestFriend.id }?.mood == .happy)
         localTest.pinnedFriendID = TestFriend.id
-        localTest.receiveFriends([b], at: now.addingTimeInterval(210))
+        localTest.receiveFriends([b], at: now.addingTimeInterval(35))
         precondition(localTest.widgetFriend(friendID: TestFriend.id)?.mood == .calm && localTest.pinnedFriendID == TestFriend.id,
                      "Cloud refresh must retain the local test friend and its pin")
         precondition(localTest.companion == a && localTest.collection == originalCollection && !localTest.cloudEnabled,
                      "Test moods must never change the user's mood, rewards or cloud sharing")
         var decodedTest = try JSONDecoder().decode(CircleState.self, from: JSONEncoder().encode(localTest))
         precondition(decodedTest == localTest, "The local opt-in must survive relaunch")
-        decodedTest.updateTestFriend(at: now.addingTimeInterval(3600 + 90))
+        decodedTest.updateTestFriend(at: now.addingTimeInterval(3600 + 15))
         precondition(decodedTest.friends.first { $0.id == TestFriend.id }?.mood == .sad,
                      "After a suspension, use elapsed time rather than replaying missed ticks")
         decodedTest.removeFriend(TestFriend.id)
@@ -92,7 +93,7 @@ import CloudKit
                      "Removing the test friend must clear its pin and stop future cycles")
         let oldState = try JSONDecoder().decode(CircleState.self, from: Data("{}".utf8))
         precondition(oldState.testFriendStartedAt == nil && oldState.friends.isEmpty)
-        print("Local test friend: opt-in, six 30-second moods, wraparound, resume, cloud merge, persistence and removal passed")
+        print("Local test friend: opt-in, six 5-second moods, wraparound, resume, cloud merge, persistence and removal passed")
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: root) }
         let store = CircleStore(root: root)
@@ -204,6 +205,7 @@ import CloudKit
         precondition(ownerCollection.earnedMilestones.contains(10) && ownerCollection.eggs.isEmpty,
                      "A full collection still records later milestones without adding an egg")
         let wrongCode = CircleModel(previewState: quietState)
+        precondition(!wrongCode.addTestFriend(ownerCode: "invalid") && wrongCode.state == quietState)
         precondition(!wrongCode.unlockOwnerCollection(code: "invalid") && wrongCode.state == quietState)
         let namingStore = CircleStore(root: root.appendingPathComponent("names"))
         var namingState = CircleState(companion: a)
