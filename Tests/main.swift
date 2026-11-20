@@ -10,11 +10,82 @@ private final class TestPetRecovery: PetRecovery {
     func clear() throws { archive = nil }
 }
 
+private final class TestCircleKeys: CircleKeys {
+    var values: [String: [String: CircleRoute]] = [:]
+    func routes(_ account: String) throws -> [String: CircleRoute] { values[account] ?? [:] }
+    func save(_ routes: [String: CircleRoute], account: String) throws { values[account] = routes }
+}
+
+@MainActor private final class TestCircleDatabase {
+    var records: [String: CircleSlot] = [:]
+    var now = Date()
+}
+
+@MainActor private struct TestCircleTransport: CircleTransport {
+    let id: String
+    let db: TestCircleDatabase
+    func account() async throws -> String { id }
+    func fetch(_ name: String) async throws -> CircleSlot? { db.records[name] }
+    func write(_ content: CircleEnvelope, name: String, replacing prior: CircleSlot?) async throws {
+        let old = db.records[name]
+        if let old {
+            guard old.creator == id, let prior, old.record === prior.record else { throw LinkError.denied }
+        } else if prior != nil { throw LinkError.denied }
+        db.records[name] = CircleSlot(content: content, creator: id, created: old?.created ?? db.now,
+                                      record: CKRecord(recordType: "DotlingFriendSlot"))
+    }
+}
+
+@MainActor private func checkMutualInvitations(_ a: Companion, _ b: Companion) async throws {
+    let db = TestCircleDatabase()
+    func client(_ id: String) -> FriendLinks {
+        FriendLinks(transport: TestCircleTransport(id: id, db: db), keys: TestCircleKeys())
+    }
+    let alice = client("alice"), bob = client("bob"), chris = client("chris")
+    let invite = try await alice.invite(a)
+    precondition(FriendInvite(url: invite.url)?.id == invite.id)
+    do { try await alice.accept(invite, companion: a); preconditionFailure("Self invite accepted") }
+    catch LinkError.selfInvite {}
+    try await bob.accept(invite, companion: b)
+    try await bob.accept(invite, companion: b)
+    do { try await chris.accept(invite, companion: b); preconditionFailure("Forwarded invite reused") }
+    catch LinkError.denied {}
+    let firstA = try await alice.friends(), firstB = try await bob.friends()
+    precondition(firstA.map(\.mood) == [b.mood] && firstB.map(\.mood) == [a.mood])
+    var newA = a, newB = b
+    newA.mood = .focused; newA.updatedAt = Date()
+    newB.mood = .sleepy; newB.updatedAt = Date()
+    try await alice.publish(newA)
+    try await bob.publish(newB)
+    let changedA = try await alice.friends(), changedB = try await bob.friends()
+    precondition(changedA.map(\.mood) == [.sleepy] && changedB.map(\.mood) == [.focused])
+    precondition(db.records.values.allSatisfy { $0.content.mood != nil && $0.content.preview == nil })
+    let alicePasses = try await alice.sent()
+    precondition(alicePasses.first?.accepted == true)
+    try await bob.leave(changedB[0])
+    let remainingA = try await alice.friends(), remainingB = try await bob.friends()
+    precondition(remainingA.isEmpty && remainingB.isEmpty)
+    do { try await chris.accept(invite, companion: b); preconditionFailure("Cancelled invite reused") }
+    catch LinkError.denied {}
+    db.now = Date().addingTimeInterval(-8 * 86400)
+    let expired = try await alice.invite(a)
+    do { try await chris.accept(expired, companion: b); preconditionFailure("Expired invite accepted") }
+    catch LinkError.denied {}
+    db.now = Date()
+    let pending = try await alice.invite(a)
+    let passes = try await alice.sent()
+    try await alice.revoke(passes.first { $0.id == pending.id }!)
+    do { try await chris.accept(pending, companion: b); preconditionFailure("Revoked invite accepted") }
+    catch LinkError.denied {}
+    print("Mutual iCloud invitation behavior passed with three simulated accounts")
+}
+
 @main struct Checks {
     @MainActor static func main() async throws {
         let now = Date(timeIntervalSince1970: 1_792_540_000)
         let a = Companion(id: "a", ownerName: "Alex", petName: "Mochi", mood: .calm, updatedAt: now)
         let b = Companion(id: "b", ownerName: "Sam", petName: "Pip", mood: .happy, updatedAt: now.addingTimeInterval(600), kind: .pillow)
+        try await checkMutualInvitations(a,b)
         var state = CircleState(companion: a, friends: [a, b])
         precondition(state.widgetFriend()?.id == "b", "Latest must select the newest mood")
         state.pinnedFriendID = "a"; state.widgetMode = .pinned

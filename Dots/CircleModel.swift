@@ -267,10 +267,12 @@ final class CircleModel {
         guard let pet = state.companion, storageAvailable, !deleting, !sharing else { return }
         sharing = true
         defer { sharing = false }
-        state.linkConnected = true
-        state.linkPublishing = true
-        persist()
-        do { outgoingInvite = try await FriendLinks.shared.invite(pet) }
+        do {
+            outgoingInvite = try await FriendLinks.shared.invite(pet)
+            state.linkConnected = true
+            state.linkPublishing = true
+            persist()
+        }
         catch { self.error = (error as? LinkError)?.localizedDescription ?? LinkError.unavailable.localizedDescription }
     }
 
@@ -278,11 +280,11 @@ final class CircleModel {
         guard let pet = state.companion, storageAvailable, !sharing, !deleting else { return }
         sharing = true
         defer { sharing = false }
-        state.linkConnected = true
-        persist()
         do {
             try await FriendLinks.shared.accept(invite, companion: pet)
-            if invite.mutual { state.linkPublishing = true; persist() }
+            state.linkConnected = true
+            state.linkPublishing = true
+            persist()
             await refresh()
         } catch { self.error = (error as? LinkError)?.localizedDescription ?? LinkError.unavailable.localizedDescription }
     }

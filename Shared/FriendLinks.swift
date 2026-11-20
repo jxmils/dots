@@ -1,283 +1,289 @@
+import CloudKit
+import CryptoKit
 import Foundation
 import Security
 
-struct FriendInvite: Identifiable {
-    static let host = "dotlings-circle-6825127572.web.app"
-    let owner: String
-    let pass: String
-    let mutual: Bool
-    var id: String { (mutual ? "together/" : "") + owner + "/" + pass }
-    var url: URL { URL(string: "https://" + Self.host + "/invite#" + id)! }
-    init(owner: String, pass: String, mutual: Bool = true) { self.owner = owner; self.pass = pass; self.mutual = mutual }
-    init?(url: URL) {
-        guard url.scheme == "dots", ["connect", "invite"].contains(url.host ?? "") else { return nil }
-        let parts = url.path.split(separator: "/").map(String.init)
-        guard parts.count == 2, parts[0].range(of: #"^[A-Za-z0-9_-]{1,128}$"#, options: .regularExpression) != nil,
-              parts[1].range(of: #"^[a-f0-9]{32}$"#, options: .regularExpression) != nil else { return nil }
-        self.init(owner: parts[0], pass: parts[1], mutual: url.host == "connect")
+private extension Data {
+    var hex: String { map { String(format: "%02x", $0) }.joined() }
+    var token: String { base64EncodedString().replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "=", with: "") }
+    init?(token: String) {
+        guard token.utf8.count == 43 else { return nil }
+        self.init(base64Encoded: token.replacingOccurrences(of: "_", with: "/").replacingOccurrences(of: "-", with: "+") + "=")
+        guard count == 32, self.token == token else { return nil }
     }
 }
 
-private struct FriendSession: Codable {
-    let uid: String
-    let token: String
-    let refresh: String
-    let expires: Date
-
-    static var query: [String: Any] {
-        [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: "Dotlings.FriendSession.v1",
-         kSecAttrAccount as String: "device", kSecAttrAccessGroup as String: DotsConfig.group]
+struct FriendInvite: Identifiable, Codable {
+    let seed: Data
+    let senderKey: Data
+    var id: String { slot(sender: true) }
+    var url: URL { URL(string: "dots://circle/" + seed.token + "/" + senderKey.token)! }
+    init(seed: Data, senderKey: Data) { self.seed = seed; self.senderKey = senderKey }
+    init?(url: URL) {
+        let parts = url.path.split(separator: "/")
+        guard url.scheme == "dots", url.host == "circle", parts.count == 2,
+              let seed = Data(token: String(parts[0])), let key = Data(token: String(parts[1])) else { return nil }
+        self.init(seed: seed, senderKey: key)
     }
-    static func load() throws -> Self? {
-        var query = Self.query
-        query[kSecReturnData as String] = true
-        var value: CFTypeRef?
-        let code = SecItemCopyMatching(query as CFDictionary, &value)
-        if code == errSecItemNotFound { return nil }
-        guard code == errSecSuccess, let data = value as? Data else { throw LinkError.keychain }
-        return try JSONDecoder().decode(Self.self, from: data)
+    func slot(sender: Bool) -> String {
+        let label = sender ? "dotlings/inviter/1" : "dotlings/guest/1"
+        return Data(HMAC<SHA256>.authenticationCode(for: Data(label.utf8), using: SymmetricKey(data: seed))).hex
     }
-    func save() throws {
-        let data = try JSONEncoder().encode(self)
-        let changes = [kSecValueData as String: data]
-        let code = SecItemUpdate(Self.query as CFDictionary, changes as CFDictionary)
-        if code == errSecItemNotFound {
-            var entry = Self.query
-            entry[kSecValueData as String] = data
-            entry[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-            guard SecItemAdd(entry as CFDictionary, nil) == errSecSuccess else { throw LinkError.keychain }
-        } else if code != errSecSuccess { throw LinkError.keychain }
-    }
-    static func clear() throws {
-        let code = SecItemDelete(query as CFDictionary)
-        guard code == errSecSuccess || code == errSecItemNotFound else { throw LinkError.keychain }
+    var previewKey: SymmetricKey {
+        HKDF<SHA256>.deriveKey(inputKeyMaterial: SymmetricKey(data: seed), info: Data("dotlings/invite-preview/1".utf8), outputByteCount: 32)
     }
 }
 
 enum LinkError: LocalizedError {
-    case unavailable, denied, keychain, selfInvite
+    case unavailable, denied, keychain, selfInvite, signIn
     var errorDescription: String? {
         switch self {
-        case .unavailable: "Dotlings couldn’t reach friend sharing. Check your connection and try again."
+        case .unavailable: "Dotlings couldn’t reach iCloud. Check your connection and try again."
         case .denied: "This invitation has expired, was already used, or was turned off. Ask your friend for a new link."
         case .keychain: "Unlock your iPhone and try again so Dotlings can access your circle."
         case .selfInvite: "This is your invitation. Send it to the friend you want to invite."
+        case .signIn: "Sign in to iCloud in iPhone Settings to connect with friends."
         }
     }
 }
 
-@MainActor
-final class FriendLinks {
-    static let shared = FriendLinks()
-    private struct Config: Decodable { let apiKey: String; let databaseURL: URL }
-    private struct Pass: Decodable { let expires: Double; let reader: String? }
-    private var config: Config?
-    private var connecting: Task<FriendSession, Error>?
-    private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
-    private let http = URLSession(configuration: .ephemeral)
+struct CircleRoute: Codable {
+    let invite: FriendInvite
+    let sender: Bool
+    let secret: Data
+    var privateKey: Curve25519.KeyAgreement.PrivateKey { get throws { try .init(rawRepresentation: secret) } }
+    var own: String { invite.slot(sender: sender) }
+    var peer: String { invite.slot(sender: !sender) }
+    func pairKey(_ peerKey: Data) throws -> SymmetricKey {
+        let shared = try privateKey.sharedSecretFromKeyAgreement(with: .init(rawRepresentation: peerKey))
+        return shared.hkdfDerivedSymmetricKey(using: SHA256.self, salt: invite.seed,
+                                              sharedInfo: Data("dotlings/mutual-moods/1".utf8), outputByteCount: 32)
+    }
+}
 
-    private func send(_ request: URLRequest) async throws -> Data {
-        let (data, response) = try await http.data(for: request)
-        guard let status = (response as? HTTPURLResponse)?.statusCode else { throw LinkError.unavailable }
-        if status == 401 || status == 403 { throw LinkError.denied }
-        guard (200..<300).contains(status) else { throw LinkError.unavailable }
-        return data
-    }
-    private func configuration() async throws -> Config {
-        if let config { return config }
-        let url = URL(string: "https://" + FriendInvite.host + "/__/firebase/init.json")!
-        let loaded = try decoder.decode(Config.self, from: try await send(URLRequest(url: url)))
-        guard loaded.databaseURL.scheme == "https",
-              let host = loaded.databaseURL.host,
-              host.hasSuffix(".firebaseio.com") || host.hasSuffix(".firebasedatabase.app") else { throw LinkError.unavailable }
-        config = loaded
-        return loaded
-    }
-    private func session() async throws -> FriendSession {
-        if let connecting { return try await connecting.value }
-        let saved = try FriendSession.load()
-        if let saved, saved.expires > Date().addingTimeInterval(90) { return saved }
-        let task = Task { @MainActor in
-            let config = try await self.configuration()
-            let base = saved == nil ? "https://identitytoolkit.googleapis.com/v1/accounts:signUp" : "https://securetoken.googleapis.com/v1/token"
-            var request = URLRequest(url: URL(string: base + "?key=" + config.apiKey)!)
-            request.httpMethod = "POST"
-            if let saved {
-                var form = URLComponents()
-                form.queryItems = [URLQueryItem(name: "grant_type", value: "refresh_token"), URLQueryItem(name: "refresh_token", value: saved.refresh)]
-                request.httpBody = Data((form.percentEncodedQuery ?? "").utf8)
-                request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            } else {
-                request.httpBody = Data(#"{"returnSecureToken":true}"#.utf8)
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            }
-            let response = try await self.send(request)
-            guard let obj = try JSONSerialization.jsonObject(with: response) as? [String: Any],
-                  let uid = (obj["localId"] ?? obj["user_id"]) as? String,
-                  let token = (obj["idToken"] ?? obj["id_token"]) as? String,
-                  let refresh = (obj["refreshToken"] ?? obj["refresh_token"]) as? String,
-                  let seconds = (obj["expiresIn"] ?? obj["expires_in"]) as? String,
-                  let duration = Double(seconds) else { throw LinkError.unavailable }
-            let value = FriendSession(uid: uid, token: token, refresh: refresh, expires: Date().addingTimeInterval(duration))
-            try value.save()
-            return value
-        }
-        connecting = task
-        defer { connecting = nil }
-        return try await task.value
-    }
-    private func db(_ method: String, _ path: String, _ session: FriendSession, _ body: Data? = nil) async throws -> Data {
-        let config = try await configuration()
-        var parts = URLComponents(url: config.databaseURL.appendingPathComponent(path + ".json"), resolvingAgainstBaseURL: false)!
-        parts.queryItems = [URLQueryItem(name: "auth", value: session.token)]
-        var req = URLRequest(url: parts.url!)
-        req.httpMethod = method
-        req.httpBody = body
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        return try await send(req)
-    }
-    private struct MoodCard: Codable {
-        let ownerName: String, petName: String, kind: CompanionKind, mood: Mood, updatedAt: Date
-        init(_ pet: Companion) {
-            ownerName = pet.ownerName; petName = pet.petName; kind = pet.kind; mood = pet.mood; updatedAt = pet.updatedAt
-        }
-        func companion(owner: String) -> Companion {
-            Companion(id: "friend:" + owner, ownerName: ownerName, petName: petName, mood: mood, updatedAt: updatedAt, kind: kind)
+struct CircleEnvelope: Codable {
+    let key: Data
+    var preview: Data?
+    var mood: Data?
+    var guestKey: Data?
+    var revoked = false
+}
+
+struct CircleSlot {
+    let content: CircleEnvelope
+    let creator: String
+    let created: Date
+    let record: CKRecord
+}
+
+@MainActor protocol CircleTransport {
+    func account() async throws -> String
+    func fetch(_ name: String) async throws -> CircleSlot?
+    func write(_ content: CircleEnvelope, name: String, replacing: CircleSlot?) async throws
+}
+
+@MainActor private final class AppleCircleTransport: CircleTransport {
+    private lazy var container = CKContainer(identifier: DotsConfig.container)
+    func account() async throws -> String {
+        switch try await container.accountStatus() {
+        case .available: return try await container.userRecordID().recordName
+        case .noAccount, .restricted: throw LinkError.signIn
+        default: throw LinkError.unavailable
         }
     }
-    private var lastPublished: MoodCard?
-    private var publishing = false
-    func publish(_ pet: Companion) async throws {
-        while publishing { try await Task.sleep(for: .milliseconds(50)) }
-        if lastPublished?.updatedAt == pet.updatedAt { return }
-        publishing = true
-        defer { publishing = false }
-        let session = try await session()
-        let card = MoodCard(pet)
-        _ = try await db("PUT", "people/" + session.uid + "/mood", session, encoder.encode(card))
-        lastPublished = card
+    func fetch(_ name: String) async throws -> CircleSlot? {
+        do {
+            let record = try await container.publicCloudDatabase.record(for: .init(recordName: name))
+            guard record.recordType == "DotlingFriendSlot", let bytes = record["payload"] as? Data,
+                  let owner = record.creatorUserRecordID?.recordName, let date = record.creationDate else { throw LinkError.denied }
+            return try CircleSlot(content: JSONDecoder().decode(CircleEnvelope.self, from: bytes), creator: owner, created: date, record: record)
+        } catch let error as CKError where error.code == .unknownItem { return nil }
+    }
+    func write(_ content: CircleEnvelope, name: String, replacing old: CircleSlot?) async throws {
+        let record = old?.record ?? CKRecord(recordType: "DotlingFriendSlot", recordID: .init(recordName: name))
+        record["payload"] = try JSONEncoder().encode(content) as CKRecordValue
+        let result = try await container.publicCloudDatabase.modifyRecords(saving: [record], deleting: [], savePolicy: .ifServerRecordUnchanged)
+        guard let saved = result.saveResults[record.recordID] else { throw LinkError.unavailable }
+        _ = try saved.get()
+    }
+}
+
+protocol CircleKeys {
+    func routes(_ account: String) throws -> [String: CircleRoute]
+    func save(_ routes: [String: CircleRoute], account: String) throws
+}
+
+private struct DeviceCircleKeys: CircleKeys {
+    private func query(_ account: String) -> [String: Any] {
+        [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: "Dotlings.AppleCircle.v1",
+         kSecAttrAccount as String: account, kSecAttrAccessGroup as String: DotsConfig.group]
+    }
+    func routes(_ account: String) throws -> [String: CircleRoute] {
+        var query = query(account)
+        query[kSecReturnData as String] = true
+        var value: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &value)
+        if status == errSecItemNotFound { return [:] }
+        guard status == errSecSuccess, let bytes = value as? Data else { throw LinkError.keychain }
+        return try JSONDecoder().decode([String: CircleRoute].self, from: bytes)
+    }
+    func save(_ routes: [String: CircleRoute], account: String) throws {
+        var entry = query(account)
+        let bytes = try JSONEncoder().encode(routes)
+        let status = SecItemUpdate(entry as CFDictionary, [kSecValueData as String: bytes] as CFDictionary)
+        if status == errSecItemNotFound {
+            entry[kSecValueData as String] = bytes
+            entry[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+            guard SecItemAdd(entry as CFDictionary, nil) == errSecSuccess else { throw LinkError.keychain }
+        } else if status != errSecSuccess { throw LinkError.keychain }
+    }
+}
+
+@MainActor final class FriendLinks {
+    static let shared = FriendLinks(transport: AppleCircleTransport(), keys: DeviceCircleKeys())
+    let transport: any CircleTransport
+    let keys: any CircleKeys
+    init(transport: any CircleTransport, keys: any CircleKeys) { self.transport = transport; self.keys = keys }
+    private let lifetime: TimeInterval = 7 * 86400
+
+    private func store(_ route: CircleRoute, account: String) throws {
+        var routes = try keys.routes(account)
+        routes[route.invite.id] = route
+        try keys.save(routes, account: account)
+    }
+    private func forget(_ route: CircleRoute, account: String) throws {
+        var routes = try keys.routes(account)
+        routes.removeValue(forKey: route.invite.id)
+        try keys.save(routes, account: account)
+    }
+    private struct Card: Codable, Equatable {
+        let owner: String, pet: String, kind: CompanionKind, mood: Mood, date: Date
+        init(_ companion: Companion) {
+            owner = companion.ownerName; pet = companion.petName; kind = companion.kind
+            mood = companion.mood; date = companion.updatedAt
+        }
+        func encrypted(_ key: SymmetricKey, id: String) throws -> Data {
+            try ChaChaPoly.seal(JSONEncoder().encode(self), using: key, authenticating: Data(id.utf8)).combined
+        }
+        static func open(_ bytes: Data, key: SymmetricKey, id: String) throws -> Self {
+            let data = try ChaChaPoly.open(.init(combined: bytes), using: key, authenticating: Data(id.utf8))
+            return try JSONDecoder().decode(Self.self, from: data)
+        }
+        func friend(_ id: String) -> Companion {
+            Companion(id: "friend:" + id, ownerName: owner, petName: pet, mood: mood, updatedAt: date, kind: kind)
+        }
     }
     func invite(_ pet: Companion) async throws -> FriendInvite {
-        let session = try await session()
-        try await publish(pet)
-        let invite = FriendInvite(owner: session.uid, pass: UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased())
-        let expiry = Date().addingTimeInterval(7 * 86400).timeIntervalSince1970 * 1000
-        _ = try await db("PUT", "connections/" + session.uid + "/" + invite.pass, session, encoder.encode(["expires": expiry]))
+        let account = try await transport.account()
+        let privateKey = Curve25519.KeyAgreement.PrivateKey()
+        let seed = SymmetricKey(size: .bits256).withUnsafeBytes { Data($0) }
+        let invite = FriendInvite(seed: seed, senderKey: privateKey.publicKey.rawRepresentation)
+        let route = CircleRoute(invite: invite, sender: true, secret: privateKey.rawRepresentation)
+        let preview = try Card(pet).encrypted(invite.previewKey, id: route.own)
+        try store(route, account: account)
+        try await transport.write(.init(key: invite.senderKey, preview: preview), name: route.own, replacing: nil)
         return invite
     }
     func accept(_ invite: FriendInvite, companion: Companion) async throws {
-        let s = try await session()
-        guard invite.owner != s.uid else { throw LinkError.selfInvite }
-        if invite.mutual {
-            let card = try JSONSerialization.jsonObject(with: encoder.encode(MoodCard(companion)))
-            let updates: [String: Any] = [
-                "connections/" + invite.owner + "/" + invite.pass + "/reader": s.uid,
-                "bonds/" + invite.owner + "/" + s.uid: invite.pass,
-                "bonds/" + s.uid + "/" + invite.owner: invite.pass,
-                "people/" + s.uid + "/mood": card
-            ]
-            _ = try await db("PATCH", "", s, JSONSerialization.data(withJSONObject: updates))
+        let account = try await transport.account()
+        guard let host = try await transport.fetch(invite.id), !host.content.revoked, host.content.key == invite.senderKey else { throw LinkError.denied }
+        guard host.creator != account, host.creator != CKCurrentUserDefaultName else { throw LinkError.selfInvite }
+        let existing = try keys.routes(account)[invite.id]
+        guard existing?.sender != true else { throw LinkError.selfInvite }
+        let route = existing ?? CircleRoute(invite: invite, sender: false, secret: Curve25519.KeyAgreement.PrivateKey().rawRepresentation)
+        let key = try route.privateKey.publicKey.rawRepresentation
+        if let claimed = try await transport.fetch(route.own) {
+            guard claimed.content.key == key, !claimed.content.revoked,
+                  claimed.created <= host.created.addingTimeInterval(lifetime) else { throw LinkError.denied }
             return
         }
-        let base = "people/" + invite.owner
-        _ = try await db("PUT", base + "/passes/" + invite.pass + "/reader", s, encoder.encode(s.uid))
-        _ = try await db("PUT", base + "/grants/" + s.uid, s, encoder.encode(invite.pass))
-        _ = try await db("PUT", "following/" + s.uid + "/" + invite.owner, s, encoder.encode(true))
+        guard Date() < host.created.addingTimeInterval(lifetime) else { throw LinkError.denied }
+        try store(route, account: account)
+        let mood = try Card(companion).encrypted(route.pairKey(invite.senderKey), id: route.own)
+        do { try await transport.write(.init(key: key, mood: mood), name: route.own, replacing: nil) }
+        catch {
+            if let winner = try await transport.fetch(route.own) {
+                if winner.content.key == key && !winner.content.revoked { return }
+                try forget(route, account: account)
+                throw LinkError.denied
+            }
+            throw error
+        }
+    }
+    private func connected(_ route: CircleRoute) async throws -> (CircleSlot, CircleSlot)? {
+        async let a = transport.fetch(route.own)
+        async let b = transport.fetch(route.peer)
+        guard case let (own?, peer?) = try await (a,b), !own.content.revoked, !peer.content.revoked,
+              own.content.key == (try route.privateKey.publicKey.rawRepresentation) else { return nil }
+        let (host, guest) = route.sender ? (own, peer) : (peer, own)
+        guard host.content.key == route.invite.senderKey, guest.created <= host.created.addingTimeInterval(lifetime),
+              guest.creator != host.creator, host.content.guestKey == nil || host.content.guestKey == guest.content.key else { return nil }
+        return (own, peer)
+    }
+    func publish(_ pet: Companion) async throws {
+        let account = try await transport.account()
+        var issue: Error?
+        for route in try keys.routes(account).values {
+            do {
+                guard let (own, peer) = try await connected(route) else { continue }
+                let key = try route.pairKey(peer.content.key)
+                let next = Card(pet)
+                if let previous = own.content.mood, let last = try? Card.open(previous, key: key, id: route.own),
+                   last == next || last.date > next.date { continue }
+                let mood = try next.encrypted(key, id: route.own)
+                try await transport.write(.init(key: own.content.key, mood: mood, guestKey: route.sender ? peer.content.key : nil), name: route.own, replacing: own)
+            } catch { issue = error }
+        }
+        if let issue { throw issue }
     }
     func friends() async throws -> [Companion] {
-        let s = try await session()
-        let following = try await db("GET", "following/" + s.uid, s)
-        let ids = try decoder.decode([String: Bool]?.self, from: following) ?? [:]
-        var friends: [Companion] = []
-        let bonds = try await connections(for: s)
-        for owner in Set(ids.keys).union(bonds.keys) {
-            do {
-                let data = try await db("GET", "people/" + owner + "/mood", s)
-                if let card = try decoder.decode(MoodCard?.self, from: data) { friends.append(card.companion(owner: owner)) }
-            } catch LinkError.denied { continue } // Revocation takes effect on the next successful refresh.
+        let account = try await transport.account()
+        var result: [Companion] = []
+        for route in try keys.routes(account).values {
+            guard let (_, peer) = try await connected(route) else { continue }
+            let card: Card
+            if let bytes = peer.content.mood {
+                card = try Card.open(bytes, key: route.pairKey(peer.content.key), id: route.peer)
+            } else if !route.sender, let bytes = peer.content.preview {
+                card = try Card.open(bytes, key: route.invite.previewKey, id: route.peer)
+            } else { continue }
+            result.append(card.friend(route.invite.id))
         }
-        return friends
-    }
-    private func connections(for s: FriendSession) async throws -> [String: String] {
-        let data = try await db("GET", "bonds/" + s.uid, s)
-        return try decoder.decode([String: String]?.self, from: data) ?? [:]
-    }
-
-    private func endConnection(sender: String, pass: String, reader: String?, session: FriendSession) async throws {
-        var deletes = ["connections/" + sender + "/" + pass: NSNull()]
-        if let reader {
-            deletes["bonds/" + sender + "/" + reader] = NSNull()
-            deletes["bonds/" + reader + "/" + sender] = NSNull()
-        }
-        _ = try await db("PATCH", "", session, JSONSerialization.data(withJSONObject: deletes))
-    }
-
-    func leave(_ friend: Companion) async throws {
-        let s = try await session()
-        try await leave(peer: String(friend.id.dropFirst("friend:".count)), session: s)
-    }
-    private func leave(peer: String, session s: FriendSession) async throws {
-        if let pass = try await connections(for: s)[peer] {
-            let own = try await db("GET", "connections/" + s.uid + "/" + pass, s)
-            let sentByMe = try decoder.decode(Pass?.self, from: own) != nil
-            try await endConnection(sender: sentByMe ? s.uid : peer, pass: pass, reader: sentByMe ? peer : s.uid, session: s)
-        }
-        _ = try await db("DELETE", "people/" + peer + "/grants/" + s.uid, s)
-        _ = try await db("DELETE", "following/" + s.uid + "/" + peer, s)
+        return result
     }
     struct SentPass: Identifiable {
         let id: String
+        let created: Date
         let expires: Date
-        let reader: String?
-        let mutual: Bool
-        var accepted: Bool { reader != nil }
-        var created: Date { expires.addingTimeInterval(-7 * 86400) }
+        let accepted: Bool
     }
     func sent() async throws -> [SentPass] {
-        let s = try await session()
+        let account = try await transport.account()
         var result: [SentPass] = []
-        for (path, mutual) in [("connections/" + s.uid, true), ("people/" + s.uid + "/passes", false)] {
-            let data = try await db("GET", path, s)
-            let passes = try decoder.decode([String: Pass]?.self, from: data) ?? [:]
-            result += passes.map { SentPass(id: $0.key, expires: Date(timeIntervalSince1970: $0.value.expires / 1000), reader: $0.value.reader, mutual: mutual) }
+        for r in try keys.routes(account).values where r.sender {
+            guard let host = try await transport.fetch(r.own), !host.content.revoked else { continue }
+            let guest = try await transport.fetch(r.peer)
+            guard guest?.content.revoked != true else { continue }
+            let expiry = host.created.addingTimeInterval(lifetime)
+            result.append(.init(id: r.invite.id, created: host.created, expires: expiry, accepted: guest.map { $0.created <= expiry } ?? false))
         }
-        return result.sorted { $0.expires > $1.expires }
+        return result.sorted { $0.created > $1.created }
     }
-    func revoke(_ pass: SentPass) async throws {
-        let s = try await session()
-        if pass.mutual {
-            // A pending invite may have been claimed while this screen was open.
-            let data = try await db("GET", "connections/" + s.uid + "/" + pass.id, s)
-            if let current = try decoder.decode(Pass?.self, from: data) {
-                try await endConnection(sender: s.uid, pass: pass.id, reader: current.reader, session: s)
-            }
-        } else {
-            _ = try await db("DELETE", "people/" + s.uid + "/passes/" + pass.id, s)
+    private func disconnect(_ route: CircleRoute, account: String) async throws {
+        if let own = try await transport.fetch(route.own), !own.content.revoked, own.content.key == (try route.privateKey.publicKey.rawRepresentation) {
+            // Reserve the single-use record ID permanently. Remove its public key and both ciphertexts.
+            try await transport.write(.init(key: Data(), revoked: true), name: route.own, replacing: own)
         }
+        try forget(route, account: account)
     }
-    private func stopSharing() async throws {
-        let s = try await session()
-        _ = try await db("DELETE", "people/" + s.uid, s)
-        lastPublished = nil
+    private func remove(_ id: String) async throws {
+        let account = try await transport.account()
+        if let r = try keys.routes(account)[id] { try await disconnect(r, account: account) }
     }
+    func leave(_ friend: Companion) async throws { try await remove(String(friend.id.dropFirst("friend:".count))) }
+    func revoke(_ pass: SentPass) async throws { try await remove(pass.id) }
     func erase() async throws {
-        guard try FriendSession.load() != nil else { return }
-        let s = try await session()
-        let bonds = try await connections(for: s)
-        for peer in bonds.keys {
-            try await leave(peer: peer, session: s)
-        }
-        for pass in try await sent() where pass.mutual { try await revoke(pass) }
-        try await stopSharing()
-        let following = try decoder.decode([String: Bool]?.self, from: try await db("GET", "following/" + s.uid, s)) ?? [:]
-        for owner in following.keys { _ = try await db("DELETE", "people/" + owner + "/grants/" + s.uid, s) }
-        _ = try await db("DELETE", "following/" + s.uid, s)
-        let config = try await configuration()
-        var req = URLRequest(url: URL(string: "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=" + config.apiKey)!)
-        req.httpMethod = "POST"; req.httpBody = try encoder.encode(["idToken": s.token])
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        _ = try await send(req)
-        try FriendSession.clear()
+        let account = try await transport.account()
+        for r in try keys.routes(account).values { try await disconnect(r, account: account) }
     }
 }

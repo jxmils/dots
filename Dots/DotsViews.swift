@@ -74,9 +74,9 @@ struct DotsRoot: View {
             FriendInviteSheet(invite: invite)
         }
         .alert("Add this friend to your circle?", isPresented: Binding(get: { model.incomingInvite != nil && model.state.companion != nil && !welcoming }, set: { if !$0 { model.incomingInvite = nil } }), presenting: model.incomingInvite) { invite in
-            Button(invite.mutual ? "Connect & share my mood" : "Add friend") { tab = .friends; Task { await model.acceptLink(invite) } }
+            Button("Connect & share my mood") { tab = .friends; Task { await model.acceptLink(invite) } }
             Button("Cancel", role: .cancel) {}
-        } message: { invite in Text(invite.mutual ? "You’ll both see each other’s name, Dotling and latest mood. Either of you can disconnect at any time." : "This older link lets you see their Dotling and mood. Your own mood stays private.") }
+        } message: { _ in Text("You’ll both see each other’s name, Dotling and latest mood. Either of you can disconnect at any time.") }
         .sheet(item: $friend) { FriendDetail(friend: $0) }
         .sheet(isPresented: $model.showSharing) {
             if let share = model.share { CloudSharingView(share: share, model: model) }
@@ -127,6 +127,9 @@ struct DotsRoot: View {
         .onOpenURL { url in
             guard url.scheme == "dots" else { return }
             if let invite = FriendInvite(url: url) { model.incomingInvite = invite; tab = .friends }
+            if ["connect", "invite"].contains(url.host ?? "") {
+                model.error = "This link came from an earlier test version. Ask your friend to send a new invitation."
+            }
             if url.host == "friends" { tab = .friends }
         }
     }
@@ -242,6 +245,8 @@ struct CircleView: View {
     @Environment(CircleModel.self) private var model
     var onFriend: (Companion) -> Void
     @State private var dragScope = UUID()
+    @State private var enteringInvite = false
+    @State private var inviteText = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             VStack(alignment: .leading, spacing: 8) {
@@ -266,6 +271,18 @@ struct CircleView: View {
                 }.font(DotsStyle.round(15, weight: .bold)).padding(19)
                     .foregroundStyle(.white).background(DotsStyle.plum, in: RoundedRectangle(cornerRadius: 22))
             }.disabled(model.sharing)
+            Button("Open an invitation") { inviteText = ""; enteringInvite = true }
+                .alert("Paste your friend’s link", isPresented: $enteringInvite) {
+                    TextField("dots://circle/…", text: $inviteText)
+                        .textInputAutocapitalization(.never).autocorrectionDisabled()
+                    Button("Continue") {
+                        let text = inviteText.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if let url = URL(string: text), let invite = FriendInvite(url: url) {
+                            model.incomingInvite = invite
+                        } else { model.error = "Copy the whole Dotlings invitation and try again." }
+                    }
+                    Button("Cancel", role: .cancel) {}
+                }
             if model.state.friends.isEmpty {
                 VStack(spacing: 15) {
                     HStack(spacing: -8) {
@@ -522,7 +539,7 @@ struct SettingsView: View {
                 }
                 Section {
                     Text("Dotlings doesn't guess your feelings. You choose what to share, and you never have to check in.")
-                    Text("Your companions, collection, streak and preferences are saved on this device. A recovery copy in this iPhone’s Keychain keeps your hatched pets and progress for a reinstall. If you connect friends, your current name, companion and mood are shared with the people you invite. New invitations use Firebase and work with iCloud switched off. Dotlings has no ads, analytics, chat or public directory.")
+                    Text("Your companions, collection, streak and preferences are saved on this device. A recovery copy in this iPhone’s Keychain keeps your hatched pets and progress for a reinstall. If you connect friends, your current name, companion and mood are shared with the people you invite. Sign in to iCloud to share. New friend links use Dotlings’ storage allowance. Dotlings has no ads, analytics, chat or public directory.")
                 } header: { Text("A small, private space") }
                 Section {
                     Button("Delete my companion & shared mood", role: .destructive) { confirmDelete = true }

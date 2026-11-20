@@ -38,7 +38,7 @@ Use two supported iPhones on current iOS, each signed in to a different iCloud a
   Collection persists. Test gaps with each of the three lifetime restores, then a fourth gap.
 - Delete and hatch again; confirm the restore budget remains used. Test the Keychain receipt after
   reinstall and on a second device, including offline changes, before claiming cross-device enforcement.
-- Invite B from A with a new friend link. After B confirms mutual sharing, check both directions, then disconnect from B and confirm both lose access. Repeat with iCloud switched off on one phone.
+- Invite B from A with a new friend link. After B confirms mutual sharing, check both directions, then disconnect from B and confirm both lose access. Repeat with a full personal iCloud account. Signing out should show a sign-in prompt when sharing.
 - Check that existing one-way Apple shares still have their original access.
 - Test acceptance with the receiving app already running and with the app fully closed, including
   first launch before adoption.
@@ -95,8 +95,8 @@ The local Sky companion appears as **Test friend** in My circle. While the app i
 
 You can pin it to a widget, but widget refresh timing is controlled by iOS: the 30-second cadence is an in-app test, not a promise of Lock Screen refresh frequency. In the friend's profile, choose **Remove test friend** to remove it and clear its pin. Normal App Store launches remove this testing data. This test does not validate real friend sharing or replace deploying the CloudKit production schema.
 
-### Friend links from version 1.0.1
+### Mutual friend links
 
-New links use the Dotlings Friend Sharing Firebase project, `dotlings-circle-6825127572`, with Anonymous Authentication, Firebase Hosting and a Realtime Database in europe-west1. The app and widget use the same app-group Keychain identity. Existing CKShare relationships continue to use the Apple setup above. Anyone accepting a new link needs 1.0.1 or later.
+Both phones use separate signed-in iCloud accounts. New links use the public CloudKit database in the existing Dotlings container. The schema in `Friends/Dotlings.ckdb` grants creation and reading to signed-in accounts and limits writes to the creator of each record. Names and moods are encrypted on the device. Each invitation reserves a pair of record IDs. Its recipient can claim their ID once. Subsequent mood updates use a key derived from both devices’ Curve25519 keys. Ending a connection clears its payload and reserves its ID against reuse.
 
-From `Friends/`, run `firebase emulators:exec --project demo-dotlings --only auth,database 'python3 test_sharing.py'` to check invitation acceptance, expiry, access changes and revocation. The hosted rules and invitation page are deployed with `firebase deploy --project dotlings-circle-6825127572 --only database,hosting`.
+Check invitations from Messages and the manual paste flow on two signed-in iPhones. Check an update in each direction, expiry, a forwarded link, disconnection, widget refresh and a full personal iCloud account. Older private CKShare invitations keep their original permissions. Firebase artifacts in `Friends/` describe a previous TestFlight build only.
