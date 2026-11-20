@@ -20,7 +20,7 @@ Open Collection, choose an owned companion and tap Make this my Dotling. This be
 
 ## Add a friend
 
-Open My circle and use the invitation button. Sign into iCloud in iPhone Settings to use friend sharing. An invitation lets someone see your current mood; ask them to send their own invitation if you want to see theirs. You each control your own share.
+Update both iPhones to Dotlings 1.0.1 or later. In My circle, tap Invite a friend and send the link directly to one person. They open the link on their iPhone, tap Open in Dotlings and choose Add friend. If they install Dotlings first, they can return to the same link. Each invitation works for one person and expires after seven days if unused. To see each other’s moods, send a link in each direction. New invitations work even when iCloud is off or full.
 
 ## Add a widget
 
@@ -34,7 +34,7 @@ Your first random companion is free. Choose a mood on consecutive calendar days 
 
 ## Device storage and iCloud
 
-Your collection and progress are stored per installation. Friend sharing uses iCloud, but the first version does not reconcile two devices independently changing the same owner's profile. Keep one active owner installation while using this version. Deleting the app may remove local progress, depending on your Apple backup and restore settings.
+Open version 1.0.1 once before removing the app. Dotlings saves your hatched pets, names and progress in this iPhone’s Keychain so they can come back on the same phone. An in-app companion deletion clears that recovery copy. A new phone or an erased device needs a separate backup.
 
 ## Privacy and deletion
 

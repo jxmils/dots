@@ -1,0 +1,39 @@
+{
+  "rules": {
+    "people": {
+      "$owner": {
+        ".read": "auth != null && auth.uid == $owner",
+        ".write": "auth != null && auth.uid == $owner",
+        "mood": {
+          ".read": "auth != null && data.parent().child('grants').child(auth.uid).isString() && data.parent().child('passes').child(data.parent().child('grants').child(auth.uid).val()).child('reader').val() == auth.uid",
+          ".validate": "newData.hasChildren(['ownerName','petName','kind','mood','updatedAt'])",
+          "ownerName": { ".validate": "newData.isString() && newData.val().length <= 24" },
+          "petName": { ".validate": "newData.isString() && newData.val().length <= 24" },
+          "mood": { ".validate": "newData.isString() && newData.val().matches(/^(happy|calm|sleepy|sad|overwhelmed|focused)$/)" },
+          "kind": { ".validate": "newData.isString() && newData.val().length <= 24" },
+          "updatedAt": { ".validate": "newData.isNumber()" },
+          "$other": { ".validate": false }
+        },
+        "passes": {
+          "$pass": {
+            ".validate": "$pass.matches(/^[a-f0-9]{32}$/) && newData.hasChild('expires')",
+            "expires": { ".validate": "newData.isNumber()" },
+            "reader": {
+              ".write": "auth != null && auth.uid != $owner && newData.val() == auth.uid && ((!data.exists() && data.parent().child('expires').val() > now) || data.val() == auth.uid)",
+              ".validate": "newData.isString()"
+            },
+            "$other": { ".validate": false }
+          }
+        },
+        "grants": {
+          "$reader": {
+            ".write": "auth != null && auth.uid == $reader && (!newData.exists() || (newData.isString() && newData.val().matches(/^[a-f0-9]{32}$/) && root.child('people').child($owner).child('passes').child(newData.val()).child('reader').val() == auth.uid))",
+            ".validate": "newData.isString()"
+          }
+        },
+        "$other": { ".validate": false }
+      }
+    },
+    "following": { "$reader": { ".read": "auth != null && auth.uid == $reader", ".write": "auth != null && auth.uid == $reader", "$owner": { ".validate": "newData.val() == true && $owner.matches(/^[A-Za-z0-9_-]{1,128}$/)" } } }
+  }
+}

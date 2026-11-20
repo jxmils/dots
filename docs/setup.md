@@ -57,7 +57,7 @@ Use two supported iPhones on current iOS, each signed in to a different iCloud a
 
 ## Current limitations
 
-The current version stores local state per installation. It publishes that installation's current companion
+Version 1.0.1 restores the owner’s pet and collection from a device-only Keychain item on same-iPhone reinstall. Open the update once to protect existing pets. Explicit in-app deletion clears the recovery item. It publishes that installation's current companion
 to the owner's private CloudKit record when connected. It does not yet reconcile two installations writing
 different owner profiles under the same iCloud account; do not use two installations as simultaneous owners.
 Friend updates use background CloudKit notifications and widget timeline fetches, both scheduled by iOS.
@@ -95,3 +95,9 @@ In a TestFlight build (or a DEBUG build), hold the **dotlings** wordmark for thr
 The local Sky companion appears as **Test friend** in My circle. While the app is active it cycles Happy → Calm → Sleepy → A little low → Overwhelmed → Focused, every 30 seconds. The open detail view follows the current mood. The clock stops running in the background; reopening catches up from the saved start time. Nothing is sent to CloudKit, and the user's mood, check-in streak and collection are unaffected. Cloud refreshes preserve this local friend.
 
 You can pin it to a widget, but widget refresh timing is controlled by iOS: the 30-second cadence is an in-app test, not a promise of Lock Screen refresh frequency. In the friend's profile, choose **Remove test friend** to remove it and clear its pin. Normal App Store launches remove this testing data. This test does not validate real friend sharing or replace deploying the CloudKit production schema.
+
+### Friend links from version 1.0.1
+
+New links use the Dotlings Friend Sharing Firebase project, `dotlings-circle-6825127572`, with Anonymous Authentication, Firebase Hosting and a Realtime Database in europe-west1. The app and widget use the same app-group Keychain identity. Existing CKShare relationships continue to use the Apple setup above. Anyone accepting a new link needs 1.0.1 or later.
+
+From `Friends/`, run `firebase emulators:exec --project demo-dotlings --only auth,database 'python3 test_sharing.py'` to check invitation acceptance, expiry, access changes and revocation. The hosted rules and invitation page are deployed with `firebase deploy --project dotlings-circle-6825127572 --only database,hosting`.

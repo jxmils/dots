@@ -25,7 +25,7 @@ shared = Dir[File.join(root, 'Shared/*.swift')].sort.map { |path| project.main_g
     s['CODE_SIGN_STYLE'] = 'Automatic'
     s['ICLOUD_CONTAINER_ENVIRONMENT'] = configuration.name == 'Release' ? 'Production' : 'Development'
     s['APS_ENVIRONMENT'] = configuration.name == 'Release' ? 'production' : 'development' if folder == 'Dots'
-    s['MARKETING_VERSION'] = '1.0'
+    s['MARKETING_VERSION'] = '1.0.1'
     s['CURRENT_PROJECT_VERSION'] = '1'
     s['TARGETED_DEVICE_FAMILY'] = '1'
     s['SUPPORTS_MACCATALYST'] = 'NO'

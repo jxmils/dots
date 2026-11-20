@@ -1,6 +1,6 @@
 # Dotlings Privacy Policy
 
-Effective date: 21 October 2026
+Effective date: 20 November 2026
 
 Dotlings is provided by Jason Miller. This policy explains the information used by the iPhone app and its widgets.
 
@@ -10,25 +10,25 @@ You choose a first name or nickname, names for your companions, a preferred comp
 
 Your device stores your companion collection, names, current mood, check-in dates, streak progress, earned eggs, used streak restores, friend list and widget preferences. A generated identifier distinguishes your shared companion from other companions. Widgets use a shared on-device copy of the information needed to display your selected friend's latest received mood.
 
-## Optional iCloud sharing
+## When you invite a friend
 
-If you connect with friends, Dotlings uses Apple's CloudKit service through the iCloud account already signed into your device. Your current chosen name, companion name and appearance, mood, companion identifier and update time are stored in your private iCloud database and made available to the people you invite through Apple's sharing system. Dotlings does not receive your Apple Account password.
+Starting with version 1.0.1, friend links use Google Firebase. When you choose to send or accept a link, Dotlings creates a random account ID for your device. This works without an email, password or iCloud sign-in. Firebase handles that ID and the connection information needed to provide the service. The app keeps the credentials for that ID in your device’s Keychain so the app and its widget can fetch updates.
 
-A friend who shares with you makes the same kinds of information available to your device and widgets. An invitation is one-way; sharing your mood does not automatically grant you access to the other person's mood. There is no public profile directory or public mood feed. Dotlings does not upload a history of your previous moods.
+When you invite someone, Dotlings stores your chosen name, pet name, pet appearance, latest mood and update time in its Firebase database. It also stores invitations, their expiry dates and the IDs of connected friends so it can check who has access. The first person who accepts a link can see your updates. Send each link directly to the person you want to invite. Unused links expire after seven days. Accepting a link by itself shares none of your mood or pet details with the sender. Firebase hosts the invitation page and processes service data under [Google’s privacy policy](https://policies.google.com/privacy).
 
-Apple processes iCloud and service information under its own privacy policy: https://www.apple.com/legal/privacy/.
+Earlier iCloud invitations still use Apple’s CloudKit. For those connections, your shared companion and latest mood use your private iCloud database. [Apple’s privacy policy](https://www.apple.com/legal/privacy/).
 
 ## How information is used
 
 Information is used to display and name your companions, remember your chosen profile companion, record daily check-ins and rewards, enforce the three lifetime streak restores, share the mood you explicitly select, and show the latest received friend information in widgets. Playing with a companion does not automatically change or share a mood.
 
-Dotlings does not include advertising, third-party analytics or tracking SDKs. We do not sell personal information, use it for targeted advertising, or send your mood to an AI chat service. The app does not maintain a separate developer-operated server containing your mood or profile.
+Dotlings does not include advertising, third-party analytics or tracking SDKs. We do not sell personal information, use it for targeted advertising, or send your mood to an AI chat service.
 
 ## Retention, sharing controls and deletion
 
-Your local information remains until you delete it using the app or remove the app, subject to Apple's device backup and storage behavior. In Your profile, use Manage sharing & invitations to remove someone's access to your shared companion. You can leave another person's circle from their details screen.
+Starting in 1.0.1, opening Dotlings saves a recovery copy of your own companion, name, mood, collection, progress and sharing preference in this iPhone’s Keychain. Dotlings reads it on reinstall on the same device. It excludes friends and their moods. Deleting your companion inside Dotlings also clears this copy. Other local information is removed when you delete the app, subject to Apple's device backup and storage behavior. In Your profile, open Manage friend links to turn off a link. Use Manage older iCloud invitations for invitations sent with version 1.0. You can leave another person's circle from their details screen.
 
-The Delete my companion & shared mood action removes your local companion, collection, check-in progress, cached friend list and preferences, and deletes your own shared companion's iCloud zone when sharing is enabled. Removing your own information does not delete a friend's independently owned record. Changes to access take effect on another person's cached screen or widget after that device successfully refreshes; information they have independently copied cannot be recalled by the app.
+The Delete my companion & shared mood action removes your local companion, collection, check-in progress, cached friend list and preferences, and deletes your Firebase identity, your shared mood, your invitations and your followed-friend list. It also deletes your private CloudKit sharing zone if you used older Apple invitations. Removing your own information does not delete a friend's independently owned record. Changes to access take effect on another person's cached screen or widget after that device successfully refreshes; information they have independently copied cannot be recalled by the app.
 
 A small Keychain receipt containing only the number of used lifetime streak restores is retained separately so deleting or restarting a companion does not replenish the three-use allowance. Where enabled, this receipt can sync through iCloud Keychain. It does not contain your name, mood, friend list or companion collection. Apple's backups and iCloud account controls may retain or manage additional copies under Apple's policies.
 

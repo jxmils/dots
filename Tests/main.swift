@@ -3,8 +3,15 @@ import SwiftUI
 import UIKit
 import CloudKit
 
+private final class TestPetRecovery: PetRecovery {
+    var archive: PetArchive?
+    func read() throws -> PetArchive? { archive }
+    func write(_ value: PetArchive) throws { archive = value }
+    func clear() throws { archive = nil }
+}
+
 @main struct Checks {
-    @MainActor static func main() throws {
+    @MainActor static func main() async throws {
         let now = Date(timeIntervalSince1970: 1_792_540_000)
         let a = Companion(id: "a", ownerName: "Alex", petName: "Mochi", mood: .calm, updatedAt: now)
         let b = Companion(id: "b", ownerName: "Sam", petName: "Pip", mood: .happy, updatedAt: now.addingTimeInterval(600), kind: .pillow)
@@ -102,6 +109,31 @@ import CloudKit
         precondition(restored == state, "Save/load must retain the complete circle")
         try Data("invalid".utf8).write(to: store.url)
         do { _ = try store.load(); fatalError("Corrupt storage must be reported") } catch {}
+        let recovery = TestPetRecovery()
+        let reinstallStore = CircleStore(root: root.appendingPathComponent("reinstall"))
+        var installedState = CircleState(companion: a, friends: [b])
+        installedState.collection.owned.append(.coffee)
+        installedState.collection.names[CompanionKind.coffee.rawValue] = "Bean"
+        installedState.collection.eggs = [5]
+        try reinstallStore.save(installedState)
+        let upgradedModel = CircleModel(store: reinstallStore, petRecovery: recovery)
+        upgradedModel.activate(.coffee)
+        precondition(upgradedModel.nameCreature(.coffee, pet: "Espresso"))
+        try FileManager.default.removeItem(at: reinstallStore.url)
+        let reinstalled = CircleModel(store: reinstallStore, petRecovery: recovery)
+        precondition(reinstalled.state.companion == upgradedModel.state.companion)
+        precondition(reinstalled.state.collection == upgradedModel.state.collection && reinstalled.state.friends.isEmpty)
+        await reinstalled.deleteCompanion()
+        precondition(recovery.archive == nil)
+        try FileManager.default.removeItem(at: reinstallStore.url)
+        let cleanInstall = CircleModel(store: reinstallStore, petRecovery: recovery)
+        precondition(cleanInstall.state.companion == nil)
+        print("Existing pets migrated, selected pet and collection recovered after app data removal, explicit deletion respected")
+        let quota = CKError(.quotaExceeded)
+        let batch = CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: ["pet": quota]])
+        for failure in [quota, batch] {
+            precondition(CircleSyncMessage.text(for: failure).contains("iCloud storage is full"))
+        }
         let dragStore = CircleStore(root: root.appendingPathComponent("drag-order"))
         try dragStore.save(roundtrip)
         let dragModel = CircleModel(store: dragStore)

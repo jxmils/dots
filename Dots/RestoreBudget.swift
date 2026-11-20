@@ -48,3 +48,66 @@ final class KeychainRestoreBudget: RestoreBudget {
         var errorDescription: String? { "Your restore budget couldn't be read securely. Please unlock your device and try again." }
     }
 }
+
+// Keep only the owner's data. A reinstall must not restore another person's cached mood.
+struct PetArchive: Codable, Equatable {
+    let companion: Companion
+    let collection: CollectionProgress
+    let linkConnected: Bool?
+    let linkPublishing: Bool?
+    let cloudEnabled: Bool
+
+    init?(_ state: CircleState) {
+        guard let companion = state.companion else { return nil }
+        self.companion = companion
+        collection = state.collection
+        cloudEnabled = state.cloudEnabled
+        linkConnected = state.linkConnected
+        linkPublishing = state.linkPublishing
+    }
+
+    var restoredState: CircleState {
+        var state = CircleState(cloudEnabled: cloudEnabled, companion: companion, collection: collection)
+        state.linkConnected = linkConnected ?? false
+        state.linkPublishing = linkPublishing ?? false
+        return state
+    }
+}
+
+protocol PetRecovery {
+    func read() throws -> PetArchive?
+    func write(_ archive: PetArchive) throws
+    func clear() throws
+}
+
+struct DevicePetRecovery: PetRecovery {
+    private var query: [String: Any] {
+        [kSecClass as String: kSecClassGenericPassword,
+         kSecAttrService as String: "com.jasonmiller.dots.pet-recovery.v1",
+         kSecAttrAccount as String: "collection",
+         kSecAttrSynchronizable as String: false]
+    }
+    func read() throws -> PetArchive? {
+        var lookup = query
+        lookup[kSecReturnData as String] = true
+        var value: CFTypeRef?
+        let status = SecItemCopyMatching(lookup as CFDictionary, &value)
+        if status == errSecItemNotFound { return nil }
+        guard status == errSecSuccess, let data = value as? Data else { throw RecoveryError.unavailable }
+        return try JSONDecoder().decode(PetArchive.self, from: data)
+    }
+    func write(_ archive: PetArchive) throws {
+        let attributes = [kSecValueData as String: try JSONEncoder().encode(archive)]
+        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
+        if status == errSecItemNotFound {
+            var item = query.merging(attributes) { _, new in new }
+            item[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+            guard SecItemAdd(item as CFDictionary, nil) == errSecSuccess else { throw RecoveryError.unavailable }
+        } else if status != errSecSuccess { throw RecoveryError.unavailable }
+    }
+    func clear() throws {
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else { throw RecoveryError.unavailable }
+    }
+    enum RecoveryError: Error { case unavailable }
+}

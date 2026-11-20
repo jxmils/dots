@@ -59,10 +59,20 @@ struct MoodProvider: AppIntentTimelineProvider {
                 let friends = try await CloudCircle().friends()
                 // Reload before saving so a slow fetch doesn't overwrite a newer local mood or widget setting.
                 state = try store.load()
-                state.receiveFriends(friends, at: Date())
+                state.receiveFriends(friends + state.friends.filter { $0.id.hasPrefix("friend:") }, at: Date())
                 state.lastSyncedAt = Date()
                 try store.save(state)
             } catch { /* Keep the last received mood, with its original timestamp. */ }
+        }
+        if state.linkConnected {
+            do {
+                let linked = try await FriendLinks.shared.friends()
+                state = try store.load()
+                if state.linkConnected {
+                    state.receiveFriends(linked + state.friends.filter { !$0.id.hasPrefix("friend:") }, at: Date())
+                    try store.save(state)
+                }
+            } catch { /* Retain the last successful update while offline. */ }
         }
         return Timeline(entries: [entry(configuration, state: state)], policy: .after(Date().addingTimeInterval(20 * 60)))
     }

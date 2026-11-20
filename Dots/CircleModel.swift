@@ -14,6 +14,8 @@ final class CircleModel {
     var sharing = false
     var deleting = false
     var share: CKShare?
+    var outgoingInvite: FriendInvite?
+    var incomingInvite: FriendInvite?
     var showSharing = false
     var showSettings = false
     var showWidgetGuide = false
@@ -26,15 +28,32 @@ final class CircleModel {
     let preview: Bool
     private let restoreBudget: any RestoreBudget
 
-    init(store: CircleStore = CircleStore(), preview: Bool = false, restoreBudget: (any RestoreBudget)? = nil) {
+    private let petRecovery: (any PetRecovery)?
+    private var lastArchivedPet: PetArchive?
+
+    init(store: CircleStore = CircleStore(), preview: Bool = false, restoreBudget: (any RestoreBudget)? = nil,
+         petRecovery: (any PetRecovery)? = nil) {
         self.store = store
         self.preview = preview
         #if targetEnvironment(macCatalyst)
+        self.petRecovery = petRecovery
         self.restoreBudget = restoreBudget ?? MemoryRestoreBudget()
         #else
+        self.petRecovery = preview ? nil : (petRecovery ?? DevicePetRecovery())
         self.restoreBudget = restoreBudget ?? KeychainRestoreBudget()
         #endif
-        do { state = try store.load() }
+        state = CircleState()
+        do {
+            if let installed = try store.loadIfPresent() {
+                state = installed
+                if !preview { backUpPet(in: installed) } // Also migrate pets from version 1.0 on launch.
+            } else if !preview, let archive = try self.petRecovery?.read() {
+                let restored = archive.restoredState
+                try store.save(restored)
+                state = restored
+                lastArchivedPet = archive
+            }
+        }
         catch {
             state = CircleState(); storageAvailable = false
             self.error = "Your saved circle couldn't be read. Please restart the app before making changes. Your saved data hasn't been replaced."
@@ -59,12 +78,28 @@ final class CircleModel {
         store = CircleStore(root: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString))
         state = previewState
         preview = true
+        petRecovery = nil
         restoreBudget = MemoryRestoreBudget()
+    }
+
+    private func backUpPet(in state: CircleState) {
+        guard let petRecovery, let archive = PetArchive(state), archive != lastArchivedPet else { return }
+        do {
+            try petRecovery.write(archive)
+            lastArchivedPet = archive
+        } catch {
+            self.error = "Your pet is saved in Dotlings, but its reinstall backup couldn't be updated. Keep the app installed and reopen it after unlocking your iPhone."
+        }
+    }
+
+    private func saveState(_ value: CircleState) throws {
+        try store.save(value)
+        backUpPet(in: value)
     }
 
     private func persist() {
         guard !preview, storageAvailable else { return }
-        do { try store.save(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
+        do { try saveState(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
         catch { self.error = "Your change couldn't be saved. Please try again." }
     }
 
@@ -119,7 +154,7 @@ final class CircleModel {
                                         mood: .calm, updatedAt: Date(), kind: kind)
         }
         do {
-            if !preview { try store.save(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
+            if !preview { try saveState(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
         } catch {
             state = before; self.error = "Your hatch couldn't be saved. Your egg is still safe."; return nil
         }
@@ -138,7 +173,7 @@ final class CircleModel {
             state.companion?.updatedAt = Date()
         }
         do {
-            if !preview { try store.save(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
+            if !preview { try saveState(state); WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
         } catch {
             state = before; self.error = "That name couldn't be saved. Please try again."; return false
         }
@@ -168,55 +203,91 @@ final class CircleModel {
                     return
                 }
             } else { state.collection.restorableStreak = nil }
-            if !preview { try store.save(state) }
+            if !preview { try saveState(state) }
             if use { try restoreBudget.record(state.collection.restoresUsed) }
             showRestore = false
             persist()
         } catch {
             state = before
-            try? store.save(before)
+            try? saveState(before)
             self.error = error.localizedDescription
         }
     }
 
-    func connect() async {
-        guard !preview else { return }
-        do {
-            try await cloud.checkAccount()
-            state.cloudEnabled = true
-            persist()
-            UIApplication.shared.registerForRemoteNotifications()
-            await refresh()
-        } catch { self.error = CircleSyncMessage.text(for: error) }
-    }
-
     func refresh() async {
-        guard !preview, !deleting, state.cloudEnabled, state.companion != nil else { return }
+        guard !preview, !deleting, state.sharingEnabled, state.companion != nil else { return }
         if syncing { syncAgain = true; return }
         syncing = true
         defer { syncing = false }
         repeat {
             syncAgain = false
-            do {
-                if let companion = state.companion { try await cloud.publish(companion) }
-                let friends = try await cloud.friends()
-                state.receiveFriends(friends, at: Date())
-                state.lastSyncedAt = Date()
-                persist()
-                try await cloud.subscribe()
-                syncIssue = nil
-            } catch { syncIssue = CircleSyncMessage.text(for: error) }
+            var issue: String?
+            if state.cloudEnabled {
+                do {
+                    if let companion = state.companion { try await cloud.publish(companion) }
+                    try await cloud.subscribe()
+                } catch { issue = CircleSyncMessage.text(for: error) }
+                do {
+                    let friends = try await cloud.friends()
+                    state.receiveFriends(friends + state.friends.filter { $0.id.hasPrefix("friend:") }, at: Date())
+                    state.lastSyncedAt = Date()
+                    persist()
+                } catch { issue = issue ?? CircleSyncMessage.text(for: error) }
+            }
+            if state.linkConnected {
+                if issue != nil {
+                    let hasAppleFriends = state.friends.contains { $0.zoneName != nil }
+                    issue = hasAppleFriends ? "An older iCloud connection couldn’t update. You can still invite friends with a new link." : nil
+                }
+                if state.linkPublishing, let pet = state.companion {
+                    do { try await FriendLinks.shared.publish(pet) }
+                    catch { issue = "Your mood is saved. Dotlings will try sharing it again when you reconnect." }
+                }
+                do {
+                    let friends = try await FriendLinks.shared.friends()
+                    state.receiveFriends(friends + state.friends.filter { !$0.id.hasPrefix("friend:") }, at: Date())
+                    state.lastSyncedAt = Date()
+                    persist()
+                } catch { issue = "Pull down to try loading your friends again." }
+            }
+            syncIssue = issue
         } while syncAgain && !deleting
     }
 
     func invite() async {
+        guard let pet = state.companion, storageAvailable, !deleting, !sharing else { return }
+        sharing = true
+        defer { sharing = false }
+        state.linkConnected = true
+        state.linkPublishing = true
+        persist()
+        do { outgoingInvite = try await FriendLinks.shared.invite(pet) }
+        catch { self.error = (error as? LinkError)?.localizedDescription ?? LinkError.unavailable.localizedDescription }
+    }
+
+    func acceptLink(_ invite: FriendInvite) async {
+        guard storageAvailable, !sharing, !deleting else { return }
+        sharing = true
+        defer { sharing = false }
+        state.linkConnected = true
+        persist()
+        do {
+            try await FriendLinks.shared.accept(invite)
+            await refresh()
+        } catch { self.error = (error as? LinkError)?.localizedDescription ?? LinkError.unavailable.localizedDescription }
+    }
+
+    func manageAppleInvites() async {
         guard let companion = state.companion, !sharing else { return }
         sharing = true; defer { sharing = false }
-        await connect()
-        guard state.cloudEnabled else { return }
         do {
             share = try await cloud.sharingRecord(for: companion)
+            state.cloudEnabled = true
+            persist()
+            UIApplication.shared.registerForRemoteNotifications()
+            syncIssue = nil
             showSharing = true
+            await refresh()
         } catch { self.error = CircleSyncMessage.text(for: error) }
     }
 
@@ -234,7 +305,7 @@ final class CircleModel {
         var updated = state
         updated.arrangeFriends(ids)
         do {
-            if !preview { try store.save(updated) }
+            if !preview { try saveState(updated) }
             state = updated
         } catch {
             self.error = "Your friend order couldn't be saved. Please try again."
@@ -261,7 +332,7 @@ final class CircleModel {
         var updated = state
         updated.collection.completeCollection()
         do {
-            if !preview { try store.save(updated) }
+            if !preview { try saveState(updated) }
             state = updated
             return true
         } catch {
@@ -276,7 +347,7 @@ final class CircleModel {
         var updated = state
         updated.enableTestFriend(at: Date())
         do {
-            if !preview { try store.save(updated) }
+            if !preview { try saveState(updated) }
             state = updated
             if !preview { WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind) }
             return true
@@ -296,7 +367,11 @@ final class CircleModel {
         if friend.id == TestFriend.id {
             state.removeFriend(friend.id); persist(); return
         }
-        do { try await cloud.leave(friend); state.removeFriend(friend.id); persist() }
+        do {
+            if friend.id.hasPrefix("friend:") { try await FriendLinks.shared.leave(friend) }
+            else { try await cloud.leave(friend) }
+            state.removeFriend(friend.id); persist()
+        }
         catch { self.error = "Couldn't leave this circle: \(error.localizedDescription)" }
     }
 
@@ -307,12 +382,19 @@ final class CircleModel {
         do {
             // Wait for publication to finish so an in-flight save cannot recreate the deleted share.
             while syncing || sharing { try await Task.sleep(for: .milliseconds(100)) }
+            if state.linkConnected { try await FriendLinks.shared.erase() }
             if state.cloudEnabled { try await cloud.deleteOwnCompanion() }
             let restores = max(state.collection.restoresUsed, try restoreBudget.used())
             try restoreBudget.record(restores)
-            state = CircleState(); state.collection.restoresUsed = restores
+            try petRecovery?.clear()
+            lastArchivedPet = nil
+            var empty = CircleState()
+            empty.collection.restoresUsed = restores
+            try store.save(empty)
+            state = empty
             syncIssue = nil
-            persist(); showSettings = false
+            WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind)
+            showSettings = false
         } catch { self.error = "Couldn't remove the shared companion. Please reconnect and try again: \(error.localizedDescription)" }
     }
 }

@@ -142,6 +142,7 @@
 		26E817D688DCD533027E9681 /* CompanionPetalMotionMoveRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 50D623CEC164EF8F80B902DF /* CompanionPetalMotionMoveRight.png */; };
 		26F1F4852F5D41FF0E3A4852 /* CompanionPuddingMotionThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DCBB51EF73DC510793AC9FF /* CompanionPuddingMotionThinking.png */; };
 		274675997C391C942C2D1A6C /* EggHatchNimbusStrip.png in Resources */ = {isa = PBXBuildFile; fileRef = E6730E84960A91236103C33E /* EggHatchNimbusStrip.png */; };
+		27648C9213B44D694FC70D91 /* FriendLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA33B0751EC3A5676B3BC29 /* FriendLinks.swift */; };
 		276A16ABD3151B0BBD359115 /* CompanionBlueMotionMoveLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = B861DBB045D95257B12AC1DC /* CompanionBlueMotionMoveLeft.png */; };
 		27A481A2CC27C8685E8AA6AB /* CompanionBeanMotionIdle.png in Resources */ = {isa = PBXBuildFile; fileRef = 615DA723EE4E6A3531181386 /* CompanionBeanMotionIdle.png */; };
 		27C86F6439B4038CBA54A76A /* CompanionSproutMotionReviewing.png in Resources */ = {isa = PBXBuildFile; fileRef = FE94C0FDB121CFE92C711D3F /* CompanionSproutMotionReviewing.png */; };
@@ -483,6 +484,7 @@
 		98AC3FC7502427E05401AD84 /* CompanionPetalMotionThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 9395BECD40CF89E71BF3E50C /* CompanionPetalMotionThinking.png */; };
 		98AD8E16247A02B8ADEC522E /* CompanionPetalMotionDisappointed.png in Resources */ = {isa = PBXBuildFile; fileRef = 787B8DE3C4086541E1D4E429 /* CompanionPetalMotionDisappointed.png */; };
 		9995680BE28CDFEEE6B7F489 /* SpritePlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8650B31158C9910B08E190C /* SpritePlayback.swift */; };
+		99CF308B697367DD216959EB /* FriendLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA33B0751EC3A5676B3BC29 /* FriendLinks.swift */; };
 		9A1914034D98B4C4991A5B1A /* CompanionPetalAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9EDBA5D353B8FCA398508D /* CompanionPetalAtlas.png */; };
 		9A28D1F218349BA28056F8EB /* CompanionBeanTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A3AC43FA12F96EA4A8AAF8 /* CompanionBeanTouchAtlas.png */; };
 		9A4C9E5D39687D597A9429C6 /* CompanionNimbusMotionLookAround.png in Resources */ = {isa = PBXBuildFile; fileRef = 582934E070FEF7F2C8FF3B19 /* CompanionNimbusMotionLookAround.png */; };
@@ -1199,6 +1201,7 @@
 		DE5544175E8A822D39EB1F5B /* CompanionPuffMotionIdle.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuffMotionIdle.png; path = Resources/CompanionPuffMotionIdle.png; sourceTree = "<group>"; };
 		DE95E93504AC4F16CEBCA47A /* CompanionCoffeeMotionDisappointed.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoffeeMotionDisappointed.png; path = Resources/CompanionCoffeeMotionDisappointed.png; sourceTree = "<group>"; };
 		DF1CE9AD273220FDB7A50EEA /* EggHatchPebbleStrip.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = EggHatchPebbleStrip.png; path = Resources/EggHatchPebbleStrip.png; sourceTree = "<group>"; };
+		DFA33B0751EC3A5676B3BC29 /* FriendLinks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FriendLinks.swift; path = Shared/FriendLinks.swift; sourceTree = "<group>"; };
 		DFF4DA76E25B9AA10156EBF7 /* CompanionMossMotionWave.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionMossMotionWave.png; path = Resources/CompanionMossMotionWave.png; sourceTree = "<group>"; };
 		E004D50DAB488C3BC6AB4333 /* CompanionLavenderMotionThinking.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionLavenderMotionThinking.png; path = Resources/CompanionLavenderMotionThinking.png; sourceTree = "<group>"; };
 		E02D5ED037F29D596093B028 /* CompanionSunnyMotionWaiting.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionSunnyMotionWaiting.png; path = Resources/CompanionSunnyMotionWaiting.png; sourceTree = "<group>"; };
@@ -1750,6 +1753,7 @@
 				061520891A5B16A3E9A36614 /* EggHatchBowlingStrip.png */,
 				ED58E4FC6D8CD6F19A66495E /* EggHatchCoffeeStrip.png */,
 				6B77EF9FFA3F4418AF93866A /* EggHatchCoconutStrip.png */,
+				DFA33B0751EC3A5676B3BC29 /* FriendLinks.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2620,6 +2624,7 @@
 				7FD082CD6C4633A20F85A765 /* EggArtLayout.swift in Sources */,
 				9995680BE28CDFEEE6B7F489 /* SpritePlayback.swift in Sources */,
 				7B301C529AE5EB9781309469 /* DotlingAnimation.swift in Sources */,
+				99CF308B697367DD216959EB /* FriendLinks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2643,6 +2648,7 @@
 				473A0876C78CBD895CBBF2B8 /* EggArtLayout.swift in Sources */,
 				41D3BF0B8DC2875CC78E0C11 /* SpritePlayback.swift in Sources */,
 				40130525F7B0E8B1434E943B /* DotlingAnimation.swift in Sources */,
+				27648C9213B44D694FC70D91 /* FriendLinks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2672,7 +2678,7 @@
 				INFOPLIST_FILE = Dots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonmiller.dots;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
@@ -2695,7 +2701,7 @@
 				INFOPLIST_FILE = DotsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonmiller.dots.widget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -2779,7 +2785,7 @@
 				INFOPLIST_FILE = DotsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonmiller.dots.widget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -2857,7 +2863,7 @@
 				INFOPLIST_FILE = Dots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonmiller.dots;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;

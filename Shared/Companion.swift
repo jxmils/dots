@@ -108,6 +108,9 @@ enum WidgetMode: String, Codable, CaseIterable, Identifiable {
 }
 
 struct CircleState: Codable, Equatable {
+    var linkConnected = false
+    var linkPublishing = false
+    var sharingEnabled: Bool { cloudEnabled || linkConnected }
     var cloudEnabled = false
     var companion: Companion?
     var friends: [Companion] = []
@@ -129,9 +132,11 @@ struct CircleState: Codable, Equatable {
         }
     }
 
-    private enum CodingKeys: String, CodingKey { case cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection, testFriendStartedAt, friendOrder }
+    private enum CodingKeys: String, CodingKey { case linkConnected, linkPublishing, cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection, testFriendStartedAt, friendOrder }
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
+        linkConnected = try c.decodeIfPresent(Bool.self, forKey: .linkConnected) ?? false
+        linkPublishing = try c.decodeIfPresent(Bool.self, forKey: .linkPublishing) ?? false
         cloudEnabled = try c.decodeIfPresent(Bool.self, forKey: .cloudEnabled) ?? false
         companion = try c.decodeIfPresent(Companion.self, forKey: .companion)
         friends = try c.decodeIfPresent([Companion].self, forKey: .friends) ?? []
@@ -226,8 +231,11 @@ final class CircleStore {
         url = directory.appendingPathComponent("circle.json")
     }
     func load() throws -> CircleState {
-        guard FileManager.default.fileExists(atPath: url.path) else { return CircleState() }
-        return try JSONDecoder().decode(CircleState.self, from: Data(contentsOf: url))
+        try loadIfPresent() ?? CircleState()
+    }
+    func loadIfPresent() throws -> CircleState? {
+        do { return try JSONDecoder().decode(CircleState.self, from: Data(contentsOf: url)) }
+        catch let error as CocoaError where error.code == .fileReadNoSuchFile { return nil }
     }
     func save(_ state: CircleState) throws {
         try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)

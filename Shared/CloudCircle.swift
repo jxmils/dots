@@ -13,6 +13,10 @@ enum CircleError: LocalizedError {
 
 enum CircleSyncMessage {
     static func text(for error: Error) -> String {
+        if let ck = error as? CKError,
+           ck.code == .quotaExceeded || ck.partialErrorsByItemID?.values.contains(where: { ($0 as? CKError)?.code == .quotaExceeded }) == true {
+            return "Your iCloud storage is full. Make room in Settings → your name → iCloud, then try again. Your Dotling is safe on this iPhone."
+        }
         if let error = error as? CircleError { return error.localizedDescription }
         if let error = error as? CKError, error.code == .notAuthenticated {
             return "Sign in to iCloud in your iPhone Settings to reconnect with friends."
@@ -40,6 +44,14 @@ final class CloudCircle {
         catch let error as CKError where error.code == .unknownItem {
             record = CKRecord(recordType: "Companion", recordID: ownID)
         }
+        // A read-only refresh or an existing invitation need not consume more iCloud storage.
+        if record["companionID"] as? String == companion.id,
+           record["ownerName"] as? String == companion.ownerName,
+           record["petName"] as? String == companion.petName,
+           record["mood"] as? String == companion.mood.rawValue,
+           record["kind"] as? String == companion.kind.rawValue,
+           let savedDate = record["updatedAt"] as? Date,
+           abs(savedDate.timeIntervalSince(companion.updatedAt)) < 0.001 { return }
         record["companionID"] = companion.id as CKRecordValue
         record["ownerName"] = companion.ownerName as CKRecordValue
         record["petName"] = companion.petName as CKRecordValue
@@ -51,13 +63,24 @@ final class CloudCircle {
     }
 
     func sharingRecord(for companion: Companion) async throws -> CKShare {
-        try await publish(companion)
+        try await checkAccount()
         let database = container.privateCloudDatabase
-        let record = try await database.record(for: ownID)
-        if let existing = record.share {
-            guard let share = try await database.record(for: existing.recordID) as? CKShare else { throw CircleError.invalidCompanion }
-            return share
+        func existingShare(_ record: CKRecord) async throws -> CKShare? {
+            guard let reference = record.share else { return nil }
+            guard let value = try await database.record(for: reference.recordID) as? CKShare else {
+                throw CircleError.invalidCompanion
+            }
+            return value
         }
+        do {
+            let saved = try await database.record(for: ownID)
+            if let share = try await existingShare(saved) { return share }
+        } catch let error as CKError where error.code == .unknownItem || error.code == .zoneNotFound {
+            // A first invitation creates the private zone and companion below.
+        }
+        try await publish(companion)
+        let record = try await database.record(for: ownID)
+        if let share = try await existingShare(record) { return share }
         let share = CKShare(rootRecord: record)
         share.publicPermission = .none
         share[CKShare.SystemFieldKey.title] = "\(companion.ownerName)'s companion" as CKRecordValue

@@ -36,7 +36,7 @@ final class DotsAppDelegate: NSObject, UIApplicationDelegate {
                 let friends = try await CloudCircle().friends()
                 state = try store.load()
                 guard state.cloudEnabled else { completion(.noData); return }
-                state.receiveFriends(friends, at: Date())
+                state.receiveFriends(friends + state.friends.filter { $0.id.hasPrefix("friend:") }, at: Date())
                 state.lastSyncedAt = Date()
                 try store.save(state)
                 WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind)

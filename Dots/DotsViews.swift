@@ -70,6 +70,13 @@ struct DotsRoot: View {
         .sheet(isPresented: $model.showWidgetGuide) { WidgetGuide() }
         .sheet(isPresented: $model.showHatch) { HatchingView() }
         .sheet(isPresented: $model.showRestore) { RestoreStreakView() }
+        .sheet(item: $model.outgoingInvite) { invite in
+            FriendInviteSheet(invite: invite)
+        }
+        .alert("Add this friend to your circle?", isPresented: Binding(get: { model.incomingInvite != nil && model.state.companion != nil && !welcoming }, set: { if !$0 { model.incomingInvite = nil } }), presenting: model.incomingInvite) { invite in
+            Button("Add friend") { tab = .friends; Task { await model.acceptLink(invite) } }
+            Button("Cancel", role: .cancel) {}
+        } message: { _ in Text("You’ll see their Dotling and latest mood. You choose whether to send an invitation back.") }
         .sheet(item: $friend) { FriendDetail(friend: $0) }
         .sheet(isPresented: $model.showSharing) {
             if let share = model.share { CloudSharingView(share: share, model: model) }
@@ -103,6 +110,13 @@ struct DotsRoot: View {
                 await model.accept(metadata)
             } else { await model.refresh() }
         }
+        .task(id: "\(phase)-\(tab)-\(model.state.linkConnected)") {
+            guard phase == .active, tab == .friends, model.state.linkConnected else { return }
+            while !Task.isCancelled {
+                do { try await Task.sleep(for: .seconds(30)) } catch { return }
+                await model.refresh()
+            }
+        }
         .onChange(of: phase) { _, value in
             if value == .active { Task { await model.refresh() } }
         }
@@ -112,6 +126,7 @@ struct DotsRoot: View {
         .onReceive(NotificationCenter.default.publisher(for: .dotsRefresh)) { _ in Task { await model.refresh() } }
         .onOpenURL { url in
             guard url.scheme == "dots" else { return }
+            if let invite = FriendInvite(url: url) { model.incomingInvite = invite; tab = .friends }
             if url.host == "friends" { tab = .friends }
         }
     }
@@ -195,7 +210,7 @@ struct CompanionHome: View {
                             .accessibilityAddTraits(companion.mood == mood ? .isSelected : [])
                         }
                     }
-                    Text(model.syncIssue != nil ? "Saved on this device. Waiting to sync." : model.state.cloudEnabled ? "Shared with the people you've invited." : "Just for you. Invite a friend when you're ready.")
+                    Text(model.syncIssue != nil ? "Saved on this device. Waiting to sync." : (model.state.cloudEnabled || model.state.linkPublishing) ? "Shared with the people you've invited." : "Just for you. Invite a friend when you're ready.")
                         .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }
                 if !model.state.collection.eggs.isEmpty {
@@ -482,14 +497,23 @@ struct SettingsView: View {
                         .disabled(owner.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || pet.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
                 Section {
-                    Button(model.state.cloudEnabled ? "Manage sharing & invitations" : "Connect with friends") {
+                    Button("Invite a friend") {
                         dismiss()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { Task { await model.invite() } }
                     }
                         .disabled(model.sharing)
-                    Button("Check for mood updates") { Task { await model.refresh() } }.disabled(model.syncing || !model.state.cloudEnabled)
+                    if model.state.linkPublishing {
+                        NavigationLink("Manage friend links") { ManageFriendLinks() }
+                    }
+                    if model.state.cloudEnabled {
+                        Button("Manage older iCloud invitations") {
+                            dismiss()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { Task { await model.manageAppleInvites() } }
+                        }
+                    }
+                    Button("Check for mood updates") { Task { await model.refresh() } }.disabled(model.syncing || !model.state.sharingEnabled)
                 } header: { Text("Your circle") } footer: {
-                    Text("Friend invitations use iCloud. Only invited people can see your name, companion and current mood. You can remove their access in Manage sharing. There is no public profile or mood history.")
+                    Text("Send each friend their own link. The first person to accept can see your name, Dotling and latest mood. Unused links expire after seven days. You can turn off a link at any time.")
                 }
                 Section("Widgets") { Button("How to add a Lock Screen widget") { model.showSettings = false; DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { model.showWidgetGuide = true } } }
                 Section("Help & privacy") {
@@ -498,13 +522,13 @@ struct SettingsView: View {
                 }
                 Section {
                     Text("Dotlings doesn't guess your feelings. You choose what to share, and you never have to check in.")
-                    Text("Your companions, collection, streak and preferences are saved on this device. A secure receipt keeps track of your three lifetime streak restores. If you connect friends, your current name, companion and mood are shared through Apple's iCloud. Dotlings has no ads, analytics, chat or public directory.")
+                    Text("Your companions, collection, streak and preferences are saved on this device. A recovery copy in this iPhone’s Keychain keeps your hatched pets and progress for a reinstall. If you connect friends, your current name, companion and mood are shared with the people you invite. New invitations use Firebase and work with iCloud switched off. Dotlings has no ads, analytics, chat or public directory.")
                 } header: { Text("A small, private space") }
                 Section {
                     Button("Delete my companion & shared mood", role: .destructive) { confirmDelete = true }
                         .disabled(model.deleting)
                     if model.deleting { ProgressView("Removing shared companion…") }
-                } footer: { Text("Removes your companions, collection, streak, friend list and settings from this device and deletes your shared companion from iCloud. Your friends will lose access to it. Used lifetime streak restores remain used.") }
+                } footer: { Text("Removes your companions, their reinstall backup, your streak, friend list and settings from this device and deletes your shared mood and friend links, including older iCloud shares. Your friends will lose access to it. Used lifetime streak restores remain used.") }
             }
             .navigationTitle("Your profile").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
