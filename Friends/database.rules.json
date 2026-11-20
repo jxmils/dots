@@ -5,24 +5,40 @@
         ".read": "auth != null && auth.uid == $owner",
         ".write": "auth != null && auth.uid == $owner",
         "mood": {
-          ".read": "auth != null && data.parent().child('grants').child(auth.uid).isString() && data.parent().child('passes').child(data.parent().child('grants').child(auth.uid).val()).child('reader').val() == auth.uid",
+          ".read": "(auth != null && data.parent().child('grants').child(auth.uid).isString() && data.parent().child('passes').child(data.parent().child('grants').child(auth.uid).val()).child('reader').val() == auth.uid) || (auth != null && root.child('bonds').child($owner).child(auth.uid).isString() && (root.child('connections').child($owner).child(root.child('bonds').child($owner).child(auth.uid).val()).child('reader').val() == auth.uid || root.child('connections').child(auth.uid).child(root.child('bonds').child($owner).child(auth.uid).val()).child('reader').val() == $owner))",
           ".validate": "newData.hasChildren(['ownerName','petName','kind','mood','updatedAt'])",
-          "ownerName": { ".validate": "newData.isString() && newData.val().length <= 24" },
-          "petName": { ".validate": "newData.isString() && newData.val().length <= 24" },
-          "mood": { ".validate": "newData.isString() && newData.val().matches(/^(happy|calm|sleepy|sad|overwhelmed|focused)$/)" },
-          "kind": { ".validate": "newData.isString() && newData.val().length <= 24" },
-          "updatedAt": { ".validate": "newData.isNumber()" },
-          "$other": { ".validate": false }
+          "ownerName": {
+            ".validate": "newData.isString() && newData.val().length <= 24"
+          },
+          "petName": {
+            ".validate": "newData.isString() && newData.val().length <= 24"
+          },
+          "mood": {
+            ".validate": "newData.isString() && newData.val().matches(/^(happy|calm|sleepy|sad|overwhelmed|focused)$/)"
+          },
+          "kind": {
+            ".validate": "newData.isString() && newData.val().length <= 24"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber()"
+          },
+          "$other": {
+            ".validate": false
+          }
         },
         "passes": {
           "$pass": {
             ".validate": "$pass.matches(/^[a-f0-9]{32}$/) && newData.hasChild('expires')",
-            "expires": { ".validate": "newData.isNumber()" },
+            "expires": {
+              ".validate": "newData.isNumber()"
+            },
             "reader": {
               ".write": "auth != null && auth.uid != $owner && newData.val() == auth.uid && ((!data.exists() && data.parent().child('expires').val() > now) || data.val() == auth.uid)",
               ".validate": "newData.isString()"
             },
-            "$other": { ".validate": false }
+            "$other": {
+              ".validate": false
+            }
           }
         },
         "grants": {
@@ -31,9 +47,47 @@
             ".validate": "newData.isString()"
           }
         },
-        "$other": { ".validate": false }
+        "$other": {
+          ".validate": false
+        }
       }
     },
-    "following": { "$reader": { ".read": "auth != null && auth.uid == $reader", ".write": "auth != null && auth.uid == $reader", "$owner": { ".validate": "newData.val() == true && $owner.matches(/^[A-Za-z0-9_-]{1,128}$/)" } } }
+    "following": {
+      "$reader": {
+        ".read": "auth != null && auth.uid == $reader",
+        ".write": "auth != null && auth.uid == $reader",
+        "$owner": {
+          ".validate": "newData.val() == true && $owner.matches(/^[A-Za-z0-9_-]{1,128}$/)"
+        }
+      }
+    },
+    "connections": {
+      "$sender": {
+        ".read": "auth != null && auth.uid == $sender",
+        "$pass": {
+          ".read": "auth != null && data.child('reader').val() == auth.uid",
+          ".write": "auth != null && ((!data.exists() && newData.exists() && auth.uid == $sender && !newData.child('reader').exists()) || (!newData.exists() && (!data.exists() || auth.uid == $sender || data.child('reader').val() == auth.uid)))",
+          ".validate": "$pass.matches(/^[a-f0-9]{32}$/) && newData.hasChild('expires')",
+          "expires": {
+            ".validate": "newData.isNumber() && (data.exists() ? newData.val() == data.val() : newData.val() <= now + 691200000)"
+          },
+          "reader": {
+            ".write": "auth != null && auth.uid != $sender && newData.val() == auth.uid && (data.val() == auth.uid || (!data.exists() && data.parent().child('expires').val() > now))",
+            ".validate": "newData.isString()"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "bonds": {
+      "$member": {
+        ".read": "auth != null && auth.uid == $member",
+        "$peer": {
+          ".write": "auth != null && $member != $peer && (auth.uid == $member || auth.uid == $peer) && ((!newData.exists() && (!data.exists() || !(newData.parent().parent().parent().child('connections').child($member).child(data.val()).child('reader').val() == $peer || newData.parent().parent().parent().child('connections').child($peer).child(data.val()).child('reader').val() == $member))) || (newData.isString() && newData.val().matches(/^[a-f0-9]{32}$/) && (newData.parent().parent().parent().child('connections').child($member).child(newData.val()).child('reader').val() == $peer || newData.parent().parent().parent().child('connections').child($peer).child(newData.val()).child('reader').val() == $member) && (!data.exists() || data.val() == newData.val() || !(root.child('connections').child($member).child(data.val()).child('reader').val() == $peer || root.child('connections').child($peer).child(data.val()).child('reader').val() == $member))))"
+        }
+      }
+    }
   }
 }

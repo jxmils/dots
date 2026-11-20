@@ -74,9 +74,9 @@ struct DotsRoot: View {
             FriendInviteSheet(invite: invite)
         }
         .alert("Add this friend to your circle?", isPresented: Binding(get: { model.incomingInvite != nil && model.state.companion != nil && !welcoming }, set: { if !$0 { model.incomingInvite = nil } }), presenting: model.incomingInvite) { invite in
-            Button("Add friend") { tab = .friends; Task { await model.acceptLink(invite) } }
+            Button(invite.mutual ? "Connect & share my mood" : "Add friend") { tab = .friends; Task { await model.acceptLink(invite) } }
             Button("Cancel", role: .cancel) {}
-        } message: { _ in Text("You’ll see their Dotling and latest mood. You choose whether to send an invitation back.") }
+        } message: { invite in Text(invite.mutual ? "You’ll both see each other’s name, Dotling and latest mood. Either of you can disconnect at any time." : "This older link lets you see their Dotling and mood. Your own mood stays private.") }
         .sheet(item: $friend) { FriendDetail(friend: $0) }
         .sheet(isPresented: $model.showSharing) {
             if let share = model.share { CloudSharingView(share: share, model: model) }
@@ -273,7 +273,7 @@ struct CircleView: View {
                         CompanionView(mood: .happy, kind: .pillow).frame(width: 108, height: 108).rotationEffect(.degrees(8))
                     }.accessibilityHidden(true)
                     Text("Good things come in little circles.").font(DotsStyle.round(19, weight: .bold)).multilineTextAlignment(.center)
-                    Text("Invite someone to see your mood. To see theirs, ask them to send you an invitation back.")
+                    Text("Send one invitation. Once your friend accepts, you’ll both see how the other is feeling.")
                         .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted).multilineTextAlignment(.center)
                 }.frame(maxWidth: .infinity).padding(.vertical, 30).padding(.horizontal, 22)
                     .background(.white.opacity(0.65), in: RoundedRectangle(cornerRadius: 30))
@@ -513,7 +513,7 @@ struct SettingsView: View {
                     }
                     Button("Check for mood updates") { Task { await model.refresh() } }.disabled(model.syncing || !model.state.sharingEnabled)
                 } header: { Text("Your circle") } footer: {
-                    Text("Send each friend their own link. The first person to accept can see your name, Dotling and latest mood. Unused links expire after seven days. You can turn off a link at any time.")
+                    Text("Send each friend their own link. When a friend accepts, you both share your names, Dotlings and latest moods. Unused links expire after seven days. You can turn off a link at any time.")
                 }
                 Section("Widgets") { Button("How to add a Lock Screen widget") { model.showSettings = false; DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { model.showWidgetGuide = true } } }
                 Section("Help & privacy") {

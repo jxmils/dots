@@ -54,11 +54,11 @@ struct ManageFriendLinks: View {
         .confirmationDialog("Turn off this link?", isPresented: Binding(get: { selected != nil }, set: { if !$0 { selected = nil } }), presenting: selected) { pass in
             Button("Turn off link", role: .destructive) {
                 Task {
-                    do { try await FriendLinks.shared.revoke(pass.id); await reload() }
+                    do { try await FriendLinks.shared.revoke(pass); await reload() }
                     catch { issue = LinkError.unavailable.localizedDescription }
                 }
             }
-        } message: { _ in Text("The person using this link will lose access to your mood.") }
+        } message: { _ in Text("This turns off the connection made with this link.") }
     }
     private func reload() async {
         loading = true; defer { loading = false }

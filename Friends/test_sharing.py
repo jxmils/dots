@@ -51,3 +51,32 @@ db(b,'GET',p+'/mood',allowed=False)
 db(a,'PUT',link,{'expires':1})
 db(c,'PUT',link+'/reader',outsider,False)
 print('Three anonymous identities: private sharing, single use, expiry, live updates and revocation passed.')
+
+# A mutual invite is a separate protocol: old clients cannot claim it as a one-way link.
+token = uuid.uuid4().hex
+pair = f'connections/{owner}/{token}'
+db(a, 'PUT', pair, {'expires': int(time.time()*1000)+100000})
+db(c, 'GET', pair, allowed=False)
+bob = dict(mood, ownerName='Bob', petName='Sky', mood='focused')
+accept = {pair+'/reader': reader, f'bonds/{owner}/{reader}':token,
+          f'bonds/{reader}/{owner}':token, f'people/{reader}/mood':bob}
+db(a, 'PATCH', '', accept, False)
+db(c, 'PUT', f'bonds/{outsider}/{owner}', token, False)
+db(b, 'PATCH', '', accept)
+db(b, 'PATCH', '', accept)  # A lost HTTP response may be retried.
+assert db(a,'GET',f'people/{reader}/mood') == bob
+assert db(b,'GET',p+'/mood') == mood
+assert db(a,'GET',f'bonds/{owner}') == {reader:token}
+assert db(b,'GET',f'bonds/{reader}') == {owner:token}
+db(c,'PUT',pair+'/reader',outsider,False)
+db(c,'GET',f'people/{reader}/mood',allowed=False)
+db(b,'PUT',f'people/{reader}/mood',dict(bob,mood='sleepy'))
+assert db(a,'GET',f'people/{reader}/mood')['mood']=='sleepy'
+db(a,'PUT',p+'/mood',dict(mood,mood='overwhelmed'))
+assert db(b,'GET',p+'/mood')['mood']=='overwhelmed'
+db(b,'DELETE',pair)
+db(a,'GET',f'people/{reader}/mood',allowed=False)
+db(b,'GET',p+'/mood',allowed=False)
+db(a,'PUT',pair,{'expires':1})
+db(b,'PATCH','',accept,False)
+print('Mutual connection: single tap, atomic retry, both moods, third party denied, leave and expiry passed.')

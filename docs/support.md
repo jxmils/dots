@@ -20,7 +20,7 @@ Open Collection, choose an owned companion and tap Make this my Dotling. This be
 
 ## Add a friend
 
-Update both iPhones to Dotlings 1.0.1 or later. In My circle, tap Invite a friend and send the link directly to one person. They open the link on their iPhone, tap Open in Dotlings and choose Add friend. If they install Dotlings first, they can return to the same link. Each invitation works for one person and expires after seven days if unused. To see each other’s moods, send a link in each direction. New invitations work even when iCloud is off or full.
+Update both iPhones to Dotlings 1.0.1 or later. In My circle, tap Invite a friend and send the link directly to one person. They open the link on their iPhone, tap Open in Dotlings and choose Connect & share my mood. If they install Dotlings first, they can return to the same link. Each invitation works for one person and expires after seven days if unused. Once accepted, both people can see each other’s latest mood and Dotling. Either person can end the connection. New invitations work even when iCloud is off or full.
 
 ## Add a widget
 

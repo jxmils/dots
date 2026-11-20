@@ -15,7 +15,7 @@ AI conversation, inferred feelings, feeding obligations, advertising, or analyti
   25, 50, 100, 150 and 200 days. Three lifetime restores can bridge missed days; otherwise only
   the streak resets. Earned creatures and eggs remain. Each milestone is earned once.
 - Mood selection, persistent names and preferences, and minimal touch reactions using 2D sprites.
-- Private iCloud invitations. Invite someone to see your current mood; accept their invitation to see theirs.
+- Private friend links. Accept one invitation to share both people’s latest moods. Older iCloud invitations retain their original access.
   Each person controls their own read-only share. There is no public profile or contact upload.
 - Choose any owned companion as your preferred profile Dot; the same creature and its remembered name
   appear at home, on your profile, and in the mood shared with friends and their widgets.

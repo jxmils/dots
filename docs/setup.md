@@ -38,9 +38,8 @@ Use two supported iPhones on current iOS, each signed in to a different iCloud a
   Collection persists. Test gaps with each of the three lifetime restores, then a fourth gap.
 - Delete and hatch again; confirm the restore budget remains used. Test the Keychain receipt after
   reinstall and on a second device, including offline changes, before claiming cross-device enforcement.
-- Invite B from A using Apple's private sharing sheet. Confirm B can see A after accepting.
-- Invite A back from B. Confirm A now sees B. A single invitation is intentionally one-way;
-  neither party receives permission to edit the other's name, creature, or mood.
+- Invite B from A with a new friend link. After B confirms mutual sharing, check both directions, then disconnect from B and confirm both lose access. Repeat with iCloud switched off on one phone.
+- Check that existing one-way Apple shares still have their original access.
 - Test acceptance with the receiving app already running and with the app fully closed, including
   first launch before adoption.
 - Change A's mood. Refresh B and check the displayed mood, companion style and original timestamp.

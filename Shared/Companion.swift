@@ -199,6 +199,11 @@ struct CircleState: Codable, Equatable {
         if !friendOrder.isEmpty && !friendOrder.contains(friend.id) { friendOrder.append(friend.id) }
         return true
     }
+    mutating func receiveFriends(_ received: [Companion], fromLinks: Bool, at now: Date) {
+        let otherFriends = friends.filter { $0.id.hasPrefix("friend:") != fromLinks }
+        receiveFriends(received + otherFriends, at: now)
+    }
+
     mutating func receiveFriends(_ received: [Companion], at now: Date) {
         let hasArrangement = !friendOrder.isEmpty
         friends = received.filter { $0.id != TestFriend.id }

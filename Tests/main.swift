@@ -98,6 +98,20 @@ private final class TestPetRecovery: PetRecovery {
         decodedTest.receiveFriends([b], at: now.addingTimeInterval(4000))
         precondition(decodedTest.testFriendStartedAt == nil && decodedTest.pinnedFriendID == nil && decodedTest.friends == [b],
                      "Removing the test friend must clear its pin and stop future cycles")
+        var mixed = CircleState()
+        var linked = a
+        linked.id = "friend:test-link"
+        for firstIsLink in [false, true] {
+            mixed.receiveFriends(firstIsLink ? [linked] : [b], fromLinks: firstIsLink, at: now)
+            mixed.receiveFriends(firstIsLink ? [b] : [linked], fromLinks: !firstIsLink, at: now)
+            precondition(Set(mixed.friends.map(\.id)) == [b.id, linked.id])
+            mixed.pinnedFriendID = linked.id
+            mixed.receiveFriends([], fromLinks: false, at: now)
+            precondition(mixed.friends == [linked] && mixed.pinnedFriendID == linked.id)
+            mixed.receiveFriends([b], fromLinks: false, at: now)
+            mixed.receiveFriends([], fromLinks: true, at: now)
+            precondition(mixed.friends == [b] && mixed.pinnedFriendID == nil)
+        }
         let oldState = try JSONDecoder().decode(CircleState.self, from: Data("{}".utf8))
         precondition(oldState.testFriendStartedAt == nil && oldState.friends.isEmpty)
         print("Local test friend: opt-in, six 5-second moods, wraparound, resume, cloud merge, persistence and removal passed")

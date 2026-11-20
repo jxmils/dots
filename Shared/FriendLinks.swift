@@ -5,15 +5,16 @@ struct FriendInvite: Identifiable {
     static let host = "dotlings-circle-6825127572.web.app"
     let owner: String
     let pass: String
-    var id: String { owner + "/" + pass }
+    let mutual: Bool
+    var id: String { (mutual ? "together/" : "") + owner + "/" + pass }
     var url: URL { URL(string: "https://" + Self.host + "/invite#" + id)! }
-    init(owner: String, pass: String) { self.owner = owner; self.pass = pass }
+    init(owner: String, pass: String, mutual: Bool = true) { self.owner = owner; self.pass = pass; self.mutual = mutual }
     init?(url: URL) {
-        guard url.scheme == "dots", url.host == "invite" else { return nil }
+        guard url.scheme == "dots", ["connect", "invite"].contains(url.host ?? "") else { return nil }
         let parts = url.path.split(separator: "/").map(String.init)
         guard parts.count == 2, parts[0].range(of: #"^[A-Za-z0-9_-]{1,128}$"#, options: .regularExpression) != nil,
               parts[1].range(of: #"^[a-f0-9]{32}$"#, options: .regularExpression) != nil else { return nil }
-        self.init(owner: parts[0], pass: parts[1])
+        self.init(owner: parts[0], pass: parts[1], mutual: url.host == "connect")
     }
 }
 
@@ -162,12 +163,23 @@ final class FriendLinks {
         try await publish(pet)
         let invite = FriendInvite(owner: session.uid, pass: UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased())
         let expiry = Date().addingTimeInterval(7 * 86400).timeIntervalSince1970 * 1000
-        _ = try await db("PUT", "people/" + session.uid + "/passes/" + invite.pass, session, encoder.encode(["expires": expiry]))
+        _ = try await db("PUT", "connections/" + session.uid + "/" + invite.pass, session, encoder.encode(["expires": expiry]))
         return invite
     }
-    func accept(_ invite: FriendInvite) async throws {
+    func accept(_ invite: FriendInvite, companion: Companion) async throws {
         let s = try await session()
         guard invite.owner != s.uid else { throw LinkError.selfInvite }
+        if invite.mutual {
+            let card = try JSONSerialization.jsonObject(with: encoder.encode(MoodCard(companion)))
+            let updates: [String: Any] = [
+                "connections/" + invite.owner + "/" + invite.pass + "/reader": s.uid,
+                "bonds/" + invite.owner + "/" + s.uid: invite.pass,
+                "bonds/" + s.uid + "/" + invite.owner: invite.pass,
+                "people/" + s.uid + "/mood": card
+            ]
+            _ = try await db("PATCH", "", s, JSONSerialization.data(withJSONObject: updates))
+            return
+        }
         let base = "people/" + invite.owner
         _ = try await db("PUT", base + "/passes/" + invite.pass + "/reader", s, encoder.encode(s.uid))
         _ = try await db("PUT", base + "/grants/" + s.uid, s, encoder.encode(invite.pass))
@@ -178,7 +190,8 @@ final class FriendLinks {
         let following = try await db("GET", "following/" + s.uid, s)
         let ids = try decoder.decode([String: Bool]?.self, from: following) ?? [:]
         var friends: [Companion] = []
-        for owner in ids.keys {
+        let bonds = try await connections(for: s)
+        for owner in Set(ids.keys).union(bonds.keys) {
             do {
                 let data = try await db("GET", "people/" + owner + "/mood", s)
                 if let card = try decoder.decode(MoodCard?.self, from: data) { friends.append(card.companion(owner: owner)) }
@@ -186,27 +199,62 @@ final class FriendLinks {
         }
         return friends
     }
+    private func connections(for s: FriendSession) async throws -> [String: String] {
+        let data = try await db("GET", "bonds/" + s.uid, s)
+        return try decoder.decode([String: String]?.self, from: data) ?? [:]
+    }
+
+    private func endConnection(sender: String, pass: String, reader: String?, session: FriendSession) async throws {
+        var deletes = ["connections/" + sender + "/" + pass: NSNull()]
+        if let reader {
+            deletes["bonds/" + sender + "/" + reader] = NSNull()
+            deletes["bonds/" + reader + "/" + sender] = NSNull()
+        }
+        _ = try await db("PATCH", "", session, JSONSerialization.data(withJSONObject: deletes))
+    }
+
     func leave(_ friend: Companion) async throws {
         let s = try await session()
-        let owner = String(friend.id.dropFirst("friend:".count))
-        _ = try await db("DELETE", "people/" + owner + "/grants/" + s.uid, s)
-        _ = try await db("DELETE", "following/" + s.uid + "/" + owner, s)
+        try await leave(peer: String(friend.id.dropFirst("friend:".count)), session: s)
+    }
+    private func leave(peer: String, session s: FriendSession) async throws {
+        if let pass = try await connections(for: s)[peer] {
+            let own = try await db("GET", "connections/" + s.uid + "/" + pass, s)
+            let sentByMe = try decoder.decode(Pass?.self, from: own) != nil
+            try await endConnection(sender: sentByMe ? s.uid : peer, pass: pass, reader: sentByMe ? peer : s.uid, session: s)
+        }
+        _ = try await db("DELETE", "people/" + peer + "/grants/" + s.uid, s)
+        _ = try await db("DELETE", "following/" + s.uid + "/" + peer, s)
     }
     struct SentPass: Identifiable {
         let id: String
         let expires: Date
-        let accepted: Bool
+        let reader: String?
+        let mutual: Bool
+        var accepted: Bool { reader != nil }
         var created: Date { expires.addingTimeInterval(-7 * 86400) }
     }
     func sent() async throws -> [SentPass] {
         let s = try await session()
-        let data = try await db("GET", "people/" + s.uid + "/passes", s)
-        let passes = try decoder.decode([String: Pass]?.self, from: data) ?? [:]
-        return passes.map { SentPass(id: $0.key, expires: Date(timeIntervalSince1970: $0.value.expires / 1000), accepted: $0.value.reader != nil) }.sorted { $0.expires > $1.expires }
+        var result: [SentPass] = []
+        for (path, mutual) in [("connections/" + s.uid, true), ("people/" + s.uid + "/passes", false)] {
+            let data = try await db("GET", path, s)
+            let passes = try decoder.decode([String: Pass]?.self, from: data) ?? [:]
+            result += passes.map { SentPass(id: $0.key, expires: Date(timeIntervalSince1970: $0.value.expires / 1000), reader: $0.value.reader, mutual: mutual) }
+        }
+        return result.sorted { $0.expires > $1.expires }
     }
-    func revoke(_ pass: String) async throws {
+    func revoke(_ pass: SentPass) async throws {
         let s = try await session()
-        _ = try await db("DELETE", "people/" + s.uid + "/passes/" + pass, s)
+        if pass.mutual {
+            // A pending invite may have been claimed while this screen was open.
+            let data = try await db("GET", "connections/" + s.uid + "/" + pass.id, s)
+            if let current = try decoder.decode(Pass?.self, from: data) {
+                try await endConnection(sender: s.uid, pass: pass.id, reader: current.reader, session: s)
+            }
+        } else {
+            _ = try await db("DELETE", "people/" + s.uid + "/passes/" + pass.id, s)
+        }
     }
     private func stopSharing() async throws {
         let s = try await session()
@@ -216,6 +264,11 @@ final class FriendLinks {
     func erase() async throws {
         guard try FriendSession.load() != nil else { return }
         let s = try await session()
+        let bonds = try await connections(for: s)
+        for peer in bonds.keys {
+            try await leave(peer: peer, session: s)
+        }
+        for pass in try await sent() where pass.mutual { try await revoke(pass) }
         try await stopSharing()
         let following = try decoder.decode([String: Bool]?.self, from: try await db("GET", "following/" + s.uid, s)) ?? [:]
         for owner in following.keys { _ = try await db("DELETE", "people/" + owner + "/grants/" + s.uid, s) }

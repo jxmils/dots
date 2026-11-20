@@ -221,37 +221,46 @@ final class CircleModel {
         defer { syncing = false }
         repeat {
             syncAgain = false
-            var issue: String?
-            if state.cloudEnabled {
-                do {
-                    if let companion = state.companion { try await cloud.publish(companion) }
-                    try await cloud.subscribe()
-                } catch { issue = CircleSyncMessage.text(for: error) }
-                do {
-                    let friends = try await cloud.friends()
-                    state.receiveFriends(friends + state.friends.filter { $0.id.hasPrefix("friend:") }, at: Date())
-                    state.lastSyncedAt = Date()
-                    persist()
-                } catch { issue = issue ?? CircleSyncMessage.text(for: error) }
-            }
-            if state.linkConnected {
-                if issue != nil {
-                    let hasAppleFriends = state.friends.contains { $0.zoneName != nil }
-                    issue = hasAppleFriends ? "An older iCloud connection couldn’t update. You can still invite friends with a new link." : nil
-                }
-                if state.linkPublishing, let pet = state.companion {
-                    do { try await FriendLinks.shared.publish(pet) }
-                    catch { issue = "Your mood is saved. Dotlings will try sharing it again when you reconnect." }
-                }
-                do {
-                    let friends = try await FriendLinks.shared.friends()
-                    state.receiveFriends(friends + state.friends.filter { !$0.id.hasPrefix("friend:") }, at: Date())
-                    state.lastSyncedAt = Date()
-                    persist()
-                } catch { issue = "Pull down to try loading your friends again." }
-            }
-            syncIssue = issue
+            async let apple = refreshAppleFriends()
+            async let links = refreshLinkedFriends()
+            let (appleIssue, linkIssue) = await (apple, links)
+            syncIssue = linkIssue ?? appleIssue
         } while syncAgain && !deleting
+    }
+
+    private func refreshAppleFriends() async -> String? {
+        guard state.cloudEnabled else { return nil }
+        var issue: String?
+        do {
+            if let companion = state.companion { try await cloud.publish(companion) }
+            try await cloud.subscribe()
+        } catch { issue = CircleSyncMessage.text(for: error) }
+        do {
+            let friends = try await cloud.friends()
+            state.receiveFriends(friends, fromLinks: false, at: Date())
+            state.lastSyncedAt = Date()
+            persist()
+        } catch { issue = issue ?? CircleSyncMessage.text(for: error) }
+        if issue != nil && state.linkConnected {
+            return state.friends.contains { $0.zoneName != nil } ? "An older iCloud connection couldn’t update. New friend links still work." : nil
+        }
+        return issue
+    }
+
+    private func refreshLinkedFriends() async -> String? {
+        guard state.linkConnected else { return nil }
+        var issue: String?
+        if state.linkPublishing, let pet = state.companion {
+            do { try await FriendLinks.shared.publish(pet) }
+            catch { issue = "Your mood is saved. Dotlings will try sharing it again when you reconnect." }
+        }
+        do {
+            let friends = try await FriendLinks.shared.friends()
+            state.receiveFriends(friends, fromLinks: true, at: Date())
+            state.lastSyncedAt = Date()
+            persist()
+        } catch { issue = issue ?? "Pull down to try loading your friends again." }
+        return issue
     }
 
     func invite() async {
@@ -266,13 +275,14 @@ final class CircleModel {
     }
 
     func acceptLink(_ invite: FriendInvite) async {
-        guard storageAvailable, !sharing, !deleting else { return }
+        guard let pet = state.companion, storageAvailable, !sharing, !deleting else { return }
         sharing = true
         defer { sharing = false }
         state.linkConnected = true
         persist()
         do {
-            try await FriendLinks.shared.accept(invite)
+            try await FriendLinks.shared.accept(invite, companion: pet)
+            if invite.mutual { state.linkPublishing = true; persist() }
             await refresh()
         } catch { self.error = (error as? LinkError)?.localizedDescription ?? LinkError.unavailable.localizedDescription }
     }
