@@ -15,6 +15,7 @@ enum CheckInDay {
 struct CollectionProgress: Codable, Equatable {
     static let milestones = [5, 10, 25, 50, 100, 150, 200, 250, 300, 350, 365, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1250, 1400, 1500]
     var owned: [CompanionKind] = []
+    var selectedWithPurchase: Bool? // Keeps a paid selection separate from earned hatch rewards.
     var names: [String: String] = [:]
     var lastCheckInDay: Int?
     var streak = 0

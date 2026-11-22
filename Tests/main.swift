@@ -251,6 +251,17 @@ private final class TestCircleKeys: CircleKeys {
         model.adopt(owner: " Jason ", name: " Cloud ", kind: .pillow)
         precondition(model.state.companion?.ownerName == "Jason" && model.state.companion?.petName == "Cloud")
         model.setMood(.sleepy)
+        let earnedBeforePurchase = model.state.collection
+        model.applyCollectionAccess(true)
+        precondition(model.availableCollection.owned.count == 29 && model.state.collection == earnedBeforePurchase)
+        model.activate(.coffee)
+        let paidSelection = try modelStore.load()
+        precondition(paidSelection.companion?.kind == .coffee && !paidSelection.collection.owned.contains(.coffee))
+        precondition(PetArchive(paidSelection)?.restoredState.collection.owned == earnedBeforePurchase.owned)
+        model.applyCollectionAccess(false)
+        precondition(model.state.companion?.kind == .pillow && model.state.collection.owned == earnedBeforePurchase.owned)
+        precondition(model.availableCollection.earnedMilestones == earnedBeforePurchase.earnedMilestones)
+        print("Collection purchase, paid pet selection, reinstall recovery and refund preserve earned pets and streaks")
         let savedMood = try modelStore.load().companion?.mood
         precondition(savedMood == .sleepy, "Mood changes must persist before syncing")
         precondition(model.state.friends.isEmpty && !model.state.cloudEnabled, "New installs must have no fake friends or implicit sharing")

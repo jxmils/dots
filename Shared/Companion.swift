@@ -172,7 +172,7 @@ struct CircleState: Codable, Equatable {
         self.pinnedFriendID = pinnedFriendID; self.widgetMode = widgetMode; self.lastSyncedAt = lastSyncedAt
         self.collection = collection
         if let companion {
-            if !self.collection.owned.contains(companion.kind) { self.collection.owned.append(companion.kind) }
+            if self.collection.selectedWithPurchase != true && !self.collection.owned.contains(companion.kind) { self.collection.owned.append(companion.kind) }
             if self.collection.names[companion.kind.rawValue] == nil { self.collection.names[companion.kind.rawValue] = companion.petName }
         }
     }
@@ -193,7 +193,7 @@ struct CircleState: Codable, Equatable {
         testFriendStartedAt = try c.decodeIfPresent(Date.self, forKey: .testFriendStartedAt)
         collection = try c.decodeIfPresent(CollectionProgress.self, forKey: .collection) ?? CollectionProgress()
         if let companion {
-            if !collection.owned.contains(companion.kind) { collection.owned.append(companion.kind) }
+            if collection.selectedWithPurchase != true && !collection.owned.contains(companion.kind) { collection.owned.append(companion.kind) }
             if collection.names[companion.kind.rawValue] == nil { collection.names[companion.kind.rawValue] = companion.petName }
         }
     }

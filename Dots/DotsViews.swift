@@ -104,6 +104,7 @@ struct DotsRoot: View {
                 do { try await Task.sleep(for: .seconds(max(0.05, delay))) } catch { return }
             }
         }
+        .task { await model.watchPurchases() }
         .task {
             if let metadata = PendingInvitation.metadata {
                 PendingInvitation.metadata = nil
@@ -215,7 +216,7 @@ struct CompanionHome: View {
                     Text(model.syncIssue != nil ? "Saved on this device. Waiting to sync." : (model.state.cloudEnabled || model.state.linkPublishing) ? "Shared with the people you've invited." : "Just for you. Invite a friend when you're ready.")
                         .font(DotsStyle.round(11)).foregroundStyle(DotsStyle.muted)
                 }
-                if !model.state.collection.eggs.isEmpty {
+                if !model.hasAllPets && !model.state.collection.eggs.isEmpty {
                     Button { model.showHatch = true } label: {
                         Label("Someone new is ready to hatch", systemImage: "sparkles")
                             .font(DotsStyle.round(14, weight: .bold)).frame(maxWidth: .infinity).padding(16)

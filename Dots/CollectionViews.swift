@@ -238,7 +238,7 @@ struct CollectionView: View {
     @State private var ownerCode = ""
     @State private var ownerCodeError = false
     var body: some View {
-        let progress = model.state.collection
+        let progress = model.availableCollection
         let streak = progress.currentStreak(on: CheckInDay.number(Date()))
         VStack(alignment: .leading, spacing: 22) {
             Text("Dotling collection").font(DotsStyle.round(32, weight: .bold)).padding(.top, 20)
@@ -253,6 +253,33 @@ struct CollectionView: View {
                 .font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
             Text("Choose an owned companion as your profile Dotling. It's who your friends will see.")
                 .font(DotsStyle.round(12)).foregroundStyle(DotsStyle.muted)
+            if !progress.isComplete || model.hasAllPets {
+                VStack(alignment: .leading, spacing: 10) {
+                    if model.hasAllPets {
+                        Label("All Dotlings unlocked", systemImage: "checkmark.circle.fill")
+                            .font(DotsStyle.round(16, weight: .bold))
+                    } else {
+                        Text("Meet every Dotling").font(DotsStyle.round(18, weight: .bold))
+                        Text("Keep hatching with streaks, or unlock all \(CompanionKind.allCases.count) pets with one purchase.")
+                            .font(DotsStyle.round(13)).foregroundStyle(DotsStyle.muted)
+                        if let price = model.allPetsPrice {
+                            Button("Unlock all Dotlings · " + price) { Task { await model.buyAllPets() } }
+                                .font(DotsStyle.round(15, weight: .bold)).padding(.vertical, 8)
+                        } else if model.loadingProduct {
+                            ProgressView("Loading price…")
+                        } else {
+                            Button("Check price") { Task { await model.loadAllPetsProduct() } }
+                        }
+                    }
+                    Button("Restore Purchases") { Task { await model.restoreAllPets() } }
+                        .font(DotsStyle.round(13, weight: .semibold))
+                    if model.storeBusy { ProgressView() }
+                    if let message = model.storeMessage { Text(message).font(.footnote) }
+                }.disabled(model.storeBusy)
+                .frame(maxWidth: .infinity, alignment: .leading).padding(18)
+                .background(.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 22))
+                .task { if !model.hasAllPets { await model.loadAllPetsProduct() } }
+            }
             HStack {
                 stat("\(streak)", "day streak", "flame.fill")
                 Spacer(); stat("\(progress.bestStreak)", "best streak", "sparkles")

@@ -5,6 +5,7 @@ import CryptoKit
 import WidgetKit
 import UIKit
 import UserNotifications
+import StoreKit
 
 @MainActor @Observable
 final class CircleModel {
@@ -201,6 +202,100 @@ final class CircleModel {
         }
     }
 
+    static let allPetsID = "com.jasonmiller.dots.allpets"
+    private(set) var allPetsProduct: Product?
+    var allPetsPrice: String? {
+        #if DEBUG || DOTS_RENDER
+        if preview { return "$1.99" } // U.S. storefront fixture for native screen captures.
+        #endif
+        return allPetsProduct?.displayPrice
+    }
+    private(set) var hasAllPets = false
+    private(set) var storeBusy = false
+    private(set) var loadingProduct = false
+    var storeMessage: String?
+
+    var availableCollection: CollectionProgress {
+        var collection = state.collection
+        if hasAllPets { collection.completeCollection() }
+        return collection
+    }
+
+    func loadAllPetsProduct() async {
+        guard !preview, allPetsProduct == nil, !loadingProduct else { return }
+        loadingProduct = true
+        defer { loadingProduct = false }
+        do {
+            let products = try await Product.products(for: [Self.allPetsID])
+            allPetsProduct = products.first { $0.id == Self.allPetsID && $0.type == .nonConsumable }
+            storeMessage = allPetsProduct == nil ? "The shop is temporarily unavailable." : nil
+        } catch { storeMessage = "The App Store couldn’t connect. Try again in a moment." }
+    }
+
+    func watchPurchases() async {
+        guard !preview else { return }
+        async let initial: Void = refreshPurchaseAccess()
+        for await result in StoreKit.Transaction.updates {
+            guard !Task.isCancelled else { break }
+            guard case .verified(let transaction) = result, transaction.productID == Self.allPetsID else { continue }
+            await refreshPurchaseAccess()
+            await transaction.finish()
+        }
+        await initial
+    }
+
+    private var accessCheck = 0
+    private func refreshPurchaseAccess() async {
+        accessCheck += 1
+        let check = accessCheck
+        let result = await StoreKit.Transaction.currentEntitlement(for: Self.allPetsID)
+        guard check == accessCheck else { return }
+        switch result {
+        case .verified(let transaction): applyCollectionAccess(transaction.revocationDate == nil)
+        case .unverified: storeMessage = "Apple couldn’t verify this purchase."; return
+        case nil: applyCollectionAccess(false)
+        }
+    }
+
+    func applyCollectionAccess(_ entitled: Bool) {
+        hasAllPets = entitled
+        if !hasAllPets, state.collection.selectedWithPurchase == true,
+           let earned = state.collection.owned.first, let chosen = state.companion?.kind {
+            state.collection.selectedWithPurchase = nil
+            if !state.collection.owned.contains(chosen) { activate(earned) }
+            else { persist() }
+        }
+    }
+
+    func buyAllPets() async {
+        guard !preview, !storeBusy, !hasAllPets, let product = allPetsProduct else { return }
+        storeBusy = true
+        storeMessage = nil
+        defer { storeBusy = false }
+        do {
+            switch try await product.purchase() {
+            case .success(.verified(let transaction)) where transaction.productID == Self.allPetsID:
+                await refreshPurchaseAccess()
+                await transaction.finish()
+            case .success: storeMessage = "Apple couldn’t verify this purchase."
+            case .pending: storeMessage = "Your purchase is waiting for approval."
+            case .userCancelled: break
+            @unknown default: storeMessage = "Check your purchase again in a moment."
+            }
+        } catch { storeMessage = "Your purchase couldn’t be completed. Please try again." }
+    }
+
+    func restoreAllPets() async {
+        guard !preview, !storeBusy else { return }
+        storeBusy = true
+        defer { storeBusy = false }
+        do {
+            try await AppStore.sync()
+            await refreshPurchaseAccess()
+            storeMessage = hasAllPets ? "All your Dotlings are available." : "No all-pets purchase was found for this Apple Account."
+        } catch { storeMessage = "Couldn’t restore purchases. Please try again." }
+    }
+
     func setWidget(_ mode: WidgetMode, pinned: String?) {
         state.widgetMode = mode
         state.pinnedFriendID = pinned
@@ -228,7 +323,7 @@ final class CircleModel {
     }
 
     @discardableResult func nameCreature(_ kind: CompanionKind, pet: String) -> Bool {
-        guard storageAvailable, state.collection.owned.contains(kind) else { return false }
+        guard storageAvailable, availableCollection.owned.contains(kind) else { return false }
         let value = String(pet.trimmingCharacters(in: .whitespacesAndNewlines).prefix(24))
         let name = value.isEmpty ? kind.defaultName : value
         let before = state
@@ -247,7 +342,8 @@ final class CircleModel {
     }
 
     func activate(_ kind: CompanionKind) {
-        guard state.collection.owned.contains(kind), state.companion != nil else { return }
+        guard availableCollection.owned.contains(kind), state.companion != nil else { return }
+        state.collection.selectedWithPurchase = state.collection.owned.contains(kind) ? nil : true
         let name = state.collection.names[kind.rawValue] ?? kind.defaultName
         state.companion?.kind = kind
         state.companion?.petName = name
