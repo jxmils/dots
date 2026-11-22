@@ -22,6 +22,9 @@ extension Mood {
         case .sad: Color(red: 0.39, green: 0.61, blue: 0.81)
         case .overwhelmed: Color(red: 0.89, green: 0.46, blue: 0.42)
         case .focused: Color(red: 0.91, green: 0.65, blue: 0.24)
+        case .sick: Color(red: 0.43, green: 0.66, blue: 0.61)
+        case .studious: Color(red: 0.44, green: 0.53, blue: 0.79)
+        case .workingOut: Color(red: 0.92, green: 0.52, blue: 0.30)
         }
     }
 }
@@ -181,6 +184,22 @@ struct CompanionView: View {
     var kind: CompanionKind = .lavender
     var animate = false
     var body: some View {
+        portrait.overlay(alignment: .bottomTrailing) {
+            if mood.portraitMood != mood {
+                GeometryReader { geometry in
+                    let side = min(geometry.size.width, geometry.size.height)
+                    Image(systemName: mood.symbol)
+                        .font(.system(size: side * 0.11, weight: .bold, design: .rounded))
+                        .foregroundStyle(DotsStyle.ink)
+                        .frame(width: side * 0.21, height: side * 0.21)
+                        .background(mood.color, in: Circle())
+                        .position(x: geometry.size.width / 2 + side * 0.30, y: geometry.size.height / 2 + side * 0.29)
+                }
+                .allowsHitTesting(false).accessibilityHidden(true)
+            }
+        }
+    }
+    @ViewBuilder private var portrait: some View {
         if animate {
             DotlingAnimationView(kind: kind, mood: mood)
                 .id(kind.rawValue + "/" + mood.rawValue)
@@ -194,7 +213,7 @@ struct CompanionView: View {
             }
             .transaction { $0.animation = nil }
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel("Squishy companion, feeling \(mood.title.lowercased())")
+            .accessibilityLabel("Squishy companion, \(mood.statusPhrase)")
         }
     }
 }
@@ -245,7 +264,7 @@ struct FriendWidgetView: View {
                         }
                 } else { Image(systemName: "person.2").font(.system(size: 20, weight: .medium)) }
                 Text(friend?.ownerName ?? "Dotlings").font(.system(size: 10, weight: .semibold)).lineLimit(1)
-            }.accessibilityLabel(friend.map { "\($0.ownerName) is feeling \($0.mood.title)" } ?? "No friend selected")
+            }.accessibilityLabel(friend.map { "\($0.ownerName) is \($0.mood.statusPhrase)" } ?? "No friend selected")
         } else if let friend {
             HStack(spacing: 8) {
                 CompanionView(mood: friend.mood, kind: friend.kind).frame(width: 48, height: 48)

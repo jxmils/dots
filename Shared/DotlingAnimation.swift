@@ -156,7 +156,7 @@ struct DotlingAnimationView: View {
             if !active && petting { petting = false }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(kind.title), feeling \(mood.title.lowercased())")
+        .accessibilityLabel("\(kind.title), \(mood.statusPhrase)")
         .accessibilityHint("Plays a random emote every six seconds. Tap to blink, swipe left or right to move, or rub to pet.")
         .accessibilityAction { blink() }
         .accessibilityAction(named: "Move left") { play(.moveLeft) }

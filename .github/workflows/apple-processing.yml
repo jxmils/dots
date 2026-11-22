@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 25
     env:
       APPLE_APP_ID: ${{ vars.APPLE_APP_ID || '6825127572' }}
-      APPLE_APP_VERSION: '1.0.1'
+      APPLE_APP_VERSION: '1.0.2'
       APPLE_BUILD_NUMBER: ${{ inputs.build_number }}
       UPLOADED_SOURCE_COMMIT: ${{ inputs.source_commit }}
       APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}

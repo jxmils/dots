@@ -61,6 +61,12 @@ struct CircleRoute: Codable {
     }
 }
 
+enum MoodTopic {
+    static func forSlot(_ name: String) -> String {
+        Data(SHA256.hash(data: Data(("dotlings/mood-alerts/1/" + name).utf8))).hex
+    }
+}
+
 struct CircleEnvelope: Codable {
     let key: Data
     var preview: Data?
@@ -101,6 +107,9 @@ struct CircleSlot {
     }
     func write(_ content: CircleEnvelope, name: String, replacing old: CircleSlot?) async throws {
         let record = old?.record ?? CKRecord(recordType: "DotlingFriendSlot", recordID: .init(recordName: name))
+        if content.mood != nil && !content.revoked {
+            record["moodTopic"] = MoodTopic.forSlot(name) as CKRecordValue
+        } else { record["moodTopic"] = nil }
         record["payload"] = try JSONEncoder().encode(content) as CKRecordValue
         let result = try await container.publicCloudDatabase.modifyRecords(saving: [record], deleting: [], savePolicy: .ifServerRecordUnchanged)
         guard let saved = result.saveResults[record.recordID] else { throw LinkError.unavailable }
@@ -158,9 +167,11 @@ private struct DeviceCircleKeys: CircleKeys {
     }
     private struct Card: Codable, Equatable {
         let owner: String, pet: String, kind: CompanionKind, mood: Mood, date: Date
+        let activity: Mood?
         init(_ companion: Companion) {
             owner = companion.ownerName; pet = companion.petName; kind = companion.kind
-            mood = companion.mood; date = companion.updatedAt
+            mood = companion.mood.portraitMood; date = companion.updatedAt
+            activity = mood == companion.mood ? nil : companion.mood
         }
         func encrypted(_ key: SymmetricKey, id: String) throws -> Data {
             try ChaChaPoly.seal(JSONEncoder().encode(self), using: key, authenticating: Data(id.utf8)).combined
@@ -170,7 +181,7 @@ private struct DeviceCircleKeys: CircleKeys {
             return try JSONDecoder().decode(Self.self, from: data)
         }
         func friend(_ id: String) -> Companion {
-            Companion(id: "friend:" + id, ownerName: owner, petName: pet, mood: mood, updatedAt: date, kind: kind)
+            Companion(id: "friend:" + id, ownerName: owner, petName: pet, mood: activity ?? mood, updatedAt: date, kind: kind)
         }
     }
     func invite(_ pet: Companion) async throws -> FriendInvite {
@@ -251,6 +262,12 @@ private struct DeviceCircleKeys: CircleKeys {
         }
         return result
     }
+    func peerRecords(for friends: [Companion]) async throws -> Set<String> {
+        let ids = Set(friends.map(\.id))
+        let routes = try keys.routes(await transport.account())
+        return Set(routes.values.filter { ids.contains("friend:" + $0.invite.id) }.map(\.peer))
+    }
+
     struct SentPass: Identifiable {
         let id: String
         let created: Date

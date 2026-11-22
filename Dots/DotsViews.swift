@@ -123,7 +123,6 @@ struct DotsRoot: View {
         .onReceive(NotificationCenter.default.publisher(for: .dotsShareAccepted)) { notification in
             if let metadata = notification.object as? CKShare.Metadata { Task { await model.accept(metadata) } }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .dotsRefresh)) { _ in Task { await model.refresh() } }
         .onOpenURL { url in
             guard url.scheme == "dots" else { return }
             if let invite = FriendInvite(url: url) { model.incomingInvite = invite; tab = .friends }
@@ -185,8 +184,8 @@ struct CompanionHome: View {
                     }
                     Text(companion.petName).font(DotsStyle.round(26, weight: .bold)).padding(.top, 3)
                     HStack(spacing: 5) {
-                        Text("Feeling")
-                        Text(companion.mood.title.lowercased()).fontWeight(.semibold)
+                        if companion.mood != .workingOut { Text("Feeling") }
+                        Text(companion.mood == .workingOut ? "Working out" : companion.mood.title.lowercased()).fontWeight(.semibold)
                     }.font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted).padding(.top, 3)
                     Spacer().frame(height: 14)
                 }.frame(maxWidth: .infinity).padding(.bottom, 5)
@@ -404,7 +403,7 @@ struct WidgetSettingsView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Who pops up?").font(DotsStyle.round(19, weight: .bold))
                 ForEach(WidgetMode.allCases) { mode in
-                    Button { model.setWidget(mode, pinned: model.state.pinnedFriendID) } label: {
+                    Button { model.setWidget(mode, pinned: mode == .latest ? nil : model.state.pinnedFriendID) } label: {
                         HStack(spacing: 12) {
                             Image(systemName: mode == .latest ? "sparkles" : "pin.fill").frame(width: 25)
                             VStack(alignment: .leading, spacing: 4) {
@@ -428,8 +427,8 @@ struct WidgetSettingsView: View {
                                 Image(systemName: "chevron.up.chevron.down").font(.system(size: 10))
                             }.font(DotsStyle.round(14)).padding(.vertical, 9)
                         } else {
-                            Picker("Pinned friend", selection: Binding(get: { model.state.pinnedFriendID ?? "" }, set: { model.setWidget(.pinned, pinned: $0.isEmpty ? nil : $0) })) {
-                                Text("Choose a friend").tag("")
+                            Picker("Pinned friend", selection: Binding(get: { model.state.pinnedFriendID ?? "" }, set: { model.setWidget($0.isEmpty ? .latest : .pinned, pinned: $0.isEmpty ? nil : $0) })) {
+                                Text(model.state.pinnedFriendID == nil ? "Choose a friend" : "Unpin and show latest").tag("")
                                 ForEach(model.state.sortedFriends) { Text($0.ownerName).tag($0.id) }
                             }.pickerStyle(.menu)
                         }
@@ -462,9 +461,11 @@ struct FriendDetail: View {
                 Text(friend.id == TestFriend.id ? "Only on this device · changes mood every 5 seconds" : "\(friend.petName) is keeping them company.").font(DotsStyle.round(14)).foregroundStyle(DotsStyle.muted)
                 HStack { Text(friend.id == TestFriend.id ? "Mood updated" : "Mood shared"); Text(friend.updatedAt, style: .relative) }.font(.caption).foregroundStyle(DotsStyle.muted)
                 Button {
-                    model.setWidget(.pinned, pinned: friend.id); dismiss()
+                    if model.state.pinnedFriendID == friend.id { model.setWidget(.latest, pinned: nil) }
+                    else { model.setWidget(.pinned, pinned: friend.id) }
+                    dismiss()
                 } label: {
-                    Label("Pin to my widget", systemImage: "pin.fill").font(DotsStyle.round(16, weight: .bold))
+                    Label(model.state.pinnedFriendID == friend.id ? "Unpin from my widget" : "Pin to my widget", systemImage: model.state.pinnedFriendID == friend.id ? "pin.slash" : "pin.fill").font(DotsStyle.round(16, weight: .bold))
                         .frame(maxWidth: .infinity).padding(18).foregroundStyle(.white).background(DotsStyle.plum, in: Capsule())
                 }
                 Button(friend.id == TestFriend.id ? "Remove test friend" : "Leave this friend's circle", role: .destructive) { confirmRemove = true }.font(.footnote)
@@ -526,6 +527,16 @@ struct SettingsView: View {
                         Button("Manage older iCloud invitations") {
                             dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { Task { await model.manageAppleInvites() } }
+                        }
+                    }
+                    Toggle("Friend mood notifications", isOn: Binding(
+                        get: { model.state.alertHistory != nil },
+                        set: { enabled in Task { await model.setMoodAlerts(enabled) } }
+                    )).disabled(model.changingAlerts)
+                    if let issue = model.alertIssue {
+                        Text(issue).font(.footnote)
+                        if model.alertsDenied, let url = URL(string: UIApplication.openSettingsURLString) {
+                            Link("Open iPhone Settings", destination: url)
                         }
                     }
                     Button("Check for mood updates") { Task { await model.refresh() } }.disabled(model.syncing || !model.state.sharingEnabled)

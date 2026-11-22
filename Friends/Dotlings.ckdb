@@ -26,6 +26,7 @@ DEFINE SCHEMA
         "___modifiedBy" REFERENCE,
         "___recordID" REFERENCE,
         payload BYTES,
+        moodTopic STRING QUERYABLE,
         GRANT WRITE TO "_creator",
         GRANT CREATE TO "_icloud",
         GRANT READ TO "_icloud"

@@ -1,48 +1,58 @@
 import SwiftUI
 import CloudKit
 import WidgetKit
+import UserNotifications
 
 #if !DOTS_RENDER
 @main
 struct DotsApp: App {
     @UIApplicationDelegateAdaptor(DotsAppDelegate.self) private var delegate
-    @State private var model = CircleModel()
     var body: some Scene {
         WindowGroup {
             #if DEBUG
             if ProcessInfo.processInfo.arguments.contains("--capture-store") { StoreCapture() }
-            else { DotsRoot().environment(model) }
+            else { DotsRoot().environment(delegate.model) }
             #else
-            DotsRoot().environment(model)
+            DotsRoot().environment(delegate.model)
             #endif
         }
     }
 }
 #endif
 
-final class DotsAppDelegate: NSObject, UIApplicationDelegate {
+final class DotsAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    lazy var model = CircleModel()
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        UNUserNotificationCenter.current().delegate = self
+        application.registerForRemoteNotifications()
+        return true
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        notification.request.content.userInfo["dotlingsMood"] as? Bool == true ? [.banner, .list] : []
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        if response.notification.request.content.userInfo["dotlingsMood"] as? Bool == true {
+            await UIApplication.shared.open(URL(string: "dots://friends")!)
+        }
+    }
+
     func application(_ application: UIApplication, configurationForConnecting session: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         let configuration = UISceneConfiguration(name: nil, sessionRole: session.role)
         configuration.delegateClass = DotsSceneDelegate.self
         return configuration
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        guard CKNotification(fromRemoteNotificationDictionary: userInfo) != nil else { completion(.noData); return }
+        guard let push = CKNotification(fromRemoteNotificationDictionary: userInfo),
+              let id = push.subscriptionID,
+              id == "dots-friends" || id == "dots-private" || id.hasPrefix("dots-mood-") else { completion(.noData); return }
         Task { @MainActor in
-            do {
-                let store = CircleStore()
-                var state = try store.load()
-                guard state.cloudEnabled else { completion(.noData); return }
-                let friends = try await CloudCircle().friends()
-                state = try store.load()
-                guard state.cloudEnabled else { completion(.noData); return }
-                state.receiveFriends(friends, fromLinks: false, at: Date())
-                state.lastSyncedAt = Date()
-                try store.save(state)
-                WidgetCenter.shared.reloadTimelines(ofKind: DotsConfig.widgetKind)
-                NotificationCenter.default.post(name: .dotsRefresh, object: nil)
-                completion(.newData)
-            } catch { completion(.failed) }
+            guard model.state.sharingEnabled else { completion(.noData); return }
+            let before = model.state.friends
+            await model.refresh(waitForCompletion: true)
+            completion(before != model.state.friends ? .newData : model.syncIssue == nil ? .noData : .failed)
         }
     }
 }

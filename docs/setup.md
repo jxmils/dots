@@ -91,12 +91,20 @@ See Apple's [schema deployment instructions](https://developer.apple.com/documen
 
 In a TestFlight build (or a DEBUG build), hold the **dotlings** wordmark for three seconds, then choose **Add test friend on this device**. This is deliberately opt-in: new installs have no test friends, and ordinary App Store builds do not expose the control. It is not tied to a name such as Jason or enabled for every tester.
 
-The local Sky companion appears as **Test friend** in My circle. While the app is active it cycles Happy → Calm → Sleepy → A little low → Overwhelmed → Focused, every 30 seconds. The open detail view follows the current mood. The clock stops running in the background; reopening catches up from the saved start time. Nothing is sent to CloudKit, and the user's mood, check-in streak and collection are unaffected. Cloud refreshes preserve this local friend.
+The local Sky companion appears as **Test friend** in My circle. While the app is active it cycles Happy → Calm → Sleepy → A little low → Overwhelmed → Focused → Sick → Studious → Working Out, every five seconds. The open detail view follows the current mood. The clock stops running in the background; reopening catches up from the saved start time. Nothing is sent to CloudKit, and the user's mood, check-in streak and collection are unaffected. Cloud refreshes preserve this local friend.
 
-You can pin it to a widget, but widget refresh timing is controlled by iOS: the 30-second cadence is an in-app test, not a promise of Lock Screen refresh frequency. In the friend's profile, choose **Remove test friend** to remove it and clear its pin. Normal App Store launches remove this testing data. This test does not validate real friend sharing or replace deploying the CloudKit production schema.
+You can pin it to a widget, but widget refresh timing is controlled by iOS: the five-second cadence is an in-app test, not a promise of Lock Screen refresh frequency. In the friend's profile, choose **Remove test friend** to remove it and clear its pin. Normal App Store launches remove this testing data. This test does not validate real friend sharing or replace deploying the CloudKit production schema.
 
 ### Mutual friend links
 
 Both phones use separate signed-in iCloud accounts. New links use the public CloudKit database in the existing Dotlings container. The schema in `Friends/Dotlings.ckdb` grants creation and reading to signed-in accounts and limits writes to the creator of each record. Names and moods are encrypted on the device. Each invitation reserves a pair of record IDs. Its recipient can claim their ID once. Subsequent mood updates use a key derived from both devices’ Curve25519 keys. Ending a connection clears its payload and reserves its ID against reuse.
 
 Check invitations from Messages and the manual paste flow on two signed-in iPhones. Check an update in each direction, expiry, a forwarded link, disconnection, widget refresh and a full personal iCloud account. Older private CKShare invitations keep their original permissions. Firebase artifacts in `Friends/` describe a previous TestFlight build only.
+
+### Friend mood alerts
+
+The app offers **Friend mood notifications** under **Your profile → Your circle**. For the public friend-link flow, deploy the queryable String field `DotlingFriendSlot.moodTopic` from `Friends/Dotlings.ckdb` before distributing this build. The topic is derived from the friend's opaque slot ID. It contains no name or mood. New clients set it when they publish an encrypted update. Older private iCloud shares use the existing shared-database subscription.
+
+To test, connect two iPhones on separate iCloud accounts, enable notifications on the receiving phone and allow the iOS prompt. On the sending phone choose Sick, Studious, then Working Out, allowing each change to sync. Check with the receiver in the foreground and background. Each alert should open My circle. Repeating a mood, renaming the pet or cycling the local test friend should stay quiet. Turning alerts off should also keep the phone quiet. iOS can delay or combine background updates.
+
+In a friend's profile, **Unpin from my widget** returns widgets using the app setting to the latest shared mood. A widget configured directly in iOS to show one specific friend keeps that selection.

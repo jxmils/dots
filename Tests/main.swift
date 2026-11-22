@@ -53,12 +53,12 @@ private final class TestCircleKeys: CircleKeys {
     let firstA = try await alice.friends(), firstB = try await bob.friends()
     precondition(firstA.map(\.mood) == [b.mood] && firstB.map(\.mood) == [a.mood])
     var newA = a, newB = b
-    newA.mood = .focused; newA.updatedAt = Date()
-    newB.mood = .sleepy; newB.updatedAt = Date()
+    newA.mood = .studious; newA.updatedAt = Date()
+    newB.mood = .sick; newB.updatedAt = Date()
     try await alice.publish(newA)
     try await bob.publish(newB)
     let changedA = try await alice.friends(), changedB = try await bob.friends()
-    precondition(changedA.map(\.mood) == [.sleepy] && changedB.map(\.mood) == [.focused])
+    precondition(changedA.map(\.mood) == [.sick] && changedB.map(\.mood) == [.studious])
     precondition(db.records.values.allSatisfy { $0.content.mood != nil && $0.content.preview == nil })
     let alicePasses = try await alice.sent()
     precondition(alicePasses.first?.accepted == true)
@@ -152,10 +152,11 @@ private final class TestCircleKeys: CircleKeys {
             localTest.updateTestFriend(at: now.addingTimeInterval(Double(index) * 5))
             precondition(localTest.friends.first { $0.id == TestFriend.id }?.mood == mood)
         }
-        localTest.updateTestFriend(at: now.addingTimeInterval(30))
+        let cycle = Double(Mood.allCases.count) * TestFriend.interval
+        localTest.updateTestFriend(at: now.addingTimeInterval(cycle))
         precondition(localTest.friends.first { $0.id == TestFriend.id }?.mood == .happy)
         localTest.pinnedFriendID = TestFriend.id
-        localTest.receiveFriends([b], at: now.addingTimeInterval(35))
+        localTest.receiveFriends([b], at: now.addingTimeInterval(cycle + TestFriend.interval))
         precondition(localTest.widgetFriend(friendID: TestFriend.id)?.mood == .calm && localTest.pinnedFriendID == TestFriend.id,
                      "Cloud refresh must retain the local test friend and its pin")
         precondition(localTest.companion == a && localTest.collection == originalCollection && !localTest.cloudEnabled,
@@ -169,6 +170,19 @@ private final class TestCircleKeys: CircleKeys {
         decodedTest.receiveFriends([b], at: now.addingTimeInterval(4000))
         precondition(decodedTest.testFriendStartedAt == nil && decodedTest.pinnedFriendID == nil && decodedTest.friends == [b],
                      "Removing the test friend must clear its pin and stop future cycles")
+        var alerts = CircleState(friends: [a, b])
+        alerts.enableMoodAlerts()
+        var active = b
+        active.mood = .workingOut
+        active.updatedAt = b.updatedAt.addingTimeInterval(10)
+        precondition(alerts.moodChanges(in: [a, active], fromLinks: false) == [active])
+        precondition(alerts.moodChanges(in: [a, active], fromLinks: false).isEmpty)
+        precondition(alerts.moodChanges(in: [a, b], fromLinks: false).isEmpty)
+        active.petName = "New name"
+        active.updatedAt.addTimeInterval(5)
+        precondition(alerts.moodChanges(in: [a, active], fromLinks: false).isEmpty)
+        alerts.alertHistory = nil
+        precondition(alerts.moodChanges(in: [a, b], fromLinks: false).isEmpty)
         var mixed = CircleState()
         var linked = a
         linked.id = "friend:test-link"
@@ -185,7 +199,7 @@ private final class TestCircleKeys: CircleKeys {
         }
         let oldState = try JSONDecoder().decode(CircleState.self, from: Data("{}".utf8))
         precondition(oldState.testFriendStartedAt == nil && oldState.friends.isEmpty)
-        print("Local test friend: opt-in, six 5-second moods, wraparound, resume, cloud merge, persistence and removal passed")
+        print("Local test friend: opt-in, 5-second moods, wraparound, resume, cloud merge, persistence and removal passed")
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: root) }
         let store = CircleStore(root: root)
@@ -227,6 +241,11 @@ private final class TestCircleKeys: CircleKeys {
         precondition(savedDragOrder == ["c", "a", "b"])
         precondition(!dragModel.moveFriend("removed", relativeTo: "a", after: false))
         precondition(dragModel.state.widgetFriend(mode: .latest)?.id == "a", "Dragging must not alter latest-mood widgets")
+        dragModel.setWidget(.pinned, pinned: "c")
+        dragModel.setWidget(.latest, pinned: nil)
+        let unpinned = try dragStore.load()
+        precondition(unpinned.pinnedFriendID == nil && unpinned.widgetFriend()?.id == "a")
+        precondition(unpinned.sortedFriends.map(\.id) == savedDragOrder)
         let modelStore = CircleStore(root: root.appendingPathComponent("model"))
         let model = CircleModel(store: modelStore)
         model.adopt(owner: " Jason ", name: " Cloud ", kind: .pillow)
@@ -437,7 +456,7 @@ private final class TestCircleKeys: CircleKeys {
                 }
             }
         }
-        print("All 174 mood portraits match the Happy canvas, envelope, center and resting baseline")
+        print("All mood portraits match the Happy canvas, envelope, center and resting baseline")
         precondition(DotlingAnimation.allCases.reduce(0) { $0 + $1.durations.count } == 73)
         precondition(DotlingAnimation.swipe(translation: CGSize(width: -65, height: 5)) == .moveLeft)
         precondition(DotlingAnimation.swipe(translation: CGSize(width: 45, height: -8)) == .moveRight)

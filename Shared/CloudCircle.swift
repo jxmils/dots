@@ -154,6 +154,30 @@ final class CloudCircle {
         }
     }
 
+    // Each subscription watches the encrypted slot written by one accepted friend.
+    // Only a silent wake-up leaves CloudKit. The app checks the decrypted mood locally.
+    func syncMoodSubscriptions(owner: String, peers: Set<String>) async throws {
+        let prefix = "dots-mood-" + owner + "-"
+        let database = container.publicCloudDatabase
+        let existing = Set(try await database.allSubscriptions().map(\.subscriptionID).filter { $0.hasPrefix(prefix) })
+        let wanted = Set(peers.map { prefix + MoodTopic.forSlot($0) })
+        let additions = wanted.subtracting(existing).map { id in
+            let topic = String(id.dropFirst(prefix.count))
+            let sub = CKQuerySubscription(recordType: "DotlingFriendSlot",
+                                          predicate: NSPredicate(format: "moodTopic == %@", topic),
+                                          subscriptionID: id, options: [.firesOnRecordUpdate])
+            let info = CKSubscription.NotificationInfo()
+            info.shouldSendContentAvailable = true
+            sub.notificationInfo = info
+            return sub
+        }
+        let removed = Array(existing.subtracting(wanted))
+        guard !additions.isEmpty || !removed.isEmpty else { return }
+        let result = try await database.modifySubscriptions(saving: additions, deleting: removed)
+        for item in result.saveResults.values { _ = try item.get() }
+        for item in result.deleteResults.values { _ = try item.get() }
+    }
+
     func deleteOwnCompanion() async throws {
         // Deleting the zone also deletes its share and immediately revokes access for recipients.
         do { _ = try await container.privateCloudDatabase.deleteRecordZone(withID: ownZone) }
@@ -165,5 +189,4 @@ final class CloudCircle {
 
 extension Notification.Name {
     static let dotsShareAccepted = Notification.Name("dotsShareAccepted")
-    static let dotsRefresh = Notification.Name("dotsRefresh")
 }

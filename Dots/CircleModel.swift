@@ -4,6 +4,7 @@ import CloudKit
 import CryptoKit
 import WidgetKit
 import UIKit
+import UserNotifications
 
 @MainActor @Observable
 final class CircleModel {
@@ -25,6 +26,7 @@ final class CircleModel {
     private let store: CircleStore
     let cloud = CloudCircle()
     private var syncAgain = false
+    private var refreshWaiters: [CheckedContinuation<Void, Never>] = []
     let preview: Bool
     private let restoreBudget: any RestoreBudget
 
@@ -136,6 +138,69 @@ final class CircleModel {
         Task { await refresh() }
     }
 
+    private(set) var changingAlerts = false
+    private(set) var alertIssue: String?
+    private(set) var alertsDenied = false
+    private var subscribedFriendIDs: Set<String>?
+    private var subscriptionOwner: String?
+    private var reconcileAlerts = false
+
+    func setMoodAlerts(_ enabled: Bool) async {
+        guard !preview, !changingAlerts, let me = state.companion else { return }
+        changingAlerts = true
+        alertsDenied = false
+        alertIssue = nil
+        defer { changingAlerts = false }
+        if enabled {
+            do {
+                guard try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) else {
+                    alertsDenied = true
+                    alertIssue = "Allow Dotlings notifications in iPhone Settings, then turn on friend updates here."
+                    return
+                }
+            } catch { self.alertIssue = "Couldn’t turn on notifications. Try again in a moment."; return }
+            guard state.companion?.id == me.id else { return }
+            state.enableMoodAlerts()
+            UIApplication.shared.registerForRemoteNotifications()
+        } else {
+            state.alertHistory = nil
+        }
+        subscribedFriendIDs = nil
+        reconcileAlerts = true
+        persist()
+        await refresh()
+    }
+
+    private func updateSubscriptions() async throws {
+        guard state.linkConnected, let owner = state.companion?.id,
+              state.alertHistory != nil || reconcileAlerts else { return }
+        let friends = state.alertHistory == nil ? [] : state.friends.filter { $0.id.hasPrefix("friend:") }
+        let ids = Set(friends.map(\.id))
+        guard subscribedFriendIDs != ids || subscriptionOwner != owner else { return }
+        let peers: Set<String> = friends.isEmpty ? [] : try await FriendLinks.shared.peerRecords(for: friends)
+        try await cloud.syncMoodSubscriptions(owner: owner, peers: peers)
+        subscribedFriendIDs = ids
+        subscriptionOwner = owner
+        reconcileAlerts = false
+    }
+
+    private func received(_ friends: [Companion], fromLinks: Bool) async {
+        let changes = state.moodChanges(in: friends, fromLinks: fromLinks)
+        state.receiveFriends(friends, fromLinks: fromLinks, at: Date())
+        state.lastSyncedAt = Date()
+        persist()
+        for friend in changes where state.alertHistory?[friend.id]?.date == friend.updatedAt {
+            let content = UNMutableNotificationContent()
+            content.title = friend.ownerName
+            content.body = "Shared a new mood."
+            content.sound = .default
+            content.threadIdentifier = "dotlings-circle"
+            content.userInfo = ["dotlingsMood": true]
+            let request = UNNotificationRequest(identifier: "mood-" + friend.id, content: content, trigger: nil)
+            try? await UNUserNotificationCenter.current().add(request)
+        }
+    }
+
     func setWidget(_ mode: WidgetMode, pinned: String?) {
         state.widgetMode = mode
         state.pinnedFriendID = pinned
@@ -214,17 +279,29 @@ final class CircleModel {
         }
     }
 
-    func refresh() async {
+    func refresh(waitForCompletion: Bool = false) async {
         guard !preview, !deleting, state.sharingEnabled, state.companion != nil else { return }
-        if syncing { syncAgain = true; return }
+        if syncing {
+            syncAgain = true
+            if waitForCompletion { await withCheckedContinuation { refreshWaiters.append($0) } }
+            return
+        }
         syncing = true
-        defer { syncing = false }
+        defer {
+            syncing = false
+            for waiter in refreshWaiters { waiter.resume() }
+            refreshWaiters.removeAll()
+        }
         repeat {
             syncAgain = false
             async let apple = refreshAppleFriends()
             async let links = refreshLinkedFriends()
             let (appleIssue, linkIssue) = await (apple, links)
             syncIssue = linkIssue ?? appleIssue
+            do {
+                try await updateSubscriptions()
+                if !alertsDenied { alertIssue = nil }
+            } catch { alertIssue = "Friend alerts couldn’t connect. Check for mood updates to retry." }
         } while syncAgain && !deleting
     }
 
@@ -232,14 +309,12 @@ final class CircleModel {
         guard state.cloudEnabled else { return nil }
         var issue: String?
         do {
-            if let companion = state.companion { try await cloud.publish(companion) }
             try await cloud.subscribe()
+            if let companion = state.companion { try await cloud.publish(companion) }
         } catch { issue = CircleSyncMessage.text(for: error) }
         do {
             let friends = try await cloud.friends()
-            state.receiveFriends(friends, fromLinks: false, at: Date())
-            state.lastSyncedAt = Date()
-            persist()
+            await received(friends, fromLinks: false)
         } catch { issue = issue ?? CircleSyncMessage.text(for: error) }
         if issue != nil && state.linkConnected {
             return state.friends.contains { $0.zoneName != nil } ? "An older iCloud connection couldn’t update. New friend links still work." : nil
@@ -256,9 +331,7 @@ final class CircleModel {
         }
         do {
             let friends = try await FriendLinks.shared.friends()
-            state.receiveFriends(friends, fromLinks: true, at: Date())
-            state.lastSyncedAt = Date()
-            persist()
+            await received(friends, fromLinks: true)
         } catch { issue = issue ?? "Pull down to try loading your friends again." }
         return issue
     }
@@ -383,6 +456,7 @@ final class CircleModel {
             if friend.id.hasPrefix("friend:") { try await FriendLinks.shared.leave(friend) }
             else { try await cloud.leave(friend) }
             state.removeFriend(friend.id); persist()
+            await refresh()
         }
         catch { self.error = "Couldn't leave this circle: \(error.localizedDescription)" }
     }
@@ -394,7 +468,12 @@ final class CircleModel {
         do {
             // Wait for publication to finish so an in-flight save cannot recreate the deleted share.
             while syncing || sharing { try await Task.sleep(for: .milliseconds(100)) }
-            if state.linkConnected { try await FriendLinks.shared.erase() }
+            if state.linkConnected {
+                if let owner = state.companion?.id, state.alertHistory != nil || reconcileAlerts {
+                    try await cloud.syncMoodSubscriptions(owner: owner, peers: [])
+                }
+                try await FriendLinks.shared.erase()
+            }
             if state.cloudEnabled { try await cloud.deleteOwnCompanion() }
             let restores = max(state.collection.restoresUsed, try restoreBudget.used())
             try restoreBudget.record(restores)

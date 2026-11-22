@@ -1,7 +1,7 @@
 import Foundation
 
 enum Mood: String, Codable, CaseIterable, Identifiable {
-    case happy, calm, sleepy, sad, overwhelmed, focused
+    case happy, calm, sleepy, sad, overwhelmed, focused, sick, studious, workingOut
     var id: String { rawValue }
     var title: String {
         switch self {
@@ -11,6 +11,9 @@ enum Mood: String, Codable, CaseIterable, Identifiable {
         case .sad: "A little low"
         case .overwhelmed: "Overwhelmed"
         case .focused: "Focused"
+        case .sick: "Sick"
+        case .studious: "Studious"
+        case .workingOut: "Working Out"
         }
     }
     var symbol: String {
@@ -21,6 +24,9 @@ enum Mood: String, Codable, CaseIterable, Identifiable {
         case .sad: "cloud.drizzle.fill"
         case .overwhelmed: "wind"
         case .focused: "sparkle"
+        case .sick: "thermometer.medium"
+        case .studious: "book.fill"
+        case .workingOut: "dumbbell.fill"
         }
     }
     var reassurance: String {
@@ -31,9 +37,21 @@ enum Mood: String, Codable, CaseIterable, Identifiable {
         case .sad: "You don't have to be sunshine today."
         case .overwhelmed: "One tiny thing at a time."
         case .focused: "In your own little world."
+        case .sick: "Take it easy today."
+        case .studious: "One page at a time."
+        case .workingOut: "Moving at your own pace."
         }
     }
-    var spriteIndex: Int { Self.allCases.firstIndex(of: self)! }
+    var statusPhrase: String { self == .workingOut ? "working out" : "feeling " + title.lowercased() }
+    var portraitMood: Mood {
+        switch self {
+        case .sick: .sleepy
+        case .studious: .focused
+        case .workingOut: .happy
+        default: self
+        }
+    }
+    var spriteIndex: Int { Self.allCases.firstIndex(of: portraitMood)! }
 }
 
 enum CompanionKind: String, Codable, CaseIterable, Identifiable {
@@ -107,7 +125,34 @@ enum WidgetMode: String, Codable, CaseIterable, Identifiable {
     var title: String { self == .latest ? "Latest friend mood" : "Pinned friend" }
 }
 
+struct SeenMood: Codable, Equatable {
+    let mood: Mood
+    let date: Date
+    init(_ friend: Companion) { mood = friend.mood; date = friend.updatedAt }
+}
+
 struct CircleState: Codable, Equatable {
+    // Only the app advances this cursor. Widget refreshes can update the same friends independently.
+    var alertHistory: [String: SeenMood]?
+    mutating func enableMoodAlerts() {
+        alertHistory = [:]
+        for friend in friends where friend.id != TestFriend.id { alertHistory?[friend.id] = SeenMood(friend) }
+    }
+    mutating func moodChanges(in received: [Companion], fromLinks: Bool) -> [Companion] {
+        guard var history = alertHistory else { return [] }
+        let ids = Set(received.map(\.id))
+        history = history.filter { $0.key.hasPrefix("friend:") != fromLinks || ids.contains($0.key) }
+        var changed: [Companion] = []
+        for friend in received where friend.id != TestFriend.id {
+            if let prior = history[friend.id] {
+                guard friend.updatedAt > prior.date else { continue }
+                if prior.mood != friend.mood { changed.append(friend) }
+            }
+            history[friend.id] = SeenMood(friend)
+        }
+        alertHistory = history
+        return changed
+    }
     var linkConnected = false
     var linkPublishing = false
     var sharingEnabled: Bool { cloudEnabled || linkConnected }
@@ -132,9 +177,10 @@ struct CircleState: Codable, Equatable {
         }
     }
 
-    private enum CodingKeys: String, CodingKey { case linkConnected, linkPublishing, cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection, testFriendStartedAt, friendOrder }
+    private enum CodingKeys: String, CodingKey { case alertHistory, linkConnected, linkPublishing, cloudEnabled, companion, friends, pinnedFriendID, widgetMode, lastSyncedAt, collection, testFriendStartedAt, friendOrder }
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
+        alertHistory = try c.decodeIfPresent([String: SeenMood].self, forKey: .alertHistory)
         linkConnected = try c.decodeIfPresent(Bool.self, forKey: .linkConnected) ?? false
         linkPublishing = try c.decodeIfPresent(Bool.self, forKey: .linkPublishing) ?? false
         cloudEnabled = try c.decodeIfPresent(Bool.self, forKey: .cloudEnabled) ?? false
@@ -214,6 +260,7 @@ struct CircleState: Codable, Equatable {
         if !friends.contains(where: { $0.id == pinnedFriendID }) { pinnedFriendID = nil }
     }
     mutating func removeFriend(_ id: String) {
+        alertHistory?.removeValue(forKey: id)
         if id == TestFriend.id { testFriendStartedAt = nil }
         friends.removeAll { $0.id == id }
         friendOrder.removeAll { $0 == id }
