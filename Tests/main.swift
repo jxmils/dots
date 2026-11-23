@@ -484,6 +484,22 @@ private final class TestCircleKeys: CircleKeys {
             precondition(!choices.contains(previous) && choices.count == DotlingAnimation.allCases.count - 1,
                          "Random emotes must vary without excluding any other movement")
         }
+        for kind in CompanionKind.allCases {
+            for mood in [Mood.sick, .studious, .workingOut] {
+                for action in DotlingAnimation.allCases {
+                    autoreleasepool {
+                        let frames = CompanionArt.motionFrames(action, kind: kind, mood: mood)
+                        precondition(frames.count == action.durations.count,
+                                     "Missing illustrated frames for \(kind)/\(mood)/\(action)")
+                        precondition(frames.allSatisfy { $0.size == CGSize(width: 384, height: 416) })
+                        let painted = Set(frames.compactMap { $0.cgImage.map(ObjectIdentifier.init) })
+                        precondition(painted.count >= (action == .lookAround ? 8 : 3),
+                                     "Missing distinct poses for \(kind)/\(mood)/\(action)")
+                    }
+                }
+            }
+        }
+        print("All 870 pet, mood and movement combinations loaded through the native animation player")
         for motion in DotlingAnimation.allCases {
             for index in motion.durations.indices {
                 guard let image = CompanionArt.motionImage(motion, frame: index)?.cgImage else {

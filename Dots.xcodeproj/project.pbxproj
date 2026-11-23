@@ -488,6 +488,7 @@
 		9A1914034D98B4C4991A5B1A /* CompanionPetalAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9EDBA5D353B8FCA398508D /* CompanionPetalAtlas.png */; };
 		9A28D1F218349BA28056F8EB /* CompanionBeanTouchAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A3AC43FA12F96EA4A8AAF8 /* CompanionBeanTouchAtlas.png */; };
 		9A4C9E5D39687D597A9429C6 /* CompanionNimbusMotionLookAround.png in Resources */ = {isa = PBXBuildFile; fileRef = 582934E070FEF7F2C8FF3B19 /* CompanionNimbusMotionLookAround.png */; };
+		9B0AA83E6571A013847BDA72 /* MoodMotion in Resources */ = {isa = PBXBuildFile; fileRef = DF5BD1BA9C557E19E140D591 /* MoodMotion */; };
 		9B136CAD01F034FC1F4AC18B /* CompanionSnowAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD308A76298837ECFBD0FC3 /* CompanionSnowAtlas.png */; };
 		9B1EFD76C8A469812EA67D88 /* CompanionLunaMotionWaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9384BBAD8E7D6E3000556E /* CompanionLunaMotionWaiting.png */; };
 		9B2ED9113518F7FB2918C499 /* CompanionLunaMotionMoveLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = C24D0C7E59CB597A999DC309 /* CompanionLunaMotionMoveLeft.png */; };
@@ -1201,6 +1202,7 @@
 		DE5544175E8A822D39EB1F5B /* CompanionPuffMotionIdle.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionPuffMotionIdle.png; path = Resources/CompanionPuffMotionIdle.png; sourceTree = "<group>"; };
 		DE95E93504AC4F16CEBCA47A /* CompanionCoffeeMotionDisappointed.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionCoffeeMotionDisappointed.png; path = Resources/CompanionCoffeeMotionDisappointed.png; sourceTree = "<group>"; };
 		DF1CE9AD273220FDB7A50EEA /* EggHatchPebbleStrip.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = EggHatchPebbleStrip.png; path = Resources/EggHatchPebbleStrip.png; sourceTree = "<group>"; };
+		DF5BD1BA9C557E19E140D591 /* MoodMotion */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = MoodMotion; path = Resources/MoodMotion; sourceTree = "<group>"; };
 		DFA33B0751EC3A5676B3BC29 /* FriendLinks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FriendLinks.swift; path = Shared/FriendLinks.swift; sourceTree = "<group>"; };
 		DFF4DA76E25B9AA10156EBF7 /* CompanionMossMotionWave.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionMossMotionWave.png; path = Resources/CompanionMossMotionWave.png; sourceTree = "<group>"; };
 		E004D50DAB488C3BC6AB4333 /* CompanionLavenderMotionThinking.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = CompanionLavenderMotionThinking.png; path = Resources/CompanionLavenderMotionThinking.png; sourceTree = "<group>"; };
@@ -1754,6 +1756,7 @@
 				ED58E4FC6D8CD6F19A66495E /* EggHatchCoffeeStrip.png */,
 				6B77EF9FFA3F4418AF93866A /* EggHatchCoconutStrip.png */,
 				DFA33B0751EC3A5676B3BC29 /* FriendLinks.swift */,
+				DF5BD1BA9C557E19E140D591 /* MoodMotion */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2214,6 +2217,7 @@
 				09550248BE0921708F12015B /* EggHatchBowlingStrip.png in Resources */,
 				9D4AEC6C37FAEF3E39762F33 /* EggHatchCoffeeStrip.png in Resources */,
 				A8E07BD4875DB30260215553 /* EggHatchCoconutStrip.png in Resources */,
+				9B0AA83E6571A013847BDA72 /* MoodMotion in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,2554 @@
+{
+  "bean-disappointed.png": {
+    "source": "986e5fbf8d8af8c730f063e72c1a3a9661949fbee9d325394e573b5d38675a86",
+    "strips": {
+      "bean-sick-disappointed.webp": "da25802f535d9e4fab3fcfb18b30b4dce91d7504f09f67f9356055c65d2acc7a",
+      "bean-studious-disappointed.webp": "1ba4648933a252352e316ef902f440ad2b6923c78daf982ada6565586a138922",
+      "bean-workingOut-disappointed.webp": "1501026e0b723e79700f9b8fe507b905ed7314199544e3c3f7b2f7191a56fef3"
+    }
+  },
+  "bean-idle.png": {
+    "source": "cbfcb9d8917ece02fdee0bf433440e5b49237b4f5b00b84cd8feaaa98f2d86aa",
+    "strips": {
+      "bean-sick-idle.webp": "9fa62d4327bc7b76f3882466406175630a27b4655883538f1530cf72f2b82ab3",
+      "bean-studious-idle.webp": "8dc17b19fd24802e1b6220e2d6ad48644a68d808df745bcefdf4355b663d78ba",
+      "bean-workingOut-idle.webp": "1d9dfcca20ae324ded8ed0dbdc9f23161be7c64c7c31e9eb40bf68083a5dea0c"
+    }
+  },
+  "bean-jump.png": {
+    "source": "680a207bf59c424e92efd3e25a0c1ad16c63625997c1b61df715a63eaab49796",
+    "strips": {
+      "bean-sick-jump.webp": "6081afaf21d8c2c65ca80ac5d3889203e7e685ba8c04200ded87fea2e99a3bbb",
+      "bean-studious-jump.webp": "635b6498129bcbf5f033614554c5286b86d0b3ba82dd6aec606d0b5be3e974f6",
+      "bean-workingOut-jump.webp": "87724a0f149487c0ab4370d29db70ab630ba348c1e5de20f8351d4a7af0f8c97"
+    }
+  },
+  "bean-lookAround.png": {
+    "source": "4d159daf4cb7603741de2ec95059268d52be4bde21a18aeaeb060f11381dcd2c",
+    "strips": {
+      "bean-sick-lookAround.webp": "eb1269ac38884aae36ef59a9969a7d7b707eb24ab6c3d3948aa437cf62d5a70e",
+      "bean-studious-lookAround.webp": "b230636d3a7aa3bbab24569a41b4af14040b7a921234a003ff4c4076ad8b8ffe",
+      "bean-workingOut-lookAround.webp": "eca4ef3c41a288d0d1e895589ebbe0f9784d0bae6fe7cd32142aafd7230e7cbc"
+    }
+  },
+  "bean-lookDiagonal.png": {
+    "source": "4775fe82cb821ad18e3ef0587df5370e328f36c1a92777a62aa14d4feee31a11",
+    "strips": {
+      "bean-sick-lookDiagonal.webp": "a4e23dae5b7c39f2c39d171d3dbb0f3d18588297ebcc32137ced3c73bf7d3595",
+      "bean-studious-lookDiagonal.webp": "f19aa475a216d885be67d9b2d73ffdfe76ad7ebeec9c38baf260a762f6fba739",
+      "bean-workingOut-lookDiagonal.webp": "66cb8aa7e1b6f6907aed362db320778486bcfbc6dac0fe9c55d1d1c8d36798aa"
+    }
+  },
+  "bean-moveLeft.png": {
+    "source": "c316284f9d966dc092bf144b606620da13031c396ca3d465e6a980aa07cf1d12",
+    "strips": {
+      "bean-sick-moveLeft.webp": "7520d12287df53a7895902c83c41dea1a618964a62c8780e81bb81ebfe562fb6",
+      "bean-studious-moveLeft.webp": "de11e6743b421d94e79f557b45d99907e7542594a08e89b32cbf18f16baabd31",
+      "bean-workingOut-moveLeft.webp": "00dc016a76b1f16bcf55eec7d0883bd126468fa35dc685091ede7861a9525959"
+    }
+  },
+  "bean-moveRight.png": {
+    "source": "16ef91af8ac7829042cb87f64a044e445a8bebe75623f63193f4058e8748aea9",
+    "strips": {
+      "bean-sick-moveRight.webp": "2e2072528dc03bed718ed2b78a4b4f8595bc8c9e6b87692ba7e4394fa9cf880a",
+      "bean-studious-moveRight.webp": "98058f3aa925efe06b7701fac873efde9a4c015a1b41b48d75aab292b3246d5a",
+      "bean-workingOut-moveRight.webp": "1b8212b35552677db2bd25d04e36cb2514392aaeb2097a308d1d90a03d9c8158"
+    }
+  },
+  "bean-reviewing.png": {
+    "source": "d2aee412971eacef22979313f4bf58c73f12d321a2d30060b49b468dd3fc0a33",
+    "strips": {
+      "bean-sick-reviewing.webp": "f78b155775ace263a6d2a67a2503f50ff1df3abaea9d2c8fd5275e8423d347fa",
+      "bean-studious-reviewing.webp": "13085d733adaef14b1270e3c2cbe4ab439c899e3d725fea053e4a90bcd257adc",
+      "bean-workingOut-reviewing.webp": "e77af001694dd58a8d3809bd2ee4c9d4dc25ebfc87b5e641a7c015314519c306"
+    }
+  },
+  "bean-thinking.png": {
+    "source": "bcd530efec665496a895966680d77beb62149edc65eb0467aa839965020e3198",
+    "strips": {
+      "bean-sick-thinking.webp": "8362c6e7fdaaedaf553118ab2266c1a425bd7f4c0d4048899305430daf996f08",
+      "bean-studious-thinking.webp": "c3ebc821af2cb18cd9ddb0b9a3138cd603d4593358a467a72ff7dc78cda2c312",
+      "bean-workingOut-thinking.webp": "9eff9aec1ed4cd87cc7f1ecf499ace9db730b3340c67edddeba2d70193d0706f"
+    }
+  },
+  "bean-waiting.png": {
+    "source": "0dd27dbd416013a561839a1aa2abbff74feefb5f42e84dfbe863d6498d879877",
+    "strips": {
+      "bean-sick-waiting.webp": "00c69208c0b8b28727ec17cf613fb6847073ea24b2b878cec48f96ae41b4618a",
+      "bean-studious-waiting.webp": "8e01d73d69e5cc62ec36240b4c0f61d80be664e0f131e2f50738274071119087",
+      "bean-workingOut-waiting.webp": "f69875ff368d373b9af0c4b0d769e29fd01b3d43bb5b879dd179fecc74d2638a"
+    }
+  },
+  "bean-wave.png": {
+    "source": "060f12d70f120f62bcd9474cc706efa55e3680dd40d8789eb5b25c3276d59347",
+    "strips": {
+      "bean-sick-wave.webp": "7d41b50929c1e4099e5d90e240c67bd1d8e1e05a8a99b6e9bb30e59cf0917b03",
+      "bean-studious-wave.webp": "38433208cd3e5e56f1f5a4cd50930043c1617ef09a9ca538be55802f0aa641e4",
+      "bean-workingOut-wave.webp": "a5a71b048b62471c9fe01921c19aa1d6bef8bb77e12179b73eceb3a670f5df37"
+    }
+  },
+  "blue-disappointed.png": {
+    "source": "55583e58b2e9704e0e06f783b15402f887d3d06a84d957701494127756639ffc",
+    "strips": {
+      "blue-sick-disappointed.webp": "dac7ae802387dd87944e1755a3811243ee9afacd4041c833a51c617c13df5676",
+      "blue-studious-disappointed.webp": "c7ce4b59e8690aa1010e14e7a4f1d6ff3ee8e911014b38cd3c5d67c823ce9d92",
+      "blue-workingOut-disappointed.webp": "2199a3daaddd50183740880e54e73b5442069bb699f9b16e484b599d17d7961e"
+    }
+  },
+  "blue-idle.png": {
+    "source": "7f877e2b32a307e6964f5575af33c1e8c6db7aee9817df4b0691f116f917f37e",
+    "strips": {
+      "blue-sick-idle.webp": "7aba59942a177ab2e89cdcb352cabba7a6723118697cdef496878829120bb3ca",
+      "blue-studious-idle.webp": "f8f7c3bc0ee2212bf60c648c3e6cf4572cb360f7eee9abd2a8589d8ca3e59481",
+      "blue-workingOut-idle.webp": "906b4de75a38f15116129c35b4db60af0454187b8452b33d96d416659dcc0625"
+    }
+  },
+  "blue-jump.png": {
+    "source": "f7c8a4e98b8a8621d587bf28e40e2d655ab8626c68896ca6c42e2feb5068da6d",
+    "strips": {
+      "blue-sick-jump.webp": "1ad80a93a5520efce2f94606e533587c0edea173e3f34a733b05b4f75de2ff62",
+      "blue-studious-jump.webp": "e2b7d028238614bbd5913effd248b8b5b2b8c8cc9f8d1f70a1c44c2160a1e3f7",
+      "blue-workingOut-jump.webp": "cc687c12111020ea03e01713fb6033332d0cb4e41c1a4b95490d94a3924aa34e"
+    }
+  },
+  "blue-lookAround.png": {
+    "source": "866afd809b162c1149e6f3f89adcbbd2eb512b85a3f60e48d6846dc9125bfc81",
+    "strips": {
+      "blue-sick-lookAround.webp": "ef716a04b3fbe8d832a1265b8e3da2842e3d2f1dfd613012ba9bb2ec00064afd",
+      "blue-studious-lookAround.webp": "0a98d7766046f4d2081920d07efe74f27bc36f7657d761905bec692e8fa781c6",
+      "blue-workingOut-lookAround.webp": "47d11152dde4d06189635313117b633a3cab59d29984478c7a3fbeb60acb3fb7"
+    }
+  },
+  "blue-lookDiagonal.png": {
+    "source": "e2a3d13b1ac2502194863a89b77383e98870977e05a2bf76031d10ddfe850348",
+    "strips": {
+      "blue-sick-lookDiagonal.webp": "66ff99b188afad18fb36acd390922f301fa5c407860c22e9d2b0a49e22f693d1",
+      "blue-studious-lookDiagonal.webp": "2739043f0cc33ee0f92741490d73af921639548283b5d30856ccc334aef21758",
+      "blue-workingOut-lookDiagonal.webp": "8d4c8c6a090c91454dbec99bd3029cf838fea02ab0f3c9276e63b99b54b6958e"
+    }
+  },
+  "blue-moveLeft.png": {
+    "source": "f2db263fac275740a1ef34b56e8e55b518c1400cc00d76b887917d3ba3a45129",
+    "strips": {
+      "blue-sick-moveLeft.webp": "ea26a4709493d944c45a0ab8f67daea88e59792964da00743c2125016ea1db22",
+      "blue-studious-moveLeft.webp": "96ddbc221437e67a37d6e87d2138239c938e654fb8c142e770590e3e6955dfb1",
+      "blue-workingOut-moveLeft.webp": "4e69be00cbfb7b0ed089dd915777bb1d9aec84639eec07c88c3c5aa7e0be5e9f"
+    }
+  },
+  "blue-moveRight.png": {
+    "source": "96b84cea0ed2be7d1379072d8560495c65d5f12d2ae2f4c69e6f8188f0ecf455",
+    "strips": {
+      "blue-sick-moveRight.webp": "3af88f0bcedf5a94642be3a9417207a712e50a3e64c26f0d45d7ebb69ce3573e",
+      "blue-studious-moveRight.webp": "a66f967c9032b4ba8183034626ac6cb01c02fd043d8c1d3839ec313129ea232c",
+      "blue-workingOut-moveRight.webp": "1f798707faae6d82222245ef1cef698ab6cb3b27756ccd4c6348a71a8c90e47a"
+    }
+  },
+  "blue-reviewing.png": {
+    "source": "3e51e8831baf07552922e656244b4a095880b54b574851f9236e8569b145c0de",
+    "strips": {
+      "blue-sick-reviewing.webp": "ec9406c660ccb5bd33f55c9bd0947d6f5c9b78293e85b391c68146c7cab8bd17",
+      "blue-studious-reviewing.webp": "1923b30a47faa6df302d1572c6aa1694e9bac5a9ef3a689bc0790ad182d08248",
+      "blue-workingOut-reviewing.webp": "778f308e74209a005afab8fc067fed893a6448e70f9831459b1404d2b4ce3aa2"
+    }
+  },
+  "blue-thinking.png": {
+    "source": "c8efe76caff6e2b08f47f4264323c9e4adabf1ed1350940064f97575a4cf0175",
+    "strips": {
+      "blue-sick-thinking.webp": "6c6ede0c5a3ffea93702b08aead28d5d0e435a5f540495b4de17336c27801fde",
+      "blue-studious-thinking.webp": "bdf618710a4e2093534aba3cf0951bc2ce5f10987135bc0103079bc9cc12dfa3",
+      "blue-workingOut-thinking.webp": "badad358daf5bb23ea96e5cd748583c957afebc6cd0116c3e8ccc2fa96af7377"
+    }
+  },
+  "blue-waiting.png": {
+    "source": "849dc969479f63effe967a5c0dadab492e9b0ba84c5fca981ad59263d9277d10",
+    "strips": {
+      "blue-sick-waiting.webp": "4178719cf8250048f62eeae7b2ae02ef6864d2c2b9fd35bd62474b4c804fb9a7",
+      "blue-studious-waiting.webp": "047f7d4fa6211e233bf1dd77f21f906d216afd5cc049128cd283c5ad6791f13a",
+      "blue-workingOut-waiting.webp": "e876939b19b9db3a20969002e8c09426e87e320afc6216bb290fad6578b8c37f"
+    }
+  },
+  "blue-wave.png": {
+    "source": "c0a47cbec83e403f33fa777c0a843c7bc06b156bbfa0e6300c2c95f1df5408a1",
+    "strips": {
+      "blue-sick-wave.webp": "3a09bef7adc2a33757e68f03698c032361a7bfcd123e17ac34c6b945e028fc2d",
+      "blue-studious-wave.webp": "95cdd20a2be3c2ce1ee5ae38f5f5d35d87270cad4f4e56516e99aca6a7ba3a93",
+      "blue-workingOut-wave.webp": "83ac357a4e37689d5da861ecbda64e230b9484058e17b4286a8e62541b81e8dc"
+    }
+  },
+  "bonsai-disappointed.png": {
+    "source": "50f2bf95da3928444e41c311c45527d7a5d41c2e31022ba20394222b6a6dc7d3",
+    "strips": {
+      "bonsai-sick-disappointed.webp": "421804ee9628518f2a3236ef2b5ddec0c5157f3143e2633801e768e0f0635926",
+      "bonsai-studious-disappointed.webp": "2ac2fde094788653a1b3da23f33421d3b327421e43d881842a1972d313695152",
+      "bonsai-workingOut-disappointed.webp": "b64e7bd9669ff442ab2d0a22d88bb94dbf7ea476ecb05858df07ad7ccb18226c"
+    }
+  },
+  "bonsai-idle.png": {
+    "source": "e3d6e9fc00cc30c9068188843b9d5b5963e253d7291c2b3b0f411f735b773aa8",
+    "strips": {
+      "bonsai-sick-idle.webp": "cabcb60c833aeced6230a5544481a6de32f1e56a242b4f03973f77d17f5bffda",
+      "bonsai-studious-idle.webp": "9113fbd999a290f7970ca0331841da7bd163b24303d7e8117b0903bd62a872c7",
+      "bonsai-workingOut-idle.webp": "f711aaf279f8d6c83fa510d0e43aa982ead764d6acca564abdb7686107773f64"
+    }
+  },
+  "bonsai-jump.png": {
+    "source": "4502d47085b726559da23314eac21283bd0cd0ba2264a621697116ed1f14bd6d",
+    "strips": {
+      "bonsai-sick-jump.webp": "ce7ceaea3337798ad0c9250f93ef52979446103a31f776772c0a6bff962784a8",
+      "bonsai-studious-jump.webp": "f85ae31ff9a6bff17e8a686e6c8a2f9d75f6802e536cb08ac45df373f6bff838",
+      "bonsai-workingOut-jump.webp": "85dac1097b92ae9ab887c524a5d5f614371580d4b33264a49d6e94c5c79ca04f"
+    }
+  },
+  "bonsai-lookAround.png": {
+    "source": "a03362adef443d6be161e0cef011ab459fd69aa76265092146ddc8963eccaaef",
+    "strips": {
+      "bonsai-sick-lookAround.webp": "ef87e147ad47eaee8b037461c1b218388cd3999d50230744e23d288a4ef530af",
+      "bonsai-studious-lookAround.webp": "fcbfcbee5392b7129c03aac9ee943e224f6fd8dac5ebe773df015aa45c85058b",
+      "bonsai-workingOut-lookAround.webp": "8dddcbfb80d0cd43768097d915a04ee52946462d1e292eb33e653f03e47caa03"
+    }
+  },
+  "bonsai-lookDiagonal.png": {
+    "source": "908035628e2e47a71c5d4be81a267649eaac1f7cc55055d06e117d9462785645",
+    "strips": {
+      "bonsai-sick-lookDiagonal.webp": "528fb01ccc99e4089a500f471e8f205426e1f2afdfaf599686b1c261966db83a",
+      "bonsai-studious-lookDiagonal.webp": "caa58de802bce9a61b82fc0b608fc766d6c85cc9228d6ef059cc87cd5bd639cc",
+      "bonsai-workingOut-lookDiagonal.webp": "d7af93bd0a2be062e5ca24e2c52af189a5b7a83a903fc09125ad733d661675f0"
+    }
+  },
+  "bonsai-moveLeft.png": {
+    "source": "426cf10f3c4664be5a12d4c5f4760424e8504eb2d5e5b2c1bf414c443df33ae0",
+    "strips": {
+      "bonsai-sick-moveLeft.webp": "55982c35fec13409b8caf50f0a0beb44c74d387f3cbaae0f3f85399f85c29454",
+      "bonsai-studious-moveLeft.webp": "8d19cd21e7625d8c1edca465fa93024ad160e6adcf7f371ca0e5ede94f04f1b0",
+      "bonsai-workingOut-moveLeft.webp": "38dc51c6bd76a8b0061cb3c9c804d1c08cffa332d46ea2d0cfc7f6a8eb18b811"
+    }
+  },
+  "bonsai-moveRight.png": {
+    "source": "880821307ede24b3de2d546075f920a17f99ec0e425cf4d82432e7948170c958",
+    "strips": {
+      "bonsai-sick-moveRight.webp": "97fe47e22607482ef6a213f8c069d561ad0238e11b1ed94e957fe33f88b17075",
+      "bonsai-studious-moveRight.webp": "1221f568b146e6b1ec08378a4e77f6d41c9b48429d3ec08a0be51a66b2b6ce40",
+      "bonsai-workingOut-moveRight.webp": "8e35c36a265e4fccf58683cb03da0199c5adb8f89613e608ee7e576c5c4d181a"
+    }
+  },
+  "bonsai-reviewing.png": {
+    "source": "c2530fd33339cc0d539e3f3d6bc1814e8943c2a381d74f8ed481664b396ba3cf",
+    "strips": {
+      "bonsai-sick-reviewing.webp": "64a6dfce8a490aa606b4266a0aca8fa2954405918fad0db4e656afdfbeb8ff73",
+      "bonsai-studious-reviewing.webp": "241590974daa2d00bdec13fbf75f4dc26b75ed3d3dcd2d3fa7448d8002626ff2",
+      "bonsai-workingOut-reviewing.webp": "c31f49ced79feb2b851b6e67dedfa461066ce571ebc2bfdcba0957424b2d3362"
+    }
+  },
+  "bonsai-thinking.png": {
+    "source": "3d725c27a6931abf88c755cd8f96f42111f08c513da1b412add042a5d5c0a672",
+    "strips": {
+      "bonsai-sick-thinking.webp": "a8bfaac7a6aebe64ce6305ba63e3dd83d1e3837a0c4d65610d7901a2094a784d",
+      "bonsai-studious-thinking.webp": "47bcfa4ced98d63bcdca970da472eed1301ad8fd03f86d3e9df5e84138b00869",
+      "bonsai-workingOut-thinking.webp": "c48a4b8a2ac32affac5780aaf77282bd45f952a27dc7fcd3b7be42485e2b687b"
+    }
+  },
+  "bonsai-waiting.png": {
+    "source": "526e8dbe3ab9eabca40dd0e9e5d9891f37a445290d4e1200fd365479c7cdc66e",
+    "strips": {
+      "bonsai-sick-waiting.webp": "e9b893ed412a86caa97ab177583b9ba7de0d02bde659c834a384a6070a109874",
+      "bonsai-studious-waiting.webp": "7643eab303b5e3640e493cb72ff00a4b3b9eb1f144ee9a13730a47fe0df8359c",
+      "bonsai-workingOut-waiting.webp": "bc3ef8be38c0ad7c1128eea1f124012b0cc2868b714114b7b83c00ecd75f04a4"
+    }
+  },
+  "bonsai-wave.png": {
+    "source": "09c44750257daac41219bbb4762abb5a54737356d20b3a2f5a2433b797ae7322",
+    "strips": {
+      "bonsai-sick-wave.webp": "9cc6cd45b3314e92fb78df3f9c5de2a8721ea7b576fa156cd842228e005459b4",
+      "bonsai-studious-wave.webp": "a50affe8aca0943a00e473ed50b793c62422876dd8268c0b4b27f382e5f22b0e",
+      "bonsai-workingOut-wave.webp": "84a06b3189ab5b91e41d56ef7d314dd4170403e8567c85d433fa0f5308be5e73"
+    }
+  },
+  "bowling-disappointed.png": {
+    "source": "2d6f44ddb02954efc4464b61b936ccbdf57df971ea87c24006a00f30a0118327",
+    "strips": {
+      "bowling-sick-disappointed.webp": "ef2116d9c1cffcf3b9d6ee124851a0a6a8a176e5bc26b16d77b8dcf428e910ca",
+      "bowling-studious-disappointed.webp": "c90550c6a38ac009c855e97b081751d5d400ce04c80f67b48295b00c481241db",
+      "bowling-workingOut-disappointed.webp": "b4f64d34a7ab2f51fdca13a5723376aff3302fe933a1eeae25e7cc0d9af2fc59"
+    }
+  },
+  "bowling-idle.png": {
+    "source": "e4052a6075c9385ebda6dca32861773ae0be30a52fc070708a4a52b6c43a9422",
+    "strips": {
+      "bowling-sick-idle.webp": "097d0ea384a1f4c297433e325a00cd5e873326954a4756cc19502b1f1b90ea6b",
+      "bowling-studious-idle.webp": "4769da3860aa27ee35ff6469ea5a9350e4fda5fa59be1d4f2afa6da453b6e53d",
+      "bowling-workingOut-idle.webp": "c5a2e1fb6919e1b52d329543a9bea1d5a4527e050974c45f5e41d0d085b6ef2a"
+    }
+  },
+  "bowling-jump.png": {
+    "source": "eeb370f11803c4889ddc38e994db2ceef9060886d449542fba776c32f5914f57",
+    "strips": {
+      "bowling-sick-jump.webp": "62a347170af6a599788b49e9dd4cb6d4ebf7f7651fe6cb50416e0285123977c3",
+      "bowling-studious-jump.webp": "3100da0808514ed08e1c0e8b811a4e63e1bb80ef69d8906549e447bb128806dd",
+      "bowling-workingOut-jump.webp": "1f5ab2abcc3722bb0b64708fa03675fbe8fa8a0f6ef082243c645ba9a761ee29"
+    }
+  },
+  "bowling-lookAround.png": {
+    "source": "41b9b22549e4ba8dffd986b47152201675204569d431917ba6a0274e73082f73",
+    "strips": {
+      "bowling-sick-lookAround.webp": "e471c4319847e3e227e2c02151d813098e59fe9cf66e0bc1a0e292d98104ea27",
+      "bowling-studious-lookAround.webp": "7f92284f7630c38c7c7f6889b534488f452ff2b00da5251c97324b70f77e3d30",
+      "bowling-workingOut-lookAround.webp": "23a455982744a305b84085a68c6cc6cfdcef89e8e30ade6fac8199441445ee1c"
+    }
+  },
+  "bowling-lookDiagonal.png": {
+    "source": "f6bae86530fb1fd94a95591480e823c871982777ad2c3011b0f6b18abfc4fafe",
+    "strips": {
+      "bowling-sick-lookDiagonal.webp": "bd04274283d5e4c07428b12f92e658d2766ca0d52a1d83f9cb8626ac039e1894",
+      "bowling-studious-lookDiagonal.webp": "5a2e6fd6e4e97a17056bf6aaf3a1daa5bdd97b4562156270c6241a130e7f8319",
+      "bowling-workingOut-lookDiagonal.webp": "8ee44565834c2f2bee658e50fe82b194d544f7a072e0d286ebe202ac4a750e6a"
+    }
+  },
+  "bowling-moveLeft.png": {
+    "source": "1f844caa8a59e8ab1b4ad7b3641ad0c262ae9a964c18c56c56a42893defae271",
+    "strips": {
+      "bowling-sick-moveLeft.webp": "6f989498504fb9a881238a86cf3342e4731edecb0515ecb203b4d66989a8492d",
+      "bowling-studious-moveLeft.webp": "40f4af2929deb7dd2f9f7c04542db4b6c760c19176c96ac42a09e36ee991c4c9",
+      "bowling-workingOut-moveLeft.webp": "8f7dd780a7d9c81f965654d735062c852bfda381108378a0776903e28d851ff2"
+    }
+  },
+  "bowling-moveRight.png": {
+    "source": "8482c8b134fb5122dbc5a20acef5dad063210620bde27adc18ca9394a74d5727",
+    "strips": {
+      "bowling-sick-moveRight.webp": "871cca4e22100e6497edfb127b30a5122fac3e7ed4da9230c09b3e78a4def31d",
+      "bowling-studious-moveRight.webp": "bcf481a87edfa086e27840d6c0a950ceab0d5ff13b4730376fcb027d07354a15",
+      "bowling-workingOut-moveRight.webp": "9f799114618069b7808567d5cf59a9fd448014a3ae486b67a67cf4a398da4eb0"
+    }
+  },
+  "bowling-reviewing.png": {
+    "source": "242bd3ff7afa1fc23960864982b97799a66b3160e365e535c26db65d69647790",
+    "strips": {
+      "bowling-sick-reviewing.webp": "cf723e9e259e3553bd2e5bac8432c3ae635a3108d11d4fe7d85a6315c269ea08",
+      "bowling-studious-reviewing.webp": "2479b46139f7c0cd790e010afbec59a54f3b71733b3b9c5cbacfd458c3d35d2c",
+      "bowling-workingOut-reviewing.webp": "13651ed66e20f06cd7322b0831fd1b510cbde3b24f70609b6f466aac15689f25"
+    }
+  },
+  "bowling-thinking.png": {
+    "source": "177d02f5e97bb673d0bdec6b00e8042b6d0a307b714df1ecc15adf5e9d944019",
+    "strips": {
+      "bowling-sick-thinking.webp": "07473648005d7a05238c2269d1c3211679d0dcba75922626061b36e9f77f2950",
+      "bowling-studious-thinking.webp": "7f36307942eb1758bfb78505e8b6fd0f9e88f48306fd14738179ddf43410338a",
+      "bowling-workingOut-thinking.webp": "69c16d5dc9ebf11614aaf94b3d246633b5034eba7f0d67ad6bec7cc66c120bf9"
+    }
+  },
+  "bowling-waiting.png": {
+    "source": "877518f25647aa224e01461459865874e5e3e5612ebf3b5b0487d6214657896c",
+    "strips": {
+      "bowling-sick-waiting.webp": "fe90028ecc20e35f836639a6c5285d4b377364d9af8ee056e1cf06e5ad2984e2",
+      "bowling-studious-waiting.webp": "7f13919f3ff5246e8e1fca424e9a1d8984205983bba3aad08afd1445d4c9dd82",
+      "bowling-workingOut-waiting.webp": "6264b75c1c4f350628c6cd1bfc0bae35094333580c8f240c904d2ab690055864"
+    }
+  },
+  "bowling-wave.png": {
+    "source": "4798f005f5a709d2b1e04c0f337aae71e5ce3e7351139fc8460d51f7da348c37",
+    "strips": {
+      "bowling-sick-wave.webp": "631d5d26cd1bd1097b21b9a46c4e4f008cad4f4ea750654ab9d62e4afa89b49f",
+      "bowling-studious-wave.webp": "0d3cf98de399d261d42bfcbd0dcaeb4a6d3b31dcb6efe5eea9bf311eb9b42f88",
+      "bowling-workingOut-wave.webp": "44f42f5555f4b86777c9a925b80eaa5fd6c9970a5303bebf874b9774d6949270"
+    }
+  },
+  "bubble-disappointed.png": {
+    "source": "9b7761e91cc313047b40bce6e2d4b607badb5f82caa02e753d8cd8c2f645a1e5",
+    "strips": {
+      "bubble-sick-disappointed.webp": "31c6a8ebc4f04d0208b6cf717c86d8631d82b434983dbf013980f466ae519f9e",
+      "bubble-studious-disappointed.webp": "e4f171153c6c9cb6bb794e67c820292d4490f66e40a73f859429eca4cb21d869",
+      "bubble-workingOut-disappointed.webp": "32058b4ab1e88d66ec24c1c530ffd8380d4d8dae07b49a8422ea332e4c0f1ce3"
+    }
+  },
+  "bubble-idle.png": {
+    "source": "4f6fa10499df094e915040e8ef04d6e2529a8251ecabb5f0e82fc6f4e239524f",
+    "strips": {
+      "bubble-sick-idle.webp": "ff2a562987dca6e6ad61a9139e79b14781821fc76445847c745e9422e5aa3a6c",
+      "bubble-studious-idle.webp": "0b841f64628cb105c9a49820cba087f2b7c87d290e1d5912f3c645f4b75eaa0d",
+      "bubble-workingOut-idle.webp": "1201bde4b51289aa2c512731e21e95b428fe135823eeebe1fc2f65597844baf1"
+    }
+  },
+  "bubble-jump.png": {
+    "source": "2032cc5763a0c98b93a21888854db17826e672464a5bf066125dd90d94a822b1",
+    "strips": {
+      "bubble-sick-jump.webp": "2d9cf9ca646b5cbef863989d56826f3cd31d390910834d1f6df7656339587a3e",
+      "bubble-studious-jump.webp": "4a2c08015de4bac0b980f49d1c0edae3d7885550d5c649747a82e46a4cfd3a33",
+      "bubble-workingOut-jump.webp": "1289993b95f6c011471d9939aa4e9c1d2a9f4b8d953310c8bfe6b1283238f1a9"
+    }
+  },
+  "bubble-lookAround.png": {
+    "source": "bb8739dc4ee251e47f46a5cd110c62bf9b175faffee4edbe866ffe582307e48d",
+    "strips": {
+      "bubble-sick-lookAround.webp": "412ed8f2e7d89f360a97697661b916a243020d4a309937341abbfbe62e0b6160",
+      "bubble-studious-lookAround.webp": "041a924fc7fc133c5c21f2a5736d69186be6329137172655fbcdb9f41f65812d",
+      "bubble-workingOut-lookAround.webp": "a8e88e7a28452fdaf19247b72cca88601747a94ebc7d386550ade31a9affb8ab"
+    }
+  },
+  "bubble-lookDiagonal.png": {
+    "source": "77c8b3b1d4dbd41d916033cf38f53beeb46e3432606c88d624d7b1d5f1c01f37",
+    "strips": {
+      "bubble-sick-lookDiagonal.webp": "3948f37713bf9d8396adf9083a65c38663805813f1b23294f64cc6f49be3eaa0",
+      "bubble-studious-lookDiagonal.webp": "e919b3b5a18e22024b541f956eb2656dc8cedf69ce85bd69793808300ac7d669",
+      "bubble-workingOut-lookDiagonal.webp": "e0f2833c5299d4fc22de2c4dca3919b79f2275c9b1b37263f1da24bf89e3f026"
+    }
+  },
+  "bubble-moveLeft.png": {
+    "source": "d556052471561f41c2499b4d980b667c2b50802572dcaa62004f6faaacffacc7",
+    "strips": {
+      "bubble-sick-moveLeft.webp": "32aeec7ccad4088a73e5869fdd6147350c5064ed3b96c2bb449add67ce028aa0",
+      "bubble-studious-moveLeft.webp": "57c383157f9de26392586c4f91e9214660462bbc7a58aab626499db430c8a8dc",
+      "bubble-workingOut-moveLeft.webp": "d26af8d6239a125a5465765616dd125b2d9fea418d20a081fd90ab204aa8a0bb"
+    }
+  },
+  "bubble-moveRight.png": {
+    "source": "6d546b3349883223e819bf653dd33a94a3728585c2a4a164537b9083545830ef",
+    "strips": {
+      "bubble-sick-moveRight.webp": "f68807369ec7dbce7d37a135cf8886cd2b551b9a6c1858eb4d9458839b4c58b4",
+      "bubble-studious-moveRight.webp": "332bfbc729bb9a2d6ae628a64df50717414f3795a6036e5c350184226c6ffdb1",
+      "bubble-workingOut-moveRight.webp": "81123f00ffba56e4beda5dace9a901e7f1b86d84f068779891fe3013b4641267"
+    }
+  },
+  "bubble-reviewing.png": {
+    "source": "755b9754c291e5c3863a57947a59149c6fd2bd1bcd58526ee96baabfaf04567f",
+    "strips": {
+      "bubble-sick-reviewing.webp": "a0a8e4a2596830b96bf64a10a4ec0931d26372441925ff73e7854995a98c4d7a",
+      "bubble-studious-reviewing.webp": "d9730d576a89563a0df1e6e6a1b65c77648951be3c7c1a9a02a1cedfd0420ba7",
+      "bubble-workingOut-reviewing.webp": "469c144f397e33b4cab0e744f4f05c45183e63ff678f1e5870f0867694181f24"
+    }
+  },
+  "bubble-thinking.png": {
+    "source": "c9765b1860f5cddf3098d247662b6265aaea057e395d2cde36e618b383fffe81",
+    "strips": {
+      "bubble-sick-thinking.webp": "6cd4c84f0eb1b0997d0c1c365744ba21c13665ea727e779bf2700bf6afa2f686",
+      "bubble-studious-thinking.webp": "cfbc4f6411932b6562036a0929702613575b393bea21eb9ad79f8463df0b0d3b",
+      "bubble-workingOut-thinking.webp": "14412b4b27264d672453470576620f1067f75ae6a296632c75736155f1b52b47"
+    }
+  },
+  "bubble-waiting.png": {
+    "source": "2604e4569c048886c2a2b44ecb684bf8779c8784c54931c6dc6c93d0993b1179",
+    "strips": {
+      "bubble-sick-waiting.webp": "a126e42afe268ee556680218e63334f3b9e63eb8aff534ccb88881748a23fcbd",
+      "bubble-studious-waiting.webp": "7dadf4640c6cf69092407932b01c12890362d3e9c5ad68d49a137a491ef01ccb",
+      "bubble-workingOut-waiting.webp": "27065adb6a7741616b5d8fb73a06bd94a548dcfab2b1458a4378091fe4d3c96a"
+    }
+  },
+  "bubble-wave.png": {
+    "source": "4097315a77fd6ca278fdd609a007dd28c89d99d3ba2b593e1ddbe73b8ca852a4",
+    "strips": {
+      "bubble-sick-wave.webp": "35aba2be86519e9162074d9c8ebe0b38b2f3f013a8c3d81a9bf0421e1c6d3af5",
+      "bubble-studious-wave.webp": "75c2cd78e53983bba8e5ee656dca6d656a0e98e9bdf941d6d07272125f6b4207",
+      "bubble-workingOut-wave.webp": "f291a744b3f97bf7667d0cd37099006effb8ce658ba24d66474bd66da2b37892"
+    }
+  },
+  "coconut-disappointed.png": {
+    "source": "74c9746ecfd2094eca181a7c040a5c1aa7e28964e3a16b9ed9b63fc4d126e2e0",
+    "strips": {
+      "coconut-sick-disappointed.webp": "7ffab34cefa4e4891b43bfee807d6727342f6c289f4f0ed1bb690d65a89b2964",
+      "coconut-studious-disappointed.webp": "2c6c6007ef1a8c879e421468c7c4973f9aa881256992f181ab7cc5e5dfa974ff",
+      "coconut-workingOut-disappointed.webp": "910e5053a1ae4ae54c8fea54dfb98db5fde803e5d1badf8241085a7dc37fc7f3"
+    }
+  },
+  "coconut-idle.png": {
+    "source": "be34aade662e612ba24eabcc25400a0c38ae8c51d2a1f542c0585e0d97cd170a",
+    "strips": {
+      "coconut-sick-idle.webp": "dcb2abb03d52f163c84a8f4f95b9745ec5bc5c194e9c72562138ec6d831ce4af",
+      "coconut-studious-idle.webp": "7c097adc5928965ac94aa9873c4261155ade3212d411cff8a79d906c34066962",
+      "coconut-workingOut-idle.webp": "5f63f8168347ae29b4632071a4a1930499b0c660debaf4dabed0543974e5715d"
+    }
+  },
+  "coconut-jump.png": {
+    "source": "70dd65ce39732aab69025df850f3aef26e896acced5c4daa94480145dcb2fd27",
+    "strips": {
+      "coconut-sick-jump.webp": "05194bae92d5c5b825924ce001d87f18b076163b992f0857d06efbc09e7481e9",
+      "coconut-studious-jump.webp": "983fdefc47eb9ebfee0d99d5897abac2de8e7b4ecc39a55887f1cb90eb41b03a",
+      "coconut-workingOut-jump.webp": "ffe790029fe136dd0e41f0379d15cf378c9bd4fbb0d9924e15978ef3e4489f8e"
+    }
+  },
+  "coconut-lookAround.png": {
+    "source": "8109e2da0feeb5fff56dd58ae2927852717b72f16718925eb448a11ed59c05a0",
+    "strips": {
+      "coconut-sick-lookAround.webp": "1adf0153726150bb77aa5ce604e85d18b780f19994ed4d4c19609c0cfaa32b8a",
+      "coconut-studious-lookAround.webp": "3fd4508a9a72ffb6b46adb83a55e0408122f8a18cb55e4f0235a1d0d6a18a75e",
+      "coconut-workingOut-lookAround.webp": "4ba05112bcdb9915ffcd53abc516c27e31eb51b2e78c1a8d6d3cc3884220b465"
+    }
+  },
+  "coconut-lookDiagonal.png": {
+    "source": "725677a38f44134b3d46f712ba2a0d85630afc9a616ac224e478e46abe77b68c",
+    "strips": {
+      "coconut-sick-lookDiagonal.webp": "99169897418612f1516536b7be2143194fb9b4fb45e37c91fac12c1bfd27b40b",
+      "coconut-studious-lookDiagonal.webp": "17b92cbda86ba595ef31e2a9391bce4623a004fb1cb2525b602e42831bebe097",
+      "coconut-workingOut-lookDiagonal.webp": "631548ce573ff4f702b2fd2d28ecf0e6c11204fd196cf1cd91bf199b28be1c69"
+    }
+  },
+  "coconut-moveLeft.png": {
+    "source": "34eba456840ca300b5df7aa4c12f585c63729bce9e391ffc7f8a6ee9fb7f83ed",
+    "strips": {
+      "coconut-sick-moveLeft.webp": "7b6cd80ba99a3efc16455c8f03cf3051ec446df1ce1597d9e8ed0030c057ef0c",
+      "coconut-studious-moveLeft.webp": "6ed78009e94e0e3e2a714fb00ccf7c6147891f76a1f8c496ab9e5ab940fac53f",
+      "coconut-workingOut-moveLeft.webp": "986348767a5308016ece8fbb3a36ab8f0ffa89a185329d3dbe01e71b7d02cea8"
+    }
+  },
+  "coconut-moveRight.png": {
+    "source": "ee14ef57a8d819cc9f6142bb779b62332ca3b49867a81113b49a9b864307dd97",
+    "strips": {
+      "coconut-sick-moveRight.webp": "52bd3db632ffdde1416f8b369915af0c396e8919957130d5e7664080b7ee405a",
+      "coconut-studious-moveRight.webp": "2145ff26e1c8e9d9d610d67d92d30ea917b1f8096c6cfcb4bd5a8e0cdf3003fd",
+      "coconut-workingOut-moveRight.webp": "bd644a2c887ad6879c737586da4a7912ebdcb566aae6501c862467dfbcba87f9"
+    }
+  },
+  "coconut-reviewing.png": {
+    "source": "2d4c7976d3950ca5e7313c2c9110b4f6cd7b7744d62fe687f37c94522dd24f11",
+    "strips": {
+      "coconut-sick-reviewing.webp": "5e0ce85d824f718d986d994cc2699e21c574cb01967a54709f8bc73ced11a106",
+      "coconut-studious-reviewing.webp": "dc55625224c9e177d0b7568bb2767fc4c98c9baef14a535970e430a8013de9de",
+      "coconut-workingOut-reviewing.webp": "4fa9bdb64bdb5e5565e4452586c22eb69ed940a1e4d197edda3e0bbc74e4a717"
+    }
+  },
+  "coconut-thinking.png": {
+    "source": "ffa2d050447dd11ae4bb92894ccb981215ec13891dec9abb0d08a3fc330bac27",
+    "strips": {
+      "coconut-sick-thinking.webp": "28dc026b983b9f583fd8b6662ccc66b64110986dc9033245d23c902df0497386",
+      "coconut-studious-thinking.webp": "1f7e6ab8069ede56fd1d08f37c87bd3e736d78cbff590ee2e74eaceba173c8fe",
+      "coconut-workingOut-thinking.webp": "baa6182a6047b07b5baeadbb46d71d8ee116290c9597e2afb3edaaad039c5647"
+    }
+  },
+  "coconut-waiting.png": {
+    "source": "3ebe8f98f0876c02199c130d19dad6b2eb1e7695397a57924b05b16e6e58debf",
+    "strips": {
+      "coconut-sick-waiting.webp": "538735bc1f6776bd7ef4d53a315679ab20e44973dc9c4073452f151b26754899",
+      "coconut-studious-waiting.webp": "6a9643e61481ae8b537580b3674aa9011fa525c6bb333cf22bf68ebb993b23a5",
+      "coconut-workingOut-waiting.webp": "41c194759f579c321756edd2aa36d9f3c44adbace80c094cd40cfe5d1930cd93"
+    }
+  },
+  "coconut-wave.png": {
+    "source": "1ff0d70cffed380a117d13156d25af76b700e2c2236a1af73d1953427ec537c5",
+    "strips": {
+      "coconut-sick-wave.webp": "67e1fa7ef34f05b1953ffcf0211e852b9caaa1e73f4c176c9f5a03b5e067caef",
+      "coconut-studious-wave.webp": "5f9a89f2e0e8ea74ace8ebdf6a910748765bf057126924a784d1b935f6899621",
+      "coconut-workingOut-wave.webp": "454735e4237619037eacd549808d6adcf1dec553922a5d9bccd0267022a31409"
+    }
+  },
+  "coffee-disappointed.png": {
+    "source": "38485db8680fdabc63a879733b0a8288241102d27d93e1114a451be91d3c4b6d",
+    "strips": {
+      "coffee-sick-disappointed.webp": "879636dc46a94edc9e87022d73321648147560112c27ded0dc9c0eb8c6c1096b",
+      "coffee-studious-disappointed.webp": "cefadb34ce28396b950bd77b43cb8b75999cd6e62e48c6beffc31c31e6bca939",
+      "coffee-workingOut-disappointed.webp": "403f0ba3382e466dde6b5b3a1d015b65fd38e1f6ba2142e5ba422032901b09b8"
+    }
+  },
+  "coffee-idle.png": {
+    "source": "18419e5859b331fa7264187baaa9f232750153443a39e659265026a900347399",
+    "strips": {
+      "coffee-sick-idle.webp": "05ad8ab20726ffa806156f2f68ae6d8917c8b061f68a5129905f1784da24e630",
+      "coffee-studious-idle.webp": "e3b503e5041fee0f74f7b27f0752c29adbc27ebfb968003a4db97625ab05de6c",
+      "coffee-workingOut-idle.webp": "a01f049992714c2b0a80780973b3edeb45e405ed492f4984d27d32fecef8590d"
+    }
+  },
+  "coffee-jump.png": {
+    "source": "c47aca2d6696cdb311d2b5d32ebbaac9ca5e6d94a9bcc563ac4a2641761c8d44",
+    "strips": {
+      "coffee-sick-jump.webp": "19b083ec2e7e0e016b723107901025cdd6079e5af2e85b325aac3f0080107fbf",
+      "coffee-studious-jump.webp": "335ca9800e6215287c48649ce0e643632a72d5a12cbc050ce1beb3880a43f996",
+      "coffee-workingOut-jump.webp": "535f961212fa01be3475775567b960086eaf454d4f10b75a58d80b5c7870d7f8"
+    }
+  },
+  "coffee-lookAround.png": {
+    "source": "864834e6dab89e3628590ceffa7a5eacb5b6b70b79a53f89579f9f0559fe4b65",
+    "strips": {
+      "coffee-sick-lookAround.webp": "04785f0956e991038ab1a146c7c89edbf4b837128a5030080ba02e5f7c78f82f",
+      "coffee-studious-lookAround.webp": "8926369f11b7e1128ae415a9b9696a62f988eab3b90d54a792855af10b191274",
+      "coffee-workingOut-lookAround.webp": "0e10826ef6e812b0e28bc4688af35f030308470026d8e7dd9fc20f0fb8c3f8f7"
+    }
+  },
+  "coffee-lookDiagonal.png": {
+    "source": "49ceb1dc8cba477b3931bc6b61e0fc7577a3f2cdee1c15117a077e3ef5b19fe4",
+    "strips": {
+      "coffee-sick-lookDiagonal.webp": "f2981adcb925be3020e4438d73e3430aa5a9f4a82ca99ba6a5d13b864bf4b402",
+      "coffee-studious-lookDiagonal.webp": "548702c0103161c3f2c929f546311fb601f17cc06916b8652f8d27c198a2f8b8",
+      "coffee-workingOut-lookDiagonal.webp": "e5302503241f2516b6ea42d3d455408c70984ec3901f8c3d237ce6668e6b7e17"
+    }
+  },
+  "coffee-moveLeft.png": {
+    "source": "ad6463502d9d29faf17a3e4f55fce3b6969d38f8dcb82ad448b52384bb6c520f",
+    "strips": {
+      "coffee-sick-moveLeft.webp": "bc86f28442aeed3032c149a37b2b4eaeda1b16ed6bbcb8c6b5889d7457185c10",
+      "coffee-studious-moveLeft.webp": "3374f9eb0fd3afa3e145a18cda4b52680a2c2fa61dc5813b1bf5caeecbf6e677",
+      "coffee-workingOut-moveLeft.webp": "1c2fabb39b442bc1a4fd419c11d09fe1be28c26a4fe5f269d432bde68147ef22"
+    }
+  },
+  "coffee-moveRight.png": {
+    "source": "830643d85bea84a65857d53889a30847118b485978d0b267470beeec15522f04",
+    "strips": {
+      "coffee-sick-moveRight.webp": "288f07878d74ef812a035cf720a322d848f610f41abbf246f6fac6653e8122ca",
+      "coffee-studious-moveRight.webp": "9dd10f327e638855cf6c73168ca216f3872538d4803c87477c8baa4bdff7fe15",
+      "coffee-workingOut-moveRight.webp": "704229de1e349274fa2ba9870954a35744bf9415e1084cacef5737fd353a202b"
+    }
+  },
+  "coffee-reviewing.png": {
+    "source": "eaa4a3c504a2645bee65bd0ae9512df6eed8bbea1f4bd79af26d3951c7d909ba",
+    "strips": {
+      "coffee-sick-reviewing.webp": "9e0db19f2257b145040ed78bec76d565800215002d0e22964f245aaf39139c5b",
+      "coffee-studious-reviewing.webp": "a2e645bfd1c0a46dfeca91ddaae0bd2ab5959147dc8e7d81a18ecbfd9e93563d",
+      "coffee-workingOut-reviewing.webp": "895021b234244793f908cd9adb8a5e01b4f418abd593b4170269b1c2c2fe7a75"
+    }
+  },
+  "coffee-thinking.png": {
+    "source": "5116f57373697c9e2147c9f9911c911322f9839779cb69eee3f2b1602d8729ef",
+    "strips": {
+      "coffee-sick-thinking.webp": "c5c51a1d85f8e49b863bc6051b06fb0061f7253bd975c265d65ac993b561e3b8",
+      "coffee-studious-thinking.webp": "f1fe048cf7d798fe6bc866fd30f9ee23d038af69b154b412d69167e8b38da218",
+      "coffee-workingOut-thinking.webp": "ab2d4d9f8c5864e6a9634392073e868d9a54f6db099d61e9ae7c204e9d15954b"
+    }
+  },
+  "coffee-waiting.png": {
+    "source": "92de5ae51c085b0d8596240c6d7c61827f441336dd7af9fb598a63380ac7227d",
+    "strips": {
+      "coffee-sick-waiting.webp": "791638592518c02ad3b8ce0245c2ed637821d95fe98e01366b6c6d05e3322685",
+      "coffee-studious-waiting.webp": "e4d2ba7f1914294ba0daad20cf985c7cc3b5b9bbcf46a26156b7a875193f54f2",
+      "coffee-workingOut-waiting.webp": "28a8de84b5953bad638ef5b3ddb34c100e18e597bf7ef64286b7b4d3976333e0"
+    }
+  },
+  "coffee-wave.png": {
+    "source": "cc0d90e74b3b2327f72e947590ca4438051e01014b2f1ccf5604860ee2b403f0",
+    "strips": {
+      "coffee-sick-wave.webp": "e72d7c39fc0916cc8bf7a23197426bf8be1612701e733a2ea309de74d61aa377",
+      "coffee-studious-wave.webp": "f8ffa0324fe174ae936b032cd62645f3d930639622cba0ca7d70b033adabc585",
+      "coffee-workingOut-wave.webp": "fcb3b7716ba9cbaef4e13684edc65f22650961d5fb8eed91e6b28a3cb7fc8b9b"
+    }
+  },
+  "cumulus-disappointed.png": {
+    "source": "89681f656925887d5a0b1d13e261be25e90cab39fff59d321e0164134198e96e",
+    "strips": {
+      "cumulus-sick-disappointed.webp": "18ccc9edc0a91d0c9e81359a7abc760473b25c1e67dbaef5bcedeed3ef0a9aba",
+      "cumulus-studious-disappointed.webp": "f707570351742c5d5f84f36cc2de6974ff8189f2a1807740193f4a7678fb769d",
+      "cumulus-workingOut-disappointed.webp": "f849b48badd9d955bed5dfe59479d5b449a53eb8b8bf08fb54ea03f6929a38a0"
+    }
+  },
+  "cumulus-idle.png": {
+    "source": "ff73b56cb1dbbef3a02ba5e33b40007d99a5421c9001b795f8b4fd82048f5916",
+    "strips": {
+      "cumulus-sick-idle.webp": "a4fa5612e4314349f9f780da67449edaf8ff272103eec27feb4f8d58f2360d7f",
+      "cumulus-studious-idle.webp": "e312ba622c31cb484f06356d89c4272dbd621bc61813601f494514158853dc7a",
+      "cumulus-workingOut-idle.webp": "3b526737c41b59460162181e0a4337915426b41bc6e810c7386475d82ed143e9"
+    }
+  },
+  "cumulus-jump.png": {
+    "source": "42a19e2af9cffd3082e3b26680523f09d870948da28d333fbf0980e83adcf073",
+    "strips": {
+      "cumulus-sick-jump.webp": "17eb4db9cd2f4c7c0953d54d43b3d239004eade11546f3397dc3bf8ddb24f5b3",
+      "cumulus-studious-jump.webp": "31d94d4f15a5da2879afefff63d3f7620b4ea787cf51fa0fce973b719a68a89d",
+      "cumulus-workingOut-jump.webp": "2d13ad4c57e73bae3afdec8195f261b2053c445bfdcde94c39a5805e93dfc873"
+    }
+  },
+  "cumulus-lookAround.png": {
+    "source": "b79fec141d044daa25837ec8de20ed068c195fd9357cccce7ab4276264b5530a",
+    "strips": {
+      "cumulus-sick-lookAround.webp": "1c433701291b9249323737ada0d985c0908285f82bb96e7fbb9a10f2ba555b0c",
+      "cumulus-studious-lookAround.webp": "eb27b06a5071c86c2243f71d1f2ecc3c6fc9fb75b4a4deb5dd0c92d49719bd8b",
+      "cumulus-workingOut-lookAround.webp": "f71f1ac2c7bd6bd70a4a978dcf1e7d7fbd4fe99fee2366d0b47e24cd857eb8e3"
+    }
+  },
+  "cumulus-lookDiagonal.png": {
+    "source": "5ec4d59e5bd682eb5ad3b1ca55ab0fd3428a46ccaf5e10f8b7aec62a59b5422d",
+    "strips": {
+      "cumulus-sick-lookDiagonal.webp": "f724c70fea2aafd837578a0f0ad31e93448b8517b2ac73d7efeae521527389db",
+      "cumulus-studious-lookDiagonal.webp": "d7c3aaba82944c32a7489401190900d8a5177775684584deb8c0776c463b09a7",
+      "cumulus-workingOut-lookDiagonal.webp": "3c3b805a2fea90ed4f4c53d18f21217cbd3bce5cc449f37fc84acaeb0265f8ba"
+    }
+  },
+  "cumulus-moveLeft.png": {
+    "source": "5da2dc68ef728e416e27f5e1e79bc8862608e13f1400526ee6d9e47ee959cee6",
+    "strips": {
+      "cumulus-sick-moveLeft.webp": "c6498ad9ec02c4b1c80764a55a3f7d2d6e4e4056b39c98a45c29e7635379e18c",
+      "cumulus-studious-moveLeft.webp": "788dade16ff64a9ff663f15c00178d2e4a255d7ba189551134d2ac942318cc5f",
+      "cumulus-workingOut-moveLeft.webp": "04f78deee186ef9f71cdb91da85f54ef43bfcad1be45eb29892a61e4a8f99c01"
+    }
+  },
+  "cumulus-moveRight.png": {
+    "source": "c9f8babb407ba17ea706c4deef13c72999332580f246b8478451997e01c201e1",
+    "strips": {
+      "cumulus-sick-moveRight.webp": "ca0e1047bdc6cf22d84cd0d0eec791209f62177f406b50ee26885e9d9fb19845",
+      "cumulus-studious-moveRight.webp": "73a91253f1a2b8bf3fcfa00c1112ad017c9d4b30623fa3fa72769966488e90c5",
+      "cumulus-workingOut-moveRight.webp": "c24fe15d5d7560f41c38dc3c99a6e95948405dac37958228cc35bbf9a28e85c8"
+    }
+  },
+  "cumulus-reviewing.png": {
+    "source": "f188e642e6e95316bcfbc2cebe80f2b86fa7a69f231b20c8614b39a23f30310b",
+    "strips": {
+      "cumulus-sick-reviewing.webp": "8ba24f41b165b03173fec956e547934e033f039cf9e91351d8fbc6969cc62dee",
+      "cumulus-studious-reviewing.webp": "9e2b50218818c8c9bfa5260159b066747e899282c32e178f027a81e43459ebbe",
+      "cumulus-workingOut-reviewing.webp": "4725ffc33eccf718556f785351c01cb3d383dadcb649cb61c94a57b88fc599ec"
+    }
+  },
+  "cumulus-thinking.png": {
+    "source": "60eeead365883a4bce5789e60e259fce1914a9034c2fe45258eee240f7809850",
+    "strips": {
+      "cumulus-sick-thinking.webp": "3c2a133def1cd024178b415e95666151c9a812b53f3405c627fca9e040e8eb64",
+      "cumulus-studious-thinking.webp": "14891013303a291c4a42b2346a9a2f659e469809d27cfb107a4afbaca00ad3f9",
+      "cumulus-workingOut-thinking.webp": "63527cb2adeba9433652bad7d01de469b27a7525063fe6db602630274881f9fb"
+    }
+  },
+  "cumulus-waiting.png": {
+    "source": "68d01921cbeeb743bfab2dbebaaffd540c60773f514094857eebb0e48798c224",
+    "strips": {
+      "cumulus-sick-waiting.webp": "14987d6f054b45efbfda89b3b8c3050d80a606ce3a03b1d3012ed83a3cb10dac",
+      "cumulus-studious-waiting.webp": "8aab74ceab921a2d5b1117f364bbd6277aafc52b0e6b81882c2729cbbedbc3b9",
+      "cumulus-workingOut-waiting.webp": "e5bbde51cd04336cc5f37f430322f9489faeacf0b881a519d122f28efe629e99"
+    }
+  },
+  "cumulus-wave.png": {
+    "source": "f924ab1d4e31c578ee2ad7da92bac85d1d51e2ad2b6e6341537e5ff1ada16210",
+    "strips": {
+      "cumulus-sick-wave.webp": "bf9fccf274ba5a5edb412974830a2f753c98cc7cf83e4846ba7003fb14161a00",
+      "cumulus-studious-wave.webp": "6e38e8e2281187661e534fbe9ddd4606f02e613f5a1ed2fda9bde7c320d74188",
+      "cumulus-workingOut-wave.webp": "057a2589105c87603db5c2d9f5cb8959ef0d7a446a7fab3e342bb50f6440d192"
+    }
+  },
+  "drizzle-disappointed.png": {
+    "source": "601d2c9f393be72e03a4b752d288139297c6fffc89ec8aff8321f43cf786b067",
+    "strips": {
+      "drizzle-sick-disappointed.webp": "e81c4865548c032d56fc74f2552d6b8fbb83dfcbc39ea473382aa801e699cd46",
+      "drizzle-studious-disappointed.webp": "7ea07e1c0099f8ff4dac391b65980d33b09e468249a52709af53800cd7be5c96",
+      "drizzle-workingOut-disappointed.webp": "2f71dae2202b4272c4c21bd689cf11ce4fd9260ac6e556c7ca6d4a28aa658ff6"
+    }
+  },
+  "drizzle-idle.png": {
+    "source": "c65af855c16c15acce79fc091d4cb1cd4da1242de08a1b6da2d22d4ebb3a29cd",
+    "strips": {
+      "drizzle-sick-idle.webp": "78c340b5dfb104237422bea16001d5f6ead0d3cd26cc8c193561ef7063e358c2",
+      "drizzle-studious-idle.webp": "18cb2f0cebdd1d36e704d4fad3df32d76588bc8d85cbd4ab0b2570af995f70fc",
+      "drizzle-workingOut-idle.webp": "5cfcca32e11658a62f8f707a1621bf1c84d022dfb8a457acb6a682186c8ae27d"
+    }
+  },
+  "drizzle-jump.png": {
+    "source": "f636a31fba586652d92a6e5fdc881c9fd375638185ba2f15920f77ece36c44ac",
+    "strips": {
+      "drizzle-sick-jump.webp": "2df4dc218bfeab01524c1e67bd6ca82d8aed51c0c1654b68dac4b4c799d9e5be",
+      "drizzle-studious-jump.webp": "6d0b653dce5994acf4fc5f2bd931116aa72010ab483254f9b5274c253a0a8765",
+      "drizzle-workingOut-jump.webp": "8f25d6e9477bf51803a569e9615b1480e6d99d5214b85f396ab56df49cc9518a"
+    }
+  },
+  "drizzle-lookAround.png": {
+    "source": "9b1021ae70046d9d28884c6ab5f89eec4985aa3de4e613c179d0ac7666afc978",
+    "strips": {
+      "drizzle-sick-lookAround.webp": "4bcbfaeb8e271ff194237e8e903f02e28da0d38d6eb29be199ed2676b4c9274d",
+      "drizzle-studious-lookAround.webp": "63d11e47ea1a8be2de941a6b30a5253282ee988ec0741fac62ec54eaf039539d",
+      "drizzle-workingOut-lookAround.webp": "8fc6c59d45906050bbb7cb490b5bde7e89cec1747f37179b8dd11d3d9568fe22"
+    }
+  },
+  "drizzle-lookDiagonal.png": {
+    "source": "4e0067f85a6667b50266e8c25ed0ef5208783e6f5791c1186180451f73ef3749",
+    "strips": {
+      "drizzle-sick-lookDiagonal.webp": "bb219b47e2d24f4cad6b5de24732a947b4cf0da14267f2b6f62601a1aa519f57",
+      "drizzle-studious-lookDiagonal.webp": "2269b5b52f4d3595ab9868dd118b5817c46d64698c765f90bea950340d661ff3",
+      "drizzle-workingOut-lookDiagonal.webp": "071e1a77a697e0299c2bec971b5b6a8058ac25b5c9d0a24c0075e93a762d7059"
+    }
+  },
+  "drizzle-moveLeft.png": {
+    "source": "2e3d121f9886b22d5504b5ca9166762d8110fe625d6dc1bd3179c595805f94f2",
+    "strips": {
+      "drizzle-sick-moveLeft.webp": "ace7d676fee99e00e7467a2b94e5e8fde1b219b124595aff414cddf6929246c6",
+      "drizzle-studious-moveLeft.webp": "99b245a4cfbc24e5bb1e5f8373defdf455943b94c38cf12714e856a8287ff3c3",
+      "drizzle-workingOut-moveLeft.webp": "a9eb9beaebca2a7111e8894bcc8974b755694d060868f75ef49dc0e9db696e6c"
+    }
+  },
+  "drizzle-moveRight.png": {
+    "source": "9d285e8585caa26c8257270e639cc720e347baabc07975715a975bc5144781a9",
+    "strips": {
+      "drizzle-sick-moveRight.webp": "b7fa16234761a1e61940d5cba1b50c9ff6903145d5e830dc0dd778482b45cb30",
+      "drizzle-studious-moveRight.webp": "9c050f0e76a3b8b8b23a119a449575ad520ddfeb1d087326b6388d3bae20c800",
+      "drizzle-workingOut-moveRight.webp": "aab8c6b85f776d8fd96fcbf80f5876b64c379b01352835e5a1c34617ae51d84d"
+    }
+  },
+  "drizzle-reviewing.png": {
+    "source": "6096b6722081beff989543fc1c88dce42ec1efcdd394c61f4b7dd43a49685514",
+    "strips": {
+      "drizzle-sick-reviewing.webp": "83f69ee23809a7aad354d983d416edd6e68f9e5361708769ce166a0c319a2053",
+      "drizzle-studious-reviewing.webp": "5822b9a138549469f162a2efd6b9cf10494dc07bbf3009bfd888633c9db2139f",
+      "drizzle-workingOut-reviewing.webp": "a70c4cf6c4d36c72402dbc66668114bd5467a6a5edd3d43263fc68023f47bda9"
+    }
+  },
+  "drizzle-thinking.png": {
+    "source": "4dcf907a2bc3c0f34efff4c935eb609fcdbd254c5dd5a8fc84d5d324637164b6",
+    "strips": {
+      "drizzle-sick-thinking.webp": "17298122cb02598cdf5732249cc42a04b10f05ea3416aec67f343c4d3816f6c0",
+      "drizzle-studious-thinking.webp": "2183aa935d0f21a7726e6105e79265048e05c54827e7bdc2a32685f0a8e17ce5",
+      "drizzle-workingOut-thinking.webp": "fcb37e825368fa1ccf2a34da38b14b02f93ccc381c64bdd7b8bf9c2b821e994f"
+    }
+  },
+  "drizzle-waiting.png": {
+    "source": "20bde2972082ac04d5c36881105ce5ef26ee6b1a60406f63b12f11b76c07652d",
+    "strips": {
+      "drizzle-sick-waiting.webp": "6d7388b6a9f91169f2896c9d7ba80b6b67dc5add8adcc1f2ee6cf3223ea23e7f",
+      "drizzle-studious-waiting.webp": "3aabf808850f83daf7dfa5ad16ad8174185ea3f47338018518dcf57e5c8ce2b3",
+      "drizzle-workingOut-waiting.webp": "eb00983f956b7ed16695b7647d78e643493d0ed28b330ee2ab5f6300bc62f838"
+    }
+  },
+  "drizzle-wave.png": {
+    "source": "06907f4f6555a880208870741a4df6e9f7de82a72dbb8967fd49c816dbfc287b",
+    "strips": {
+      "drizzle-sick-wave.webp": "abbae4c6ece5356802d4f061e527e97a439ffd06ce97e307370d8cfc28f7c0c1",
+      "drizzle-studious-wave.webp": "ec0b827de604396c99b86433201e44b80cda8067caad526068f54184dbbf94b9",
+      "drizzle-workingOut-wave.webp": "786cd26226f4a855cb81f25294ccb50d505302720d4f329ff68dbee92f75022d"
+    }
+  },
+  "droplet-disappointed.png": {
+    "source": "2355753931d571c30dbd49fc7bb1aaa2278838e2fffd1b86ab1b4c15c9fa02e2",
+    "strips": {
+      "droplet-sick-disappointed.webp": "1584d36934a34f66a096ca5655fdd701350f1c993bdf0532635b7bd5e077d93a",
+      "droplet-studious-disappointed.webp": "2b9b1ba86e0dd373ed3d8d23b934df3c76682d4fa64048d1d58c156aa98553df",
+      "droplet-workingOut-disappointed.webp": "7a1cae61ac99dcd3d5571362f1789ef7188aa9a72c81ceadb37297d6280c0f75"
+    }
+  },
+  "droplet-idle.png": {
+    "source": "252e7aa066a06f5a0978f7390675ea7be8744e09c69534f68b8d5c9a7314fd31",
+    "strips": {
+      "droplet-sick-idle.webp": "a3ecbc6d7f6bd7a54680b606fb0d288acc6cace262a8c01d9b4bff4fbc8c6416",
+      "droplet-studious-idle.webp": "20a49ff746777aa8555b2d97827cd6632d5d72192d871e0a99c08f8db3a83dcb",
+      "droplet-workingOut-idle.webp": "165372a7bde32e9920554a26124bdb3b732c32ff063979dbf5b72d1d31477df3"
+    }
+  },
+  "droplet-jump.png": {
+    "source": "0a97517b8bef2ee3a80214702871e0eb08cddc87c347fabdd33475798f1a201b",
+    "strips": {
+      "droplet-sick-jump.webp": "e1136632720c58407ae599489b0e3413c35c17b715a50b76f7f22d2c6ea74787",
+      "droplet-studious-jump.webp": "e129648a287811c070727aefd583a2b5ca7ecc7343561b12b1d49570a5a1811a",
+      "droplet-workingOut-jump.webp": "08dfb491aaac8032b72eee629e0242856e2df0008967cf386fb077fb126465f3"
+    }
+  },
+  "droplet-lookAround.png": {
+    "source": "d68ca547f538f90ee6e7bc10a5e87368b2e491b41c0130872a7a3cecaa37ace5",
+    "strips": {
+      "droplet-sick-lookAround.webp": "5ae2dcd4e7bb6e831932937d7be53690f713321820b0f68782c2a2930e5d5c3c",
+      "droplet-studious-lookAround.webp": "d848832af27b01fa265991dc9b260026390880724aba2685e10a9c0ffb717ac2",
+      "droplet-workingOut-lookAround.webp": "d30c8d9a9da48e9606e725591aebb36bc8cae08f40b966ac451ff0af24c9095d"
+    }
+  },
+  "droplet-lookDiagonal.png": {
+    "source": "630e6c9cf88718c5ad98dd095e74d59ecb9fb44015959727d425f9f20b3e2bb1",
+    "strips": {
+      "droplet-sick-lookDiagonal.webp": "4fa0e68b99c2511384212a420e071fd2f2c968da69e1c9942f56217540c74861",
+      "droplet-studious-lookDiagonal.webp": "571cbe7302889f89fbeddcde7614e08238a120b3f3bcfccca8391103953d764e",
+      "droplet-workingOut-lookDiagonal.webp": "5a3e98b9a447803ef94635c44044ef4e19a029eac5f4a49d8df50e1ebe748cef"
+    }
+  },
+  "droplet-moveLeft.png": {
+    "source": "3bca1298ee52bcd85cc1167a817e9d56b2b5b2707293826b1ec83fe98d3d1542",
+    "strips": {
+      "droplet-sick-moveLeft.webp": "0fd7114bee91b362b38df5397f0b5622ca1334d0455b17064135cdce4bbe49a7",
+      "droplet-studious-moveLeft.webp": "b6d9fec866d0b914bcf6c4b6d539eb234f35c04b542a0d45a95bab51d89fadc0",
+      "droplet-workingOut-moveLeft.webp": "d6807329d14426745043c992e91cc3dabaaba32840c7ac1390158d5e5a3b5a77"
+    }
+  },
+  "droplet-moveRight.png": {
+    "source": "0cdaa1d0f89560a08d951efac44356b1020ccf785a9a271eb0821f1605f00f78",
+    "strips": {
+      "droplet-sick-moveRight.webp": "64d325484c27ae8067e28b60c868c3f0057519f763be0cb49762dafa89d479eb",
+      "droplet-studious-moveRight.webp": "e232ca2e0f1fbd0481eb176771260b1dc6fa23a8a525d38b45ee6653888fe326",
+      "droplet-workingOut-moveRight.webp": "d4abf0dadac82afa5119687f0ef933c13ed3bbd014a70fdc05462d0d67829837"
+    }
+  },
+  "droplet-reviewing.png": {
+    "source": "09a39f5093f53a26f01d1b4db182c81867c091d18affad3c834d113862a6a92f",
+    "strips": {
+      "droplet-sick-reviewing.webp": "0a448e56a7ab892f51daf4999475d9a6637a2056d77d3acf65a40d54fb7a1958",
+      "droplet-studious-reviewing.webp": "fd4e800df61633b22c582fb03b52127b0584da220a6b37bc756491bae83a5cd0",
+      "droplet-workingOut-reviewing.webp": "d35de82a4e95471bbbc70afcc1d3c08e6319e67cb95a0698b326832bf78f938a"
+    }
+  },
+  "droplet-thinking.png": {
+    "source": "d4896c543d5ad7e8b68913f12dc48ddc6e0debc6692cca2ba4817576fb34e828",
+    "strips": {
+      "droplet-sick-thinking.webp": "34b605c28a5cc39dba0a2015597c2379d6cee23aebe92f70759d05506dc0bc9c",
+      "droplet-studious-thinking.webp": "db43191c8cba0013648d0123a30cb35353c859f7d80e8559c1aa1667ff87575e",
+      "droplet-workingOut-thinking.webp": "18953d6b77494ce09ed068617dd5363509be0870c32f15ac46873bbaf0f254eb"
+    }
+  },
+  "droplet-waiting.png": {
+    "source": "8c8ad95a4bf3f7dd5c5591e891f831fa561693463f056179c6329d00a1a9c8a1",
+    "strips": {
+      "droplet-sick-waiting.webp": "737af7bf6aad15ccdb274c79c5529c44dc68cba6c5d1784051eb94a92625d1b6",
+      "droplet-studious-waiting.webp": "9bd863b81e9d4a88c28210693411a358e463cdbc5b2becdcd4ef81f6e7b8ba45",
+      "droplet-workingOut-waiting.webp": "786b27573013214d41e0b51f8553b8c0f8406ffe2a891f9c18e709dca37be5ac"
+    }
+  },
+  "droplet-wave.png": {
+    "source": "282d4658ded572446fabc797bea9200f09ed66dd89df4513e28a4bc3203aef28",
+    "strips": {
+      "droplet-sick-wave.webp": "250e53373aab762f781ea02a5551a7aac40ae7df3a196592dee9075ef3667099",
+      "droplet-studious-wave.webp": "e8b28a95e4235cd2b467783fa536d5aba0c9c86f5cfddb098a6677b66afd2334",
+      "droplet-workingOut-wave.webp": "1c97f73896139ecf9be6a3c4f832ab26f2f76b59df87dec5eb90e07c997614a8"
+    }
+  },
+  "dusk-disappointed.png": {
+    "source": "a59f4409996f938c2f00ca1dfd2a420c3313ee79478a2ee36a69d4be3f38f030",
+    "strips": {
+      "dusk-sick-disappointed.webp": "81c823b68f218d00e0b7edaeaa6dc5521cd25d01912adaa7033ecb4c091533b2",
+      "dusk-studious-disappointed.webp": "343453c7ed482d2682abcd9ba72220dfbf7499c588a31f494f04f5d4d9623883",
+      "dusk-workingOut-disappointed.webp": "04d8b3d6f81a8080cbda3c4eeaa439b0a9503e6737bf9e30e60d539dbdc0f018"
+    }
+  },
+  "dusk-idle.png": {
+    "source": "bde68a80d3b7e1156bc30eb1ba900c7fe2913f96dabc856db06c39f8ee8a1d86",
+    "strips": {
+      "dusk-sick-idle.webp": "05a19bf677e08d8f816c494de0a0b86328cefbc1d9738d3484ee6c8627a95b1e",
+      "dusk-studious-idle.webp": "8a514e6b3f897e69bafdb2605896627a7e299d6d01b6da40f0d2f74c1adf5c19",
+      "dusk-workingOut-idle.webp": "0e5efd90a71e2762946d9eedb8d00dfbe3a7a701b9fa6622a4d1be791cb1114e"
+    }
+  },
+  "dusk-jump.png": {
+    "source": "fe31e1626f7cb80a102b0f3445976ebbc60d1c53fe409bdf4fed32f926695e3d",
+    "strips": {
+      "dusk-sick-jump.webp": "e328bbd47ce252668d16289f40c9cba0c8576f4e891b1cb0d07aa0e7a5cd5555",
+      "dusk-studious-jump.webp": "d51c1483fcb9ac14b31008fbe8d25a7b9e5dba59504ad632ac5bf86e517e3766",
+      "dusk-workingOut-jump.webp": "916dd7404bd8315afc7139a8103c40a7beed28ee786543f819ab3b13d2501639"
+    }
+  },
+  "dusk-lookAround.png": {
+    "source": "d35fd2b039ffbf380ab408c7666dcb63288dde176d3c020bbee2c05387c0aa4c",
+    "strips": {
+      "dusk-sick-lookAround.webp": "02acc37ed53deb15a739fd553d4be1a00e1b449340b7137543de4f26924a2c36",
+      "dusk-studious-lookAround.webp": "a9ad9b23ad97476a4757e73dbcb36c10ec242b8bd07c7cc917641d0bf872b520",
+      "dusk-workingOut-lookAround.webp": "1913af5710c9f6d6811bba452b5bd6e709bbb7f1ede52adbffc09612f559de14"
+    }
+  },
+  "dusk-lookDiagonal.png": {
+    "source": "ec662a5b3bf73691cfd6b0623d6e5e6b8cc59d15f0b143e5a66b065ba3465ae6",
+    "strips": {
+      "dusk-sick-lookDiagonal.webp": "3dfab3f7e7b557fce61948080498c297a08b150edfebf9e0239ece87270961a5",
+      "dusk-studious-lookDiagonal.webp": "ebf30e63432bf034464e4f17442e2e4dabec38c91ad25f43c16cf84518edf2d6",
+      "dusk-workingOut-lookDiagonal.webp": "59c8a3aa4e96257429b81acf05a36e07b9eb17bfcf07085d8b2b8b8d7128d71d"
+    }
+  },
+  "dusk-moveLeft.png": {
+    "source": "7c99cefbee980c72e1541faa20bf4ce532ba1dd50b349373bfbcfcb8278b29f8",
+    "strips": {
+      "dusk-sick-moveLeft.webp": "d5e5cbc672dd62eae768f5ef61bfdece878af7db3014c601b56826c9f32b1dfe",
+      "dusk-studious-moveLeft.webp": "9df08d1c62e762e1a7c46392f099a405949997015882755758d1b072e969df9a",
+      "dusk-workingOut-moveLeft.webp": "6089678b30d5666cab0deb164b16a6f5e90f1e8604add6650dc605477d62bc73"
+    }
+  },
+  "dusk-moveRight.png": {
+    "source": "780952ab18cf875e7f33a0d7bb330049e71abd6571333c0069e9001e5286b8c6",
+    "strips": {
+      "dusk-sick-moveRight.webp": "fb7dcab2ef65ad1da2ebcc9d7b73e7f47071094e72ef75094e22da477d7d1a0d",
+      "dusk-studious-moveRight.webp": "589cbb3cb382c809de980e4583e70698e8980f63480abdfc300675212a3e4888",
+      "dusk-workingOut-moveRight.webp": "4625896be2b266c0cfb2d022bbec345b3da60cd5f078dfef20264f914512a34d"
+    }
+  },
+  "dusk-reviewing.png": {
+    "source": "49d13499febd77243915ce482461ddc07c1753a561588e434b537735c7d6197e",
+    "strips": {
+      "dusk-sick-reviewing.webp": "35fcd582f429534c42bb25513a11185fece16c0e09d5afb8c1f01b46c9eba43f",
+      "dusk-studious-reviewing.webp": "751539c62bff9f48a913ab0b612c2488686befcda333ba1e087174ba5fcdcd40",
+      "dusk-workingOut-reviewing.webp": "7b6168afbfa7138e5dc09bef042b7026ee2928bb2ab6a09041232ca2f1aa1040"
+    }
+  },
+  "dusk-thinking.png": {
+    "source": "863a9975ce531b7a90d854ca4799494048fd171f1b590cdf868f1de2e6888638",
+    "strips": {
+      "dusk-sick-thinking.webp": "2b230fe8ab85bf5c12b85050f3be5423eff7d02466e50e893aa0d0d4c6ad82c6",
+      "dusk-studious-thinking.webp": "96f1f65419cb930fe9cbcb85f4e1446983ba66eeb9b050c3c3bc432df8bed81b",
+      "dusk-workingOut-thinking.webp": "02d7364db6939c282ba925e852111ccf941513e2ca0af9ebf90de793c6b55f89"
+    }
+  },
+  "dusk-waiting.png": {
+    "source": "873cb7c528a7f227b489a6525cada5dcf8495b903194c623d839589776d2e551",
+    "strips": {
+      "dusk-sick-waiting.webp": "54d01503e31884c67b6d4e587b845b195ea06aa4506a5c8774cba75cf508ccf1",
+      "dusk-studious-waiting.webp": "c3ee2b1c4ad83f710e52be3d9b060eb9fa8b4499cab39fa8133fb986346b86cb",
+      "dusk-workingOut-waiting.webp": "ce1566215c43bc24cf86bb0bb5b6c863708b23d61fd707c227185de21d46e19f"
+    }
+  },
+  "dusk-wave.png": {
+    "source": "50d19f2ec57430c43caa02144532ee82e5fbcc06dd3908d8653a2c466d707cd5",
+    "strips": {
+      "dusk-sick-wave.webp": "23c4ca452902bab3dce4dd5edf9d5b7c093de510e1cbcd8aa971e267d439de8a",
+      "dusk-studious-wave.webp": "e866b761ddac93ed34a322913404fe8bb20e66813192bb95826c0e4aa5b103ed",
+      "dusk-workingOut-wave.webp": "317ed627eea71f2fb498ccd44d5f633a6774806da266209e14b69bcb359d8431"
+    }
+  },
+  "ember-disappointed.png": {
+    "source": "d87ca3d6b1f8d0941f5a8e903aaf97f15374bc7110774c9210b38438bceaebf9",
+    "strips": {
+      "ember-sick-disappointed.webp": "b14fc4f103694924fd431bb847a1e3a7b17d0f85ad00f3f286e97f635ca692f4",
+      "ember-studious-disappointed.webp": "66c18aafe2bb3e6e578036794112bb7d3df0ef2eb08ff48ece5d43aa49adccf0",
+      "ember-workingOut-disappointed.webp": "0c4f37737a2687b8a5e3e38cbc39b684cdeef85a2784d10087c15af9364a1707"
+    }
+  },
+  "ember-idle.png": {
+    "source": "5b8eba8926c63e1a3b26c5b0a9c6c148ee7088eb565eaf3b43adf069ab508259",
+    "strips": {
+      "ember-sick-idle.webp": "d1da41ab53e67211dbaa9985b123689e266d34f39f4ec4601412d781e2ff9ee0",
+      "ember-studious-idle.webp": "259bbd6ae2612ebb590d2d79b7289777dd1e9f866e8270cbf5545dd7bacad646",
+      "ember-workingOut-idle.webp": "85254049fd9701f8d92cba0a437f68352cee3a264337ad5d463270e9fcf9bd96"
+    }
+  },
+  "ember-jump.png": {
+    "source": "df00fb34fd0beebad26a98cd11bb7ee505d042196e344575411f510d0b0169b8",
+    "strips": {
+      "ember-sick-jump.webp": "75dcc6058f7e3339148250702bdf8199361cff32bd557a92db8a7739f56a5d1f",
+      "ember-studious-jump.webp": "5ee6f7e05a94e16a1402aae287c765cc7733c857cd6a6a5a4f8117883ce8a753",
+      "ember-workingOut-jump.webp": "dc21cf5a052518822a6d09c168992a7d3067d821ae0da637e39a03bb049f29dd"
+    }
+  },
+  "ember-lookAround.png": {
+    "source": "d2b969f901563a4aab2204754b322dcae2e0f57470f9def1f09c5481337319bd",
+    "strips": {
+      "ember-sick-lookAround.webp": "c02530c17acf7a287695d44e60918122c66a6f9d70542624d6738740b5cb01e7",
+      "ember-studious-lookAround.webp": "2ce65d9ef08c0620a28a473b6bc9c636bee23ab6baf4add79f23274e2bc254af",
+      "ember-workingOut-lookAround.webp": "99b2ea56833824531f8686b4c1f59e653735a043c571ef41a5067cf66dc33654"
+    }
+  },
+  "ember-lookDiagonal.png": {
+    "source": "a1de5806952798afdefa4ff05780e2a29f3dc58c14db159cb81e37ea7b86532a",
+    "strips": {
+      "ember-sick-lookDiagonal.webp": "af1081b980a8690efdbebdc8c344db26b8898f598b08624eb152e6518c8a5adb",
+      "ember-studious-lookDiagonal.webp": "45564ee9ac4f33cfab5953187327c9426a760b86fac4f0b498d41d0d66a18b67",
+      "ember-workingOut-lookDiagonal.webp": "5d0d3b8acac98c8ac82d589f53107c5b79c1ced35bbdf8e29b157577a24ee269"
+    }
+  },
+  "ember-moveLeft.png": {
+    "source": "4c348f8ddfde09871bbcc1a80130deb32d56402af0aee5352449c8b8e2c9f9eb",
+    "strips": {
+      "ember-sick-moveLeft.webp": "8696ae8ae33d6c62601aae770ddc12f1f25cb4179a02abbdfb3a68f5f717869e",
+      "ember-studious-moveLeft.webp": "fca814dad2d0b5c115ac3e195bda229554ec626dc91a2f4fbcd2dad132469375",
+      "ember-workingOut-moveLeft.webp": "e8526fe384a4120465a06da85171728e9b4003087fa06e54471e86404d6c8d32"
+    }
+  },
+  "ember-moveRight.png": {
+    "source": "096de588abb6cc97199ba18f3a3dc6c5cca2b3f50a3bdbaa0e96a2c3badbbf93",
+    "strips": {
+      "ember-sick-moveRight.webp": "82aa88483c1c3030d4290e52caf0c2548226cc0e457b3f3f76714cb17c1b7560",
+      "ember-studious-moveRight.webp": "b3c5069b98f260689f0de2e078165d3510a08bd6313d8e4c8e44aabbea19d4d3",
+      "ember-workingOut-moveRight.webp": "e6ee334d7e7fafb9a55eb4dcfb40407a1fbdca54b87f87c18f68016281307e33"
+    }
+  },
+  "ember-reviewing.png": {
+    "source": "dabf8e3355bf102d7c015993695fdf4dbc82341bf56c16b7a4629b58275f4572",
+    "strips": {
+      "ember-sick-reviewing.webp": "cba0c1156819e4130b1951978aa0b1c11e9cd96b0289a68c1da69f2899ec6b82",
+      "ember-studious-reviewing.webp": "ba3712fb8e0df1c61df494fe83426c57826412cb703d3b32703344fab5e16f66",
+      "ember-workingOut-reviewing.webp": "ba2de31aeb31ae5f345e6bd868d57c54d8959ede1a78025b57259a8a275d2a08"
+    }
+  },
+  "ember-thinking.png": {
+    "source": "0820a0470278eaa24cb3eeea53648e7d100c08ca28ba3aa0bcad2bfc0d5285dc",
+    "strips": {
+      "ember-sick-thinking.webp": "6bc57357dce1e284b39a5afeb2dde87fb2761ff42d0e4aff579008212885963a",
+      "ember-studious-thinking.webp": "a060deff2aea37a324a6b80ab59a3e9f8ee1880bb71820cd095f6c0487acacb9",
+      "ember-workingOut-thinking.webp": "1e629bf91ceca284acfd0d2212b23e1f1de68f5ab612d76e4b135762b16a4765"
+    }
+  },
+  "ember-waiting.png": {
+    "source": "57d90dc0bc9551a91a51221444324e24c35804ba26827367792950a4fdb4eacf",
+    "strips": {
+      "ember-sick-waiting.webp": "ab43e06880c58a47c3e56b6c60ed487956cbd2379d3ce5e81fd883b968493c36",
+      "ember-studious-waiting.webp": "d487e595b1c39219e014da6e183a1c2de1545cd11f51f58f0f416e9976acf525",
+      "ember-workingOut-waiting.webp": "15f9f48828c6e84e85e9f999cb1acf7b1bbb5859c518a09cbad2bb4345f2380b"
+    }
+  },
+  "ember-wave.png": {
+    "source": "17670cea577f8e5df0878a8eb42f3fe918649a1767f41693b9c8bb207372a259",
+    "strips": {
+      "ember-sick-wave.webp": "2726c3890c82b99ddb3da5053c970b410b9e94c5992ded715244bfd5749e17d7",
+      "ember-studious-wave.webp": "e66efe36b6391a0a0abd2af84abff25eec0cdcf084428669a26da20e81d2bd47",
+      "ember-workingOut-wave.webp": "79d158eb8fc49086d9495ccbcd9b1726f4bd9030335589f48a75a66cb5d8c732"
+    }
+  },
+  "lavender-disappointed.png": {
+    "source": "7f77d9b3eef28a09baaa315c2ee65183d676f441b930b1c9fe43fb1bbe2f1cf1",
+    "strips": {
+      "lavender-sick-disappointed.webp": "92c71943638a419b46926ba0d8812717e9795695bc1a0c72fa271a5b44c29a5d",
+      "lavender-studious-disappointed.webp": "506f26924a36beff75788c7747524a6d553ad7c67db6add4efd1931f04da93b6",
+      "lavender-workingOut-disappointed.webp": "12da8e7664dc5835b4552552a20a6b89170bbe87eee62c465f427bc65052c587"
+    }
+  },
+  "lavender-idle.png": {
+    "source": "9c080d7f78928f61eb234009c6332c4514d790f58435000bed0c65ea1c3c05b9",
+    "strips": {
+      "lavender-sick-idle.webp": "bf438b9f4fddf22eed10f12f1b36de60d2430f7c1564969f096c24b768198410",
+      "lavender-studious-idle.webp": "58333f6ea147f84a4d0b8c76b130641e6d8b450e9e3af73c8b03a5939f8eaf52",
+      "lavender-workingOut-idle.webp": "b5ba7aecb38d7a8fdc9027df929c133b4036a12d745ab6d30e32f72fe6cc0804"
+    }
+  },
+  "lavender-jump.png": {
+    "source": "7ecfbaebc06b080c16bb9707055baea928981122c232ad05bc50b4e7c1daeffe",
+    "strips": {
+      "lavender-sick-jump.webp": "17b2f7434b40f4c7346a57436a721e76d8860418880062abf5fb4eb1b3b90d76",
+      "lavender-studious-jump.webp": "79e3f94f33b2541393ac731841326c32a82572ef892309abf60962b7942fe099",
+      "lavender-workingOut-jump.webp": "ea760a9432e8e56eb3a0831bcc6e9fee0d3b62115a8003ec36b7b46da4c1e455"
+    }
+  },
+  "lavender-lookAround.png": {
+    "source": "e45a57a187c1a12154db93907734a9af455a8489fabaaec95fcc92acd9553b13",
+    "strips": {
+      "lavender-sick-lookAround.webp": "678c3056049193ed61167b9a141bfa024e66d14b8039c98c6d19271b81031b66",
+      "lavender-studious-lookAround.webp": "43dae20bb49afad32a445bd9ba22889baa0bff3a081c7a65f16a7d9378c01c83",
+      "lavender-workingOut-lookAround.webp": "c1f4731f4ce7ddd41bbf7e670e11ba08f5c507e26e8d0ee318c48fa4835048af"
+    }
+  },
+  "lavender-lookDiagonal.png": {
+    "source": "fc5927ab23184ff60650bca2d5cad01d7afb9fe23ed6cc5def2836229d801981",
+    "strips": {
+      "lavender-sick-lookDiagonal.webp": "c4daf179a2e31b2f1188c951f7c994b845b2d20f9d1e42263ac156386e054e35",
+      "lavender-studious-lookDiagonal.webp": "446f825d03c5bc5294306d09b4ed9bc3184f64054c61e242a99f3006379349eb",
+      "lavender-workingOut-lookDiagonal.webp": "237e47aac6aef135ba808606b3283a30cfc7a4173170dc98bacd448e2178446f"
+    }
+  },
+  "lavender-moveLeft.png": {
+    "source": "666ce6ef6a602426b3187831551c1b6b44a7104dbc9131d6fdb2521c890e7177",
+    "strips": {
+      "lavender-sick-moveLeft.webp": "6073a4232a4c9ee64e326577e0b4a310c8c5664f988ba582924b893f18eee866",
+      "lavender-studious-moveLeft.webp": "5ffa71aa0cacadced965382ec54887ebe36beb470b238105781d1b597ccb12af",
+      "lavender-workingOut-moveLeft.webp": "79d0623080cb02a21519ad4feb27fc8e9c55cf15eacf3fa9cebb804a2aa58b8d"
+    }
+  },
+  "lavender-moveRight.png": {
+    "source": "454c4f0ea9f3d571f46da2d78acd083bef001b395ede9ffda2b0b4a0fdd9b10c",
+    "strips": {
+      "lavender-sick-moveRight.webp": "231ed3b1f128ac3280ef52b51380f5ed76a153012b84dc2c07a6380af9dea5ee",
+      "lavender-studious-moveRight.webp": "ac1202ec1906846fe33970c257a884945ff031a7a8eb60050788af3cbe64aacd",
+      "lavender-workingOut-moveRight.webp": "5e0f3ba280f966ed93eac707bec6adaac5b0ed1c8e33987ff53011a3c8b053b3"
+    }
+  },
+  "lavender-reviewing.png": {
+    "source": "55f397b644c70d4d37bb3dd8f0a876fc5f662e49387691ed21a1fb722f93f531",
+    "strips": {
+      "lavender-sick-reviewing.webp": "abc684dfb0edaca9c37af63ea316d1f8c81cfbd38f88beef5b350d3fff683c0e",
+      "lavender-studious-reviewing.webp": "e69397524715b79ac1a3a53c3a900a2176ddac6c3f5576785c17ca6c9253efc9",
+      "lavender-workingOut-reviewing.webp": "c4dfce37b2f619ad63131f1c74849f421b96d5542ea93ffcfbca7cd51f87f800"
+    }
+  },
+  "lavender-thinking.png": {
+    "source": "c333bbc85943fd9d55d9e01a369e248ecf4041857b2da6d40e9efd7de25445a4",
+    "strips": {
+      "lavender-sick-thinking.webp": "37ceec72bb673ef73ed2b4e5fea96094831968cb1bf2c845dfcfaba08dcaec9f",
+      "lavender-studious-thinking.webp": "60e192ff90e3dc7bc6dee90328d8bad68aba54f521eb06fb7eb62d7da19db6a9",
+      "lavender-workingOut-thinking.webp": "17c9f14d11aab00e1f61670c5ae36117b06430492445bd438caf616ed0024e4a"
+    }
+  },
+  "lavender-waiting.png": {
+    "source": "d77295548098cf55a3b6530b0717dd8da077b11b89a283d26f932601c1d128b2",
+    "strips": {
+      "lavender-sick-waiting.webp": "4fc3dd570f833cb91c4b82d4a718d7e1fd3d8a7b9b673884d64415d0f71415b3",
+      "lavender-studious-waiting.webp": "878dfdc9c6aa6726cd84b7a16e056d1acd165fd4110ce674f0d008e407d9057f",
+      "lavender-workingOut-waiting.webp": "e6e62007692bcbad4568e42b0fe98e96069dd9aeb3fd3252d643b8be18e82d18"
+    }
+  },
+  "lavender-wave.png": {
+    "source": "34bec644468b4a9575a20a626eb9079d5b2b6d115089e0a43db3ba57e87f03ff",
+    "strips": {
+      "lavender-sick-wave.webp": "eb709f17601eb506606d93281973d430367f79013ff086755204650ab0bfc496",
+      "lavender-studious-wave.webp": "e9c6b6f4e0e183da8e8d9b5875735954be81bab0bdb739a4d94871a8d7d06793",
+      "lavender-workingOut-wave.webp": "0bd804a1918914416d812195fcc9ab8f9c1e16d6ee7816144fc377c236efb322"
+    }
+  },
+  "luna-disappointed.png": {
+    "source": "3cacda7e024e3e125953014c59897c23c98a6e87083c6cf6f304b7ef6de2b708",
+    "strips": {
+      "luna-sick-disappointed.webp": "53cf34f11a69cf8e04865c4d14cdc2fd01f2eacd3175341ac473603caf3d864b",
+      "luna-studious-disappointed.webp": "c9ffda59299561f57b4902f92a6d1a08837cd90365c852562e92c816d0174aa6",
+      "luna-workingOut-disappointed.webp": "9a7ec5306f95216ccdc69a02121c058bf4a0722b5813f98e3f73682c21ec6b33"
+    }
+  },
+  "luna-idle.png": {
+    "source": "0a96c13299f63e74ef8658531d4ff8de5a552ca5b8523e7da146348bee6b4120",
+    "strips": {
+      "luna-sick-idle.webp": "b993cdae1f31df3d9d707e77500c1984c808d15063f7f24185127f2138bf22e5",
+      "luna-studious-idle.webp": "1960102528132219c2b636877629a414d8cced113c9cde8df82774f43e988110",
+      "luna-workingOut-idle.webp": "117702cf7dae1d3e27f787648290a9202d00bc51aea68b58e1544e7d9a743ad0"
+    }
+  },
+  "luna-jump.png": {
+    "source": "5a7372d0129dda3c16e803be934fdcae84e2bbc79c9ecf5e1088840c9d852ef0",
+    "strips": {
+      "luna-sick-jump.webp": "52bd4268c245b65d1bddc7f9ed41aa10d1691a24b0b781c9bb462953d639131f",
+      "luna-studious-jump.webp": "d9b3f607ad88bb95c4d4b45a151a47d240d3a91b1481c35451e1aed82652ad5b",
+      "luna-workingOut-jump.webp": "8438b62f09d4eaf8549935d81523c63d3838ce2744666d12ef7eb80969afde1c"
+    }
+  },
+  "luna-lookAround.png": {
+    "source": "dd975b83861bacdfd6839efe21a68fe19c4b95cd365293f0ceee5a30f084704a",
+    "strips": {
+      "luna-sick-lookAround.webp": "bea2c280041dcd7cc4c26ea2a50148a49f2ff18cc4cb91e9cdf58ecf8fa7292e",
+      "luna-studious-lookAround.webp": "5179781ac93d1552b222e155337fedee4d98a65d779725e27c1271726bd2368d",
+      "luna-workingOut-lookAround.webp": "68827274f3d4531acc5e227c6c42bf387258d97e18cd4274a7605a702771bc67"
+    }
+  },
+  "luna-lookDiagonal.png": {
+    "source": "62a3dd219b18280322ac40c0352a33a66b6726c6fe68a31e2aef2499a63d0855",
+    "strips": {
+      "luna-sick-lookDiagonal.webp": "79aa03e8202ee3463e59cd9970c54a3fb0ae0392569273b3a840d659de4ae9de",
+      "luna-studious-lookDiagonal.webp": "eeef5d3de6df690243cb53ff77ca2f64194ec7db5d2bed323124f90550a03dd5",
+      "luna-workingOut-lookDiagonal.webp": "b44af5a5df2d9781646c15c2e1350d8f603fa99b3afaf24c4a8e4d23c0c513a8"
+    }
+  },
+  "luna-moveLeft.png": {
+    "source": "4fde3bf6f7c3ae45cb163c179609f1a31580696f9a37011dec2c35695c2435ae",
+    "strips": {
+      "luna-sick-moveLeft.webp": "200a3d14a254b8ea04bd4742c13577a8d55528e619afd6028fb62bd24627e5ed",
+      "luna-studious-moveLeft.webp": "fdad4406fc7baff19152a9a88dfdd3f836d6c56010bbddf6b2e7acf7dca3177e",
+      "luna-workingOut-moveLeft.webp": "0bd42c793493edf1e9c62c45c415c50663fc4741d3c5638d38a127e4a068e98f"
+    }
+  },
+  "luna-moveRight.png": {
+    "source": "4953bc7b9b4f95a7cf0c044e290b2dcf3eb890a55afdfe87e45d8d5cf50181b0",
+    "strips": {
+      "luna-sick-moveRight.webp": "102e4c5e8f4b583fdb6d8a82cc25e0c05052297e70e9f80bbcc5fc894b5463e5",
+      "luna-studious-moveRight.webp": "9bd61f7fa399ff81ec5f0143daa737902a67437577babfbbb45f57748113653d",
+      "luna-workingOut-moveRight.webp": "2a0ddd7d936f35d1715bb968c8193d9f9e992c7a16f224478eec66d088e52173"
+    }
+  },
+  "luna-reviewing.png": {
+    "source": "1d2302f715615515da9a899428d3d214e0e6db4eebc85286f39774234dd8cf15",
+    "strips": {
+      "luna-sick-reviewing.webp": "f84cbba4ce1e1b53580b67bb1ee686fc16009911057ffa19986202bbdd7c4abc",
+      "luna-studious-reviewing.webp": "a572d179b1194fd81ac399d3caf7d3b934524cc7ce6b31617bba5934d0792e0c",
+      "luna-workingOut-reviewing.webp": "8aa3d83cbfcd1af4485ce70965dbf605a10bda0ae1c42ffc3a34639fab2da887"
+    }
+  },
+  "luna-thinking.png": {
+    "source": "c9642a45fbd3bea2d8d93c2996e3be38f1e073abfab7e195cdf76411e9aaf575",
+    "strips": {
+      "luna-sick-thinking.webp": "a7536d7e415357135cc7525d64a2d157b5379524eb019fdc83ed4af16d96d61a",
+      "luna-studious-thinking.webp": "56a4397eae90f1190f2f7ed953079a862db17159edc27903b67db419dc472019",
+      "luna-workingOut-thinking.webp": "79123ad49fc6780d880b46bedf0122fd633c158a7c4486633d54609c7b2ed188"
+    }
+  },
+  "luna-waiting.png": {
+    "source": "1e5039f172be8149452dca2120f18e32c36ef68b5a3f23e4e7ee4e49b8fc45ab",
+    "strips": {
+      "luna-sick-waiting.webp": "1b3f5491f80db2a2b2d8ac0359079a6aaa6e59ff60c40e9347549483a81b210c",
+      "luna-studious-waiting.webp": "2be8b22620bb31264519ef231c4f65a681ad05b6dbf31e324414b4caf80f136b",
+      "luna-workingOut-waiting.webp": "670234b8b9fa5d8b1476fb9701728dc39a8d0e2db34601d0ac66b6b5f12f4746"
+    }
+  },
+  "luna-wave.png": {
+    "source": "9685b3315489abf551cb88030168b8cf760fbc46bf9470dcce2349280aeb9413",
+    "strips": {
+      "luna-sick-wave.webp": "90d66fa8027fc8f74cb430336fc616d05911ef93e55f0415caf32d790bdf6170",
+      "luna-studious-wave.webp": "e8db8193071dbb0661898b2dde4372df91c5feef951c71f91c70acefa1ae6ba3",
+      "luna-workingOut-wave.webp": "5a95f009054f4f7c1a1a50ff3d03f59eb257c3b2e874c4d2146e02785ac68400"
+    }
+  },
+  "moss-disappointed.png": {
+    "source": "a09ceae0996110cd161ff025d04af366f657eac49bdb745c3da4db29a4230ef0",
+    "strips": {
+      "moss-sick-disappointed.webp": "ef4adcbe6c589bffbedceebca12d47c8229ecfe690beebb30fc0ffa793988d9e",
+      "moss-studious-disappointed.webp": "f252ea2ef155e5d1a6a867af937a77caa611952697d8575fa256b6d723488da9",
+      "moss-workingOut-disappointed.webp": "aeaab13e54667ddbfb5d23bd3e2d16e5c9b1ce9360eecf0eb027252de0ce5c4f"
+    }
+  },
+  "moss-idle.png": {
+    "source": "797c944a47380071452d75d5307168b87e348b3f3ad077dce9520d598f1122de",
+    "strips": {
+      "moss-sick-idle.webp": "067c811f0bd943135565bbeb0c64aae65726091cf05798b16ab91fd40f00ab36",
+      "moss-studious-idle.webp": "4faef5e5c5fb5c118633a6cc57a650c35c6b4a52c52800d66916edcebee41ea7",
+      "moss-workingOut-idle.webp": "88823cf1b58806a93fc0e5e41ba64ae56c6921424389824f42c84ef8ffb9b1ae"
+    }
+  },
+  "moss-jump.png": {
+    "source": "1913803f55a98a676bb387a7f3c5bdca6fe3053b50660280e375a288db8a3f6d",
+    "strips": {
+      "moss-sick-jump.webp": "62eb22bad3d9832f9ef629f8ee2b61ee37f4538325cc26f7c60fe4be565331f9",
+      "moss-studious-jump.webp": "92feb5045de9db18c2934f136aed5ee9e40c5200a044945202dbaa7ecd908473",
+      "moss-workingOut-jump.webp": "128ff8c5ed31bc678f6871d6434005bc6c38badf514f235eeb52466974fce7fe"
+    }
+  },
+  "moss-lookAround.png": {
+    "source": "060bc7577fc69b8babc2fedf1df1f0d98390684c539d133cdfde2d0eb2240ed7",
+    "strips": {
+      "moss-sick-lookAround.webp": "dd49f3a92bb00dad267e151091a79c222e1882108555b3b4f185db83d2cda7ff",
+      "moss-studious-lookAround.webp": "bfbab3a3b816b1cfa92b9925e61b7ac4d6689098e56f53bbdcdccc2a7e81bf8b",
+      "moss-workingOut-lookAround.webp": "166f6f9c1272062974d52d17f9197a86d4496a5daba4a7e9b61f2d2a4e8e7a77"
+    }
+  },
+  "moss-lookDiagonal.png": {
+    "source": "d13d73a873d51ca181d31d322ae0d742b7b771fef8bb457d5861529f9a67e3d5",
+    "strips": {
+      "moss-sick-lookDiagonal.webp": "470d6b73b2d528789616135f5b97c8f8d87e96863ee524af5221fb3f947f1ad0",
+      "moss-studious-lookDiagonal.webp": "f8e9d9d26d2fda6117b06ef88012d4ebf2f85c58db260937c4910665c3a82dba",
+      "moss-workingOut-lookDiagonal.webp": "46a1531a98fd9841e22ff4871f9da35636cb62445fa4108d1567c02ee115b447"
+    }
+  },
+  "moss-moveLeft.png": {
+    "source": "73bb049b453cf7dee2b330750f48db2516e8e094d4fff6c02db4682e251a259a",
+    "strips": {
+      "moss-sick-moveLeft.webp": "070bffa54e8e77a8b5157781709d356283cbe254cbf9d2256c90ef5e9cf5c9f7",
+      "moss-studious-moveLeft.webp": "c348263b70f04d1ce60b7ef12461b10d999a2987393f7db8dd8b81126fd8450d",
+      "moss-workingOut-moveLeft.webp": "981237109abc7ce4a9ef899a84ac8414fd928258f4a554b0853ad0e843ee5700"
+    }
+  },
+  "moss-moveRight.png": {
+    "source": "ea4dfef153a22b96120488246ed83f259d7eaf0e82b703b017df83a02510de2d",
+    "strips": {
+      "moss-sick-moveRight.webp": "4f0c4d5d306bcbe1ad0f6cb3f594cde1647e1bac52d8c14d3c40d6253be2c422",
+      "moss-studious-moveRight.webp": "0a8af5f5b2684a033e23bb51518589d8636f639155b587b0924381df8383c305",
+      "moss-workingOut-moveRight.webp": "4ae1b3ec9d53e2ac49831d27faa936b59bb20b7467efaa13c58bbb708ca96bb0"
+    }
+  },
+  "moss-reviewing.png": {
+    "source": "4d36cc3403765e219f7ea3a8c5a6bb22417c180dc7301abab94b093d73568441",
+    "strips": {
+      "moss-sick-reviewing.webp": "7fd4b9a73191c9688bcc0acfb74f7b9a1feffb23b867c7e558f7c94121038e4c",
+      "moss-studious-reviewing.webp": "fbb1cc9e38658b08419defbfd31f0478515c10c48713a896ac29c3b933ea88e8",
+      "moss-workingOut-reviewing.webp": "2a360980bb3bfb75c13578f57acd10bafdc631912370c0772c37516d62d4f4b9"
+    }
+  },
+  "moss-thinking.png": {
+    "source": "3a78e76f1e642eeafa2d7a5a3ec7f788a18a2b50eb598680deed39e0f360e2d2",
+    "strips": {
+      "moss-sick-thinking.webp": "9e3261f914ad6dfe5deb06f3843b1cfc31c8cb709102142db25226e9d848f06a",
+      "moss-studious-thinking.webp": "c1fa63615394e32a7a79b0566a527fe6a52ea8adbb5217ea2d34165dc1fec892",
+      "moss-workingOut-thinking.webp": "42653fd9e97e4083b4048f01bb99c0f9d01316c1060896807fed725d02518d90"
+    }
+  },
+  "moss-waiting.png": {
+    "source": "667263abdd09362eec2fcad153978d94a76231b22f923c38e153acdd29f1440d",
+    "strips": {
+      "moss-sick-waiting.webp": "4ea117a36eb2c25f11ae700c3ee2030a315df83fa6ee4749264a6d105a785a9f",
+      "moss-studious-waiting.webp": "4d97c0f3aa42a18749462a677463d552e9dba099c7bc2ca503e7c8f8d33ef808",
+      "moss-workingOut-waiting.webp": "8b66da30cd77d5fcabf77b6e0baba93e20f7b1c0d32a27f4d7c359a575d07d66"
+    }
+  },
+  "moss-wave.png": {
+    "source": "2d3bd6c7869c2685bfb14fc12aa4c6b5da62f390c04d512ccf5fcd4fc766424f",
+    "strips": {
+      "moss-sick-wave.webp": "3d9b7e8e8b21688b09a53d8a1f6234ec69803022dd0426168d2fac68e4d3d8a8",
+      "moss-studious-wave.webp": "6c6f2d7d85f6ddc1265e27570633983e64214069960da2f101431b00c4af6e5f",
+      "moss-workingOut-wave.webp": "61c055e2db0779830f45f520aba7fa328cc5f845daffe0ec04fb7d6a8a993955"
+    }
+  },
+  "nimbus-disappointed.png": {
+    "source": "a5d7a2ad54c8ec2616c15d161c127cbc998b6401abb56d826880934e61e88396",
+    "strips": {
+      "nimbus-sick-disappointed.webp": "7ecc69edf7fa6e7517cadf7d2b7765db8ff8dc56fff24ecc9bdf562b734666c2",
+      "nimbus-studious-disappointed.webp": "a1ac15f1928956aa9af8f4b25ceee184aebdbd166d9914c84a5dc8a58a8d90b1",
+      "nimbus-workingOut-disappointed.webp": "da84208dbeb2a6728324a60d6077817f10a28652d67184528cc64eaca210c6c8"
+    }
+  },
+  "nimbus-idle.png": {
+    "source": "c980ac08d4a0134ab6ce6d6b135379a509653b240ad909463025644d5b255c45",
+    "strips": {
+      "nimbus-sick-idle.webp": "28638d45a81935bece916f816b8867c1822118508296acb6d6df9f5f4b1d9f3f",
+      "nimbus-studious-idle.webp": "fe87ddd7df716d4d1173fc5120942a204ee82b108abb4f11b05f61e6fc7bb522",
+      "nimbus-workingOut-idle.webp": "54016dc25f186f636e92227a26805188061910fc98b857071d3cc64372e4917e"
+    }
+  },
+  "nimbus-jump.png": {
+    "source": "e62806a42982a6c6e6c3f81075b339d2274815aace3d7724ef7ea965a7a87e1e",
+    "strips": {
+      "nimbus-sick-jump.webp": "b4d7ca8569a61909a3a2479c8585b7b3dcced069f5a078dcae4f593fe4e892d9",
+      "nimbus-studious-jump.webp": "9692c7d26858cdd58114de75294d66b1ed35f9e7e66106f494d91d98b3509399",
+      "nimbus-workingOut-jump.webp": "1d7868462ed562d046dff139001c8a62f868fc110176ba3b61fb4294a5d37b21"
+    }
+  },
+  "nimbus-lookAround.png": {
+    "source": "7c38c89d852ac4251aa4a330fa4580a7a42ad512858a77d7cfe5b4155e2a8f73",
+    "strips": {
+      "nimbus-sick-lookAround.webp": "61b546a167b59b2fd79cad50320e6ce09c5fb4bb747f055b53579de4ba72c393",
+      "nimbus-studious-lookAround.webp": "bc2b7e1cc43f4744e443a06b206e451df0a8eda62029240ce5e9393e2f78523f",
+      "nimbus-workingOut-lookAround.webp": "33328314c97909173bcea47b708cd72ef2597a14be200005ca560264941d6115"
+    }
+  },
+  "nimbus-lookDiagonal.png": {
+    "source": "44abc718655e467d4ab4d2a85a1621b132b91cd34815dcbd54d260cba093d048",
+    "strips": {
+      "nimbus-sick-lookDiagonal.webp": "d415995ad4634a250e0f6421acbe9be838f236b883d06e46573a35b0b9211e93",
+      "nimbus-studious-lookDiagonal.webp": "c5740320b3c0ce9b913442d4aeed466666702eab8b51e0da07535519128e2a02",
+      "nimbus-workingOut-lookDiagonal.webp": "a1558fe6f95d965defe49120324d92431f6c6049dfd72bc2667b41f63750552a"
+    }
+  },
+  "nimbus-moveLeft.png": {
+    "source": "f276a46b03f45a0b443008846be1d8f79b6d739d036a1cc9889962c54a19aa35",
+    "strips": {
+      "nimbus-sick-moveLeft.webp": "24f111316357a48bb0bdc421eef41f17972e82c9d00a832f6e72a5730951936e",
+      "nimbus-studious-moveLeft.webp": "3f5b0f801b01564c5e4a24a3b94a89d5a9c7dc0c3ebbc0f6b60ae32c73c9f676",
+      "nimbus-workingOut-moveLeft.webp": "412706885a8c5ddee2c8bae41fba5d78ff31ac6cc08580e77e11d9f2c2cb155f"
+    }
+  },
+  "nimbus-moveRight.png": {
+    "source": "467d802a9e3caa26d03012889b2681357f8db8a85090637b02e04a04c4571236",
+    "strips": {
+      "nimbus-sick-moveRight.webp": "35f99910bc8d5ebeaf2b902355f8928e5bb2ec97bf010d53858a62005e1456e9",
+      "nimbus-studious-moveRight.webp": "6f2a15f75bd2dc97d773819df588982021502dfde15dc6b6ec125c005dc9fe35",
+      "nimbus-workingOut-moveRight.webp": "6f15132419b036a90b2fbd4aab9d3edf85b965f15c80c3925655f9579583e37b"
+    }
+  },
+  "nimbus-reviewing.png": {
+    "source": "eed0922ea527443364dc944f67910fd5592d6482e5b2f53b08c08b46e6f5b23c",
+    "strips": {
+      "nimbus-sick-reviewing.webp": "19960afec9c60c36f5c0d9a2101fc4ca7ebc1d2905a3813583a8fc98f2fc9071",
+      "nimbus-studious-reviewing.webp": "9c0fe24b54e09744b5f227e8a2f403458899c7a8a1735a4c68722bf01f2d3171",
+      "nimbus-workingOut-reviewing.webp": "b25788e4d8eca45e8f3db2b3dbb5bb215f2b593149b762711cbbf2d64fc4b816"
+    }
+  },
+  "nimbus-thinking.png": {
+    "source": "5c2c289f2e1bfb1b6edaffc155e24143709507dbd26071e9dc1250ee861cab1d",
+    "strips": {
+      "nimbus-sick-thinking.webp": "71ab5eea5e825da7ffdc353b5399a6845341c0fc6297d41e342a0672abd9b220",
+      "nimbus-studious-thinking.webp": "520764cb651004f15a15db6bac3a2eddd98f10cfb2b8e191a3d16a834f07b460",
+      "nimbus-workingOut-thinking.webp": "50b1504fd83dd0831a8637fa053d3e2187fa4f3fef7d66dda5a04b2bf6b4b72b"
+    }
+  },
+  "nimbus-waiting.png": {
+    "source": "a1f3262767318bf422f012ad5e2243d0f2b45c7b8cc1668b594ce98469a140fb",
+    "strips": {
+      "nimbus-sick-waiting.webp": "7417f2ec98b6521293e7085f82ffd3f453c0843466f78e4edab51eb132652852",
+      "nimbus-studious-waiting.webp": "e89ce27340d8ccb9ed430313e3d4c5fa4dfc90fcc4196b72db656c110e70e5d4",
+      "nimbus-workingOut-waiting.webp": "9a8aa4614a0b24e374fafd613768f6d86ddd450d97cb8c1c501abbdcd196b8a9"
+    }
+  },
+  "nimbus-wave.png": {
+    "source": "2ac3fe4564801dfc9e90b0c4f23e24c6f895b62598eca0609d7a31a8c22f26e0",
+    "strips": {
+      "nimbus-sick-wave.webp": "9d53def62f773b71b77dec0752f1448df7e8c311a242086fba0a6d4fed371640",
+      "nimbus-studious-wave.webp": "45f5e87dd7f12e62e2e7486ffce505187ee3e0e5e5f15a508af5aafb0dfe0ed8",
+      "nimbus-workingOut-wave.webp": "a1efb0acf757024e1d24814e8e1c8af5b40e7e99f5cb5a56762ee6349d42be46"
+    }
+  },
+  "onion-disappointed.png": {
+    "source": "09a880446c61db8beb6b6535ecc676b37be7d0e6ac2b72ab41d1c66b14071827",
+    "strips": {
+      "onion-sick-disappointed.webp": "530c3023e7b203552c5809c97f95c7e5556b2cd914003eaa27bf510ccac2d21a",
+      "onion-studious-disappointed.webp": "2425dd41cc241a74a0c0398d45a25c773398f584a81dde381a72a43188863466",
+      "onion-workingOut-disappointed.webp": "db70c4a027d75f0a5aa7798e2fe4f4db1d2351e92117eb01a39d72b05c004adb"
+    }
+  },
+  "onion-idle.png": {
+    "source": "dc1aceb00df291744aafb848029350b84624fdf0568608fbf12e74f50d43c814",
+    "strips": {
+      "onion-sick-idle.webp": "e550b6ddcda52535fa2805cee4c6889b1e72f886e3792b48653228c6161a018e",
+      "onion-studious-idle.webp": "c4770e893deee1d6e2eb635947027e2f801ffc887d7a2309cd5b27ee2f780b17",
+      "onion-workingOut-idle.webp": "292506c0c9e295967e4aad228bc86c7657f2ab84fceb4cfd68ba83b3e37c0da4"
+    }
+  },
+  "onion-jump.png": {
+    "source": "c7d054c131f5ce5920b0e0f4e206c87ee3fe3726a6f4da126db16c3299b1d286",
+    "strips": {
+      "onion-sick-jump.webp": "3c3bd8e9ef79ad8a6d2e275ca0330f6bf7fbe12cf7151f7d6f7491a16a91fcf7",
+      "onion-studious-jump.webp": "8db031bcd075dec2d129d0e57150f2d716cd574983f55cb635e8b56eeecf28d1",
+      "onion-workingOut-jump.webp": "e8e72aef8deee3a468068f27d1e36d94d8eeb3d8d3be98fa2fcd22548ea2027e"
+    }
+  },
+  "onion-lookAround.png": {
+    "source": "c18a535598cd653e8c24d40385f1c714cee827c054c1bce13d60a6be74f4c8a5",
+    "strips": {
+      "onion-sick-lookAround.webp": "49392ce80821d7f527913d87fc9ebd08fe1b3cd3b36e36e16b19edf1a227cd0a",
+      "onion-studious-lookAround.webp": "439cf84980c8b89385c21d8a100fe9a6923afa04b17912dadbf7c47a053f7ee3",
+      "onion-workingOut-lookAround.webp": "76b01471652eeef13075f5b97de6f0e4833c27a7f00e5db34539c2965b0005b8"
+    }
+  },
+  "onion-lookDiagonal.png": {
+    "source": "27ec4ee3c5ed56c76f287303288c6ba6642d11d46e92d7b21528dda3b89d2cff",
+    "strips": {
+      "onion-sick-lookDiagonal.webp": "5088c5ccf65f5f0c53f0e8aa14a089feb33e4212c877482f00ae2a7ecefcc232",
+      "onion-studious-lookDiagonal.webp": "ca96a0962d97688e95a20529b803281cca31ce079082a161edd6a766ae6dccdc",
+      "onion-workingOut-lookDiagonal.webp": "cd0da15c455ec1860d864839fd9e3944b3ced3f95cdccff943e01c396e2c09df"
+    }
+  },
+  "onion-moveLeft.png": {
+    "source": "d438e008960feae10e192856039f99170e0a47fe810777ea7bdd21b6d0ad0034",
+    "strips": {
+      "onion-sick-moveLeft.webp": "9cc995dafa850134c1db184d875d87d430faca9e1013130151beeb7e826903c0",
+      "onion-studious-moveLeft.webp": "353680ceeaf363a9ac4a8cc7bd433d4fd6bc8c9b85006d1ae8e5f585ef8414ee",
+      "onion-workingOut-moveLeft.webp": "4b0b75c18b6a95a524775d301ff4010a972b8bb13d876de24ab360d9eac60d08"
+    }
+  },
+  "onion-moveRight.png": {
+    "source": "8fd2ffff784baba6cec06b3df6f827751fb6e4873755b16fc4ac884193b2dcb7",
+    "strips": {
+      "onion-sick-moveRight.webp": "2bb2c974a46108793795ea3f762c4aa893f1c7d5b0be3c046ca2551941a6af62",
+      "onion-studious-moveRight.webp": "51d5425b37acbff8ad383876dad732b5c6310d0d837aed368ec8590c9af0c37a",
+      "onion-workingOut-moveRight.webp": "c138af9f01767338d2144810f2235af3ad9a721bf6ce0f658723e397a71f0234"
+    }
+  },
+  "onion-reviewing.png": {
+    "source": "094972229da936b1eff0e4c11b87512a15be990ba8af02b1469c9840fe26d9ee",
+    "strips": {
+      "onion-sick-reviewing.webp": "2015519675118daa8d1b069f9bd97615da56109cf924527d4fa9f5e77659fa19",
+      "onion-studious-reviewing.webp": "41bdb55e08328f86661dd0985ba3cd5f7d05b5df41a0384c58e736423ebc3e08",
+      "onion-workingOut-reviewing.webp": "56f951339d0293923ffb7c9f421ffe082a6ac4acc38520c52108c83adf3a50f0"
+    }
+  },
+  "onion-thinking.png": {
+    "source": "e4c71fa5ebd44f838ca6052580760b663b73a9c181ebdc6377eca6a4cc1c90b8",
+    "strips": {
+      "onion-sick-thinking.webp": "fb0ab0a9b788ee2ca4a11f20e15d6315d357cadc46c1c65fa02d1d3f131d8309",
+      "onion-studious-thinking.webp": "caa192e2073996859337c4e9aa7b05df50a5ac35ee5f47aa7a788ee0b89f6aba",
+      "onion-workingOut-thinking.webp": "114e77d41912c9d9a0053353a2db680512152f9f786f4981e32fa837ccb82e76"
+    }
+  },
+  "onion-waiting.png": {
+    "source": "ccdb73483455fd011b0909895a31ec095a291ec9fc9888a9db4f52e97a6b51bf",
+    "strips": {
+      "onion-sick-waiting.webp": "923c154cd44d59fb293732fd7603e85c58a8e9851d47562faf8e6eafc1588c55",
+      "onion-studious-waiting.webp": "56ce85c4bdfe56b0c310872517a0b9f62c4c29ce67b6f6a7973036f0153d42d3",
+      "onion-workingOut-waiting.webp": "78b8d731742f267529ca58e76eaf0aaa5b05b2c29c7789024c564c0caad223c5"
+    }
+  },
+  "onion-wave.png": {
+    "source": "55968ef459c8c780fce75e8c457c0bff0144b01419be0475976d670c4069c6a4",
+    "strips": {
+      "onion-sick-wave.webp": "decabacb0cc0d7cac8566da297114be252eddac0e77ad3bec7b02412355d89df",
+      "onion-studious-wave.webp": "01f8f03880d420c74991bc4dc93ab85a07a123038fa57e21481d382272d4b1b3",
+      "onion-workingOut-wave.webp": "7cabfd7912ca7ca6f0c3c20ea728b422d6ef07cdb55b9b679d2dfa239e5025c9"
+    }
+  },
+  "pebble-disappointed.png": {
+    "source": "48400798c714cd278b4462a8b6378a2e02610318c0dfbdfe688008e4710baf47",
+    "strips": {
+      "pebble-sick-disappointed.webp": "aa31ce026750630a192e0e9ec923631fe6e16793f290d15aecdf8b728b26ca7c",
+      "pebble-studious-disappointed.webp": "8f6fb1a85d7d0a2151642044506dd2c8f178eaf4bb0df1e4431c172772a5127e",
+      "pebble-workingOut-disappointed.webp": "6a3531d9313ab0413b5cd635b1a41f7c2dc408cb76d0df0692a9d32e63567baf"
+    }
+  },
+  "pebble-idle.png": {
+    "source": "b0afabfee14e7647dba40d62e69ce79bf29c2f0765d55dfc132dbda07c08d008",
+    "strips": {
+      "pebble-sick-idle.webp": "f76d70c1afb122f857067e03d21e214bed1a53d782146d1ea72c2057dc270aa4",
+      "pebble-studious-idle.webp": "548ae1b5e315f3ac6c496c2591ad4b92164c8b107f82c5ce0ba0ae0ed4bbb1ee",
+      "pebble-workingOut-idle.webp": "293cacc9dce32515e017690a29e396ba6a15db996251120ec4bc46381ced4ae3"
+    }
+  },
+  "pebble-jump.png": {
+    "source": "f11af9af6464ece5ab26cffa70796855d289bfad17a0cb322a69487b7c26a2df",
+    "strips": {
+      "pebble-sick-jump.webp": "67732434bc01a761821e669c6725f1ec4dca69be185c67c9184a3744a202e229",
+      "pebble-studious-jump.webp": "20a1722facef3ad69c234c8fa6581ccb2b63a8e0ecd38896a202e9d4ff6aad8f",
+      "pebble-workingOut-jump.webp": "d76811058af6f97f8a2ed5143ec55f66b5c3f98a31231e6043269e841670a460"
+    }
+  },
+  "pebble-lookAround.png": {
+    "source": "561c7cfb0beb27c29e9a6d869c98b279561b6115adac870d59bdd0e6345c188f",
+    "strips": {
+      "pebble-sick-lookAround.webp": "11c5710f2d8d84068522a1474d5819337a9a0c9014d21a5c8298032531ed2f03",
+      "pebble-studious-lookAround.webp": "e9491c97473789fb1125cc691dcc727c6be192f09b0296a40d7d9ac17519b25c",
+      "pebble-workingOut-lookAround.webp": "722ae5765198c4eaa8161976f8495bf7084397610abf04025c789afa73a95c63"
+    }
+  },
+  "pebble-lookDiagonal.png": {
+    "source": "24285a22da808950fdf4ca38752d22c5f5124528d9d9a1aac8f2a886cb30b0ca",
+    "strips": {
+      "pebble-sick-lookDiagonal.webp": "bace95429b09c74a2f4c8932dd12bd73aa0b8c864db6ac6ea9283ebe658e7621",
+      "pebble-studious-lookDiagonal.webp": "a64eb31a71b6005db184f6390eb021727b25e21b43476ca5638ce658a9de37c1",
+      "pebble-workingOut-lookDiagonal.webp": "b16cbe728a5440349d4dd8eb07714d0f5486d7a420649bb20d54d8c821e5bae0"
+    }
+  },
+  "pebble-moveLeft.png": {
+    "source": "998b4fef809a6a73f72b22578249034017ec315b5f611e0c42160c19163da619",
+    "strips": {
+      "pebble-sick-moveLeft.webp": "4f3ec2e84af5136bda7a278c3342fa6d43ab43fef6f9fc60638cf7f3a013cbd7",
+      "pebble-studious-moveLeft.webp": "0140899fc0acae40bedfd6472fccd5fe59549805fdf7f572d9dd0f46ca5c8540",
+      "pebble-workingOut-moveLeft.webp": "a8418eae5e2255ee93fa920597d6c87abde63f01c391bc6748fb114ef1e92e8d"
+    }
+  },
+  "pebble-moveRight.png": {
+    "source": "9e10210e2f52e4e7a1f661fa879b1db8c57a25592a3253baab3c0b525c5b9aed",
+    "strips": {
+      "pebble-sick-moveRight.webp": "0fa20e6f1d00df309de251719783f8a9e08f6561826107e979e26d0077e56cd6",
+      "pebble-studious-moveRight.webp": "cde7585ed20c53818cf6b3e523b2a0326d07021804b394273a98478b42d0d969",
+      "pebble-workingOut-moveRight.webp": "317206f3948980ccaea1fe0197a1161d5dd89bcf7a90d95dfdfeb3516432a660"
+    }
+  },
+  "pebble-reviewing.png": {
+    "source": "7922ece4852bb42ee8f9dd18d94d763ae6ff3d60a47d07a1a4aa6a6994c5c8a0",
+    "strips": {
+      "pebble-sick-reviewing.webp": "8f76c83fd477b649065c57d24b699a46f25917b20a539224e513c66816ecdbcd",
+      "pebble-studious-reviewing.webp": "d1e081cf42fc1ebca44c25f982a4eea537f5bf7b7fa13940d0efb321eb5249e2",
+      "pebble-workingOut-reviewing.webp": "1aa8c6b8b8f1b516c05db73cb5abd6808a9829abeda88104fcbf4daa853b439d"
+    }
+  },
+  "pebble-thinking.png": {
+    "source": "875bcbcc04cb3db9ea33f18dfb913fffa3ef2d168ecb713428b60445660013c7",
+    "strips": {
+      "pebble-sick-thinking.webp": "4d92debe925efdf2e5747c985fc0658aaab082a482c38a5a5587b2e5a155b089",
+      "pebble-studious-thinking.webp": "8d45f70771abb376dd13cf5923dd196ccbcf035cc27755e9cb0df881ae4f9b64",
+      "pebble-workingOut-thinking.webp": "6bcf309ff8ff401ab36889f9318f6bfdbee3bb52581900652bc143b0a92de1b3"
+    }
+  },
+  "pebble-waiting.png": {
+    "source": "1a3c915b77a3a6fd3d347cb0a8e12deb56afb2cbc97bed5825f57140ea82699c",
+    "strips": {
+      "pebble-sick-waiting.webp": "69dc0a65228d7fa896eb72e6a8bbb7f5358d93e80c27ef7e98756e93179fdb97",
+      "pebble-studious-waiting.webp": "b9d739e7eeab5a05602b368f45711bcc5a29b820cf2aa69ac5fdcb47ac4583a8",
+      "pebble-workingOut-waiting.webp": "d889e1d3e483ef2f2ec62c141facc0b309dd87b1ba817387f2935fea51febb9d"
+    }
+  },
+  "pebble-wave.png": {
+    "source": "bea6a8bed80b3835202f1c0d53778290727f8a1f03adbd7219b49cf13f79a997",
+    "strips": {
+      "pebble-sick-wave.webp": "97771e40c064684324e8a9cbb9248cba592e446cf6248252c0a7ea766f07e1a7",
+      "pebble-studious-wave.webp": "864e3074804186c897dd1fb8a83904dd094243461940885a1328bf197d4c591a",
+      "pebble-workingOut-wave.webp": "1ec25952da265b1e67a03fa972fba27da2901eeddb0bbdf18e3a2fea9fb13f1f"
+    }
+  },
+  "petal-disappointed.png": {
+    "source": "7a577a489fafb5be6dedf91914e65d0702b7496258ef69217c0ff2d4ddd04e9e",
+    "strips": {
+      "petal-sick-disappointed.webp": "d5109d38f6e91690aea0b7c7a32deb696b579c679591a11daa2c8fc78629b9cf",
+      "petal-studious-disappointed.webp": "7e37a35bb3591975ba212bf7cbbdc9caa6456cdb5dc4d12888058eac735f44c6",
+      "petal-workingOut-disappointed.webp": "b7c06556cc63aa32abb84d22ee1e2534f56b6d82f336c2ca3ee5c12005a42747"
+    }
+  },
+  "petal-idle.png": {
+    "source": "72f70810ecfd2300eee0b8a0b7e0573ff4bb9a419ddbad6cb4f403c0b711b74a",
+    "strips": {
+      "petal-sick-idle.webp": "b20254239f06b9ab0d4304180e68d8c4f22af43106e509807a58226f7ebb15e9",
+      "petal-studious-idle.webp": "13e2dad2a4c5b9f5ac1bebbd15271f560e7600d2505124ab0232cc757139ecdd",
+      "petal-workingOut-idle.webp": "e04dd4a2b7e71637ce4d9ad6de92b942fecacc9d457dc8c972c6cc5ae6df3ace"
+    }
+  },
+  "petal-jump.png": {
+    "source": "f57240de82d1f0416b818dcae5aa59929f5758855ea02230778f1f9b8ff45115",
+    "strips": {
+      "petal-sick-jump.webp": "49eb76aef227a469f19875c91e467537d6f5ebf9e5e0ad85c7dab8d8905a13fc",
+      "petal-studious-jump.webp": "5e2d5855051d0b9a5be0370273ee49ebe757e452b7601258f52e995d3e9abb97",
+      "petal-workingOut-jump.webp": "1f4980453d5c5b61bd10a44e9ce7b1ae72449ce49b9a0c2a57b5d0c71d06643d"
+    }
+  },
+  "petal-lookAround.png": {
+    "source": "712afd5199e673ee733dde6d62e932713b5b697eb8515624b102805d21fc2883",
+    "strips": {
+      "petal-sick-lookAround.webp": "3476f699b9d675e7afc90202798826dc99dc02241fc5da4edb7c37070a074494",
+      "petal-studious-lookAround.webp": "1d4169d184c5a715156c88175f28024aa0a4a60b7259938dc44f7ea307498fd0",
+      "petal-workingOut-lookAround.webp": "4ed1ca7c6f0eb42f8ad66512fbbac93c94f83db1884708ffc5e98442e31dcdc3"
+    }
+  },
+  "petal-lookDiagonal.png": {
+    "source": "1d1263023bfd54221f15f7f7961cb31ed46c2fd7994b73ef3ae8eec4f7d27343",
+    "strips": {
+      "petal-sick-lookDiagonal.webp": "86f57b4402505bd726e29b415a651a69c35189f421a8a011c07f360e69f95395",
+      "petal-studious-lookDiagonal.webp": "87f876156d8e294514e6ae33220b999719b65fcf4915859ec51e636f98193037",
+      "petal-workingOut-lookDiagonal.webp": "2c9f1aaf12de76374272e0feeed66ad8b5cd118e97cc689be47c20005b7fd003"
+    }
+  },
+  "petal-moveLeft.png": {
+    "source": "a4238f4f6369df0a423c252a2467664da1cd207a6c8a4a3da2b613261b2af497",
+    "strips": {
+      "petal-sick-moveLeft.webp": "f0d03d71384ee6e01658154867114a5317db6e98c8d3015a4440b1d12f97a718",
+      "petal-studious-moveLeft.webp": "bbeb57dd144a4aa318e75b8ee079e93fe95db86f29a7feca0ea9a5c969573d63",
+      "petal-workingOut-moveLeft.webp": "31e207682f7f2d282e6b725973be18d5621bada52dd2f3a89b5240560e0c25e8"
+    }
+  },
+  "petal-moveRight.png": {
+    "source": "c8ce73d0f1580fe01c6b600297af9b7a3e4574329371eb9a28fa840d4cf53563",
+    "strips": {
+      "petal-sick-moveRight.webp": "54dc7743ced7e19770e45788052844fd182ab3015c237cd22b902b09e00c1172",
+      "petal-studious-moveRight.webp": "6c43a0576ad56450739d4ea0258745a0f0b6be76bd79422a1ad612a4f3446baa",
+      "petal-workingOut-moveRight.webp": "897c7dfa35e37631a094864596a1d7188259769dd7af157510897f984d33486d"
+    }
+  },
+  "petal-reviewing.png": {
+    "source": "c03f2dc73a3e4a0ad280e6f39a597c672e188b65f26603291ac30cfacfde06fd",
+    "strips": {
+      "petal-sick-reviewing.webp": "69cf20bc6d1fec3a7bc019c72ac44e880c8b09037acd93499d404554f9d37d79",
+      "petal-studious-reviewing.webp": "f2a41c304c32a21552a1516da85ad90312c77e43e7cd0d35eea12ed9dbecc932",
+      "petal-workingOut-reviewing.webp": "c7ad5e7e3e7bbe5ad80efde1ab83e3a15d6c875bd6c79136541e05e205131921"
+    }
+  },
+  "petal-thinking.png": {
+    "source": "c7affcf18e2569e2f819fae2888fc3c1248f0f6f83d0974870441a0ca784ab79",
+    "strips": {
+      "petal-sick-thinking.webp": "0557c07f08bb1d266c772f2ab0653e9923a92cac6899b640f58d3eaabe9351b0",
+      "petal-studious-thinking.webp": "5a8eb126a35b32633f3d7bcae0877f5a785e601ab413390a4b87c85bea7ccda9",
+      "petal-workingOut-thinking.webp": "3b952d96f9b4981e0b017b4ad7b45e565ff3091470a56cd1ecbdcecc38cb4b77"
+    }
+  },
+  "petal-waiting.png": {
+    "source": "40e8a17769b33b635fe9be957500e41ec04af8d271a50b9d1f6230068e856ae2",
+    "strips": {
+      "petal-sick-waiting.webp": "365ca6a1c23dee6bc988927e8345d5b490e6f85830a9d3b412e76d60425bf5e0",
+      "petal-studious-waiting.webp": "802529a102ab1141efc744b2305121c02a99ee12373342dbf4f86d1362bf189e",
+      "petal-workingOut-waiting.webp": "7ffedf72447a6604121f1e218524256b85e10bf9eb9d8f29777a2a15afa0bc9c"
+    }
+  },
+  "petal-wave.png": {
+    "source": "f2aee8b2b3cabe35cf9113f9632b149a5b3fa646207c071b7d8c77e70d5f3fef",
+    "strips": {
+      "petal-sick-wave.webp": "c3601b43747852ca2ba11b47657d2a8a1de077575dbfd6d9d95ad959540edcf3",
+      "petal-studious-wave.webp": "ea8de3541ba9961ed0ee4e262cda3c9a35ca54031dbe5a5e894294535c69a1f2",
+      "petal-workingOut-wave.webp": "3c38c7dd61d6f705a656c51b5eb2455d8006951ba3bfbd67dde2521f4c5ac9a8"
+    }
+  },
+  "pillow-disappointed.png": {
+    "source": "8e273e7e6b33e3ca639148b24e6003e2406caf22cb1916dc9e2b351cdc0e2d36",
+    "strips": {
+      "pillow-sick-disappointed.webp": "b6e3af4cec3cde704bb2e3ac69595146e1e55c8c4671b65fe1000a7e8ce96282",
+      "pillow-studious-disappointed.webp": "96845b5bf99a749b1b8a8df155736b702f89bb3c0249b133c0d998ea7f80477b",
+      "pillow-workingOut-disappointed.webp": "8895501dd2fbefad1269fa15ca2b7328f1f7832f56c7677cb474d20bcf80a541"
+    }
+  },
+  "pillow-idle.png": {
+    "source": "a4b064423d5f40b20d09e49f9bd6ff1270a69b69bd1ad271454a2c37c1623929",
+    "strips": {
+      "pillow-sick-idle.webp": "7446b71b039cc2707dd1d916f2340bb2ef6f633ce369d10d2121dc4ee92c9fa3",
+      "pillow-studious-idle.webp": "215f0e5a869867d6fd20764a57efc6d63a9cd8902155713830970c5e61c70389",
+      "pillow-workingOut-idle.webp": "28b6f374446a61065e171cc6a4f2411a08966a73093c78bd317b8d9e42af51e3"
+    }
+  },
+  "pillow-jump.png": {
+    "source": "d9e81bc8d2188b08af909b0a4f8bce789f4babe8be254db8065fb08ef72a519c",
+    "strips": {
+      "pillow-sick-jump.webp": "d36c7f5aff1e136395fbc3b7d4b17f31e6bbb39c79cadb66f068a80ef859f298",
+      "pillow-studious-jump.webp": "dce237aa34097be61bd232fd9a9114c579a19f9e500bee863771a1a331bb5c48",
+      "pillow-workingOut-jump.webp": "05219dbe0324fcb6e9957b6ac106fb649d0c4f7459eef2773bf7526e91bc231f"
+    }
+  },
+  "pillow-lookAround.png": {
+    "source": "4010e901e076144e16c107e1ed0a49aab8a1d00b286b232c6cb0d42857fb7e8e",
+    "strips": {
+      "pillow-sick-lookAround.webp": "8b190747d707b0e1f96319bfd20e3e2f1389da844d1fafdad2f5fbc177e94770",
+      "pillow-studious-lookAround.webp": "9b1f465e6bb6e4233095d27c24bca45ec74618a3a02239aa2bf50bb01920dbe4",
+      "pillow-workingOut-lookAround.webp": "cd3cb186084ff030b93c869ce04665ce4cd20174759c0bfd1eb5eeffbfffa0e1"
+    }
+  },
+  "pillow-lookDiagonal.png": {
+    "source": "81309a2d220f8e704356199c21e22af890c7b2501bc9dc70a265f9a1763eac78",
+    "strips": {
+      "pillow-sick-lookDiagonal.webp": "d77e86632768e93fd0ea09fc8b4df439d6c74f4e4213b4639efa7d5b7af34c08",
+      "pillow-studious-lookDiagonal.webp": "1d44afd7b4db41a9bd7acd9567621ca6022bed6611ac166a6087fbd38b9ba6c0",
+      "pillow-workingOut-lookDiagonal.webp": "f8f6361d245bd0b2899f2197d8e1ba00b9d7a654e74c6c940b663dbe3b1828ba"
+    }
+  },
+  "pillow-moveLeft.png": {
+    "source": "8259434ef5db9c89e360c145e483413640c0aca36a3b66973abca65408ad7315",
+    "strips": {
+      "pillow-sick-moveLeft.webp": "a7fb8a953c09310e3b031b600a1b91846b791507cb5a9239bd46ac100af661ea",
+      "pillow-studious-moveLeft.webp": "226ec0b734081e8bc5d560237edfd00371822e616b39e1406854d6e790d231fe",
+      "pillow-workingOut-moveLeft.webp": "7f3ecde2a7a49bec4e737d9106dec10fde2b0155c20efe04b1ff9a223c17e8bb"
+    }
+  },
+  "pillow-moveRight.png": {
+    "source": "c0602477e839a6df5274e0ef37a78ee11030928f9dbe2a30363a4725234700a2",
+    "strips": {
+      "pillow-sick-moveRight.webp": "806bf98b677a7a3d6352126618ba719bdb62ee9f364a6bfcc4a36e11bdf46999",
+      "pillow-studious-moveRight.webp": "1c37c25425fa62824ea197b05b1ddad4a34b63c460ba670cf5a8075e14ea2e8a",
+      "pillow-workingOut-moveRight.webp": "29382e01c9afd1978eb591a04020515d9f84d6a576e7072f2b22cdf4f0a4cfa4"
+    }
+  },
+  "pillow-reviewing.png": {
+    "source": "b1b3b5e5c162e7d46388abc1c1c3ef1607988a45559876b806682004cf9bcbc6",
+    "strips": {
+      "pillow-sick-reviewing.webp": "9e09a9ea36cfb0c27e40e8b11c39b8e380f753be210ebf7ff819f2e379a046de",
+      "pillow-studious-reviewing.webp": "6f6cb6b92c239b1550b084f5f329e3309059737be8d0edb420a417254fabb0e7",
+      "pillow-workingOut-reviewing.webp": "09ec75ee31304f6889b3e7913651a942462349e9965eb29a4d0bfb87601c313f"
+    }
+  },
+  "pillow-thinking.png": {
+    "source": "5d55d7a97f8672d7b53589147b2fbc4544eb81887a3464bedb98ec54deb712c2",
+    "strips": {
+      "pillow-sick-thinking.webp": "a808a0553b0c4c67c006f4aef63d63a26c814e1193ddfe4035f2aae7916b9ab1",
+      "pillow-studious-thinking.webp": "1826183c79889744717deb1df461039d450b9039b2ab05fe5ab60bd9fac61c3c",
+      "pillow-workingOut-thinking.webp": "b7432c2284782768b1a6acdb5b2478d9e4b75772c2713cffc348fdaff0f273db"
+    }
+  },
+  "pillow-waiting.png": {
+    "source": "5c2d34c3cdaef51e9add2809abc65ba24b3c1df1bc7cfeb153e120dd82312389",
+    "strips": {
+      "pillow-sick-waiting.webp": "bae59103704a68d025ad0d0a905311664ee64c60e7909e5f40689014b7f00318",
+      "pillow-studious-waiting.webp": "4b6a93c0948e807d5c95c274e70d8e84765377c858ea26b8c10387b5e2eb30a8",
+      "pillow-workingOut-waiting.webp": "5627d4edc6733dd8a1b8a66fb3ca669bd00e261cb61c25a24000ce2772f69832"
+    }
+  },
+  "pillow-wave.png": {
+    "source": "601bdbab335aa68a102827044c4c032a3169be70374324e520bc195a438914d4",
+    "strips": {
+      "pillow-sick-wave.webp": "50d85c7b571c6e5523a51411662645f8bfffe3724e70be124d1aca140321bde4",
+      "pillow-studious-wave.webp": "7790e6b115ae421119da4a7706839f67d29ded265d83e695a640617585697981",
+      "pillow-workingOut-wave.webp": "b40f7c9d503541761174e0591bc2a1f756ddefce5e4d3454d0bac7a34ba14ed9"
+    }
+  },
+  "pudding-disappointed.png": {
+    "source": "aa64abc416f36c0fb07787e04fe4f5809853c62cdc1a75c204e6beede3ba7119",
+    "strips": {
+      "pudding-sick-disappointed.webp": "da61689f09a3bbb75596beaf74d4a0dbb42e2077f18fc952bd6d9b14f22e0087",
+      "pudding-studious-disappointed.webp": "ac8ad793fd9280f758c52328a156650bffc726c70b1c63fe0e487b71a5198b0c",
+      "pudding-workingOut-disappointed.webp": "02c4af7351259aaff35652a28fd9e12280f462217d7d3680cb20d78753b6d29d"
+    }
+  },
+  "pudding-idle.png": {
+    "source": "08e9a0498229f45e181551e11e7d096ae8a882fb7987909db37b09757664d9a0",
+    "strips": {
+      "pudding-sick-idle.webp": "13320d6525695081946e9c107f1946e7dc8820fe1e803c645f9614b4b0793dd1",
+      "pudding-studious-idle.webp": "db06664f26a26630faa30acbebc79651a5f3b294aaa727a1556aebe70799f824",
+      "pudding-workingOut-idle.webp": "ad6fca99e732f6a8f0e710dd54e997001db1b6d0a524882e9039335a4b40bafc"
+    }
+  },
+  "pudding-jump.png": {
+    "source": "a9fce2eedb6aec3769af691bbe32fcdca1d04c0380921c3b230c787b7b54154b",
+    "strips": {
+      "pudding-sick-jump.webp": "0d922d1ed4b4779277a92cedc27a205f9af83cf578a05ad239d842f57bb57bf2",
+      "pudding-studious-jump.webp": "7758d662f1c2cb283379eaf3b3e2f874b22f86de813dbe3caa99aa6f9af0aa35",
+      "pudding-workingOut-jump.webp": "ec356b6bb148552f3a95f44970ec8ce3de152b994615d947687860135093b7b3"
+    }
+  },
+  "pudding-lookAround.png": {
+    "source": "c812eb265e3726c16e52440417eac35f7d3aa3daf48683a2d5676f8891c12a68",
+    "strips": {
+      "pudding-sick-lookAround.webp": "2a82291d2ad2ee552b41d25db8b35ca205ced8e0654be5a547fa591cc815dab3",
+      "pudding-studious-lookAround.webp": "7eab0526c693330ad83adf00bf640b2de9fb42cd0597410d50587b266e90a066",
+      "pudding-workingOut-lookAround.webp": "a127cb76742905c9701c26ff0800142932848a2ca8425a325cac819e205623b8"
+    }
+  },
+  "pudding-lookDiagonal.png": {
+    "source": "b0c7097b20181fc91f9dfa93143f693f51ca5ffbfd76230e1108d1d394291313",
+    "strips": {
+      "pudding-sick-lookDiagonal.webp": "def60a131938ddc947bc74edd5a3113b3fdcd365d9efb81ef3ec4905352659ed",
+      "pudding-studious-lookDiagonal.webp": "e6654da235e292be1e30e77c0e129fd491424a517109fb6c49e7f326d3a36cad",
+      "pudding-workingOut-lookDiagonal.webp": "5e51fe71826f479515dc8cd4fb73139aa766263be31347acf696b7f6730251d5"
+    }
+  },
+  "pudding-moveLeft.png": {
+    "source": "af0ded418ee2ded29212aa041f4aeceb4c6287b8a36727714ba99decacc96626",
+    "strips": {
+      "pudding-sick-moveLeft.webp": "069062cd65634ee8c84ed2064347d2c43790617b40736a8547d49be42627d629",
+      "pudding-studious-moveLeft.webp": "ccac7486a0868aa676acde536fbf3796afa83ec4f689a0bc73a08c370c640a9e",
+      "pudding-workingOut-moveLeft.webp": "5d92a925eb662d46ca0e62a1615fb04b11a2050bfd91c8761e72d13ece02140a"
+    }
+  },
+  "pudding-moveRight.png": {
+    "source": "b5900c8b2be5bd0e745d776b62a1ce2618da9009dbd3cf844f4225fb4aa54392",
+    "strips": {
+      "pudding-sick-moveRight.webp": "2067f76d4a8f312dde3ec07f5d1cc8f8ec400a4b101d66900542d222e40185e7",
+      "pudding-studious-moveRight.webp": "20c51db5d26c232c70adac3eff562145048a5fccb97152c3368e32daa4f88069",
+      "pudding-workingOut-moveRight.webp": "58ab5073778219f28c9c4d90e558a9a270d8e5886e85971afaf3e2b78347d175"
+    }
+  },
+  "pudding-reviewing.png": {
+    "source": "5cb212078873fdcfa6312fa493e763131ecf311cc21167d4b1df88f52ba7e4c9",
+    "strips": {
+      "pudding-sick-reviewing.webp": "c6b1744dd6060197405774b8fc26fd20083184bbddaa61e0f292ff0cb1ff6fbb",
+      "pudding-studious-reviewing.webp": "f984ffd9479da30cca420636af15a27020bdb3aacf24c84dbef609bb78ab4dcf",
+      "pudding-workingOut-reviewing.webp": "47d831e0ede87904b19fa1404d6d908d9d13b97c58bd7554e492d0496e018878"
+    }
+  },
+  "pudding-thinking.png": {
+    "source": "da8a0bbe7ee8cf3190cb7b6e261e3c9170901d54f6653c042b814caeec10f877",
+    "strips": {
+      "pudding-sick-thinking.webp": "fd58c7129d14d940a0fc9a37b1c3927b1bec687918d0a2a51e073d8e8e838738",
+      "pudding-studious-thinking.webp": "fa297487a80ad10fffc4ce3f090487aecaa4e53d8856e2559bb41ab4eb6adc74",
+      "pudding-workingOut-thinking.webp": "5465e493ae08e390bba74cbbb5dbd9f7f42f9acbdf4ad4e3136ae603444dd374"
+    }
+  },
+  "pudding-waiting.png": {
+    "source": "753eae81724dc9642b61c87a99fe7b6fb569f07334e2038c2438057f7d6b1564",
+    "strips": {
+      "pudding-sick-waiting.webp": "6e9ec69395d986c26694f76a95d2ca3e655bed94cd37eceeb2c998df5fd911e5",
+      "pudding-studious-waiting.webp": "a1af3ce54a1dfb3bfbc4df955925925b90237eb2bea95fbd6c095728e55bc2ec",
+      "pudding-workingOut-waiting.webp": "8ddcece052f6cf7429933032b54620f372adf5a26e9d41f908aec6fc8923c10d"
+    }
+  },
+  "pudding-wave.png": {
+    "source": "d4632eaec49b720822c359bba93ce95dc9b513c896228b0cec02b2b9e2cc52b3",
+    "strips": {
+      "pudding-sick-wave.webp": "e278faeea5f20672cacf81c07fde017c22178ceab93cd3044f8cc77ceeb7f077",
+      "pudding-studious-wave.webp": "fbec5cadd553c0c691ccce1e603ad1427553a771a308cebf6563d36ac31df3e4",
+      "pudding-workingOut-wave.webp": "a245cd5afb6df263f941c517a4f695929bc0d76127c25488501443c20cf7170b"
+    }
+  },
+  "puff-disappointed.png": {
+    "source": "f99c38a68f1a3e6cbfd362ff14ffa9f6dfd9d6cf5ac2c226b4e3291c39dbd652",
+    "strips": {
+      "puff-sick-disappointed.webp": "af19e35d4dd8abbb03b83b34700f03bf6f15d24c7545f2982ea74e7910fc92a3",
+      "puff-studious-disappointed.webp": "5d7f41b39f650534a2c3e808821cb874cda89ef921e2c58d5e652e08dda10629",
+      "puff-workingOut-disappointed.webp": "e70eff09c58b44df11986da8cb6244cc98d6b7ff06c332056cd2999719881608"
+    }
+  },
+  "puff-idle.png": {
+    "source": "40320104769749e9608fbd960e24277011d028c4f0b481d83252982bcb9b8044",
+    "strips": {
+      "puff-sick-idle.webp": "24a0509f5d5a431e8e17aba384b0d6ce16d81ad5d5897e478c0b01d7fdc38fef",
+      "puff-studious-idle.webp": "c3a4d2b5002a708667bcae732dc374bc23bc8faf9c57575fe94738376df67c69",
+      "puff-workingOut-idle.webp": "c109b6095a33585031312ad14e512575bd4dbef749a199514e97ee2c1070e76e"
+    }
+  },
+  "puff-jump.png": {
+    "source": "3ddd219446de958c7192c7d87c9498d33a05a995383fcece9c62e41daa7ebac9",
+    "strips": {
+      "puff-sick-jump.webp": "ce3da765b5aa107ccb2362b8cd61b810450b88736e4a530996012e01b9fd9e44",
+      "puff-studious-jump.webp": "f6016c21ca7e0cebbe630d4b99fe012b18ab4a25a3061bad040ccc50d6d28276",
+      "puff-workingOut-jump.webp": "dd123a2ba383c87855bd61eabbea3c58232c6f54ef9bc2dcf1f4ea0169162609"
+    }
+  },
+  "puff-lookAround.png": {
+    "source": "cec3104edb3f82ca59bec8f6c24c2437713f65c5f2dc3aae74d284f9ea6b7ec4",
+    "strips": {
+      "puff-sick-lookAround.webp": "da00c9c07d5a6aced79d3b6eb5fd9ea5565cdc8e21f59287c89996e4e34489d9",
+      "puff-studious-lookAround.webp": "4d3ee99b7b632ca6219fe3323d81e889002f5e76940009641f694904e6bdd00d",
+      "puff-workingOut-lookAround.webp": "a871603687f6140e1349d36349225ae92562c9f032ea3172724d22875bbf4a33"
+    }
+  },
+  "puff-lookDiagonal.png": {
+    "source": "84270e57a295720687c603a3c46b5f55be081b7d7bd788cb35e9ac7519916a63",
+    "strips": {
+      "puff-sick-lookDiagonal.webp": "a4caaa47b754c89dd66bd0a53bf62afa1eb41bfde886566324bbdd0106f8c021",
+      "puff-studious-lookDiagonal.webp": "13f49d9fd8d71dabc2ecfc9daaf227e2415dcd3ba0d8bc34589f6fc85fdbf34c",
+      "puff-workingOut-lookDiagonal.webp": "fc0b5a5d83222c057e6f62faa6f3b08a4a19f2bdd3504c882ac70cf72dd39931"
+    }
+  },
+  "puff-moveLeft.png": {
+    "source": "cae49b04b8cc387a845d20ba0d7adec213d0ad12df8898314fe8bf39648ad118",
+    "strips": {
+      "puff-sick-moveLeft.webp": "66e8a0b221036bfd16bc556d63e07a2e0295e85bb5342031d44ce8245d22dd15",
+      "puff-studious-moveLeft.webp": "3b9b3e3288f68df14e759d486084d2ad7409c600abbcd9d64afd5164782e8c47",
+      "puff-workingOut-moveLeft.webp": "1dadc4acd6cc39430c36ddb0029bd1074620f08cd5c0a4cb2b45004fe6a3bfa3"
+    }
+  },
+  "puff-moveRight.png": {
+    "source": "a28b3a96f5987c014fcf1089122633dfb65a45d09fb273eb6e1e164d5faa5435",
+    "strips": {
+      "puff-sick-moveRight.webp": "8be5a1995b8ab74bf07286fe3cbfab01410e76ffa45ad03a09b6f97053101828",
+      "puff-studious-moveRight.webp": "1a5a5f272deaa62d76c384fefb175a392a83bb327ad206c9c5432bc3f826d1bd",
+      "puff-workingOut-moveRight.webp": "18a1ea709d0cc40014a2cff223251917dcef123acd0c7314a33fb09759ec1a70"
+    }
+  },
+  "puff-reviewing.png": {
+    "source": "ccecd7fe13984848e2e92386ba0ed0ce04e721f686db2ae39b3c053b512ec3ea",
+    "strips": {
+      "puff-sick-reviewing.webp": "788935727081d4071d3037b9a38e9910e325b103839a8b462bd26768c14370aa",
+      "puff-studious-reviewing.webp": "16d0122f853c50455f3ad07ac559f3cd9372605c179ef759bc89fed6435f2a6d",
+      "puff-workingOut-reviewing.webp": "ea0795f5c6fd5f299c70bbabb523a91f7aac22660f7617007c692238abe56583"
+    }
+  },
+  "puff-thinking.png": {
+    "source": "d53c0de6c99a4342367643b0dcac532c2990c95821376daa42ba35b6a6704149",
+    "strips": {
+      "puff-sick-thinking.webp": "44fe01699f06ee152eef2529cff49608558afc3f68337b4f2559480d1cf87686",
+      "puff-studious-thinking.webp": "1c2b68ec1cd71e74ce12cba0ebc785dd6a8b480592d0c3afe86add5e2423a8db",
+      "puff-workingOut-thinking.webp": "45a1f26b66f322c9c9c1dc23df8e4e1100cba2538a3a0c239869a58840aeebfd"
+    }
+  },
+  "puff-waiting.png": {
+    "source": "a16c794023932d0551e4e3e26ab676b897c811c190a9ccb43d597b47d0f70293",
+    "strips": {
+      "puff-sick-waiting.webp": "925b88dd9319ad91eb352b46f2e5029b499893437f3080d3886abc3d2cf5ef4f",
+      "puff-studious-waiting.webp": "664e366a8372d3dddf487e3d4f733395153f4fcef64fd6d96efc830bad86227c",
+      "puff-workingOut-waiting.webp": "42e1cb37fa373a1862e4848cacbaeb0c8ff5170ac222f8ce37b7175484fb26d1"
+    }
+  },
+  "puff-wave.png": {
+    "source": "29a1ba7b84f48d535c955143ada1420dd9a4d9d072d7664f0b78ba3bdf703416",
+    "strips": {
+      "puff-sick-wave.webp": "61ba9dc338f9691189618da87f81600742339b1377a58e80bc5d942ad105bfe5",
+      "puff-studious-wave.webp": "322bafadedd3963ed7d640c56783931f20ade59b127d719739c02fe75df6157e",
+      "puff-workingOut-wave.webp": "7984753ebdc08d4370fe56c13f727e9f9fba4747c4a2cb50f5b274f087b17cdb"
+    }
+  },
+  "ripple-disappointed.png": {
+    "source": "faa2c7cb12178ac58b15de782fe102fd58297fc05e85cb291ae7efe86d994604",
+    "strips": {
+      "ripple-sick-disappointed.webp": "3566be2e7514fbc1c5ad99fd7786840c8c2f5c5f0fed4c7cec53a8d63df914b8",
+      "ripple-studious-disappointed.webp": "eadb6be05bb111c39847b765621dedd99006ddb5a6692f00c77ce4df922ce7d7",
+      "ripple-workingOut-disappointed.webp": "2237d300e41aedfb3fafef36e6d891725968dffd8b7a6cc35bc17297ca5a7632"
+    }
+  },
+  "ripple-idle.png": {
+    "source": "17ca0d6bd18855ba96be461a2274c687180f75864b09e2d16319cfb3ff1b06ed",
+    "strips": {
+      "ripple-sick-idle.webp": "3ba258711d81c002246b88575ae379c314c1ba0b9e5bd28fc65c48302f0f0de7",
+      "ripple-studious-idle.webp": "165611263140766ec35cf48ea17e066019222234abdedcd49a057335fbdb2225",
+      "ripple-workingOut-idle.webp": "7c14666c42e92079565c73b2881935f6ca5e4081b12d6f1792f0f23c128447d1"
+    }
+  },
+  "ripple-jump.png": {
+    "source": "b75770e0057e39b6fb0b847b1fc527f6ea386535cfc176332318ba1bc6b109d3",
+    "strips": {
+      "ripple-sick-jump.webp": "bb6a2148db698367fd25f09117d47f1d59d851ea625ad32d780e1dc1d654854d",
+      "ripple-studious-jump.webp": "484a327717fa85bfbe097deb6d99e4696f7ee0e40fad5505e530c44d5009cdc5",
+      "ripple-workingOut-jump.webp": "51a42dea06c514c3d8e8cfa49d409b3c44f0d02fe11129c2a561fe718eb7c43a"
+    }
+  },
+  "ripple-lookAround.png": {
+    "source": "863d194ff1fa307c5d66a1802c2605bd31d6d9cf2b3dd54b2dd59b294d9ac3a8",
+    "strips": {
+      "ripple-sick-lookAround.webp": "fa6dad4ac903e2420aa559c40c5e335642b4f0388d72a87076e2eb5b3a2943a2",
+      "ripple-studious-lookAround.webp": "3d6e2559b32f527e82f6d563eb32e945445ebacc17e2d87d530c65038fa3ec3b",
+      "ripple-workingOut-lookAround.webp": "aec1c79735db25da97a210455b9a17a1c025f6a81a78f78b80b8cbef1abac6e5"
+    }
+  },
+  "ripple-lookDiagonal.png": {
+    "source": "244374d2655495ec02f9005ab2dc010d6760c098f563ec4c6d130b2dd152c57a",
+    "strips": {
+      "ripple-sick-lookDiagonal.webp": "f1b54a5d0138130f5dd0480882285f2becc23351f6e39f6b7681b5efc58d2e7c",
+      "ripple-studious-lookDiagonal.webp": "a415e6a16f63cd80a6f50febcb3919b4873f65b3d7564046fec476d9478cba5b",
+      "ripple-workingOut-lookDiagonal.webp": "5073642c7a317b30e1a71c03660cadbf46c4831a3096e6bf0230eb1f7617a29e"
+    }
+  },
+  "ripple-moveLeft.png": {
+    "source": "daafea13d118f36be7fd74f37dea27ed980a8cccc6455c6057bc984c762c53dd",
+    "strips": {
+      "ripple-sick-moveLeft.webp": "6e4e76fa199cfe374036995c5199cc27b1e53dd9712ac02d46582e8109138d9e",
+      "ripple-studious-moveLeft.webp": "3fc43161a06b647412c53f23cbc142d33ecfdea34a3f3f91df6a17e91e7da69d",
+      "ripple-workingOut-moveLeft.webp": "4d81a4079dbd5b87545a72df2e4a0df06c2a731f614ee13bc9517712eba2c8ef"
+    }
+  },
+  "ripple-moveRight.png": {
+    "source": "9cfa1e967e5a846c31e99e57ac102e6d117ac11f13c1687e2403e1e44a2f748b",
+    "strips": {
+      "ripple-sick-moveRight.webp": "9a6b1392d70f7b735a604cfc13ddd512dce485564e549afab95a0321a8678c7c",
+      "ripple-studious-moveRight.webp": "63ff8f2463a0040c57c628d3f41443ca5b8c65d78354733eafe81de6cc4bd659",
+      "ripple-workingOut-moveRight.webp": "f248d0af0f284d850b5871f1dbbd27740d9708af4e3aebe796b0185e5bf4f2f8"
+    }
+  },
+  "ripple-reviewing.png": {
+    "source": "b2d356fde5e5557046025205fca4041720798ec17e6f4e1ff05e97822cef43dd",
+    "strips": {
+      "ripple-sick-reviewing.webp": "2b5158022e2080eadd41374b95109919b3bbfafbe6ad017b928c06a9b3c83160",
+      "ripple-studious-reviewing.webp": "a52ebb6373c99ad4545939c94873d878c22acbf24e2c00375a86648b022413ec",
+      "ripple-workingOut-reviewing.webp": "5cd73ab36cecce599f2e0002ae90bb937f2dec0f03bac2a0cdfc3202d1493e85"
+    }
+  },
+  "ripple-thinking.png": {
+    "source": "667b988ab2304a829f7f3f277a567def6f34d3442b3e331ccee9f05a7353f076",
+    "strips": {
+      "ripple-sick-thinking.webp": "342e1b9ffaa0a43e788f00fcb6be4e358cf2e954256416ec33ecf640b363da48",
+      "ripple-studious-thinking.webp": "f73d75bb150aa9e3ac257820fef4537846ed8f41aa275795eca34bafa34aa168",
+      "ripple-workingOut-thinking.webp": "7d81909bc25714b7142f5c781917e1594d4581d080256f10160e2463708786b1"
+    }
+  },
+  "ripple-waiting.png": {
+    "source": "11846993dd59421f73c1f0ebae8d56fe749d48b65c998475503cdbefc1f61e8a",
+    "strips": {
+      "ripple-sick-waiting.webp": "6bab522e2a7da1d69e20cae87a6ce4a912e49c5e5126da526462683cad4a1e18",
+      "ripple-studious-waiting.webp": "753d2876818892cc227b88380d8b76fa97bdf1b3f2b31e614473c27548fbc166",
+      "ripple-workingOut-waiting.webp": "fb810bb8f0e2d843cfcbf1ff3374dc0a7c10b042eb9dae3508945e789a5e85f9"
+    }
+  },
+  "ripple-wave.png": {
+    "source": "40ab2c188fa1752730b0753694387041f060f497b0fb5223e0b186a144d4306c",
+    "strips": {
+      "ripple-sick-wave.webp": "eaa897324721fb03bfeb3077ef788122f37a6cf93023b404b812bace5297b7fa",
+      "ripple-studious-wave.webp": "8a7fec84547940abb40aaf819ec662e6a2b23e01daf7b89815640be41fa53e33",
+      "ripple-workingOut-wave.webp": "a1497285bce02b0b7aaec2650b147cc9b122b39de1633c1a539911633077c8ca"
+    }
+  },
+  "snow-disappointed.png": {
+    "source": "99b3ca217b6d27a55bfc7c1783dfd860a7b10e25bdd011d10ff0f496a5e96ca0",
+    "strips": {
+      "snow-sick-disappointed.webp": "979e6dd77e0c2539b14f5d3280858b4bc88727ef8884b11ca9e686a379a8feaf",
+      "snow-studious-disappointed.webp": "2d8d12803509271daace05494776f75ab0a73bab08d3890d736cc767acc1a403",
+      "snow-workingOut-disappointed.webp": "25fdef6e12506fa7d207f6d30a2cb0eb4be96b38da366a6c935d39ec435bb45e"
+    }
+  },
+  "snow-idle.png": {
+    "source": "64167f1f2bdbdedb788dd4d385945ac1609314e4e1410c0359900f4735260420",
+    "strips": {
+      "snow-sick-idle.webp": "a421636ebb15b039e25ff6ebf0888e1f4c54c9ffe3855d2bf52571a944eb4809",
+      "snow-studious-idle.webp": "6432c34219d43ba6fbd333d149cbf902112e858633e0e103ce93d63c296f193d",
+      "snow-workingOut-idle.webp": "2ec580a2291e91acd5bc312061ef995f9d1b0e00bd0c1f2deaeaf8e63d0fba5d"
+    }
+  },
+  "snow-jump.png": {
+    "source": "0bfab3662e0acb672f7a034c9cc27cb57dcc42b0d812ce0cee68dc8e5138dff5",
+    "strips": {
+      "snow-sick-jump.webp": "3ab2cba9ee119602c73fdd3606aa49a596f99f0f34e0a24f19f57610564f3dcc",
+      "snow-studious-jump.webp": "98c64ef853d3c8e2a0a41af654d6eb5addd33289683976a5c024d4b7ffc3dcd2",
+      "snow-workingOut-jump.webp": "b230e9771c77c67e411db8cbca086a11914de6a7a5453c96e1b6d7105ee3c1fe"
+    }
+  },
+  "snow-lookAround.png": {
+    "source": "2c8902de40637d3d1b2038ae6f96e8b62ad0780418e9f48d3558d7dbb198c946",
+    "strips": {
+      "snow-sick-lookAround.webp": "f4df238541eb517b4b43fe837843dae48cadef905dca3708840f7fb5a4c2d2e2",
+      "snow-studious-lookAround.webp": "635895203cb0def47359e09184a04c72a5b1068d1d9fff8837a27eebc03a2167",
+      "snow-workingOut-lookAround.webp": "5e18a36b63e44efb36a63113f479f413283b3a37160863808fd935eadbdb98e7"
+    }
+  },
+  "snow-lookDiagonal.png": {
+    "source": "de9dd24ac3aa5819f9272bb8fdee5196e1e4d673d5ab0e60d4165260637c09fc",
+    "strips": {
+      "snow-sick-lookDiagonal.webp": "5e528fe7d46842be309b8cf6a7fe20312d117394470ddbab4fd689154387f14d",
+      "snow-studious-lookDiagonal.webp": "a9949555273db483ff4e61e4c21f1b653e9233c47e53c6419607864c6070dfd8",
+      "snow-workingOut-lookDiagonal.webp": "79597b42ae1cacbe11372ddb2642d8594a17fd82baa18dc0b9df1f7b299de9d6"
+    }
+  },
+  "snow-moveLeft.png": {
+    "source": "fae25181432220fb242c98e791dec4d39bd45b04dab63f76d062edc89168a27c",
+    "strips": {
+      "snow-sick-moveLeft.webp": "a759b9db37858d8f0dea2f1c5fb0ee57e774159a1dcd1f13395f7caef3f63275",
+      "snow-studious-moveLeft.webp": "45a951aa4602423616880827d5cbbc6c20e74e3c9b6304632d381494e788396c",
+      "snow-workingOut-moveLeft.webp": "6240791e6c38cbb00d63e987210b61880142b41f651c2e6d29709f04d9ed4fa2"
+    }
+  },
+  "snow-moveRight.png": {
+    "source": "f91dee627830ba156ece6b728fa6dcb1eadb381d24cfcf0af196df92ff984180",
+    "strips": {
+      "snow-sick-moveRight.webp": "32a07f69043888306ad0bdb811241f0455b4d7bde8e217e9be214be747f17506",
+      "snow-studious-moveRight.webp": "fd9db0b7073fa1a8a6690db2aa961e38cae4faa7b5806c76cf57cd26278d21fd",
+      "snow-workingOut-moveRight.webp": "6bb28aca152dd6d162f8bb964196411c9df1dc586fb8e3e53331a5c80661512a"
+    }
+  },
+  "snow-reviewing.png": {
+    "source": "b198542f0175a5ee3d47443dc16adce78d35adeb2846aa7c49b62d3425238b19",
+    "strips": {
+      "snow-sick-reviewing.webp": "cd8ae910f86a16b2a9570ad185433193b195088830dcb4fd4a68bece204eb5cd",
+      "snow-studious-reviewing.webp": "5b82c0af05fa860f9be4b3196f78c4e6e7ed15057b7a6e11281e83611f9bf6d3",
+      "snow-workingOut-reviewing.webp": "8669b3a8888dbdae90f96029a64085a52c1be5392acf46c930de999e56a12019"
+    }
+  },
+  "snow-thinking.png": {
+    "source": "c703bd2330d904a6280a6dbbe3acaa1cab454d88ba1e27f30020bfeb7650293f",
+    "strips": {
+      "snow-sick-thinking.webp": "36a0934419e83b80b1f344169db27be61036573e05c0833699ea98a39a7e7c2a",
+      "snow-studious-thinking.webp": "d55086b513d1830554957a440c10447f768ecb21aaf815c588601bb39ed6b33f",
+      "snow-workingOut-thinking.webp": "508722dca8ec703f0a889d13383cdce57dde0e764c5fc15b7aa6456b0a5a4690"
+    }
+  },
+  "snow-waiting.png": {
+    "source": "b3bf7ce270e13afc4afcb631cd9ed0bfdbae5172c3d4865559fa36513c6dffcc",
+    "strips": {
+      "snow-sick-waiting.webp": "90001307bac774f57353707d958763ff38f93d32a8bb480372eac5057f06d977",
+      "snow-studious-waiting.webp": "729400fca4c8153454ddbb22a686231fd63ef883eec7cc67ea5f3fc76ef05190",
+      "snow-workingOut-waiting.webp": "e80fe1fd7536cb870559543f6130402b9dc2b3608d66acc60b9b5e5ad0da8cc3"
+    }
+  },
+  "snow-wave.png": {
+    "source": "79f6fc3dd7a87cdbcce56e0ff1157e3a6aea783f446122901ac4c722598b076c",
+    "strips": {
+      "snow-sick-wave.webp": "e527829d93293c566771c2bdec2ad601bfe6eb42fde0c282a201b92e5843f546",
+      "snow-studious-wave.webp": "508801818fc2185e4f8553d060c7121c0825155d41cf7d5013ee26d00e5e5f1d",
+      "snow-workingOut-wave.webp": "fe65db01c34ab07e53ac5291142019421118cd3c81a4e2f1dd12c2aefa98d9fa"
+    }
+  },
+  "sprout-disappointed.png": {
+    "source": "ac9e8884b471c51b39d314f7425e48e76a5800b9e0153e5088898464b58b5b88",
+    "strips": {
+      "sprout-sick-disappointed.webp": "01317c8fc9f605499f44a2c54462132d393797ca890e84bc41d3575fa45aa7ce",
+      "sprout-studious-disappointed.webp": "93e3b7a0400f20399410c2e5c187b133fe82d3b4153fe6be4e69b2d3450c9c8e",
+      "sprout-workingOut-disappointed.webp": "4d4faf100035564a69e46899dcfc56d4902d667917bbc746b2c049e31fc10749"
+    }
+  },
+  "sprout-idle.png": {
+    "source": "851f2a24836a1d1c830c254b3b54570d6ff729fb0cb9ca10d045312c76b4b195",
+    "strips": {
+      "sprout-sick-idle.webp": "e3e73a0957ebcd2ace31fa73dcd104b86fd20fb2394534f363f3f5b4e94cee76",
+      "sprout-studious-idle.webp": "4d3921a42d62457e085f900af668ef5d9a87e1ceea0b6de784a6deccfcf0543a",
+      "sprout-workingOut-idle.webp": "d0d692114c1e59576fe72dfc2552ffbad93d07bcf1a1d062ae650f9b9fbf3625"
+    }
+  },
+  "sprout-jump.png": {
+    "source": "4c551e104dc013d10ab86fd237ac0fb157155dda24b16b39840c81f4bdd207d0",
+    "strips": {
+      "sprout-sick-jump.webp": "d9c41f88109193dd89a6fd570e749c39a89e5e90b13101f24790f7f912cf90f5",
+      "sprout-studious-jump.webp": "4484b0429d07f5d8001831d4269cf80c3660dacb3319fdd775c0b21e348f2d31",
+      "sprout-workingOut-jump.webp": "a64ada83872850736918befbfc8787814e41fd9adb1d71b269c76b3dc65595ee"
+    }
+  },
+  "sprout-lookAround.png": {
+    "source": "5b66bbc5e159b1f22ace8f6a476f4c83fcbd6edc7ef051f7e9def861dc34a9fd",
+    "strips": {
+      "sprout-sick-lookAround.webp": "a1aa63c60d80668f6ee9555313ac466ee73b93c8407b060133fabc8c7980129c",
+      "sprout-studious-lookAround.webp": "00ce558a343fdb44b48f704ad37b3802b027cf5d8052c93adf8f3d7eabc22c6c",
+      "sprout-workingOut-lookAround.webp": "c5cffb8f62bb964132b2f1abca4ad01b39bacb96699d4162d22c500c903534c2"
+    }
+  },
+  "sprout-lookDiagonal.png": {
+    "source": "cb2239e35a28c9f7e34192b61cb82524b72f4125440495c034a043f27b2ff109",
+    "strips": {
+      "sprout-sick-lookDiagonal.webp": "e82d6d58b8fa68c2a20c63751798519f41ce9d34a4f946456a053cff94742252",
+      "sprout-studious-lookDiagonal.webp": "1c84dbfd6ea2820aa27785695c895da8f3a43bed702b69062a9f1986beba7885",
+      "sprout-workingOut-lookDiagonal.webp": "6101463e9c086eedd5307e8496aad99413ed5cf55760f3ccdb29e5ff3bd7bf25"
+    }
+  },
+  "sprout-moveLeft.png": {
+    "source": "f60199e3e7e2d72869d708d5f50be65d9b916cbcf2645682d53f1bcfadbc771a",
+    "strips": {
+      "sprout-sick-moveLeft.webp": "1ac2cb2d5c7945e8748c6fe25997abe7f54680cc43b8693311a6d684bf0049b5",
+      "sprout-studious-moveLeft.webp": "ed1b526269c8f08fd7d60a1f55b3d5f5d7afc44dec490ffa0345e4e7ae34a953",
+      "sprout-workingOut-moveLeft.webp": "7484503669d2a969cfe7f0aaffcde64fa03753fbeb5a5a383a2fc661a04ad013"
+    }
+  },
+  "sprout-moveRight.png": {
+    "source": "e967e82c4e60c5ba37282423488ca191794dfdf0ceb52cee96afbe5d902a5f94",
+    "strips": {
+      "sprout-sick-moveRight.webp": "cf7ff2001a74e262e2c87cafecb4e9b1ee24c3381deefc84e2c820833208d5c0",
+      "sprout-studious-moveRight.webp": "b963211ea0cf9ea07e02acbe0b0fa20b03de72bf566bf7a56d02bd337cb95da2",
+      "sprout-workingOut-moveRight.webp": "d6a59d71e4d2e612e37487a226a3cf81acff49e6c72ccf5bab1f2379916baeb5"
+    }
+  },
+  "sprout-reviewing.png": {
+    "source": "ddc2c974aaca2fe24d5ad1e655870af850f248285bfc39b7b2d95caa1e83c2ad",
+    "strips": {
+      "sprout-sick-reviewing.webp": "dda5cfe65999548185104e5e264b6078cc6b1eabb6c534a9f69196aba99b4b0e",
+      "sprout-studious-reviewing.webp": "e0e76cb92a671d414e8eb3a2ffcbd822bffe4941815fe0ea3265593b0cdd1892",
+      "sprout-workingOut-reviewing.webp": "de866709e52dc4c8146b9880156411e7bbf101584daa3997937124ba419b0da2"
+    }
+  },
+  "sprout-thinking.png": {
+    "source": "1f622fd2f7208d7cd3d87fa47ecea350bdc8c2c3d88a16bb3a2f02c30d5be135",
+    "strips": {
+      "sprout-sick-thinking.webp": "ba4e6c75781d44017a6cf42f88c39665fa4f2c5bab14469b98e65b06297a021b",
+      "sprout-studious-thinking.webp": "2b72edabcebd544b6cca81ee9c2c4f815c4aa9cd8c978a3a39ff3b35d6e8547a",
+      "sprout-workingOut-thinking.webp": "b5756b913e8622da345cbe49318db030f68a5db2165a2e324832e2a673cac339"
+    }
+  },
+  "sprout-waiting.png": {
+    "source": "689e8d555aedc8b621cbaf18222d964edb05399f4d53282b9992d7059609c298",
+    "strips": {
+      "sprout-sick-waiting.webp": "aa8cb3f024b85fe79248d69e0e3704da12b19a19696c1e94a1cd8bfaf55cd5d9",
+      "sprout-studious-waiting.webp": "9b4ff7785a0baa3e29bd590af99e32a4138450db97fbdd04a4eda14ebe63574c",
+      "sprout-workingOut-waiting.webp": "91c4df1398dd72ec99f9f99f199fa4c45e5eaa9dc0a46ad9bfd122d158c297cf"
+    }
+  },
+  "sprout-wave.png": {
+    "source": "9aa5f912d32069b950865c4361f214dd4c55faa12c3a6f057f47b55d37444ad9",
+    "strips": {
+      "sprout-sick-wave.webp": "957b5d852be37f7e17e1cc513e1b4485ad3c52526d0078914040e0452103c383",
+      "sprout-studious-wave.webp": "7194c336dca8205cc99f29b4cf00162b2403a9b6c1897601aafba6a8969e3fa2",
+      "sprout-workingOut-wave.webp": "1a08467d11863ae5ca00109c06b2684e784f1ed1b5ed4ced52b82fa2d65dbd59"
+    }
+  },
+  "storm-disappointed.png": {
+    "source": "c26d86fb8fe3d69f5cfe47af92f6232250fecf6359bb7424ee26b3cae7909c22",
+    "strips": {
+      "storm-sick-disappointed.webp": "7b9df05907a2e7a2bc255981d68b29a713d34370efd0b42dce2d0a3424eb22fa",
+      "storm-studious-disappointed.webp": "0632e823e52d148c9be644ed9962ecde7ee3b6cd3961262fbd7b080d5dccdc49",
+      "storm-workingOut-disappointed.webp": "14ed1015d43d373262ef84e3ff0da4fd829d11c7d55fbbcb5a6c93729ef85f97"
+    }
+  },
+  "storm-idle.png": {
+    "source": "250ff83009a46a6e93b657b536b64d9ec837a4427cb5f40c7a7d066d4750c4a5",
+    "strips": {
+      "storm-sick-idle.webp": "6a80a9cab2b7e98af9b2381154d547a999eba0258a0ac98d6f2d3ea0c7e75a7a",
+      "storm-studious-idle.webp": "243bc0984ae872d898fa58cd4dcd32943eff2be0a9423c4a3bd81058a8b6e7e0",
+      "storm-workingOut-idle.webp": "29c796bb2cf46a94c8adc81af696a65a98585f5e10dd2b92314c638897d4a44b"
+    }
+  },
+  "storm-jump.png": {
+    "source": "ce2976332b669d60f5c499f1ddbd01e061516563a32cf9be6262f36721278456",
+    "strips": {
+      "storm-sick-jump.webp": "48d5be2779db29d3ea1280b90a3815ecbcc8ff2e5c74633bc5e357b1d269aa8c",
+      "storm-studious-jump.webp": "10de9c7fe42b05a0b47370b37c2a09948ed6b780840adfcba79cd4b74e052bd8",
+      "storm-workingOut-jump.webp": "f587aa9ccc9a3d0de6fc099b52dc40e4c794173bc268482803c0368785d82afc"
+    }
+  },
+  "storm-lookAround.png": {
+    "source": "f49dc1ac9d089551c81589283d18c4cd748f07b2a25404ac8a9dbc9ad30a72e9",
+    "strips": {
+      "storm-sick-lookAround.webp": "400f0ce0d0f16d4569e6ecd5771666903d7eae300af0fa7e98acd4e906a3706c",
+      "storm-studious-lookAround.webp": "c3bf7e4c36dffee924f06b50827b2dc5ded0db5f8f0cc84775fa77a17a634f14",
+      "storm-workingOut-lookAround.webp": "0705f748abbb355e6a86de6050c1a7c96f21dfb207b1fe6cd5dabacd6e6e27e0"
+    }
+  },
+  "storm-lookDiagonal.png": {
+    "source": "e1465e0b5ee19e59c4f927ceec4769602342c8ed8c547006e9be3ef900834e8a",
+    "strips": {
+      "storm-sick-lookDiagonal.webp": "e23154a0a0985407bf3eae14049179bae300a883e576f7783b28967dcbbf6391",
+      "storm-studious-lookDiagonal.webp": "ce61fa05b6b464e659467943dc1d5661c2a290f4cac952310417640ee8cee369",
+      "storm-workingOut-lookDiagonal.webp": "15b4c5e32cfd85c793487daf066c650a840276287b1d1557b21703825ead0d4d"
+    }
+  },
+  "storm-moveLeft.png": {
+    "source": "5cb55782bdddbaa2e3ca1604022d2d3f379c1898d5386c536273234344d33ac6",
+    "strips": {
+      "storm-sick-moveLeft.webp": "b56ea094590b218032d7199e1edff1b6c04689a99d7db56e657cd619641ff7d7",
+      "storm-studious-moveLeft.webp": "3ba4a07ef938216bd4487f16fa26617f8c0d5dbff5b5fd47eeedf6ab529dbd9a",
+      "storm-workingOut-moveLeft.webp": "597d7753234ac057c6dbc28b08e0962cd1c53336bdf9cf9298961de1e1af431d"
+    }
+  },
+  "storm-moveRight.png": {
+    "source": "89df3912903d90bb4c0a2b808f24788832d793509b80cc940be33f7c7731041f",
+    "strips": {
+      "storm-sick-moveRight.webp": "6dbf643590e11878f27a7e0d0c8c7b52eca8d8f78454ca513430de490778aa76",
+      "storm-studious-moveRight.webp": "36418c57a0e3b2e2d71fe3768bd32db35ff737a4eb4886399ce8d44cc1090d61",
+      "storm-workingOut-moveRight.webp": "eea817e181191c61f9bd9650ca6e4cdf0d25d414262a2ce545727f1c1de088ec"
+    }
+  },
+  "storm-reviewing.png": {
+    "source": "abdab9b7aafe91b3e417bfe932c298d82c7c4eb3a026c09d27c737e67ff8ceae",
+    "strips": {
+      "storm-sick-reviewing.webp": "15bfbc4a2058bfa9e10e49ff2461d1e082a83c74a1a82dfdd4c263aea276802c",
+      "storm-studious-reviewing.webp": "2320419deca26431d28b97202e6c0cc82d1b699d7a1066ce8db18b890232c74b",
+      "storm-workingOut-reviewing.webp": "aa2e43907c6f7eafa2362ec9f9766280ffb171c11a7d5b7dbf211278ee9911f0"
+    }
+  },
+  "storm-thinking.png": {
+    "source": "d456aeeabe26ae53c3d4537fc6dbbd999e3a487469446adeea06538e5ce1e71e",
+    "strips": {
+      "storm-sick-thinking.webp": "dfe729d9fc51a7baf5640c758b4cd21bdb0e6e5b92bc2482466b014b0fc9ac56",
+      "storm-studious-thinking.webp": "44b13befb5ed123f4eacbdf1d276978c3c179d65594bf9c1b151473e3f1dd80c",
+      "storm-workingOut-thinking.webp": "4119305f27baf25090d1f28c29ed06b244d889c9812fddd04470e0ca38d160cd"
+    }
+  },
+  "storm-waiting.png": {
+    "source": "18a08a29e80f3e2832192a75bbbdaeabbcc824177bf84d1a9100ddfb65fe19ca",
+    "strips": {
+      "storm-sick-waiting.webp": "fe21b846d98ce3e19b1fd771c5424f9f1d6dadfea695b3e54988d499b26ddbd6",
+      "storm-studious-waiting.webp": "de5d2d4d6e1a3b744a5dcb0deb7e614ce2a4945d153c531888ecbc432a2b7bcf",
+      "storm-workingOut-waiting.webp": "043679b312a04116cb0919fb2b6ccc43e23375e12b52031aa5e28d9c31a5bb85"
+    }
+  },
+  "storm-wave.png": {
+    "source": "cfcf3c125d9e3ad3feb567b605dddb8a00f244bda00e8d3207c2b6800fffcce9",
+    "strips": {
+      "storm-sick-wave.webp": "7cab788cd09bb3b5dc997f0b08e44e8d71c30434e7ab0880f7f2c9cdbbd076de",
+      "storm-studious-wave.webp": "5c2dba189e2d44259dc311dcfa41857b6338baeacfa9f5a35de12ae637e524bf",
+      "storm-workingOut-wave.webp": "2458336d9018573d2da3865d9261c1f73e1fc0de11b03f49477bcbf28cdea33a"
+    }
+  },
+  "sunny-disappointed.png": {
+    "source": "20564c6ecc77ee4be469faa6d14c9de5ce080fa517c7181ed3f57cc18216699e",
+    "strips": {
+      "sunny-sick-disappointed.webp": "70e7f89450b3e0279714ab401ffbabf3231b22ff34a6b689465e9c793674f23e",
+      "sunny-studious-disappointed.webp": "008164607534f0e7ff7387938254baa58c0c9462754432d993a4847df79ce8be",
+      "sunny-workingOut-disappointed.webp": "852fd4357fd4f7e27a392507c75841c0fb8c82182440925016b284dacdab8350"
+    }
+  },
+  "sunny-idle.png": {
+    "source": "13657487ffa2de2f32b222f3c7cde2fa409c0dfb4b18b84b545615b4df100960",
+    "strips": {
+      "sunny-sick-idle.webp": "66a6a5125453baf0d20a163169268735386c3b79faa086374021fa542a5d894d",
+      "sunny-studious-idle.webp": "156cabeedb85420662cdbb84aaf2fba1dd1b26e53440d24e062065c0d50e18ae",
+      "sunny-workingOut-idle.webp": "5e7364534fe2f95361f6708c4499869fda044c4056c402be0c0cfbcb1bcfec61"
+    }
+  },
+  "sunny-jump.png": {
+    "source": "7316f6ff7822daf25c6e5403219f6e41f53a7bd39bf1efbe323a36bbd788a915",
+    "strips": {
+      "sunny-sick-jump.webp": "9ebfaacc1b20286ed99e8ca445c6c40f59a94675e9f10ef549120b8296f76afd",
+      "sunny-studious-jump.webp": "98ca893a056b14f0b91e9602e97512692721362d569a4b7113cbe73bda547c67",
+      "sunny-workingOut-jump.webp": "a0f190ea614a5f04bd435594c6c14230ebde22a961a1dc1ee3b209f35d018294"
+    }
+  },
+  "sunny-lookAround.png": {
+    "source": "04710b8dc51f66e6acc1d143303031c65ea45de25ca1fb82210591f5080b3f27",
+    "strips": {
+      "sunny-sick-lookAround.webp": "4363e2cac4790795e2bdc58c05bd317658467c911f10d84f4eca0f2bf9a7471b",
+      "sunny-studious-lookAround.webp": "7ad5f002c723863131c3e1c823538194d82549bc01c83fead4b42fe9594ca5b3",
+      "sunny-workingOut-lookAround.webp": "a5dd811d73253f9f368f584dc3c9ba935afa5028cb721034ae5827dd803f69f3"
+    }
+  },
+  "sunny-lookDiagonal.png": {
+    "source": "770f38834624708f742ad31f0a8e36c7811e5cd462beba4d8d8f4237fa704044",
+    "strips": {
+      "sunny-sick-lookDiagonal.webp": "faa55ccd46e40dc0e80bba6ebf67e2e81bced466e411148c48f3adf7406790d0",
+      "sunny-studious-lookDiagonal.webp": "3ab3f41b3ffecf3a24ba160e83482779c47b9b7c8b1bde5ec42e5313a7a31609",
+      "sunny-workingOut-lookDiagonal.webp": "de129672bbc64f64bc7cc5027291a438e571f467d3f9de583631e574c7073e35"
+    }
+  },
+  "sunny-moveLeft.png": {
+    "source": "fa6079f088f14db7d16cb370793a2bec439b12230e409e0e3cedd2aa12b92774",
+    "strips": {
+      "sunny-sick-moveLeft.webp": "6902139bc341ef694a68e630e31abc58fb11565eee58d6603d155a5a7d65ebcf",
+      "sunny-studious-moveLeft.webp": "bc826f9f5240cf12ce49408d0f3cfbc40e6546286cef372e02bb8ff04d1b2c2b",
+      "sunny-workingOut-moveLeft.webp": "5cc0a5d8b3eb4d12147c1abda67197269b944ae2186794f998b479f39cff8ba7"
+    }
+  },
+  "sunny-moveRight.png": {
+    "source": "fa16c1c285ea78c0392ef0b4e5fe026e5b26c376fc8b64410726b6ff0177be80",
+    "strips": {
+      "sunny-sick-moveRight.webp": "7402a8c9f069338e4072bee1f7a633ee0d6ce10ba1ecafa87ab13faabd713a6c",
+      "sunny-studious-moveRight.webp": "6c20c28ab645682312c571d908541adbe4d0912648bbf8e839ba3ed32f52afdb",
+      "sunny-workingOut-moveRight.webp": "024bd98c9100ff99eda73c490ba795ff88278e26a97dee56ee199cfd081c4a5c"
+    }
+  },
+  "sunny-reviewing.png": {
+    "source": "6830e520c8ea3b325d0cd55833f7448fed072e94e34389e971826f0ba3515510",
+    "strips": {
+      "sunny-sick-reviewing.webp": "77cc320b22165e2395176c89373a7debd8b8203fd71f0123bf26bcad0149b976",
+      "sunny-studious-reviewing.webp": "b3437e41f48f597c291b0df7b383372d186c031fe34f1b1af4cb52374f1f486d",
+      "sunny-workingOut-reviewing.webp": "16321d510816a6afe17d94c190b38c8ab0ca605274189a442e5cb38ca0e6a019"
+    }
+  },
+  "sunny-thinking.png": {
+    "source": "cda00de95bfe90c17c1e81e5f937361877c9db4786e3f82d10516bbaed3ecd88",
+    "strips": {
+      "sunny-sick-thinking.webp": "08a54c41a2413fbb10f0396f7042d622100fb70657cfa7ad87a81c5f0cdcc992",
+      "sunny-studious-thinking.webp": "f6a9996708e342713290e811abdf2b374f171f9f05ebdd9d221144278fef3477",
+      "sunny-workingOut-thinking.webp": "e69671e9793854fc6ddbcf7fe12b050855b00c250a8723c8e4b64e912a748b3e"
+    }
+  },
+  "sunny-waiting.png": {
+    "source": "60d1ad9fefd9e752e3326cff2cc331d13fa4be7b532c4406ce38786184ee5230",
+    "strips": {
+      "sunny-sick-waiting.webp": "ce01e043e0806100cb7103748f4787e8a9e7b080a9ec3712f2093a9c1981247b",
+      "sunny-studious-waiting.webp": "ef64f4dabd23a5b106c1075d0b20d2b885948be6b342b00bd8b2f50252d8a541",
+      "sunny-workingOut-waiting.webp": "d526ed1dfe075c4acb9e7624a85a35bd6804b6d9ba7d6045c8c89ba63384859e"
+    }
+  },
+  "sunny-wave.png": {
+    "source": "19bc98799d7e3540e8e6ee01c8dc48b9585b5a9e079d1e9c422fdc1447121f0b",
+    "strips": {
+      "sunny-sick-wave.webp": "e44e220fe60c6a81386f1e516038a7f8448d6df50ba64839d6aeed5cae3c76a5",
+      "sunny-studious-wave.webp": "c5a944cc3efe51ae2f06dae876de3929e988e98e7fb9e51267cb8d84c9e567df",
+      "sunny-workingOut-wave.webp": "7e36b80f0985c2550c1d33cad98e8d2cdc76758c65af4004fd51739cb18742a7"
+    }
+  },
+  "toast-disappointed.png": {
+    "source": "95660e525d303fc06d1a2416420fb525a1e82c07241b12d7782b621d53000ea5",
+    "strips": {
+      "toast-sick-disappointed.webp": "cbf1e4d05d79a1831636df9bc34fc7e3b265b97c3e88529b2e9791ada38f01c5",
+      "toast-studious-disappointed.webp": "412c0f24e9159479c00b1e7c172338139fedadd2939393cd27baa12fe21237b5",
+      "toast-workingOut-disappointed.webp": "1d186865f4d413f4c83fa7b65817637dfdfc9597888e2cf725c95b816bfbed93"
+    }
+  },
+  "toast-idle.png": {
+    "source": "1130ae0abb8710894884fee6944386fe7332b4b9b842628f39059ca477b999a6",
+    "strips": {
+      "toast-sick-idle.webp": "5f227401ac781736d6f0d7f39a089b210f731030092abc935dcbb5e39898da79",
+      "toast-studious-idle.webp": "134f64a5ce21c981097b51468b54aeb4c76fd963b55f33915040fd7aefd21a15",
+      "toast-workingOut-idle.webp": "296cb7692bf50e4f0b010daa0be4afb7d357d5ed9c9eac63f73aa3261b3985de"
+    }
+  },
+  "toast-jump.png": {
+    "source": "648b9d8895d9dba9044361a8bc474f844adc430458c70fcdde71be9f41c61500",
+    "strips": {
+      "toast-sick-jump.webp": "d345dca1e23e3f752f5c5eee26eb4d2cdac4c2a902cf84fd2fcea357521d5cea",
+      "toast-studious-jump.webp": "0909503adbe523018818b5eb19dd003772ad8bc7cb6799b0915d22f8e3c52cf7",
+      "toast-workingOut-jump.webp": "d6836074ea4c3f4e2b048d0a9cefc321b5bdbdbc33bba9164c674067b7e6c0f7"
+    }
+  },
+  "toast-lookAround.png": {
+    "source": "7be90b16a2bfa414f99979641d8438371d4ce6f740c54588d0a076ae4a5b2bd8",
+    "strips": {
+      "toast-sick-lookAround.webp": "99cf8c923d935bf02d92c8011244394226373fe104286023a022c8ea66b1a9f5",
+      "toast-studious-lookAround.webp": "5767e3b75d531c04ceb0ec1aee0cf165ab7dbf6e0c25f2bf0d2320f2cb2d7300",
+      "toast-workingOut-lookAround.webp": "2381136be602ebe35ec5bded3522764d08be24a6665027f59b7fd9130a26a115"
+    }
+  },
+  "toast-lookDiagonal.png": {
+    "source": "b98dce1c4a6d7ba8906130455f3c2437c4394524bd97c5a975431641e6195aa9",
+    "strips": {
+      "toast-sick-lookDiagonal.webp": "a8efd7a5104f4b3406baed5f5118c7f83328f780b7e408294b696d56f9e28533",
+      "toast-studious-lookDiagonal.webp": "22075a6b5c95953582c934024876f256ee09980c3a4e9561d06d2b310b3d7f77",
+      "toast-workingOut-lookDiagonal.webp": "af52ecccc390125052baead45d3cd38b9e0c992fa9e2357216256962ec69b43e"
+    }
+  },
+  "toast-moveLeft.png": {
+    "source": "67db14a5aabf0170de79f8c17118f8bd5b42a3b704e26c95417241196f7a6e2f",
+    "strips": {
+      "toast-sick-moveLeft.webp": "7ac8ad371d3fc363d382c8423f7e3cdaf238600a312769b7146708fc050b9298",
+      "toast-studious-moveLeft.webp": "7b00735b0c7fa6782b0c375d879a92ea9292f7c899191ad79ba362f0de516622",
+      "toast-workingOut-moveLeft.webp": "289f0d79df2d4fd0982e6a426d477ec03d387d720bdcea8618d6e33989bfd429"
+    }
+  },
+  "toast-moveRight.png": {
+    "source": "0b20cf74ea2c5629bd89d4292dc33312005aa27cc57907c98f88e70f05ebe4a5",
+    "strips": {
+      "toast-sick-moveRight.webp": "39f3325808c7283d819cba19e984a1f1ff54e4b9dc899f63e3c447ce9ad80c7b",
+      "toast-studious-moveRight.webp": "d8f0ff765c1da3ed8c8adc19e789177acc4fe4c59977985846e976843c5c3ef0",
+      "toast-workingOut-moveRight.webp": "8e78d01a7c62fa3b6e3c5d378ba476cf9d911993145477119a6eec3d48724bed"
+    }
+  },
+  "toast-reviewing.png": {
+    "source": "9ec746c2101f1e3d649bbf12c4f7885da41e0c5f13d61f5ecd7b4c81222f4df9",
+    "strips": {
+      "toast-sick-reviewing.webp": "b980b80e8c4f8990a91ada65d4d5ec8402b75ddf1776d4549da48abc8ff7cae9",
+      "toast-studious-reviewing.webp": "fe75db4db5bbc80bd14e80ae7bca34fc21ea6a5af4c1ff1c3ac9c33e58bc0c93",
+      "toast-workingOut-reviewing.webp": "018365c403c50e916d02d0e4e221617d4bf6321f62c4ee0c4304a203f06dd894"
+    }
+  },
+  "toast-thinking.png": {
+    "source": "e9258733f2638ffe3556015b6dbdf66b31920986af35b5fe980c40fdd62ba5e8",
+    "strips": {
+      "toast-sick-thinking.webp": "8afeec442aa1e62897c0887aa4f7f27d7f8260379a138e6f26408790887718f9",
+      "toast-studious-thinking.webp": "867740a92f6c19d4607eb64c321c6faac1a9b35099ba2b5d16588597683b4d6f",
+      "toast-workingOut-thinking.webp": "ebf9e942f640ad3103c03f7bea892321091f7c03dcd9535d4101c996f56740f9"
+    }
+  },
+  "toast-waiting.png": {
+    "source": "e6868eee5835b0657032579000e3a03c3647e18e196b27d370dfadb8f4e16350",
+    "strips": {
+      "toast-sick-waiting.webp": "24f5d8319767ad2477eee2fca347560d1512eab37aa533d4b0f8377249027f23",
+      "toast-studious-waiting.webp": "b584f17978b58f3d111a2fd96a5db729e5ebe89b2bb5ce229c6d9e64a6052002",
+      "toast-workingOut-waiting.webp": "7ce27a6533a9e3a109c0dfcb67ed7b0ad31896e41db55a135808d226e433cdf9"
+    }
+  },
+  "toast-wave.png": {
+    "source": "02f7f00fc305b44245a4f5d1a73a703f58d6f8a34116c803468c1e3bd7af8739",
+    "strips": {
+      "toast-sick-wave.webp": "9bbdfda2099c5c3ae85b098f39b466cb4615b593c2ab5fa66b54b6a7eb47d0de",
+      "toast-studious-wave.webp": "cfcfea4525fd20e0345096925595a7c574fc7625c58ebe90aa96cbd7252e1630",
+      "toast-workingOut-wave.webp": "228b95ca665d25537493e4f4bc47d1d804797fe2145669aad90a8cbf55c5a133"
+    }
+  },
+  "twinkle-disappointed.png": {
+    "source": "7248a5ef9ca24105f7edd334fffc1c5c7cc5b518e21ba0908f72ac0702a7d9f2",
+    "strips": {
+      "twinkle-sick-disappointed.webp": "4711c20c87df34eeb14fa4add292a09f09680744075cbf052a017fe7c2d24c56",
+      "twinkle-studious-disappointed.webp": "269626a61faf924687c0eb14f2807d493d526c8c3126c69fea1616168b275975",
+      "twinkle-workingOut-disappointed.webp": "432fa49ded84e012d82cd2af5d485e575aa65427d4891c645e2e66567d6baf28"
+    }
+  },
+  "twinkle-idle.png": {
+    "source": "100b7f60e6e12cfceee2eb993f187bf21e87e28ec2d732b7e6311435377fb4ff",
+    "strips": {
+      "twinkle-sick-idle.webp": "1618dacced1bb1f64dbbe1abf3b452f72800330edb74db902579b9a8c3e3d247",
+      "twinkle-studious-idle.webp": "816e6eec88857a0346f67d7c02c38cbb85c7095872d0f6f84dd247eeea97434d",
+      "twinkle-workingOut-idle.webp": "e802e9960de5069425b2117703e4da39575caf07b3e4d1246d0930dd5d584a66"
+    }
+  },
+  "twinkle-jump.png": {
+    "source": "9655ad962b7baa53ce4e33afe28b85ede45d1909ceb909c7e7cf7b858a40ff48",
+    "strips": {
+      "twinkle-sick-jump.webp": "6a10b928ff5d7284b7d19013087b2aaf9ed1778403b850f4bdc614e89ba174dd",
+      "twinkle-studious-jump.webp": "43eeb840ccd97d7a842e72763596c2a9342f1d93869cdd24395535e50ab6c357",
+      "twinkle-workingOut-jump.webp": "40c7b4b6580c03b377642d1906e55ff146ee30de27587c8667754b3f99d574bd"
+    }
+  },
+  "twinkle-lookAround.png": {
+    "source": "1339942843a1588b3dc8f59d37ba407433218ad7441ca1c6173ff0deeefb2a07",
+    "strips": {
+      "twinkle-sick-lookAround.webp": "15c8762ba79337cb79b523221a6be3c6dacf75c302d6b3d9faa3e8675aa448b5",
+      "twinkle-studious-lookAround.webp": "047f74d1efc2859f45a9a193166895ea778e230725a4f626163b352ac5ba03dd",
+      "twinkle-workingOut-lookAround.webp": "77437307e942813b98376816cd5e03c2cc54a7aba7decc7ffde3389457b374df"
+    }
+  },
+  "twinkle-lookDiagonal.png": {
+    "source": "ad2263ed5c4a9cda8e7bcebe2821855162771a4fe1abfab38d0d5e2c96c353de",
+    "strips": {
+      "twinkle-sick-lookDiagonal.webp": "b63470470e8ba3d37e32645d895f954952522fcaecf672f04560c6ab56ae9c9b",
+      "twinkle-studious-lookDiagonal.webp": "73615ee7e6a0565d5512dcf3f1738bfdeb069ffcb20f5ca2d45d6a6821f10723",
+      "twinkle-workingOut-lookDiagonal.webp": "4268c4a8bab53e612aa4279454bc9404b3e7df5fbd4187f994d7c544e5b28365"
+    }
+  },
+  "twinkle-moveLeft.png": {
+    "source": "e32903391c477ec66c34787ebe4b33d3c74ae379b8ced86162a979de725cc726",
+    "strips": {
+      "twinkle-sick-moveLeft.webp": "4175ecf4454160c0b5851836d5e5761e58d4afa5a1370c8cc4cfbf48a20288eb",
+      "twinkle-studious-moveLeft.webp": "2cb230c83a544adea698b7b7cc0f744e69d8610efd0b5d473e0bc6dbaaaafe62",
+      "twinkle-workingOut-moveLeft.webp": "3c4f82e3a316962369c6c3903f5a8c517deff7d5e7ad9cc4e4c065e72f891675"
+    }
+  },
+  "twinkle-moveRight.png": {
+    "source": "3644161c4ef5a04d21034c33abfae794de81fa35e68c460b60a90cd49a44bda8",
+    "strips": {
+      "twinkle-sick-moveRight.webp": "6b304c67241501b005e9e104a02d225f1ec38694a8a68bc0d429073a081ed47b",
+      "twinkle-studious-moveRight.webp": "b1473f78b4bb1cee9b6478de9b1efbe5c7d22a27e7d8580dbe91a2651a69ffa9",
+      "twinkle-workingOut-moveRight.webp": "d02f5a6a842b885e6d2e5aaca6da13956e017ca5f264fe88577ca2e8babc870b"
+    }
+  },
+  "twinkle-reviewing.png": {
+    "source": "be9911766de1dd6faa07c0b0001844e4c196a2281d5ac929368d4e2d515c51dd",
+    "strips": {
+      "twinkle-sick-reviewing.webp": "e0225539de66d6b0d2a2be4fc4525a4cfe7fd656e7ed59502171aad5666ee684",
+      "twinkle-studious-reviewing.webp": "1afd3233dacc4c0cc01ff3a036839e5f651c34db071785eac3fe3d14902b7963",
+      "twinkle-workingOut-reviewing.webp": "0ab157142cbefe062cd80a8405000c0b3a47ca98e363561d73aabfd8dd95fdf7"
+    }
+  },
+  "twinkle-thinking.png": {
+    "source": "ec2cf5835d8c0db3b806c4777fa637691f6cccd8be8ab160345c42f685d1849e",
+    "strips": {
+      "twinkle-sick-thinking.webp": "fb92b3a844d01474de5d96014263810c2c8a0c852ef8ea9f27ffa8fd98f9af26",
+      "twinkle-studious-thinking.webp": "502903a7b9a1951b47ea88912b2032e4cc3fb21d0d20be725c7624bd350ae45e",
+      "twinkle-workingOut-thinking.webp": "645212888c20c5f7af11446e4e2cb9fb1026d813cad780fa088e6b3e71c7f3a0"
+    }
+  },
+  "twinkle-waiting.png": {
+    "source": "549086f55953859032b7826045c8368d85499911514198d80aeda94870cb6349",
+    "strips": {
+      "twinkle-sick-waiting.webp": "bcfc6529d4ec3543d8a75d25dc337361f3f2ca18d2decd9f2cf2d8462944fb1a",
+      "twinkle-studious-waiting.webp": "cb5e2fedeae8e8dbb8b31fb2428334e80872cd575c3eb4c5ffc72d729f14203a",
+      "twinkle-workingOut-waiting.webp": "d6dcdee6148190b717ac19929e1b934e326120017d46177fa479ead898005cef"
+    }
+  },
+  "twinkle-wave.png": {
+    "source": "cdb53b62d0797c1c13b0b2305a9084a8a9a18629d17d972ecb896be11fcd60a2",
+    "strips": {
+      "twinkle-sick-wave.webp": "96f8da753116cce9339620e574072668efc67d9cd63e16c95a89570d2bae82ce",
+      "twinkle-studious-wave.webp": "aeb5663b7960a0568e0e367276363d1694f04eebe16e0437ff5d88b9a5c28d88",
+      "twinkle-workingOut-wave.webp": "340fc13b832f39c6df715f09a41b687d9d0685db8a93986bda558bb0e75d1ab0"
+    }
+  }
+}

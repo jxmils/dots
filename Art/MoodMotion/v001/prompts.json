@@ -1,0 +1,28 @@
+{
+  "base": "Create a production transparent game sprite sheet for this exact Dotling. Layout MUST be exactly FOUR columns by THREE rows, 12 equally sized complete poses with generous transparent padding. Row 1 is the top character in the reference: Sick with its little thermometer resting in its mouth throughout. Row 2 is the middle character: Studious with glasses and the open book held throughout. Row 3 is the bottom character: Working Out with headband and both dumbbells throughout. Every row animates the same action, from left to right across four successive key poses. Use the original reference character's precise color, markings, silhouette, tuft, fine plush fur, cheeks, and facial expression in each row. Keep the size, line of sight, lighting and baseline consistent; entire props and body inside each separate cell. No paper, grid lines, text, labels, added feet, detached parts or extra arms. Preserve left/right asymmetries and which side of the mouth holds the thermometer. Arms pose WITH the prop; the book can tilt slightly and dumbbells move in the hands. Transparent background. One sprite sheet, no additional drawings, no floor, no cast shadow. ACTION: ",
+  "actions": {
+    "moveRight": "RIGHTWARD RUN. In every cell the face looks screen RIGHT in three-quarter view, nose and near cheek clearly shifted right; body bounds purposefully toward the viewer's RIGHT. Four different poses in a short sliding run cycle: crouch, push off with a lean to the right, rise with a small lift, then land. Arm swing and tufts show momentum. Do not turn back left.",
+    "moveLeft": "LEFTWARD RUN. In every cell the face looks screen LEFT in three-quarter view, nose and near cheek clearly shifted left; body bounds purposefully toward the viewer's LEFT. Four different poses in a short sliding run cycle: crouch, push off with a lean to the left, rise with a small lift, then land. Arm swing and tufts show momentum. Do not turn back right.",
+    "idle": "Quiet blink. Exactly four steps per row: open eyes, half-closed lids, fully closed lids forming two curved dark lines, reopening to three-quarter-open. Fixed face position and resting body. Keep glasses and each prop in place. No white sclera.",
+    "wave": "One gentle greeting: arm at rest, one attached arm starts to lift, arm lifted a little toward us in a wave, settling back. Reader lifts the book corner in greeting, gym pet raises one weight. Keep every prop attached.",
+    "jump": "One cute small hop. Four states: preparatory crouch, liftoff with slight stretch, peak with arms just raised, soft landing. Place peak body modestly higher in its invisible cell with clear headroom. Keep props attached.",
+    "disappointed": "Quietly disappointed: brows lift in the middle, a little downward glance, a brief slump with lids nearly shut, then recover to the original mood. Keep thermometer, glasses and book, headband and weights in their own rows.",
+    "waiting": "Patiently waiting: relaxed pose, curious small lean left, curious small lean right with one brow raised, settle. Both eyes and props stay visible.",
+    "thinking": "Thinking: concentrated brow, curious small head tilt, slow thoughtful blink, a tiny moment of realization. Feet-free body anchored wherever the reference has no feet.",
+    "reviewing": "Inspecting something closely: lean forward looking down, inspect slightly left, inspect slightly right, give a satisfied small nod. Keep original props in the pose.",
+    "lookAround": "Look around. Four cardinal poses anchored at the same base, looking UP then screen RIGHT then DOWN then screen LEFT. The face pitches and yaws while the body stays planted. Clear directions and readable eyes; no back views, no rolling the whole character."
+  },
+  "diagonal": "Look around, diagonal directions. Exactly four poses ordered looking UP-RIGHT, DOWN-RIGHT, DOWN-LEFT, UP-LEFT. Both glossy eyes visible. Face and neck naturally turn or pitch toward the named CORNER of the screen without rotating the entire body. Lower body planted. Preserve props and silhouette in each row.",
+  "retrySuffixes": {
+    "bean-moveRight": " IMPORTANT: Export actual completely transparent alpha-zero pixels everywhere outside every furry silhouette, including between each pose. Keep wide transparent margins. Never paint a white or checkerboard background.",
+    "nimbus-waiting": " IMPORTANT: Outside the plush and its props EVERY pixel must be transparent, alpha zero. Space all twelve complete silhouettes generously in their equal cells. No opaque ground or checkerboard.",
+    "puff-lookAround": " IMPORTANT: Outside the plush and its props EVERY pixel must be transparent, alpha zero. Space all twelve complete silhouettes generously in their equal cells. No opaque ground or checkerboard."
+  },
+  "chromaRetry": {
+    "baseVariation": "Replace transparent with magenta-backed in base instructions.",
+    "suffix": " Extraction revision: use a perfectly flat opaque pure magenta #FF00FF chroma key background in every gap and outer margin, no cast shadows or checkerboard, no magenta on the pet or its props. Four separated columns, three separated rows. Keep plush fully contained.",
+    "sheets": [
+      "snow-lookAround"
+    ]
+  }
+}

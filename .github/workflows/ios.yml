@@ -44,6 +44,8 @@ jobs:
           test -d build/Dots.xcarchive/Products/Applications/Dots.app/PlugIns/DotsWidget.appex
           plutil -lint build/Dots.xcarchive/Products/Applications/Dots.app/PrivacyInfo.xcprivacy
           plutil -lint build/Dots.xcarchive/Products/Applications/Dots.app/PlugIns/DotsWidget.appex/PrivacyInfo.xcprivacy
+          test -d build/Dots.xcarchive/Products/Applications/Dots.app/MoodMotion
+          diff -qr Resources/MoodMotion build/Dots.xcarchive/Products/Applications/Dots.app/MoodMotion
           for image in Resources/*.png; do
             name=$(basename "$image" .png)
             test -s "build/Dots.xcarchive/Products/Applications/Dots.app/$name.png"

@@ -45,6 +45,21 @@ enum DotlingAnimation: String, CaseIterable, Identifiable {
         return "Companion" + character + "Motion" + rawValue.prefix(1).uppercased() + rawValue.dropFirst()
     }
 
+    // Four painted key poses per action reuse the familiar gesture timing.
+    // Index 4 in a four-pose sequence is the exact resting portrait.
+    var illustratedPoseOrder: [Int] {
+        switch self {
+        case .idle: [4, 0, 1, 2, 3, 4]
+        case .moveRight, .moveLeft: [0, 1, 2, 3, 0, 1, 2, 3]
+        case .wave: [4, 1, 2, 3]
+        case .jump: [4, 0, 1, 2, 3]
+        case .disappointed: [4, 0, 1, 2, 2, 1, 3, 4]
+        case .waiting: [4, 0, 1, 0, 2, 3]
+        case .thinking, .reviewing: [4, 0, 1, 2, 3, 4]
+        case .lookAround: [0, 0, 4, 4, 1, 1, 5, 5, 2, 2, 6, 6, 3, 3, 7, 7]
+        }
+    }
+
     func frame(at elapsed: Double) -> Int {
         var time = max(0, elapsed).truncatingRemainder(dividingBy: duration)
         for (index, hold) in durations.enumerated() {
@@ -165,7 +180,7 @@ struct DotlingAnimationView: View {
             visible = true
             let currentKind = kind, currentMood = mood
             let artwork = await Task.detached(priority: .userInitiated) {
-                (CompanionArt.motionFrames(.idle, kind: currentKind),
+                (CompanionArt.motionFrames(.idle, kind: currentKind, mood: currentMood),
                  CompanionArt.displayImage(currentMood, kind: currentKind))
             }.value
             guard !Task.isCancelled else { return }
@@ -230,11 +245,11 @@ struct DotlingAnimationView: View {
             startedAt = ProcessInfo.processInfo.systemUptime
             return
         }
-        let currentKind = kind
+        let currentKind = kind, currentMood = mood
         loadingAction = Task {
             // Decode a complete strip once off the main thread before starting its clock.
             let frames = await Task.detached(priority: .userInitiated) {
-                CompanionArt.motionFrames(next, kind: currentKind)
+                CompanionArt.motionFrames(next, kind: currentKind, mood: currentMood)
             }.value
             guard !Task.isCancelled, requestID == request else { return }
             loadingAction = nil

@@ -31,7 +31,7 @@ disappointed, waiting, thinking, reviewing, and a 16-direction look sequence. Th
 2,117 frames. `Art/CollectionMotion/v001/README.md` records the retained source and execution workflow.
 The older Dusk trial is preserved for provenance. Widgets display still images.
 
-Sick, Studious and Working Out occupy the third row of each character’s mood atlas. Sick holds a thermometer at the mouth. Studious wears reading glasses and holds an open book. Working Out wears a headband and holds a pair of small dumbbells. All three use the same resting scale and touch reactions as the other moods. Exact prompts and export settings are in `Art/MoodPortraits/v001/`.
+Sick, Studious and Working Out occupy the third row of each character’s mood atlas. Sick holds a thermometer at the mouth. Studious wears reading glasses and holds an open book. Working Out wears a headband and holds a pair of small dumbbells. All three use the same resting scale, gestures and timing as the other moods. Their movements are painted with the matching props throughout. Exact prompts and export settings are in `Art/MoodPortraits/v001/`.
 
 ## Interaction
 
@@ -95,3 +95,5 @@ still needed to assess native drag lift, scrolling, cancellation and drop feel.
 
 The custom drag type is declared in the app Info.plist, as required by Apple’s
 [CodableRepresentation documentation](https://developer.apple.com/documentation/coretransferable/codablerepresentation).
+
+The three illustrated moods each have ten actions per character. Asset generation, registration and playback timing are recorded in `Art/MoodMotion/v001/`.

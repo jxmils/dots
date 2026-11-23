@@ -110,13 +110,37 @@ enum CompanionArt {
     static func motionImage(_ motion: DotlingAnimation, frame index: Int, kind: CompanionKind = .dusk) -> UIImage? {
         frame(index, asset: motion.asset(for: kind), columns: motion.durations.count, rows: 1)
     }
-    static func motionFrames(_ motion: DotlingAnimation, kind: CompanionKind) -> [UIImage] {
-        stripFrames(asset: motion.asset(for: kind), columns: motion.durations.count)
+    static func motionFrames(_ motion: DotlingAnimation, kind: CompanionKind, mood: Mood = .happy) -> [UIImage] {
+        switch mood {
+        case .sick, .studious, .workingOut:
+            func illustratedStrip(_ action: String) -> [UIImage] {
+                let name = "\(kind.rawValue)-\(mood.rawValue)-\(action)"
+                let url = directory?.appendingPathComponent("MoodMotion/\(name).webp")
+                    ?? Bundle.main.url(forResource: name, withExtension: "webp", subdirectory: "MoodMotion")
+                return stripFrames(url: url, columns: 4)
+            }
+            var poses = illustratedStrip(motion.rawValue)
+            guard poses.count == 4 else { return [] }
+            if motion == .lookAround {
+                let diagonals = illustratedStrip("lookDiagonal")
+                guard diagonals.count == 4 else { return [] }
+                poses.append(contentsOf: diagonals)
+            } else {
+                guard let rest = displayImage(mood, kind: kind) else { return [] }
+                poses.append(rest)
+            }
+            return motion.illustratedPoseOrder.map { poses[$0] }
+        default:
+            return stripFrames(asset: motion.asset(for: kind), columns: motion.durations.count)
+        }
     }
     private static func stripFrames(asset: String, columns: Int) -> [UIImage] {
         let url = directory?.appendingPathComponent(asset + ".png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png")
             ?? Bundle.main.url(forResource: asset, withExtension: "png", subdirectory: "Resources")
+        return stripFrames(url: url, columns: columns)
+    }
+    private static func stripFrames(url: URL?, columns: Int) -> [UIImage] {
         guard let url, let data = try? Data(contentsOf: url), let source = UIImage(data: data)?.cgImage,
               source.width % columns == 0 else { return [] }
         // ImageIO crops can retain a lazy PNG provider. Decode the whole strip

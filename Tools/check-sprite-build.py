@@ -70,3 +70,21 @@ for character in json.loads((ROOT / "Art/CollectionMotion/v001/catalog.json").re
     assert hashlib.sha256(atlas).hexdigest() == entry["atlas_sha256"], character["id"]
 assert len(source_digests) == len(kinds) * 3, "Each character and mood needs its own source portrait"
 print("All 87 new mood portraits have distinct sources and verified app/widget atlases")
+
+motion_sources = json.loads((ROOT / "Art/MoodMotion/v001/manifest.json").read_text())
+motion_prompts = json.loads((ROOT / "Art/MoodMotion/v001/prompts.json").read_text())
+illustrated_actions = set(motion_prompts["actions"]) | {"lookDiagonal"}
+assert set(motion_sources) == {f"{kind}-{action}.png" for kind in kinds for action in illustrated_actions}
+mood_files = set()
+for filename, entry in motion_sources.items():
+    kind, action = filename[:-4].split("-")
+    names = {f"{kind}-{mood}-{action}.webp" for mood in ["sick", "studious", "workingOut"]}
+    assert set(entry["strips"]) == names
+    for name, digest in entry["strips"].items():
+        file = ROOT / "Resources/MoodMotion" / name
+        data = file.read_bytes()
+        assert data[:4] == b"RIFF" and data[8:12] == b"WEBP"
+        assert hashlib.sha256(data).hexdigest() == digest, name
+        mood_files.add(name)
+assert mood_files == {p.name for p in (ROOT / "Resources/MoodMotion").iterdir() if not p.name.startswith(".")}
+print("Verified all ten illustrated movements for 29 Dotlings in three moods, including eight gaze directions")
