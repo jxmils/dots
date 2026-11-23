@@ -44,7 +44,7 @@ enum CompanionArt {
     static func image(_ mood: Mood, kind: CompanionKind = .lavender) -> UIImage? {
         usesBlinkStrip(mood, kind: kind)
             ? frame(0, asset: "CompanionDuskBlink", columns: 6, rows: 1)
-            : frame(mood.spriteIndex, asset: kind.asset)
+            : frame(mood.spriteIndex, asset: kind.asset, columns: 3, rows: 3)
     }
     // Match each resting portrait to the approved Happy animation's canvas,
     // silhouette envelope and planted baseline. Never scale an active reaction.
@@ -183,23 +183,7 @@ struct CompanionView: View {
     var mood: Mood
     var kind: CompanionKind = .lavender
     var animate = false
-    var body: some View {
-        portrait.overlay(alignment: .bottomTrailing) {
-            if mood.portraitMood != mood {
-                GeometryReader { geometry in
-                    let side = min(geometry.size.width, geometry.size.height)
-                    Image(systemName: mood.symbol)
-                        .font(.system(size: side * 0.11, weight: .bold, design: .rounded))
-                        .foregroundStyle(DotsStyle.ink)
-                        .frame(width: side * 0.21, height: side * 0.21)
-                        .background(mood.color, in: Circle())
-                        .position(x: geometry.size.width / 2 + side * 0.30, y: geometry.size.height / 2 + side * 0.29)
-                }
-                .allowsHitTesting(false).accessibilityHidden(true)
-            }
-        }
-    }
-    @ViewBuilder private var portrait: some View {
+    @ViewBuilder var body: some View {
         if animate {
             DotlingAnimationView(kind: kind, mood: mood)
                 .id(kind.rawValue + "/" + mood.rawValue)

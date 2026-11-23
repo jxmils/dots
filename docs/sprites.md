@@ -1,6 +1,6 @@
 # Character artwork and playback
 
-The app uses transparent 2D PNG sprites for all 29 companions, all six moods and all 12 egg stages.
+The app uses transparent 2D PNG sprites for all 29 companions, all nine moods and all 12 egg stages.
 Home, friend details, profile, collection, hatching and widgets share `CompanionArt` and `CompanionView`.
 There is no live 3D character view or model resource in either target. App identifiers, saved names,
 owned pets, mood choices, sharing, widgets, streak rewards and lifetime restores keep their existing format.
@@ -30,6 +30,8 @@ All 29 companions have 10 motion atlases each: idle, move right, move left, wave
 disappointed, waiting, thinking, reviewing, and a 16-direction look sequence. The collection contains
 2,117 frames. `Art/CollectionMotion/v001/README.md` records the retained source and execution workflow.
 The older Dusk trial is preserved for provenance. Widgets display still images.
+
+Sick, Studious and Working Out occupy the third row of each character’s mood atlas. Sick holds a thermometer at the mouth. Studious wears reading glasses and holds an open book. Working Out wears a headband and holds a pair of small dumbbells. All three use the same resting scale and touch reactions as the other moods. Exact prompts and export settings are in `Art/MoodPortraits/v001/`.
 
 ## Interaction
 

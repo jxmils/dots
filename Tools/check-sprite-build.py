@@ -57,3 +57,16 @@ for name, key in [('EggWakingStrip', 'waking_sha256'), ('EggCrackingStrip', 'cra
     assert struct.unpack('>II', data[16:24]) == (3072, 600), name
     assert hashlib.sha256(data).hexdigest() == egg[key], name
 print("All 29 personalized hatches and the approved shared egg strips are bundled and hash-verified")
+
+portraits = json.loads((ROOT / "Art/MoodPortraits/v001/manifest.json").read_text())
+assert set(portraits) == kinds, "Every Dotling needs all three illustrated activity moods"
+source_digests = set()
+for character in json.loads((ROOT / "Art/CollectionMotion/v001/catalog.json").read_text()):
+    entry = portraits[character["id"]]
+    assert set(entry["sources"]) == {"sick", "studious", "workout"}
+    source_digests.update(entry["sources"].values())
+    atlas = (ROOT / character["file"]).read_bytes()
+    assert struct.unpack(">II", atlas[16:24]) == (1536, 1536), character["id"]
+    assert hashlib.sha256(atlas).hexdigest() == entry["atlas_sha256"], character["id"]
+assert len(source_digests) == len(kinds) * 3, "Each character and mood needs its own source portrait"
+print("All 87 new mood portraits have distinct sources and verified app/widget atlases")

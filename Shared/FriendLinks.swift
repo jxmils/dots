@@ -170,7 +170,7 @@ private struct DeviceCircleKeys: CircleKeys {
         let activity: Mood?
         init(_ companion: Companion) {
             owner = companion.ownerName; pet = companion.petName; kind = companion.kind
-            mood = companion.mood.portraitMood; date = companion.updatedAt
+            mood = companion.mood.legacySharingMood; date = companion.updatedAt
             activity = mood == companion.mood ? nil : companion.mood
         }
         func encrypted(_ key: SymmetricKey, id: String) throws -> Data {

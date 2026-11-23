@@ -43,7 +43,8 @@ enum Mood: String, Codable, CaseIterable, Identifiable {
         }
     }
     var statusPhrase: String { self == .workingOut ? "working out" : "feeling " + title.lowercased() }
-    var portraitMood: Mood {
+    // Older versions can read this mood from an encrypted friend card.
+    var legacySharingMood: Mood {
         switch self {
         case .sick: .sleepy
         case .studious: .focused
@@ -51,7 +52,7 @@ enum Mood: String, Codable, CaseIterable, Identifiable {
         default: self
         }
     }
-    var spriteIndex: Int { Self.allCases.firstIndex(of: portraitMood)! }
+    var spriteIndex: Int { Self.allCases.firstIndex(of: self)! }
 }
 
 enum CompanionKind: String, Codable, CaseIterable, Identifiable {
